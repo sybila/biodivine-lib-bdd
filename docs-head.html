@@ -9,7 +9,17 @@
         for (var i = 0; i < charts.length; i++) {
             charts[i].parentElement.classList.add("mermaid-parent");
         }
-        mermaid.init(undefined, charts);
+        // Init mermaid - the callback enables math rendering in charts.
+        mermaid.init(undefined, charts, function (id) {
+            renderMathInElement(document.getElementById(id), {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        });
     }
 </script>
 <!-- Some extra CSS to make mermaid charts nicer -->
@@ -17,7 +27,7 @@
     .mermaid-parent {
         margin: 16px auto;
         width: fit-content;
-
+        text-align: center;
     }
 </style>
 
