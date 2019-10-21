@@ -6,7 +6,7 @@
 [tasks.rich-doc]
 env = { "RUSTDOCFLAGS" = "--html-in-header docs-head.html" }
 command = "cargo"
-args = ["doc", "--no-deps"]
+args = ["doc", "--no-deps", "--document-private-items"]
 
 [tasks.all]
 dependencies = [
