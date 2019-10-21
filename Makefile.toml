@@ -1,0 +1,25 @@
+# Use cargo make to run scripts in this file. Most scripts are used to provide safe defaults for
+# standard operations (generate docs with mermaid and KaTeX support, run benchmarks with shilds_up
+# disabled, ...)
+
+# Enable docs with Mermaid, KaTeX and some small design tweaks.
+[tasks.rich-doc]
+env = { "RUSTDOCFLAGS" = "--html-in-header docs-head.html" }
+command = "cargo"
+args = ["doc", "--no-deps"]
+
+[tasks.all]
+dependencies = [
+    "docs",
+    "doc-katex",
+]
+
+# Run benchmark tests with shields_up disabled.
+[tasks.bench-unsafe]
+command = "cargo"
+args = ["bench" , "--no-default-features"]
+
+# Make a release build with shields_up disabled.
+[tasks.build-release-unsafe]
+command = "cargo"
+args = ["build", "--release", "--no-default-features"]

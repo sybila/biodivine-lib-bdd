@@ -1,0 +1,39 @@
+<!-- Mermaid (charts) dependency -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.1/mermaid.min.js"></script>
+<script>
+    window.onload = function (_) {
+        // Once document is loaded, we init mermaid with a specific set of html elements (since
+        // we don't use standard class).
+        // We also add a special class to chart parents so we can style them.
+        var charts = document.getElementsByClassName("language-mermaid");
+        for (var i = 0; i < charts.length; i++) {
+            charts[i].parentElement.classList.add("mermaid-parent");
+        }
+        mermaid.init(undefined, charts);
+    }
+</script>
+<!-- Some extra CSS to make mermaid charts nicer -->
+<style>
+    .mermaid-parent {
+        margin: 16px auto;
+        width: fit-content;
+
+    }
+</style>
+
+<!-- Include KaTeX for math rendering -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"                  integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"    integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ]
+        });
+    });
+</script>

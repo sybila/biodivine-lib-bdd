@@ -4,6 +4,19 @@ version = "0.1.0"
 authors = ["Samuel Pastva <daemontus@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# Enable rich docs for some online docs autogen services.
+[package.metadata.docs.rs]
+rustdoc-args = ["--html-in-header", "docs-head.html"]
 
 [dependencies]
+
+[features]
+# With shields_up you enable explicit assertions of pre/post conditions and invariants in critical
+# codepaths that cannot be proved safe by the rust compiler. Every such assertion should be proven
+# correct by an associated comment. We use shields_up instead of debug_assertion to have it separated
+# from debug mode (shields_up is not strictly for debugging, its a general safety net / troubleshooting
+# measure). For official releases and benchmarks, you should disable shields_up to avoid unnecessary
+# performance penalty. Avoid introducing dead code when shields_up is enabled - this will mess with test coverage.
+shields_up = []
+
+default = ["shields_up"]
