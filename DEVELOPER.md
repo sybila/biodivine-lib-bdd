@@ -26,4 +26,29 @@ is disabled (assuming you trust the code).
 The project is configured for Travis with tarpaulin code coverage measurement.
 Tarpaulin is not cross platform so you probably can't use it locally unless 
 you are running on linux (even then there are some caveats). The best way
-to test coverage is usually to actually push the code. 
+to test coverage is usually to actually push the code. Note that cargo on 
+travis is cached because it takes forever to compile tarpaulin - if
+something breaks, maybe it just needs updating - delete cache. 
+
+### Conventions
+
+I always try to document private items because in scientific code, these
+are usually the most complex ones. Also, implementation details are often
+part of official docs because they are often needed to understand real
+complexity of algorithms, etc. In general, I prefer longer, self-contained
+explanations for each main component (e.g. a struct) with short
+references to the main text for sub-components (e.g. a method).
+
+TL;DR: If your method documentation is more than one paragraph, you should probably
+move it to struct. For function, move to module. Also, struct should not
+talk about other structures - have a module documentation for that.
+
+Also, I despise navigating rust projects because I never know what is defined 
+where based on file names. Therefore I generally tend to create one module/file 
+for each public struct and also for non-trivial private structures (similar 
+for larger function groups, like file export/import). In general, it should be 
+immediately clear from the name of the function/struct in which file it can be found
+and from the file name what functions/structures are in it. However, this often 
+introduces need for re-exporting :( In that case, I often prefer separating 
+private aspects of implementation to keep public parts as minimal as possible
+so they can actually fit into a single file easily.
