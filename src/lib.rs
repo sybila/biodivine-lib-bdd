@@ -1,3 +1,5 @@
+//! TODO: Add crate documentation with description of BDDs
+
 #[cfg(test)]
 mod tests {
     #[test]
