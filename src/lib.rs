@@ -16,6 +16,9 @@ use std::iter::Map;
 mod bdd_node;
 mod bdd_pointer;
 mod bdd_dot_printer;
+mod bdd_worker_impl;
+
+pub use bdd_worker_impl::BddWorker;
 
 /// BDD variable identifies one of the variables in the associated BDD universe.
 ///
