@@ -1,0 +1,12 @@
+digraph G {
+init__ [label="", style=invis, height=0, width=0];
+init__ -> 3;
+0 [shape=box, label="0", style=filled, shape=box, height=0.3, width=0.3];
+1 [shape=box, label="1", style=filled, shape=box, height=0.3, width=0.3];
+2[label="d"];
+2 -> 0 [style=filled];
+2 -> 1 [style=dotted];
+3[label="e"];
+3 -> 2 [style=filled];
+3 -> 0 [style=dotted];
+}

@@ -10,9 +10,12 @@
 
 use crate::bdd_node::BddNode;
 use crate::bdd_pointer::BddPointer;
+use std::ops::Range;
+use std::iter::Map;
 
 mod bdd_node;
 mod bdd_pointer;
+mod bdd_dot_printer;
 
 /// BDD variable identifies one of the variables in the associated BDD universe.
 ///
@@ -32,24 +35,40 @@ impl Bdd {
         return self.0.len();
     }
 
-    /// Pointer to the root of the decision diagram.
-    pub fn root_pointer(&self) -> BddPointer {
-        return BddPointer((self.0.len() - 1) as u32)
-    }
-
     /// Number of variables in the corresponding BDD universe.
     pub fn num_vars(&self) -> u16 {
+        // Assert: every BDD is not empty - it has at least the terminal zero node.
         return self.0[0].var.0;
     }
 
-    /// Get low link of the node at a specified location.
-    pub fn low_link_of(&self, node: &BddPointer) -> BddPointer {
+    /// **(internal)** Pointer to the root of the decision diagram.
+    fn root_pointer(&self) -> BddPointer {
+        return BddPointer((self.0.len() - 1) as u32)
+    }
+
+    /// **(internal)** Get the low link of the node at a specified location.
+    fn low_link_of(&self, node: &BddPointer) -> BddPointer {
         return self.0[node.0 as usize].low_link;
     }
 
-    /// Get high link of the node at a specified location.
-    pub fn high_link_of(&self, node: &BddPointer) -> BddPointer {
+    /// **(internal)** Get the high link of the node at a specified location.
+    fn high_link_of(&self, node: &BddPointer) -> BddPointer {
         return self.0[node.0 as usize].high_link;
+    }
+
+    /// **(internal)** Get the conditioning variable of the node at a specified location.
+    ///
+    /// *Pre:* `node` is not a terminal node.
+    fn var_of(&self, node: &BddPointer) -> BddVariable {
+        if cfg!(shields_up) && (node.is_one() || node.is_zero()) {
+            panic!("Terminal nodes don't have a conditioning variable!");
+        }
+        return self.0[node.0 as usize].var;
+    }
+
+    /// **(internal)** Obtain the full BDD node at a specific location.
+    fn get_node(&self, node: &BddPointer) -> BddNode {
+        return self.0[node.0 as usize];
     }
 
     /// **(internal)** Create a new BDD for the `false` formula.
@@ -67,6 +86,22 @@ impl Bdd {
         self.0.push(node);
     }
 
+    /// **(internal)** Create an iterator over all nodes of the BDD (including terminals!).
+    ///
+    /// The iteration order is the same as the underlying representation, so you can expect
+    /// terminals to be the first two nodes.
+    fn nodes(self) -> std::vec::IntoIter<BddNode> {
+        return self.0.into_iter();
+    }
+
+    /// **(internal)** Create an iterator over all pointers of the BDD (including terminals!).
+    ///
+    /// The iteration order is the same as the underlying representation, so you can expect
+    /// terminals to be the first two nodes.
+    fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
+        return (0..self.size()).map(|index| BddPointer(index as u32))
+    }
+
 }
 
 #[cfg(test)]
@@ -74,7 +109,7 @@ mod tests {
     use super::*;
 
     /// A small BDD over variables x_0, x_1, x_2, x_3, x_4 corresponding to the formula $(x_4 \land \neg x_3)$
-    fn mk_small_test_bdd() -> Bdd {
+    pub fn mk_small_test_bdd() -> Bdd {
         let mut bdd = Bdd::mk_true(5);
         bdd.push_node(BddNode::mk_node(BddVariable(3),
             BddPointer::one(), BddPointer::zero()
@@ -90,6 +125,7 @@ mod tests {
         let bdd = mk_small_test_bdd();
 
         assert_eq!(4, bdd.size());
+        assert_eq!(5, bdd.num_vars());
         assert_eq!(BddPointer(3), bdd.root_pointer());
         assert_eq!(BddPointer::one(), bdd.low_link_of(&BddPointer(2)));
         assert_eq!(BddPointer::zero(), bdd.high_link_of(&BddPointer(2)));
