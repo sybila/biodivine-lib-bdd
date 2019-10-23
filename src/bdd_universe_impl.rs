@@ -33,23 +33,20 @@ pub struct BddUniverse {
 /// needs to be enclosed in parentheses (except ! which can be parsed unambiguously).
 ///
 /// TODO: Usage example.
-#[macro_export]
 macro_rules! bdd {
-        // The extra borrow operator allows us to cover cases where BDDs are either owned
-        // directly or they are just references, because rust will automatically turn &&x
-        // into &x for us when invoking a function.
-        ($b:ident, !($($e:tt)*) ) => { $b.mk_not(&(bdd!($b, $($e)*))) };
-        // Not is the only operator which we allow without parentheses because it should
-        // not be ambiguous.
-        ($b:ident, !$($e:tt)* ) => { $b.mk_not(&(bdd!($b, $($e)*))) };
-        // Everything else must be in (), because there are no precedence/priority rules.
-        ($b:ident, ($l:tt & $($r:tt)*) ) => { $b.mk_and(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
-        ($b:ident, ($l:tt | $($r:tt)*) ) => { $b.mk_or(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
-        ($b:ident, ($l:tt => $($r:tt)*) ) => { $b.mk_imp(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
-        ($b:ident, ($l:tt <=> $($r:tt)*) ) => { $b.mk_iff(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
-        ($b:ident, ($l:tt ^ $($r:tt)*) ) => { $b.mk_xor(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
-        ($b:ident, $e:tt) => { $e };
-    }
+    ($b:ident, ( $($e:tt)* ) ) => { bdd!($b, $($e)*) };
+    ($b:ident, $bdd:ident ) => { $bdd };
+    ($b:ident, !$e:tt) => { $b.mk_not(&bdd!($b, $e)) };
+    ($b:ident, $l:tt & $r:tt) => { $b.mk_and(&bdd!($b, $l), &bdd!($b, $r)) };
+    ($b:ident, $l:tt | $r:tt) => { $b.mk_or(&bdd!($b, $l), &bdd!($b, $r)) };
+    ($b:ident, $l:tt <=> $r:tt) => { $b.mk_iff(&bdd!($b, $l), &bdd!($b, $r)) };
+    ($b:ident, $l:tt => $r:tt) => { $b.mk_imp(&bdd!($b, $l), &bdd!($b, $r)) };
+    ($b:ident, $l:tt ^ $r:tt) => { $b.mk_xor(&bdd!($b, $l), &bdd!($b, $r)) };
+}
+
+macro_rules! clean {
+    ($($e:tt)*) => { $($e)* };
+}
 
 impl BddUniverse {
 
@@ -351,6 +348,12 @@ mod tests {
         return builder.build();
     }
 
+    fn v1() -> BddVariable { return BddVariable(0); }
+    fn v2() -> BddVariable { return BddVariable(1); }
+    fn v3() -> BddVariable { return BddVariable(2); }
+    fn v4() -> BddVariable { return BddVariable(3); }
+    fn v5() -> BddVariable { return BddVariable(4); }
+
     #[test]
     #[should_panic]
     fn bdd_universe_too_large() {
@@ -433,13 +436,83 @@ mod tests {
     }
 
     #[test]
+    fn bdd_universe_constants() {
+        let bdd = mk_universe_with_5_variables();
+        let tt = bdd.mk_true();
+        let ff = bdd.mk_false();
+        assert!(tt.is_true());
+        assert!(ff.is_false());
+        assert_eq!(ff, bdd!(bdd, (tt & ff)));
+        assert_eq!(tt, bdd!(bdd, (tt | ff)));
+        assert_eq!(tt, bdd!(bdd, (tt ^ ff)));
+        assert_eq!(ff, bdd!(bdd, (tt => ff)));
+        assert_eq!(ff, bdd!(bdd, (tt <=> ff)));
+    }
+
+    #[test]
+    fn simple_identities_syntactic() {
+        let bdd = mk_universe_with_5_variables();
+        let a = bdd.mk_var(&v1());
+        let tt = bdd.mk_true();
+        let ff = bdd.mk_false();
+
+        assert_eq!(ff, bdd!(bdd, (ff & a)));
+        assert_eq!(a, bdd!(bdd, (ff | a)));
+        assert_eq!(tt, bdd!(bdd, (ff => a)));
+        assert_eq!(bdd!(bdd, !a), bdd!(bdd, (a => ff)));
+        assert_eq!(tt, bdd!(bdd, (a => a)));
+    }
+
+    #[test]
+    fn bdd_universe_de_morgan() {
+        // !(a * b * !c) <=> (!a + !b + c)
+        let bdd = mk_universe_with_5_variables();
+        let v1 = bdd.mk_var(&v1());
+        let v2 = bdd.mk_var(&v2());
+        let v3 = bdd.mk_var(&v3());
+
+        let left = bdd!(bdd, !(v1 & (v2 & (!v3))));
+        let right = bdd!(bdd, ((!v1) | (!v2)) | v3);
+
+        assert_eq!(left, right);
+        assert!(bdd!(bdd, left <=> right).is_true());
+    }
+
+    #[test]
+    fn nontrivial_identity_syntactic() {
+        // dnf (!a * !b * !c) + (!a * !b * c) + (!a * b * c) + (a * !b * c) + (a * b * !c)
+        //                                    <=>
+        // cnf            !(!a * b * !c) * !(a * !b * !c) * !(a * b * c)
+        let bdd = mk_universe_with_5_variables();
+        let a = bdd.mk_var(&v1());
+        let b = bdd.mk_var(&v2());
+        let c = bdd.mk_var(&v3());
+
+        let d1 = bdd!(bdd, ((!a) & (!b)) & (!c));
+        let d2 = bdd!(bdd, ((!a) & (!b)) & c);
+        let d3 = bdd!(bdd, ((!a) & b) & c);
+        let d4 = bdd!(bdd, (a & (!b)) & c);
+        let d5 = bdd!(bdd, (a & b) & (!c));
+
+        let c1 = bdd!(bdd, (a | (!b)) | c);
+        let c2 = bdd!(bdd, ((!a) | b) | c);
+        let c3 = bdd!(bdd, ((!a) | (!b)) | (!c));
+
+        let cnf = bdd!(bdd, ((c1 & c2) & c3));
+        let dnf = bdd!(bdd, (((d1 | d2) | d3) | d4));
+
+        assert_eq!(cnf, dnf);
+        assert!(bdd!(bdd, (cnf <=> dnf)).is_true());
+    }
+
+    #[test]
     fn bdd_macro_test() {
         let universe = mk_universe_with_5_variables();
         let bdd = mk_small_test_bdd();
         let not_bdd = universe.mk_not(&bdd);
         assert_eq!(bdd, bdd!(universe, bdd));
         assert_eq!(not_bdd, bdd!(universe, !bdd));
-        assert_eq!(bdd, bdd!(universe, !!bdd));
+        assert_eq!(bdd, bdd!(universe, !(!bdd)));
     }
 
 }
