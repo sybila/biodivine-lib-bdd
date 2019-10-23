@@ -26,6 +26,30 @@ pub struct BddUniverse {
     var_index_mapping: HashMap<String, u16>
 }
 
+/// A macro for simplifying BDD operations. As first argument, you provide
+/// a BDD universe. Second argument is an expression over BDDs where you can use
+/// standard boolean operators `!`, `&`, `|`, `^`, `=>` and `<=>`. Note that everything
+/// needs to be enclosed in parentheses (except ! which can be parsed unambiguously).
+///
+/// TODO: Usage example.
+#[macro_export]
+macro_rules! bdd {
+        // The extra borrow operator allows us to cover cases where BDDs are either owned
+        // directly or they are just references, because rust will automatically turn &&x
+        // into &x for us when invoking a function.
+        ($b:ident, !($($e:tt)*) ) => { $b.mk_not(&(bdd!($b, $($e)*))) };
+        // Not is the only operator which we allow without parentheses because it should
+        // not be ambiguous.
+        ($b:ident, !$($e:tt)* ) => { $b.mk_not(&(bdd!($b, $($e)*))) };
+        // Everything else must be in (), because there are no precedence/priority rules.
+        ($b:ident, ($l:tt & $($r:tt)*) ) => { $b.mk_and(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
+        ($b:ident, ($l:tt | $($r:tt)*) ) => { $b.mk_or(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
+        ($b:ident, ($l:tt => $($r:tt)*) ) => { $b.mk_imp(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
+        ($b:ident, ($l:tt <=> $($r:tt)*) ) => { $b.mk_iff(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
+        ($b:ident, ($l:tt ^ $($r:tt)*) ) => { $b.mk_xor(&(bdd!($b, $l)), &(bdd!($b, $($r)*))) };
+        ($b:ident, $e:tt) => { $e };
+    }
+
 impl BddUniverse {
 
     /// Return the number of variables in this universe.
@@ -115,6 +139,36 @@ impl BddUniverse {
             }
             return Bdd(result_vector);
         }
+    }
+
+    /// Create a BDD corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
+    /// are two specific BDDs.
+    pub fn mk_and(&self, left: &Bdd, right: &Bdd) -> Bdd {
+        unimplemented!();
+    }
+
+    /// Create a BDD corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
+    /// are two specific BDDs.
+    pub fn mk_or(&self, left: &Bdd, right: &Bdd) -> Bdd {
+        unimplemented!();
+    }
+
+    /// Create a BDD corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
+    /// are two specific BDDs.
+    pub fn mk_imp(&self, left: &Bdd, right: &Bdd) -> Bdd {
+        unimplemented!();
+    }
+
+    /// Create a BDD corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
+    /// are two specific BDDs.
+    pub fn mk_iff(&self, left: &Bdd, right: &Bdd) -> Bdd {
+        unimplemented!();
+    }
+
+    /// Create a BDD corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
+    /// are two specific BDDs.
+    pub fn mk_xor(&self, left: &Bdd, right: &Bdd) -> Bdd {
+        unimplemented!();
     }
 
 }
@@ -263,7 +317,14 @@ mod tests {
         assert_eq!(bdd, universe.mk_not(&universe.mk_not(&bdd)));
     }
 
-
-
+    #[test]
+    fn bdd_macro_test() {
+        let universe = mk_universe_with_5_variables();
+        let bdd = mk_small_test_bdd();
+        let not_bdd = universe.mk_not(&bdd);
+        assert_eq!(bdd, bdd!(universe, bdd));
+        assert_eq!(not_bdd, bdd!(universe, !bdd));
+        assert_eq!(bdd, bdd!(universe, !!bdd));
+    }
 
 }
