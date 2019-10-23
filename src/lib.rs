@@ -30,6 +30,7 @@ pub struct BddVariable(u16);
 /// BDD object is an array-based encoding of the binary decision diagram.
 ///
 /// Usage example: TODO.
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct Bdd(Vec<BddNode>);
 
 impl Bdd {

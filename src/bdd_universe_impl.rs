@@ -33,6 +33,12 @@ impl BddUniverse {
         return self.num_vars;
     }
 
+    /// Create a BDD variable based on a variable name. If the name is not valid
+    /// in this universe, return `None`.
+    pub fn var_by_name(&self, name: &str) -> Option<BddVariable> {
+        return self.var_index_mapping.get(name).map(|i| BddVariable(*i));
+    }
+
     /// Create a BDD corresponding to the `true` formula.
     pub fn mk_true(&self) -> Bdd {
         return Bdd::mk_true(self.num_vars);
@@ -48,7 +54,7 @@ impl BddUniverse {
     ///
     /// *Pre:* `var` is valid variable from this universe.
     pub fn mk_var(&self, var: &BddVariable) -> Bdd {
-        if cfg!(shields_up) && var.0 >= self.num_vars {
+        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this universe.", var);
         }
         let mut bdd = self.mk_true();
@@ -63,7 +69,7 @@ impl BddUniverse {
     ///
     /// *Pre:* `var` is a valid variable in this universe.
     pub fn mk_not_var(&self, var: &BddVariable) -> Bdd {
-        if cfg!(shields_up) && var.0 >= self.num_vars {
+        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this universe.", var);
         }
         let mut bdd = self.mk_true();
@@ -71,6 +77,24 @@ impl BddUniverse {
         BddPointer::one(), BddPointer::zero()
         ));
         return bdd;
+    }
+
+    /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this universe.
+    ///
+    /// *Pre:* `var` is a valid variable in this universe.
+    pub fn mk_var_by_name(&self, var: &str) -> Bdd {
+        return self.var_by_name(var)
+            .map(|var| self.mk_var(&var))
+            .unwrap_or_else(|| panic!("Variable {} is known present in this universe.", var));
+    }
+
+    /// Create a BDD corresponding to the $\neg v$ formula where `v` is a variable in this universe.
+    ///
+    /// *Pre:* `var` is a valid variable in this universe.
+    pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
+        return self.var_by_name(var)
+            .map(|var| self.mk_not_var(&var))
+            .unwrap_or_else(|| panic!("Variable {} is not known in this universe.", var));
     }
 
     /// Create a BDD corresponding to the $\neg \phi$ formula, where $\phi$ is a specific
@@ -93,8 +117,6 @@ impl BddUniverse {
         }
     }
 
-    pub fn mk_t
-
 }
 
 /// BDD universe builder is used to safely create BDD universes.
@@ -116,16 +138,16 @@ impl BddUniverseBuilder {
     /// *Panics*:
     ///  - Each variable name has to be unique.
     ///  - Currently, there can be at most 65535 variables.
-    pub fn make_variable(&mut self, name: String) -> BddVariable {
+    pub fn make_variable(&mut self, name: &str) -> BddVariable {
         let new_variable_id = self.var_names.len();
         if new_variable_id >= (std::u16::MAX - 1) as usize {
             panic!("BDD universe is too large. There can be at most {} variables.", std::u16::MAX - 1)
         }
-        if self.var_names_set.contains(&name) {
+        if self.var_names_set.contains(name) {
             panic!("BDD variable {} already exists.", name);
         }
-        self.var_names_set.insert(name.clone());
-        self.var_names.push(name);
+        self.var_names_set.insert(name.to_string());
+        self.var_names.push(name.to_string());
         return BddVariable(new_variable_id as u16);
     }
 
@@ -148,22 +170,100 @@ impl BddUniverseBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use super::super::tests::mk_small_test_bdd;
+
+    fn mk_universe_with_5_variables() -> BddUniverse {
+        let mut builder = BddUniverseBuilder::new();
+        builder.make_variable("v1");
+        builder.make_variable("v2");
+        builder.make_variable("v3");
+        builder.make_variable("v4");
+        builder.make_variable("v5");
+        return builder.build();
+    }
 
     #[test]
     #[should_panic]
-    fn bdd_worker_too_large() {
+    fn bdd_universe_too_large() {
         let mut builder = BddUniverseBuilder::new();
         for i in 0..std::u16::MAX {
-            builder.make_variable(format!("v{}", i));
+            builder.make_variable(&format!("v{}", i));
         }
     }
 
     #[test]
     #[should_panic]
-    fn bdd_worker_duplicate_variable() {
+    fn bdd_universe_duplicate_variable() {
         let mut builder = BddUniverseBuilder::new();
-        builder.make_variable("var1".to_string());
-        builder.make_variable("var1".to_string());
+        builder.make_variable("var1");
+        builder.make_variable("var1");
     }
+
+    #[test]
+    fn bdd_universe_builder() {
+        let mut builder = BddUniverseBuilder::new();
+        let v1 = builder.make_variable("v1");
+        let v2 = builder.make_variable("v2");
+        let v3 = builder.make_variable("v3");
+        let universe = builder.build();
+        assert_eq!(3, universe.num_vars());
+        assert_eq!(Some(v1), universe.var_by_name("v1"));
+        assert_eq!(Some(v2), universe.var_by_name("v2"));
+        assert_eq!(Some(v3), universe.var_by_name("v3"));
+        assert_eq!(None, universe.var_by_name("v4"));
+    }
+
+    #[test]
+    fn bdd_universe_mk_const() {
+        let universe = mk_universe_with_5_variables();
+        let tt = universe.mk_true();
+        let ff = universe.mk_false();
+        assert!(tt.is_true());
+        assert!(ff.is_false());
+        assert_eq!(Bdd::mk_true(5), tt);
+        assert_eq!(Bdd::mk_false(5), ff);
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_var_invalid_id() {
+        mk_universe_with_5_variables().mk_var(&BddVariable(6));
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_not_var_invalid_id() {
+        mk_universe_with_5_variables().mk_not_var(&BddVariable(6));
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_var_by_name_invalid_name() {
+        mk_universe_with_5_variables().mk_var_by_name("abc");
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_not_var_by_name_invalid_name() {
+        mk_universe_with_5_variables().mk_not_var_by_name("abc");
+    }
+
+    #[test]
+    fn bdd_universe_mk_not() {
+        let universe = mk_universe_with_5_variables();
+        let bdd = mk_small_test_bdd();
+        let mut expected = universe.mk_true();
+        expected.push_node(BddNode::mk_node(
+            BddVariable(3), BddPointer::zero(), BddPointer::one()
+        ));
+        expected.push_node(BddNode::mk_node(
+            BddVariable(4), BddPointer::one(), BddPointer(2)
+        ));
+        assert_eq!(expected, universe.mk_not(&bdd));
+        assert_eq!(bdd, universe.mk_not(&universe.mk_not(&bdd)));
+    }
+
+
+
 
 }
