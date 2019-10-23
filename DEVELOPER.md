@@ -52,3 +52,9 @@ and from the file name what functions/structures are in it. However, this often
 introduces need for re-exporting :( In that case, I often prefer separating 
 private aspects of implementation to keep public parts as minimal as possible
 so they can actually fit into a single file easily.
+
+We generate documentation for private items as well, because the library is mostly
+used by maintainers who need to understand how the library works internally. 
+To differentiate private items, we use **(internal)** prefix in documentation comments.
+(One can see the item is private by looking for missing "pub" keyword, but this
+makes it more apparent) 
