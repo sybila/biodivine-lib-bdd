@@ -16,9 +16,10 @@ use std::iter::Map;
 mod bdd_node;
 mod bdd_pointer;
 mod bdd_dot_printer;
-mod bdd_worker_impl;
+mod bdd_universe_impl;
 
-pub use bdd_worker_impl::BddWorker;
+pub use bdd_universe_impl::BddUniverse;
+pub use bdd_universe_impl::BddUniverseBuilder;
 
 /// BDD variable identifies one of the variables in the associated BDD universe.
 ///
@@ -82,6 +83,16 @@ impl Bdd {
     /// **(internal)** Create a new BDD for the `true` formula.
     fn mk_true(num_vars: u16) -> Bdd {
         return Bdd(vec![BddNode::mk_zero(num_vars), BddNode::mk_one(num_vars)]);
+    }
+
+    /// **(internal)** True if this BDD is exactly the `true` formula.
+    fn is_true(&self) -> bool {
+        return self.0.len() == 2;
+    }
+
+    /// **(internal)** True if this BDD is exactly the `false` formula.
+    fn is_false(&self) -> bool {
+        return self.0.len() == 1;
     }
 
     /// **(internal)** Add a new node to an existing BDD, making the new node the root of the BDD.

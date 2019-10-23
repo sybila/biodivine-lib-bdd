@@ -28,4 +28,17 @@ impl BddPointer {
         return self.0 == 1;
     }
 
+    /// Check if the pointer corresponds to the `0` or `1` terminal.
+    pub fn is_terminal(&self) -> bool {
+        return self.0 < 2;
+    }
+
+    /// If this pointer corresponds to a terminal node, flip it (switching `1` to `0` and
+    /// vice versa).
+    pub fn flip_if_terminal(&mut self) {
+        if self.0 < 2 {
+            self.0 = (self.0 + 1) % 2;
+        }
+    }
+
 }
