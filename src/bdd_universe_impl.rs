@@ -7,8 +7,7 @@ use super::{BddVariable, Bdd};
 use super::bdd_node::BddNode;
 use super::bdd_pointer::BddPointer;
 use std::cmp::min;
-use crate::bdd_dot_printer::{bdd_as_dot_string, bdd_as_dot};
-use std::io::Write;
+use crate::bdd_dot_printer::bdd_as_dot_string;
 
 /// BDD universe implements essential BDD operations.
 ///
@@ -48,6 +47,19 @@ macro_rules! bdd {
 }
 
 impl BddUniverse {
+
+    /// Create a new BDD universe with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
+    /// the `num_vars` parameter.
+    pub fn new_anonymous(num_vars: u16) -> BddUniverse {
+        if num_vars >= (std::u16::MAX - 1) {
+            panic!("BDD universe is too large. There can be at most {} variables.", std::u16::MAX - 1)
+        }
+        return BddUniverse {
+            num_vars,
+            var_names: (0..num_vars).map(|i| format!("x_{}", i)).collect(),
+            var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect()
+        }
+    }
 
     /// Return the number of variables in this universe.
     pub fn num_vars(&self) -> u16 {
@@ -197,16 +209,6 @@ impl BddUniverse {
         return bdd_as_dot_string(bdd, &self.var_names, zero_pruned);
     }
 
-    /// Write a .dot graph representation of the given BDD into the specified output writer.
-    ///
-    /// Use `zero_pruned` to remove `0` terminal and all edges leading to it. This is
-    //  usually much more readable while preserving all information.
-    pub fn bdd_as_dot(
-        &self, output: &mut dyn Write, bdd: &Bdd, zero_pruned: bool
-    ) -> Result<(), std::io::Error> {
-        return bdd_as_dot(output, bdd, &self.var_names, zero_pruned);
-    }
-
     /// **(internal)** Universal function to implement standard logical operators.
     ///
     /// The `terminal_lookup` function takes the two currently considered terminal BDD nodes (none
@@ -334,6 +336,11 @@ impl BddUniverseBuilder {
         return BddVariable(new_variable_id as u16);
     }
 
+    /// Similar to make_variable, but allows creating multiple variables at the same time.
+    pub fn make_variables(&mut self, names: Vec<&str>) -> Vec<BddVariable> {
+        return names.into_iter().map(|name| self.make_variable(name)).collect();
+    }
+
     /// Convert this builder to an actual BDD worker.
     pub fn build(self) -> BddUniverse {
         let mut mapping: HashMap<String, u16> = HashMap::new();
@@ -357,11 +364,7 @@ mod tests {
 
     fn mk_universe_with_5_variables() -> BddUniverse {
         let mut builder = BddUniverseBuilder::new();
-        builder.make_variable("v1");
-        builder.make_variable("v2");
-        builder.make_variable("v3");
-        builder.make_variable("v4");
-        builder.make_variable("v5");
+        builder.make_variables(vec!["v1", "v2", "v3", "v4", "v5"]);
         return builder.build();
     }
 
@@ -369,7 +372,6 @@ mod tests {
     fn v2() -> BddVariable { return BddVariable(1); }
     fn v3() -> BddVariable { return BddVariable(2); }
     fn v4() -> BddVariable { return BddVariable(3); }
-    fn v5() -> BddVariable { return BddVariable(4); }
 
     #[test]
     #[should_panic]
@@ -400,6 +402,16 @@ mod tests {
         assert_eq!(Some(v2), universe.var_by_name("v2"));
         assert_eq!(Some(v3), universe.var_by_name("v3"));
         assert_eq!(None, universe.var_by_name("v4"));
+    }
+
+    #[test]
+    fn bdd_universe_anonymous() {
+        let universe = BddUniverse::new_anonymous(5);
+        assert_eq!(Some(BddVariable(0)), universe.var_by_name("x_0"));
+        assert_eq!(Some(BddVariable(1)), universe.var_by_name("x_1"));
+        assert_eq!(Some(BddVariable(2)), universe.var_by_name("x_2"));
+        assert_eq!(Some(BddVariable(3)), universe.var_by_name("x_3"));
+        assert_eq!(Some(BddVariable(4)), universe.var_by_name("x_4"));
     }
 
     #[test]

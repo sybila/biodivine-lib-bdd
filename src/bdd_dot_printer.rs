@@ -59,7 +59,9 @@ pub fn bdd_as_dot_string(bdd: &Bdd, var_names: &Vec<String>, zero_pruned: bool) 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use super::super::tests::mk_small_test_bdd;
+    use crate::tests::mk_small_test_bdd;
+    use crate::BddUniverseBuilder;
+    use crate::bdd;
 
     fn load_expected_results(test_name: &str) -> String {
         return std::fs::read_to_string(format!("test_results/{}", test_name))
@@ -73,8 +75,6 @@ mod tests {
             "a".to_string(), "b".to_string(), "c".to_string(), "d".to_string(), "e".to_string()
         ];
         let dot = bdd_as_dot_string(&bdd, &names, false);
-        println!("{}", dot);
-        println!("{}", load_expected_results("bdd_to_dot.dot"));
         assert_eq!(load_expected_results("bdd_to_dot.dot"), dot);
     }
 
@@ -85,6 +85,30 @@ mod tests {
             "a".to_string(), "b".to_string(), "c".to_string(), "d".to_string(), "e".to_string()
         ];
         let dot = bdd_as_dot_string(&bdd, &names, true);
+        assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);
+    }
+
+    #[test]
+    fn bdd_universe_bdd_to_dot() {
+        let mut builder = BddUniverseBuilder::new();
+        builder.make_variables(vec!["a", "b", "c", "d", "e"]);
+        let universe = builder.build();
+        let c = universe.mk_var(&universe.var_by_name("c").unwrap());
+        let d = universe.mk_var(&universe.var_by_name("d").unwrap());
+        let bdd = bdd!(universe, c & (!d));
+        let dot = universe.bdd_as_dot_string(&bdd, false);
+        assert_eq!(load_expected_results("bdd_to_dot.dot"), dot);
+    }
+
+    #[test]
+    fn bdd_universe_bdd_to_dot_pruned() {
+        let mut builder = BddUniverseBuilder::new();
+        builder.make_variables(vec!["a", "b", "c", "d", "e"]);
+        let universe = builder.build();
+        let c = universe.mk_var(&universe.var_by_name("c").unwrap());
+        let d = universe.mk_var(&universe.var_by_name("d").unwrap());
+        let bdd = bdd!(universe, c & (!d));
+        let dot = universe.bdd_as_dot_string(&bdd, true);
         assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);
     }
 
