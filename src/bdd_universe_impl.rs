@@ -7,6 +7,8 @@ use super::{BddVariable, Bdd};
 use super::bdd_node::BddNode;
 use super::bdd_pointer::BddPointer;
 use std::cmp::min;
+use crate::bdd_dot_printer::{bdd_as_dot_string, bdd_as_dot};
+use std::io::Write;
 
 /// BDD universe implements essential BDD operations.
 ///
@@ -188,6 +190,24 @@ impl BddUniverse {
             (Some(l), Some(r)) => Some(l ^ r),
             _ => None
         });
+    }
+
+    /// Convert a BDD object to a string representing its graph as a .dot file.
+    ///
+    /// Use `zero_pruned` to remove `0` terminal and all edges leading to it. This is
+    /// usually much more readable while preserving all information.
+    pub fn bdd_as_dot_string(&self, bdd: &Bdd, zero_pruned: bool) -> String {
+        return bdd_as_dot_string(bdd, &self.var_names, zero_pruned);
+    }
+
+    /// Write a .dot graph representation of the given BDD into the specified output writer.
+    ///
+    /// Use `zero_pruned` to remove `0` terminal and all edges leading to it. This is
+    //  usually much more readable while preserving all information.
+    pub fn bdd_as_dot(
+        &self, output: &mut dyn Write, bdd: &Bdd, zero_pruned: bool
+    ) -> Result<(), std::io::Error> {
+        return bdd_as_dot(output, bdd, &self.var_names, zero_pruned);
     }
 
     /// **(internal)** Universal function to implement standard logical operators.
@@ -500,6 +520,7 @@ mod tests {
 
         let cnf = bdd!(bdd, ((c1 & c2) & c3));
         let dnf = bdd!(bdd, (((d1 | d2) | d3) | d4));
+        let dnf = bdd!(bdd, ((((d1 | d2) | d3) | d4) | d5));
 
         assert_eq!(cnf, dnf);
         assert!(bdd!(bdd, (cnf <=> dnf)).is_true());
