@@ -519,7 +519,6 @@ mod tests {
         let c3 = bdd!(bdd, ((!a) | (!b)) | (!c));
 
         let cnf = bdd!(bdd, ((c1 & c2) & c3));
-        let dnf = bdd!(bdd, (((d1 | d2) | d3) | d4));
         let dnf = bdd!(bdd, ((((d1 | d2) | d3) | d4) | d5));
 
         assert_eq!(cnf, dnf);
