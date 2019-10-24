@@ -123,14 +123,14 @@ impl Bdd {
 mod tests {
     use super::*;
 
-    /// A small BDD over variables x_0, x_1, x_2, x_3, x_4 corresponding to the formula $(x_4 \land \neg x_3)$
+    /// A small BDD over variables $v_1, v_2, v_3, v_4, v_5$ corresponding to the formula $(v_3 \land \neg v_4)$
     pub fn mk_small_test_bdd() -> Bdd {
         let mut bdd = Bdd::mk_true(5);
-        bdd.push_node(BddNode::mk_node(BddVariable(3),
-            BddPointer::one(), BddPointer::zero()
+        bdd.push_node(BddNode::mk_node(BddVariable(3),  // !v4
+           BddPointer::one(), BddPointer::zero()
         ));
-        bdd.push_node(BddNode::mk_node(BddVariable(4),
-                BddPointer::zero(), bdd.root_pointer()
+        bdd.push_node(BddNode::mk_node(BddVariable(2),  // v3
+           BddPointer::zero(), bdd.root_pointer()
         ));
         return bdd;
     }
@@ -144,8 +144,10 @@ mod tests {
         assert_eq!(BddPointer(3), bdd.root_pointer());
         assert_eq!(BddPointer::one(), bdd.low_link_of(&BddPointer(2)));
         assert_eq!(BddPointer::zero(), bdd.high_link_of(&BddPointer(2)));
+        assert_eq!(BddVariable(3), bdd.var_of(&BddPointer(2)));
         assert_eq!(BddPointer::zero(), bdd.low_link_of(&BddPointer(3)));
         assert_eq!(BddPointer(2), bdd.high_link_of(&BddPointer(3)));
+        assert_eq!(BddVariable(2), bdd.var_of(&BddPointer(3)));
     }
 
 }
