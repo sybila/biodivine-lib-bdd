@@ -35,6 +35,7 @@ pub struct BddUniverse {
 /// needs to be enclosed in parentheses (except ! which can be parsed unambiguously).
 ///
 /// TODO: Usage example.
+#[macro_export]
 macro_rules! bdd {
     ($b:ident, ( $($e:tt)* ) ) => { bdd!($b, $($e)*) };
     ($b:ident, $bdd:ident ) => { $bdd };
@@ -44,10 +45,6 @@ macro_rules! bdd {
     ($b:ident, $l:tt <=> $r:tt) => { $b.mk_iff(&bdd!($b, $l), &bdd!($b, $r)) };
     ($b:ident, $l:tt => $r:tt) => { $b.mk_imp(&bdd!($b, $l), &bdd!($b, $r)) };
     ($b:ident, $l:tt ^ $r:tt) => { $b.mk_xor(&bdd!($b, $l), &bdd!($b, $r)) };
-}
-
-macro_rules! clean {
-    ($($e:tt)*) => { $($e)* };
 }
 
 impl BddUniverse {
@@ -528,11 +525,14 @@ mod tests {
     #[test]
     fn bdd_macro_test() {
         let universe = mk_universe_with_5_variables();
-        let bdd = mk_small_test_bdd();
-        let not_bdd = universe.mk_not(&bdd);
-        assert_eq!(bdd, bdd!(universe, bdd));
-        assert_eq!(not_bdd, bdd!(universe, !bdd));
-        assert_eq!(bdd, bdd!(universe, !(!bdd)));
+        let v1 = universe.mk_var(&v1());
+        let v2 = universe.mk_var(&v2());
+        assert_eq!(universe.mk_not(&v1), bdd!(universe, !v1));
+        assert_eq!(universe.mk_and(&v1, &v2), bdd!(universe, v1 & v2));
+        assert_eq!(universe.mk_or(&v1, &v2), bdd!(universe, v1 | v2));
+        assert_eq!(universe.mk_xor(&v1, &v2), bdd!(universe, v1 ^ v2));
+        assert_eq!(universe.mk_imp(&v1, &v2), bdd!(universe, v1 => v2));
+        assert_eq!(universe.mk_iff(&v1, &v2), bdd!(universe, v1 <=> v2));
     }
 
 }
