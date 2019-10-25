@@ -9,6 +9,14 @@ use super::bdd_pointer::BddPointer;
 use std::cmp::min;
 use crate::bdd_dot_printer::bdd_as_dot_string;
 
+pub mod bdd_macro;
+mod bdd_universe_builder_impl;
+
+#[cfg(test)]
+mod tests_bdd_universe_basic_logic;
+
+pub use bdd_universe_builder_impl::BddUniverseBuilder;
+
 /// BDD universe implements essential BDD operations.
 ///
 /// It assumes an universe of variables that can appear in the BDDs and allows
@@ -26,24 +34,6 @@ pub struct BddUniverse {
     num_vars: u16,
     var_names: Vec<String>,
     var_index_mapping: HashMap<String, u16>
-}
-
-/// A macro for simplifying BDD operations. As first argument, you provide
-/// a BDD universe. Second argument is an expression over BDDs where you can use
-/// standard boolean operators `!`, `&`, `|`, `^`, `=>` and `<=>`. Note that everything
-/// needs to be enclosed in parentheses (except ! which can be parsed unambiguously).
-///
-/// TODO: Usage example.
-#[macro_export]
-macro_rules! bdd {
-    ($b:ident, ( $($e:tt)* ) ) => { bdd!($b, $($e)*) };
-    ($b:ident, $bdd:ident ) => { $bdd };
-    ($b:ident, !$e:tt) => { $b.mk_not(&bdd!($b, $e)) };
-    ($b:ident, $l:tt & $r:tt) => { $b.mk_and(&bdd!($b, $l), &bdd!($b, $r)) };
-    ($b:ident, $l:tt | $r:tt) => { $b.mk_or(&bdd!($b, $l), &bdd!($b, $r)) };
-    ($b:ident, $l:tt <=> $r:tt) => { $b.mk_iff(&bdd!($b, $l), &bdd!($b, $r)) };
-    ($b:ident, $l:tt => $r:tt) => { $b.mk_imp(&bdd!($b, $l), &bdd!($b, $r)) };
-    ($b:ident, $l:tt ^ $r:tt) => { $b.mk_xor(&bdd!($b, $l), &bdd!($b, $r)) };
 }
 
 impl BddUniverse {
@@ -304,104 +294,15 @@ impl BddUniverse {
 
 }
 
-/// BDD universe builder is used to safely create BDD universes.
-pub struct BddUniverseBuilder {
-    var_names: Vec<String>,
-    var_names_set: HashSet<String>
-}
-
-impl BddUniverseBuilder {
-
-    /// Create a new builder without any variables.
-    pub fn new() -> BddUniverseBuilder {
-        return BddUniverseBuilder { var_names: Vec::new(), var_names_set: HashSet::new() };
-    }
-
-    /// Create a new variable with the given `name`. Returns a BDD variable
-    /// instance that can be later used to create and query actual BDDs.
-    ///
-    /// *Panics*:
-    ///  - Each variable name has to be unique.
-    ///  - Currently, there can be at most 65535 variables.
-    pub fn make_variable(&mut self, name: &str) -> BddVariable {
-        let new_variable_id = self.var_names.len();
-        if new_variable_id >= (std::u16::MAX - 1) as usize {
-            panic!("BDD universe is too large. There can be at most {} variables.", std::u16::MAX - 1)
-        }
-        if self.var_names_set.contains(name) {
-            panic!("BDD variable {} already exists.", name);
-        }
-        self.var_names_set.insert(name.to_string());
-        self.var_names.push(name.to_string());
-        return BddVariable(new_variable_id as u16);
-    }
-
-    /// Similar to make_variable, but allows creating multiple variables at the same time.
-    pub fn make_variables(&mut self, names: Vec<&str>) -> Vec<BddVariable> {
-        return names.into_iter().map(|name| self.make_variable(name)).collect();
-    }
-
-    /// Convert this builder to an actual BDD worker.
-    pub fn build(self) -> BddUniverse {
-        let mut mapping: HashMap<String, u16> = HashMap::new();
-        for name_index in 0..self.var_names.len() {
-            let name = self.var_names[name_index].clone();
-            mapping.insert(name, name_index as u16);
-        }
-        return BddUniverse {
-            num_vars: self.var_names.len() as u16,
-            var_names: self.var_names,
-            var_index_mapping: mapping
-        }
-    }
-
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use super::super::tests::mk_small_test_bdd;
 
-    fn mk_universe_with_5_variables() -> BddUniverse {
+    pub fn mk_universe_with_5_variables() -> BddUniverse {
         let mut builder = BddUniverseBuilder::new();
         builder.make_variables(vec!["v1", "v2", "v3", "v4", "v5"]);
         return builder.build();
-    }
-
-    fn v1() -> BddVariable { return BddVariable(0); }
-    fn v2() -> BddVariable { return BddVariable(1); }
-    fn v3() -> BddVariable { return BddVariable(2); }
-    fn v4() -> BddVariable { return BddVariable(3); }
-
-    #[test]
-    #[should_panic]
-    fn bdd_universe_too_large() {
-        let mut builder = BddUniverseBuilder::new();
-        for i in 0..std::u16::MAX {
-            builder.make_variable(&format!("v{}", i));
-        }
-    }
-
-    #[test]
-    #[should_panic]
-    fn bdd_universe_duplicate_variable() {
-        let mut builder = BddUniverseBuilder::new();
-        builder.make_variable("var1");
-        builder.make_variable("var1");
-    }
-
-    #[test]
-    fn bdd_universe_builder() {
-        let mut builder = BddUniverseBuilder::new();
-        let v1 = builder.make_variable("v1");
-        let v2 = builder.make_variable("v2");
-        let v3 = builder.make_variable("v3");
-        let universe = builder.build();
-        assert_eq!(3, universe.num_vars());
-        assert_eq!(Some(v1), universe.var_by_name("v1"));
-        assert_eq!(Some(v2), universe.var_by_name("v2"));
-        assert_eq!(Some(v3), universe.var_by_name("v3"));
-        assert_eq!(None, universe.var_by_name("v4"));
     }
 
     #[test]
@@ -447,191 +348,6 @@ mod tests {
     #[should_panic]
     fn bdd_universe_mk_not_var_by_name_invalid_name() {
         mk_universe_with_5_variables().mk_not_var_by_name("abc");
-    }
-
-    #[test]
-    fn bdd_universe_mk_not() {
-        let universe = mk_universe_with_5_variables();
-        let bdd = mk_small_test_bdd();
-        let tt = universe.mk_true();
-        let ff = universe.mk_false();
-        let mut expected = universe.mk_true();
-        expected.push_node(BddNode::mk_node(
-            BddVariable(3), BddPointer::zero(), BddPointer::one()
-        ));
-        expected.push_node(BddNode::mk_node(
-            BddVariable(2), BddPointer::one(), BddPointer(2)
-        ));
-        assert_eq!(expected, bdd!(universe, !bdd));
-        assert_eq!(bdd, bdd!(universe, !(!bdd)));
-        assert_eq!(tt, bdd!(universe, !ff));
-        assert_eq!(ff, bdd!(universe, !tt));
-    }
-
-    #[test]
-    fn bdd_universe_mk_and() {
-        let universe = mk_universe_with_5_variables();
-        let bdd = mk_small_test_bdd();  // v3 & !v4
-        let v3 = universe.mk_var(&v3());
-        let v4 = universe.mk_var(&v4());
-        let tt = universe.mk_true();
-        let ff = universe.mk_false();
-        assert_eq!(bdd, bdd!(universe, v3 & (!v4)));
-        assert_eq!(bdd, bdd!(universe, tt & bdd));
-        assert_eq!(bdd, bdd!(universe, bdd & tt));
-        assert_eq!(ff, bdd!(universe, ff & bdd));
-        assert_eq!(ff, bdd!(universe, bdd & ff));
-        assert_eq!(bdd, bdd!(universe, bdd & bdd));
-    }
-
-    #[test]
-    fn bdd_universe_mk_or() {
-        let universe = mk_universe_with_5_variables();
-        let bdd = mk_small_test_bdd();  // v3 & !v4
-        let v3 = universe.mk_var(&v3());
-        let v4 = universe.mk_var(&v4());
-        let tt = universe.mk_true();
-        let ff = universe.mk_false();
-        assert_eq!(bdd, bdd!(universe, !((!v3) | v4))); // !(!v3 | v4) <=> v3 & !v4
-        assert_eq!(tt, bdd!(universe, tt | bdd));
-        assert_eq!(tt, bdd!(universe, bdd | tt));
-        assert_eq!(bdd, bdd!(universe, ff | bdd));
-        assert_eq!(bdd, bdd!(universe, bdd | ff));
-        assert_eq!(bdd, bdd!(universe, bdd | bdd));
-    }
-
-    #[test]
-    fn bdd_universe_mk_xor() {
-        let universe = mk_universe_with_5_variables();
-        let bdd = mk_small_test_bdd();  // v3 & !v4
-        let v3 = universe.mk_var(&v3());
-        let v4 = universe.mk_var(&v4());
-        let tt = universe.mk_true();
-        let ff = universe.mk_false();
-
-        assert_eq!(bdd!(universe, !bdd), bdd!(universe, tt ^ bdd));
-        assert_eq!(bdd!(universe, !bdd), bdd!(universe, bdd ^ tt));
-        assert_eq!(ff, bdd!(universe, bdd ^ bdd));
-        assert_eq!(bdd, bdd!(universe, ff ^ bdd));
-        assert_eq!(bdd, bdd!(universe, bdd ^ ff));
-        assert_eq!(bdd, bdd!(universe, v3 & (v3 ^ v4)));
-    }
-
-    #[test]
-    fn bdd_universe_mk_imp() {
-        let universe = mk_universe_with_5_variables();
-        let bdd = mk_small_test_bdd();  // v3 & !v4
-        let v3 = universe.mk_var(&v3());
-        let v4 = universe.mk_var(&v4());
-        let tt = universe.mk_true();
-        let ff = universe.mk_false();
-
-        assert_eq!(tt, bdd!(universe, ff => bdd));
-        assert_eq!(bdd!(universe, !bdd), bdd!(universe, bdd => ff));
-        assert_eq!(bdd, bdd!(universe, tt => bdd));
-        assert_eq!(tt, bdd!(universe, bdd => tt));
-        assert_eq!(tt, bdd!(universe, bdd => bdd));
-        assert_eq!(bdd, bdd!(universe, !(v3 => v4)));  // !(v3 => v4) <=> v3 & !v4
-    }
-
-    #[test]
-    fn bdd_universe_mk_iff() {
-        let universe = mk_universe_with_5_variables();
-        let bdd = mk_small_test_bdd();  // v3 & !v4
-        let v3 = universe.mk_var(&v3());
-        let v4 = universe.mk_var(&v4());
-        let tt = universe.mk_true();
-        let ff = universe.mk_false();
-
-        assert_eq!(bdd, bdd!(universe, bdd <=> tt));
-        assert_eq!(bdd, bdd!(universe, tt <=> bdd));
-        assert_eq!(bdd!(universe, !bdd), bdd!(universe, ff <=> bdd));
-        assert_eq!(bdd!(universe, !bdd), bdd!(universe, bdd <=> ff));
-        assert_eq!(tt, bdd!(universe, bdd <=> bdd));
-        assert_eq!(bdd, bdd!(universe, v3 & (!(v4 <=> v3))));
-    }
-
-    #[test]
-    fn bdd_universe_constants() {
-        let bdd = mk_universe_with_5_variables();
-        let tt = bdd.mk_true();
-        let ff = bdd.mk_false();
-        assert!(tt.is_true());
-        assert!(ff.is_false());
-        assert_eq!(ff, bdd!(bdd, (tt & ff)));
-        assert_eq!(tt, bdd!(bdd, (tt | ff)));
-        assert_eq!(tt, bdd!(bdd, (tt ^ ff)));
-        assert_eq!(ff, bdd!(bdd, (tt => ff)));
-        assert_eq!(ff, bdd!(bdd, (tt <=> ff)));
-    }
-
-    #[test]
-    fn simple_identities_syntactic() {
-        let bdd = mk_universe_with_5_variables();
-        let a = bdd.mk_var(&v1());
-        let tt = bdd.mk_true();
-        let ff = bdd.mk_false();
-
-        assert_eq!(ff, bdd!(bdd, (ff & a)));
-        assert_eq!(a, bdd!(bdd, (ff | a)));
-        assert_eq!(tt, bdd!(bdd, (ff => a)));
-        assert_eq!(bdd!(bdd, !a), bdd!(bdd, (a => ff)));
-        assert_eq!(tt, bdd!(bdd, (a => a)));
-    }
-
-    #[test]
-    fn bdd_universe_de_morgan() {
-        // !(a * b * !c) <=> (!a + !b + c)
-        let bdd = mk_universe_with_5_variables();
-        let v1 = bdd.mk_var(&v1());
-        let v2 = bdd.mk_var(&v2());
-        let v3 = bdd.mk_var(&v3());
-
-        let left = bdd!(bdd, !(v1 & (v2 & (!v3))));
-        let right = bdd!(bdd, ((!v1) | (!v2)) | v3);
-
-        assert_eq!(left, right);
-        assert!(bdd!(bdd, left <=> right).is_true());
-    }
-
-    #[test]
-    fn nontrivial_identity_syntactic() {
-        // dnf (!a * !b * !c) + (!a * !b * c) + (!a * b * c) + (a * !b * c) + (a * b * !c)
-        //                                    <=>
-        // cnf            !(!a * b * !c) * !(a * !b * !c) * !(a * b * c)
-        let bdd = mk_universe_with_5_variables();
-        let a = bdd.mk_var(&v1());
-        let b = bdd.mk_var(&v2());
-        let c = bdd.mk_var(&v3());
-
-        let d1 = bdd!(bdd, ((!a) & (!b)) & (!c));
-        let d2 = bdd!(bdd, ((!a) & (!b)) & c);
-        let d3 = bdd!(bdd, ((!a) & b) & c);
-        let d4 = bdd!(bdd, (a & (!b)) & c);
-        let d5 = bdd!(bdd, (a & b) & (!c));
-
-        let c1 = bdd!(bdd, (a | (!b)) | c);
-        let c2 = bdd!(bdd, ((!a) | b) | c);
-        let c3 = bdd!(bdd, ((!a) | (!b)) | (!c));
-
-        let cnf = bdd!(bdd, ((c1 & c2) & c3));
-        let dnf = bdd!(bdd, ((((d1 | d2) | d3) | d4) | d5));
-
-        assert_eq!(cnf, dnf);
-        assert!(bdd!(bdd, (cnf <=> dnf)).is_true());
-    }
-
-    #[test]
-    fn bdd_macro_test() {
-        let universe = mk_universe_with_5_variables();
-        let v1 = universe.mk_var(&v1());
-        let v2 = universe.mk_var(&v2());
-        assert_eq!(universe.mk_not(&v1), bdd!(universe, !v1));
-        assert_eq!(universe.mk_and(&v1, &v2), bdd!(universe, v1 & v2));
-        assert_eq!(universe.mk_or(&v1, &v2), bdd!(universe, v1 | v2));
-        assert_eq!(universe.mk_xor(&v1, &v2), bdd!(universe, v1 ^ v2));
-        assert_eq!(universe.mk_imp(&v1, &v2), bdd!(universe, v1 => v2));
-        assert_eq!(universe.mk_iff(&v1, &v2), bdd!(universe, v1 <=> v2));
     }
 
 }
