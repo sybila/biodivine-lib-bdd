@@ -15,6 +15,9 @@ mod bdd_universe_builder_impl;
 #[cfg(test)]
 mod tests_bdd_universe_basic_logic;
 
+#[cfg(test)]
+mod tests_bdd_universe_fuzzing;
+
 pub use bdd_universe_builder_impl::BddUniverseBuilder;
 
 /// BDD universe implements essential BDD operations.

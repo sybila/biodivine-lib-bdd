@@ -20,3 +20,6 @@ rustdoc-args = ["--html-in-header", "docs-head.html"]
 shields_up = []
 
 default = ["shields_up"]
+
+[dev-dependencies]
+rand = "0.7"
