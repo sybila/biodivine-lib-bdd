@@ -58,3 +58,12 @@ used by maintainers who need to understand how the library works internally.
 To differentiate private items, we use **(internal)** prefix in documentation comments.
 (One can see the item is private by looking for missing "pub" keyword, but this
 makes it more apparent) 
+
+Also, I would like to make an arbitrary decision that if your source file is more than 
+500 lines, you are doing something wrong. At the very least, move the tests to a separate
+file. If you have too much module-level documentation, it is also best to refactor
+the whole thing into submodules.
+
+Naming convention: If you define a private module where you know stuff will be reexported 
+by some parent, suffix the name of that module with `_impl` so that it is clear this module
+is implementing the re-exported things in the main module. 
