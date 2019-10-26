@@ -2,8 +2,8 @@
 //!
 //! TODO: Describe BDD manipulation algorithms.
 
-use std::collections::{HashMap, HashSet};
-use super::{BddVariable, Bdd};
+use std::collections::HashMap;
+use super::{BddVariable, Bdd, BddValuation};
 use super::bdd_node::BddNode;
 use super::bdd_pointer::BddPointer;
 use std::cmp::min;
@@ -295,12 +295,31 @@ impl BddUniverse {
         return if is_not_empty { result } else { self.mk_false() }
     }
 
+    /// Evaluate a BDD for a specific valuation of variables.
+    ///
+    /// *Pre:* valuation needs to have the same number of variables as this universe.
+    pub fn eval_in(&self, formula: &Bdd, valuation: &BddValuation) -> bool {
+        if cfg!(feature = "shields_up") && valuation.num_vars() != self.num_vars {
+            panic!("Universe has {} variables, but valuation has {}.", self.num_vars, valuation.num_vars())
+        }
+        let mut node = formula.root_pointer();
+        while !node.is_terminal() {
+            let var = formula.var_of(&node);
+            node = if valuation.value(&var) {
+                formula.high_link_of(&node)
+            } else {
+                formula.low_link_of(&node)
+            }
+        }
+        return node.is_one();
+    }
+
 }
 
 #[cfg(test)]
 mod tests {
+    use crate::bdd;
     use super::*;
-    use super::super::tests::mk_small_test_bdd;
 
     pub fn mk_universe_with_5_variables() -> BddUniverse {
         let mut builder = BddUniverseBuilder::new();
@@ -351,6 +370,28 @@ mod tests {
     #[should_panic]
     fn bdd_universe_mk_not_var_by_name_invalid_name() {
         mk_universe_with_5_variables().mk_not_var_by_name("abc");
+    }
+
+    #[test]
+    fn bdd_universe_eval() {
+        let universe = BddUniverse::new_anonymous(2);
+        let v1 = universe.var_by_name("x_0").unwrap();
+        let v1 = universe.mk_var(&v1);
+        let v2 = universe.var_by_name("x_1").unwrap();
+        let v2 = universe.mk_var(&v2);
+        let bdd = bdd!(universe, v1 & (!v2));
+        assert_eq!(true, universe.eval_in(&bdd, &BddValuation::new(vec![true, false])));
+        assert_eq!(false, universe.eval_in(&bdd, &BddValuation::new(vec![true, true])));
+        assert_eq!(false, universe.eval_in(&bdd, &BddValuation::new(vec![false, false])));
+        assert_eq!(false, universe.eval_in(&bdd, &BddValuation::new(vec![false, false])));
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_eval_invalid() {
+        let universe = BddUniverse::new_anonymous(2);
+        let tt = universe.mk_true();
+        universe.eval_in(&tt, &BddValuation::new(vec![true, true, true]));
     }
 
 }

@@ -17,9 +17,12 @@ mod bdd_node;
 mod bdd_pointer;
 mod bdd_dot_printer;
 mod bdd_universe_impl;
+mod bdd_valuation;
 
 pub use bdd_universe_impl::BddUniverse;
 pub use bdd_universe_impl::BddUniverseBuilder;
+pub use bdd_valuation::BddValuation;
+pub use bdd_valuation::BddValuationIterator;
 
 /// BDD variable identifies one of the variables in the associated BDD universe.
 ///
@@ -71,11 +74,6 @@ impl Bdd {
         return self.0[node.0 as usize].var;
     }
 
-    /// **(internal)** Obtain the full BDD node at a specific location.
-    fn get_node(&self, node: &BddPointer) -> BddNode {
-        return self.0[node.0 as usize];
-    }
-
     /// **(internal)** Create a new BDD for the `false` formula.
     fn mk_false(num_vars: u16) -> Bdd {
         return Bdd(vec![BddNode::mk_zero(num_vars)]);
@@ -99,14 +97,6 @@ impl Bdd {
     /// **(internal)** Add a new node to an existing BDD, making the new node the root of the BDD.
     fn push_node(&mut self, node: BddNode) {
         self.0.push(node);
-    }
-
-    /// **(internal)** Create an iterator over all nodes of the BDD (including terminals!).
-    ///
-    /// The iteration order is the same as the underlying representation, so you can expect
-    /// terminals to be the first two nodes.
-    fn nodes(self) -> std::vec::IntoIter<BddNode> {
-        return self.0.into_iter();
     }
 
     /// **(internal)** Create an iterator over all pointers of the BDD (including terminals!).
