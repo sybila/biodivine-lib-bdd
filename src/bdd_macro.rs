@@ -1,3 +1,4 @@
+//! A macro for simplifying BDD operations.
 
 /// A macro for simplifying BDD operations. As first argument, you provide
 /// a BDD universe. Second argument is an expression over BDDs where you can use
@@ -23,12 +24,11 @@ macro_rules! bdd {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::mk_universe_with_5_variables;
-    use crate::BddVariable;
+    use crate::{BddUniverse, BddVariable};
 
     #[test]
     fn bdd_macro_test() {
-        let universe = mk_universe_with_5_variables();
+        let universe = BddUniverse::new_anonymous(5);
         let v1 = universe.mk_var(&BddVariable(0));
         let v2 = universe.mk_var(&BddVariable(1));
         assert_eq!(universe.mk_not(&v1), bdd!(universe, !v1));

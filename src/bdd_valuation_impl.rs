@@ -45,7 +45,7 @@ impl BddValuation {
 
 }
 
-/// BDD valuation iterator allows to exhaustively iterate over all valuations
+/// BDD valuation iterator exhaustively iterates over all valuations
 /// with a certain number of variables.
 ///
 /// Be aware of the exponential time complexity of such operation!

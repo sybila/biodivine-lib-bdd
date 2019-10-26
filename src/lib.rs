@@ -68,6 +68,7 @@ mod bdd_universe_impl;
 mod bdd_valuation_impl;
 mod bdd_expression_parser;
 
+pub mod bdd_macro;
 pub use bdd_universe_impl::BddUniverse;
 pub use bdd_universe_impl::BddUniverseBuilder;
 pub use bdd_valuation_impl::BddValuation;

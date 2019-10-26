@@ -9,7 +9,6 @@ use super::bdd_pointer::BddPointer;
 use std::cmp::min;
 use crate::bdd_dot_printer::bdd_as_dot_string;
 
-pub mod bdd_macro;
 mod bdd_universe_builder_impl;
 
 #[cfg(test)]
