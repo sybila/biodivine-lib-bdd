@@ -1,3 +1,4 @@
+//! **(internal)** BDD valuation describes one assignment of variables in the BDD universe.
 use super::BddVariable;
 
 /// BDD valuation describes one assignment of variables in the BDD universe.

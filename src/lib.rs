@@ -65,13 +65,13 @@ mod bdd_node;
 mod bdd_pointer;
 mod bdd_dot_printer;
 mod bdd_universe_impl;
-mod bdd_valuation;
+mod bdd_valuation_impl;
 mod bdd_expression_parser;
 
 pub use bdd_universe_impl::BddUniverse;
 pub use bdd_universe_impl::BddUniverseBuilder;
-pub use bdd_valuation::BddValuation;
-pub use bdd_valuation::BddValuationIterator;
+pub use bdd_valuation_impl::BddValuation;
+pub use bdd_valuation_impl::BddValuationIterator;
 pub use bdd_expression_parser::BooleanFormula;
 pub use bdd_expression_parser::parse_boolean_formula;
 
