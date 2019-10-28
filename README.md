@@ -57,4 +57,18 @@ whether these are also exponential or not.
 For reference, we keep a history of benchmark runs on our server (`psyche07`). The server has a 32-core
 AMD processor (2990WX) with 64GB of memory at the moment. For each log, please include at least a commit 
 hash of the last merged state from master and a date when the benchmarks were performed. Ideally, please
-also include a small commentary about changes since the last run to explain differences in results. 
+also include a small commentary about changes since the last run to explain differences in results.
+
+#### 28.10.2019
+Last commit in master: `a04bd8a65773a71ff538b4b56921e314d15e4118`
+Results:
+```
+bn_parametrised_activation_4    ... bench:     519,160 ns/iter (+/- 1,715)
+bn_parametrised_activation_5    ... bench:  80,931,003 ns/iter (+/- 270,550)
+bn_parametrised_observability_4 ... bench:     912,666 ns/iter (+/- 3,933)
+bn_parametrised_observability_5 ... bench: 164,160,922 ns/iter (+/- 454,922)
+ripple_carry_adder_16           ... bench:     281,110 ns/iter (+/- 1,311)
+ripple_carry_adder_32           ... bench:  77,281,287 ns/iter (+/- 194,793)
+ripple_carry_adder_4            ... bench:       4,504 ns/iter (+/- 32)
+ripple_carry_adder_8            ... bench:      19,818 ns/iter (+/- 68)
+``` 
