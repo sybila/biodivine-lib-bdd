@@ -8,6 +8,13 @@ edition = "2018"
 [package.metadata.docs.rs]
 rustdoc-args = ["--html-in-header", "docs-head.html"]
 
+[profile.release]
+# This is important for profiling - otherwise we would get unreadable traces.
+debug = true
+# This gives a marginally better runtime, but a much much longer compile times, so disabled by default.
+# lto = true
+# codegen-units = 1
+
 [dependencies]
 
 [features]
@@ -18,6 +25,10 @@ rustdoc-args = ["--html-in-header", "docs-head.html"]
 # measure). For official releases and benchmarks, you should disable shields_up to avoid unnecessary
 # performance penalty. Avoid introducing dead code when shields_up is enabled - this will mess with test coverage.
 shields_up = []
+
+# Use this to indicate that the benchmark can take a significant amount of time and thus can be filtered
+# out during quick iterative testing.
+large_benchmarks = []
 
 default = ["shields_up"]
 

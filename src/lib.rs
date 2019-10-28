@@ -8,6 +8,12 @@
 //! structure in the future. The same goes for BDD pointers - extra safety plus we can
 //! swap implementations. Except you probably shouldn't use BDD pointers explicitly anyway.
 
+#![feature(test)]   // necessary for benchmark tests
+extern crate test;
+
+#[cfg(test)]
+mod benchmarks;
+
 use crate::bdd_node::BddNode;
 use crate::bdd_pointer::BddPointer;
 use std::ops::Range;
