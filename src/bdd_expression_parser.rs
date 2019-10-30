@@ -222,7 +222,7 @@ mod tests {
         assert_eq!(
             "((a & !!b) => (!(t | (!!a & b)) <=> (x ^ y)))",
             format!("{}", parse_boolean_formula("a &!(!b)   => (!(t | !!a&b) <=> x^y)").unwrap())
-        );
+        )
     }
 
     #[test]
@@ -241,6 +241,12 @@ mod tests {
     #[should_panic]
     fn parse_boolean_formula_invalid_token_3() {
         parse_boolean_formula("a <= b").unwrap();
+    }
+
+    #[test]
+    #[should_panic]
+    fn parse_boolean_formula_invalid_token_4() {
+        parse_boolean_formula("a > b").unwrap();
     }
 
     #[test]
