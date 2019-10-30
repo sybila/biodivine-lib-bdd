@@ -1,3 +1,51 @@
+//! This crate provides basic implementation of **Binary Decision Diagrams** (BDD), or more
+//! specifically, Reduced Ordered Binary Decision Diagrams (ROBDD). Using `biodivine-lib-bdd`, you
+//! can safely create, manipulate and serialize BDDs, even in multi-threaded environment.
+//! BDDs can be used to represent Boolean functions (or formulas) as well as Boolean relations
+//! or general sets of Boolean vectors.
+//!
+//! ## What is a BDD?
+//!
+//! BDD is a *directed acyclic graph* (DAG) with two types of vertices (or nodes). There are two
+//! terminal vertices called `1` and `0` which have no outgoing edges. The rest of the vertices
+//! are decision vertices. Each decision vertex has an associated Boolean variable $v$ and two
+//! outgoing edges $low$ and $high$. In diagrams, $low$ edges are typically drawn as dashed and
+//! $high$ edges as solid. The graph has always one root vertex (with no predecessors).
+//!
+//! Semantically, for a given valuation (assignment) of Boolean variables $Val(v) \to \\{ 0, 1 \\}$,
+//! we can "evaluate" the graph by starting in the root vertex and choosing the following vertex
+//! based on the value of the current decision variable in the given valuation. Once we reach
+//! a terminal vertex, we obtain a final boolean value. For example, consider the formula
+//! $a \land \neg b$. The corresponding BDD is the following:
+//!
+//! ```mermaid
+//! graph LR
+//!     a($a$)
+//!     b($b$)
+//!     zero($0$)
+//!     one($1$)
+//!     a -.-> zero
+//!     a --> b
+//!     b -.-> one
+//!     b --> zero
+//! ```
+//!
+//! We can see that there is only one path from the root ($a$) to `1` and this path corresponds
+//! to the only valuation which satisfies the Boolean formula ($a = 1; b = 0$).
+//!
+//! Typically, BDDs assume some **fixed ordering of variables** such that every path from root to
+//! terminal follows this ordering (thus *ordered*). Furthermore, in every BDD, all **redundant
+//! vertices are removed** (thus *reduced*). The vertex is redundant if both $low$ and $high$
+//! point to the same vertex (there is no decision) or if there is another vertex with the same
+//! values of $v$, $low$ and $high$ somewhere else in the graph (we can reuse this vertex).
+//!
+//! When the BDD is ordered and reduced, it is **canonical**, i.e. every equivalent Boolean formula
+//! has the same BDD (equality can be thus checked syntactically on the structure of the graph).
+//!
+//! ## Encoding BDD in an array
+//!
+//!
+//!
 //! TODO: Add crate documentation with description of BDDs
 //! Define: Boolean variables, BDD universe.
 //!

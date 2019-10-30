@@ -1,5 +1,5 @@
-//! **(internal)** Expression parser provides a very simple (if not the most efficient) way
-//! to create BDDs from predefined boolean formulas.
+//! **(internal)** A very simple (if not the most efficient) way
+//! to create BDDs from predefined Boolean formulas.
 //!
 //! Compared to the bdd! macro, expression cannot reference other existing BDDs or BDD variables
 //! by index only, just variable names. However, you have much more freedom with respect to
