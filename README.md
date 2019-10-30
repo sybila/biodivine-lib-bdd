@@ -52,6 +52,15 @@ but we don't care about that for benchmark purposes)
 Also, experiments suggest there might better orderings for these types of formulas, but its not clear
 whether these are also exponential or not.  
 
+#### Asynchronous Boolean Network semantics
+
+The dynamics of a Boolean network are governed by its update functions. Given a variable `A`, an update
+function is a standard Boolean function `f_A(A, B, C)` of some regulating variables `A, B, C`. The dynamics
+of the network can be then described as a relation in `A, B, C, ..., A', B', C', ...` such that for every 
+variable, we have an update formula `A' = f_A(A, B, C, ...) & B' = B & C' = C ...`.  The complete dynamics
+is then a disjunction of these update formulas. The dynamics is called asynchronous since every update
+formula can change only one variable and any of the variables can be changed at any time. 
+
 ### Result history
 
 For reference, we keep a history of benchmark runs on our server (`psyche07`). The server has a 32-core
