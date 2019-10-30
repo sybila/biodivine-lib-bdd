@@ -1,5 +1,6 @@
 use std::collections::{HashSet, HashMap};
 use crate::{BddVariable, BddUniverse};
+use super::super::bdd_expression_parser::NOT_IN_VAR_NAME;
 
 /// BDD universe builder is used to safely create BDD universes.
 pub struct BddUniverseBuilder {
@@ -27,6 +28,9 @@ impl BddUniverseBuilder {
         }
         if self.var_names_set.contains(name) {
             panic!("BDD variable {} already exists.", name);
+        }
+        if name.chars().any(|c| NOT_IN_VAR_NAME.contains(&c)) {
+            panic!("Variable name {} is invalid. Cannot use {:?}", name, NOT_IN_VAR_NAME);
         }
         self.var_names_set.insert(name.to_string());
         self.var_names.push(name.to_string());
@@ -100,4 +104,12 @@ mod tests {
         assert_eq!(Some(vars[2]), universe.var_by_name("v3"));
         assert_eq!(None, universe.var_by_name("v4"));
     }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_builder_invalid_name() {
+        let mut builder = BddUniverseBuilder::new();
+        builder.make_variable("a^b");
+    }
+    
 }

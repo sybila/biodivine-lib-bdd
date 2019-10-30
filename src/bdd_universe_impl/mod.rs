@@ -19,6 +19,7 @@ mod tests_bdd_universe_basic_logic;
 mod tests_bdd_universe_fuzzing;
 
 pub use bdd_universe_builder_impl::BddUniverseBuilder;
+use crate::BooleanFormula;
 
 /// BDD universe implements essential BDD operations.
 ///
@@ -39,6 +40,7 @@ pub struct BddUniverse {
     var_index_mapping: HashMap<String, u16>
 }
 
+// TODO: Add a getter for "all variables in the universe" (handy for anonymous universes).
 impl BddUniverse {
 
     /// Create a new BDD universe with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
@@ -314,11 +316,25 @@ impl BddUniverse {
         return node.is_one();
     }
 
+    /// Use a Boolean formula to create the corresponding BDD. Variable names in the formula
+    /// must match the names in this universe, otherwise the function panics.
+    pub fn eval_formula(&self, formula: &BooleanFormula) -> Bdd {
+        return match formula {
+            BooleanFormula::Variable(name) => self.mk_var(&self.var_by_name(name).unwrap()),
+            BooleanFormula::Not(inner) => self.mk_not(&self.eval_formula(inner)),
+            BooleanFormula::And(l, r) => self.mk_and(&self.eval_formula(l), &self.eval_formula(r)),
+            BooleanFormula::Or(l, r) => self.mk_or(&self.eval_formula(l), &self.eval_formula(r)),
+            BooleanFormula::Xor(l, r) => self.mk_xor(&self.eval_formula(l), &self.eval_formula(r)),
+            BooleanFormula::Imp(l, r) => self.mk_imp(&self.eval_formula(l), &self.eval_formula(r)),
+            BooleanFormula::Iff(l, r) => self.mk_iff(&self.eval_formula(l), &self.eval_formula(r)),
+        }
+    }
+
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::bdd;
+    use crate::{bdd, parse_boolean_formula};
     use super::*;
 
     pub fn mk_universe_with_5_variables() -> BddUniverse {
@@ -392,6 +408,22 @@ mod tests {
         let universe = BddUniverse::new_anonymous(2);
         let tt = universe.mk_true();
         universe.eval_in(&tt, &BddValuation::new(vec![true, true, true]));
+    }
+
+    #[test]
+    fn bdd_universe_eval_boolean_formula() {
+        let universe = BddUniverse::new_anonymous(5);
+        let formula = parse_boolean_formula("((x_0 & !!x_1) => (!(x_2 | (!!x_0 & x_1)) <=> (x_3 ^ x_4)))").unwrap();
+        let x_0 = universe.mk_var(&universe.var_by_name("x_0").unwrap());
+        let x_1 = universe.mk_var(&universe.var_by_name("x_1").unwrap());
+        let x_2 = universe.mk_var(&universe.var_by_name("x_2").unwrap());
+        let x_3 = universe.mk_var(&universe.var_by_name("x_3").unwrap());
+        let x_4 = universe.mk_var(&universe.var_by_name("x_4").unwrap());
+
+        let expected = bdd!(universe, ((x_0 & (!(!x_1))) => ((!(x_2 | ((!(!x_0)) & x_1))) <=> (x_3 ^ x_4))));
+        let evaluated = universe.eval_formula(&formula);
+
+        assert_eq!(expected, evaluated);
     }
 
 }
