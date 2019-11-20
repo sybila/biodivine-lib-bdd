@@ -1,9 +1,23 @@
-//! This crate provides basic implementation of **Binary Decision Diagrams** (BDD), or more
-//! specifically, Reduced Ordered Binary Decision Diagrams (ROBDD). Using `biodivine-lib-bdd`, you
-//! can safely create, manipulate and serialize BDDs, even in multi-threaded environment.
-//! BDDs can be used to represent Boolean functions (or formulas) as well as Boolean relations
-//! or general sets of Boolean vectors.
+//! **What is this?** This crate provides basic implementation of **Binary Decision Diagrams** 
+//! (BDD), or more specifically, Reduced Ordered Binary Decision Diagrams (ROBDD). Using 
+//! `biodivine-lib-bdd`, you can safely create, manipulate and serialize BDDs, even in 
+//! multi-threaded environment. BDDs can be used to represent Boolean functions (or formulas) 
+//! as well as Boolean relations or general sets of Boolean vectors.
 //!
+//! **Why is this useful?** Compared to other similar libraries, our BDDs do not share nodes in 
+//! one large graph, but each BDD has its own separate memory. While this prevents some 
+//! optimizations (and in the worst case it can increase memory usage significantly), it also 
+//! allows us to work with individual BDDs in a multi-threaded context easily and to avoid the 
+//! need for garbage collection or reference counting inside the BDDs. Serialisation is also 
+//! trivial. In terms of performance, this approach cannot outperform state of the art (thread 
+//! unsafe, garbage collected) implementations, at least not in ideal conditions (large enough 
+//! cache, low pressure on GC), but even in the ideal conditions we seem to be at most 2-3x slower.
+//! In more favourable instances, we can even match or outperform such implementations.
+//!
+//! 
+//! Here, we provide a quick overview of BDDs and how they are implemented in this library. If
+//! you are interested in usage examples and API documentation, you can skip ahead :) 
+//! 
 //! ## What is a BDD?
 //!
 //! BDD is a *directed acyclic graph* (DAG) with two types of vertices (or nodes). There are two
@@ -43,8 +57,15 @@
 //! has the same BDD (equality can be thus checked syntactically on the structure of the graph).
 //!
 //! ## Encoding BDD in an array
+//! 
+//! While BDD is a graph, it would be wasteful to store each node of the BDD as a separate memory 
+//! object requiring allocations and book keeping. Instead, we sort nodes in each BDD in the
+//! DFS postorder (taking low edge first and high edge second) of the graph and this way, we can 
+//! easily save them as a sequence in an array. The only exception are the two terminal nodes 
+//! which we always place on positions 0 and 1 (empty BDD only has the 0 node).
 //!
-//!
+//! Because DFS postorder is unique, we can still check BDD equlivalence syntactically. Another
+//! nice 
 //!
 //! TODO: Add crate documentation with description of BDDs
 //! Define: Boolean variables, BDD universe.
@@ -164,6 +185,8 @@ impl Bdd {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    //TODO: Add tests on DFS postorder of created BDDs
 
     /// A small BDD over variables $v_1, v_2, v_3, v_4, v_5$ corresponding to the formula $(v_3 \land \neg v_4)$
     pub fn mk_small_test_bdd() -> Bdd {
