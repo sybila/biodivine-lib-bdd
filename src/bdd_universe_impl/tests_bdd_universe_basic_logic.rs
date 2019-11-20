@@ -1,12 +1,20 @@
-use super::*;
 use super::super::tests::mk_small_test_bdd;
 use super::tests::mk_universe_with_5_variables;
+use super::*;
 use crate::bdd;
 
-fn v1() -> BddVariable { return BddVariable(0); }
-fn v2() -> BddVariable { return BddVariable(1); }
-fn v3() -> BddVariable { return BddVariable(2); }
-fn v4() -> BddVariable { return BddVariable(3); }
+fn v1() -> BddVariable {
+    return BddVariable(0);
+}
+fn v2() -> BddVariable {
+    return BddVariable(1);
+}
+fn v3() -> BddVariable {
+    return BddVariable(2);
+}
+fn v4() -> BddVariable {
+    return BddVariable(3);
+}
 
 #[test]
 fn bdd_universe_mk_not() {
@@ -16,10 +24,14 @@ fn bdd_universe_mk_not() {
     let ff = universe.mk_false();
     let mut expected = universe.mk_true();
     expected.push_node(BddNode::mk_node(
-        BddVariable(3), BddPointer::zero(), BddPointer::one()
+        BddVariable(3),
+        BddPointer::zero(),
+        BddPointer::one(),
     ));
     expected.push_node(BddNode::mk_node(
-        BddVariable(2), BddPointer::one(), BddPointer(2)
+        BddVariable(2),
+        BddPointer::one(),
+        BddPointer(2),
     ));
     assert_eq!(expected, bdd!(universe, !bdd));
     assert_eq!(bdd, bdd!(universe, !(!bdd)));
@@ -30,7 +42,7 @@ fn bdd_universe_mk_not() {
 #[test]
 fn bdd_universe_mk_and() {
     let universe = mk_universe_with_5_variables();
-    let bdd = mk_small_test_bdd();  // v3 & !v4
+    let bdd = mk_small_test_bdd(); // v3 & !v4
     let v3 = universe.mk_var(&v3());
     let v4 = universe.mk_var(&v4());
     let tt = universe.mk_true();
@@ -46,7 +58,7 @@ fn bdd_universe_mk_and() {
 #[test]
 fn bdd_universe_mk_or() {
     let universe = mk_universe_with_5_variables();
-    let bdd = mk_small_test_bdd();  // v3 & !v4
+    let bdd = mk_small_test_bdd(); // v3 & !v4
     let v3 = universe.mk_var(&v3());
     let v4 = universe.mk_var(&v4());
     let tt = universe.mk_true();
@@ -62,7 +74,7 @@ fn bdd_universe_mk_or() {
 #[test]
 fn bdd_universe_mk_xor() {
     let universe = mk_universe_with_5_variables();
-    let bdd = mk_small_test_bdd();  // v3 & !v4
+    let bdd = mk_small_test_bdd(); // v3 & !v4
     let v3 = universe.mk_var(&v3());
     let v4 = universe.mk_var(&v4());
     let tt = universe.mk_true();
@@ -79,7 +91,7 @@ fn bdd_universe_mk_xor() {
 #[test]
 fn bdd_universe_mk_imp() {
     let universe = mk_universe_with_5_variables();
-    let bdd = mk_small_test_bdd();  // v3 & !v4
+    let bdd = mk_small_test_bdd(); // v3 & !v4
     let v3 = universe.mk_var(&v3());
     let v4 = universe.mk_var(&v4());
     let tt = universe.mk_true();
@@ -90,13 +102,13 @@ fn bdd_universe_mk_imp() {
     assert_eq!(bdd, bdd!(universe, tt => bdd));
     assert_eq!(tt, bdd!(universe, bdd => tt));
     assert_eq!(tt, bdd!(universe, bdd => bdd));
-    assert_eq!(bdd, bdd!(universe, !(v3 => v4)));  // !(v3 => v4) <=> v3 & !v4
+    assert_eq!(bdd, bdd!(universe, !(v3 => v4))); // !(v3 => v4) <=> v3 & !v4
 }
 
 #[test]
 fn bdd_universe_mk_iff() {
     let universe = mk_universe_with_5_variables();
-    let bdd = mk_small_test_bdd();  // v3 & !v4
+    let bdd = mk_small_test_bdd(); // v3 & !v4
     let v3 = universe.mk_var(&v3());
     let v4 = universe.mk_var(&v4());
     let tt = universe.mk_true();

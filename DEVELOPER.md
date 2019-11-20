@@ -66,4 +66,11 @@ the whole thing into submodules.
 
 Naming convention: If you define a private module where you know stuff will be reexported 
 by some parent, suffix the name of that module with `_impl` so that it is clear this module
-is implementing the re-exported things in the main module. 
+is implementing the re-exported things in the main module.
+
+Passing by value/reference: In general, if something implements Copy, default
+decision should be to pass it by value. In case of a non-copy struct, use pass by
+reference. Of course, sometimes pass by reference is necessary for Copy types as well,
+but in general, by implementing Copy, you indicate that this type should be treated
+as "atomic" value. Also, please make sure to implement Copy only for types where this
+is true - small, flat types.

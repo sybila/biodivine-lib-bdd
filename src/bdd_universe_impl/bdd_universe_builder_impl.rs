@@ -1,18 +1,20 @@
-use std::collections::{HashSet, HashMap};
-use crate::{BddVariable, BddUniverse};
 use super::super::bdd_expression_parser::NOT_IN_VAR_NAME;
+use crate::{BddUniverse, BddVariable};
+use std::collections::{HashMap, HashSet};
 
 /// BDD universe builder is used to safely create BDD universes.
 pub struct BddUniverseBuilder {
     var_names: Vec<String>,
-    var_names_set: HashSet<String>
+    var_names_set: HashSet<String>,
 }
 
 impl BddUniverseBuilder {
-
     /// Create a new builder without any variables.
     pub fn new() -> BddUniverseBuilder {
-        return BddUniverseBuilder { var_names: Vec::new(), var_names_set: HashSet::new() };
+        return BddUniverseBuilder {
+            var_names: Vec::new(),
+            var_names_set: HashSet::new(),
+        };
     }
 
     /// Create a new variable with the given `name`. Returns a BDD variable
@@ -24,13 +26,19 @@ impl BddUniverseBuilder {
     pub fn make_variable(&mut self, name: &str) -> BddVariable {
         let new_variable_id = self.var_names.len();
         if new_variable_id >= (std::u16::MAX - 1) as usize {
-            panic!("BDD universe is too large. There can be at most {} variables.", std::u16::MAX - 1)
+            panic!(
+                "BDD universe is too large. There can be at most {} variables.",
+                std::u16::MAX - 1
+            )
         }
         if self.var_names_set.contains(name) {
             panic!("BDD variable {} already exists.", name);
         }
         if name.chars().any(|c| NOT_IN_VAR_NAME.contains(&c)) {
-            panic!("Variable name {} is invalid. Cannot use {:?}", name, NOT_IN_VAR_NAME);
+            panic!(
+                "Variable name {} is invalid. Cannot use {:?}",
+                name, NOT_IN_VAR_NAME
+            );
         }
         self.var_names_set.insert(name.to_string());
         self.var_names.push(name.to_string());
@@ -39,7 +47,10 @@ impl BddUniverseBuilder {
 
     /// Similar to make_variable, but allows creating multiple variables at the same time.
     pub fn make_variables(&mut self, names: Vec<&str>) -> Vec<BddVariable> {
-        return names.into_iter().map(|name| self.make_variable(name)).collect();
+        return names
+            .into_iter()
+            .map(|name| self.make_variable(name))
+            .collect();
     }
 
     /// Convert this builder to an actual BDD worker.
@@ -52,10 +63,9 @@ impl BddUniverseBuilder {
         return BddUniverse {
             num_vars: self.var_names.len() as u16,
             var_names: self.var_names,
-            var_index_mapping: mapping
-        }
+            var_index_mapping: mapping,
+        };
     }
-
 }
 
 #[cfg(test)]
@@ -111,5 +121,5 @@ mod tests {
         let mut builder = BddUniverseBuilder::new();
         builder.make_variable("a^b");
     }
-    
+
 }

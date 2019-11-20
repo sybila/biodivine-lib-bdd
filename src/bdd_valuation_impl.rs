@@ -9,7 +9,6 @@ pub struct BddValuation(Vec<bool>);
 /// as a witness of BDD non-emptiness, since one can evaluate every BDD
 /// in some corresponding valuation and get a true/false value.
 impl BddValuation {
-
     /// Create a new valuation from a vector of variables.
     ///
     /// TODO: This a very low-level API. We should be able to create valuations in some safer manner.
@@ -31,18 +30,23 @@ impl BddValuation {
     /// perform a standard increment. This can be used to iterate over all valuations.
     fn next(&self) -> Option<BddValuation> {
         let mut next_vec = self.0.clone();
-        let mut carry = true;   // initially, we want to increment
+        let mut carry = true; // initially, we want to increment
         for i in 0..next_vec.len() {
             let new_value = next_vec[i] ^ carry;
             let new_carry = next_vec[i] && carry;
             next_vec[i] = new_value;
             carry = new_carry;
-            if !new_carry { break } // if there is no carry, we can just break
+            if !new_carry {
+                break;
+            } // if there is no carry, we can just break
         }
 
-        return if carry { None } else { Some(BddValuation(next_vec)) }
+        return if carry {
+            None
+        } else {
+            Some(BddValuation(next_vec))
+        };
     }
-
 }
 
 /// BDD valuation iterator exhaustively iterates over all valuations
@@ -52,12 +56,10 @@ impl BddValuation {
 pub struct BddValuationIterator(Option<BddValuation>);
 
 impl BddValuationIterator {
-
     /// Create a new iterator with a specified number of variables.
     pub fn new(num_vars: u16) -> BddValuationIterator {
         return BddValuationIterator(Some(BddValuation(vec![false; num_vars as usize])));
     }
-
 }
 
 impl Iterator for BddValuationIterator {
@@ -69,6 +71,8 @@ impl Iterator for BddValuationIterator {
             let next = valuation.next();
             self.0 = next;
             Some(ret)
-        } else { None }
+        } else {
+            None
+        };
     }
 }

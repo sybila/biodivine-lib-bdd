@@ -7,7 +7,6 @@
 pub struct BddPointer(pub u32);
 
 impl BddPointer {
-
     /// Make a new pointer to the `0` terminal node.
     pub fn zero() -> BddPointer {
         return BddPointer(0);
@@ -35,7 +34,11 @@ impl BddPointer {
 
     /// Convert a `bool` value to valid terminal BDD pointer.
     pub fn from_bool(value: bool) -> BddPointer {
-        return if value { BddPointer::one() } else { BddPointer::zero() }
+        return if value {
+            BddPointer::one()
+        } else {
+            BddPointer::zero()
+        };
     }
 
     /// If this pointer is a terminal, convert it to `bool`, otherwise return `None`.
@@ -44,7 +47,7 @@ impl BddPointer {
             0 => Some(false),
             1 => Some(true),
             _ => None,
-        }
+        };
     }
 
     /// If this pointer corresponds to a terminal node, flip it (switching `1` to `0` and
@@ -54,5 +57,4 @@ impl BddPointer {
             self.0 = (self.0 + 1) % 2;
         }
     }
-
 }

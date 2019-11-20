@@ -2,12 +2,12 @@
 //!
 //! TODO: Describe BDD manipulation algorithms.
 
-use std::collections::HashMap;
-use super::{BddVariable, Bdd, BddValuation};
 use super::bdd_node::BddNode;
 use super::bdd_pointer::BddPointer;
-use std::cmp::min;
+use super::{Bdd, BddValuation, BddVariable};
 use crate::bdd_dot_printer::bdd_as_dot_string;
+use std::cmp::min;
+use std::collections::HashMap;
 
 mod bdd_universe_builder_impl;
 
@@ -17,8 +17,8 @@ mod tests_bdd_universe_basic_logic;
 #[cfg(test)]
 mod tests_bdd_universe_fuzzing;
 
-pub use bdd_universe_builder_impl::BddUniverseBuilder;
 use crate::BooleanFormula;
+pub use bdd_universe_builder_impl::BddUniverseBuilder;
 
 /// BDD universe implements essential BDD operations.
 ///
@@ -36,23 +36,25 @@ use crate::BooleanFormula;
 pub struct BddUniverse {
     num_vars: u16,
     var_names: Vec<String>,
-    var_index_mapping: HashMap<String, u16>
+    var_index_mapping: HashMap<String, u16>,
 }
 
 // TODO: Add a getter for "all variables in the universe" (handy for anonymous universes).
 impl BddUniverse {
-
     /// Create a new BDD universe with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
     /// the `num_vars` parameter.
     pub fn new_anonymous(num_vars: u16) -> BddUniverse {
         if num_vars >= (std::u16::MAX - 1) {
-            panic!("BDD universe is too large. There can be at most {} variables.", std::u16::MAX - 1)
+            panic!(
+                "BDD universe is too large. There can be at most {} variables.",
+                std::u16::MAX - 1
+            )
         }
         return BddUniverse {
             num_vars,
             var_names: (0..num_vars).map(|i| format!("x_{}", i)).collect(),
-            var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect()
-        }
+            var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect(),
+        };
     }
 
     /// Return the number of variables in this universe.
@@ -64,6 +66,16 @@ impl BddUniverse {
     /// in this universe, return `None`.
     pub fn var_by_name(&self, name: &str) -> Option<BddVariable> {
         return self.var_index_mapping.get(name).map(|i| BddVariable(*i));
+    }
+
+    /// Provides a vector of all BDD variables in this universe.
+    pub fn variables(&self) -> Vec<BddVariable> {
+        return (0..self.num_vars).map(|i| BddVariable(i)).collect();
+    }
+
+    /// Obtain the name of a specific BDD variable.
+    pub fn name_of(&self, variable: BddVariable) -> String {
+        return self.var_names[variable.0 as usize].clone();
     }
 
     /// Create a BDD corresponding to the `true` formula.
@@ -85,8 +97,10 @@ impl BddUniverse {
             panic!("Variable {:?} is not in this universe.", var);
         }
         let mut bdd = self.mk_true();
-        bdd.push_node(BddNode::mk_node(var.clone(),
-        BddPointer::zero(), BddPointer::one()
+        bdd.push_node(BddNode::mk_node(
+            var.clone(),
+            BddPointer::zero(),
+            BddPointer::one(),
         ));
         return bdd;
     }
@@ -100,8 +114,10 @@ impl BddUniverse {
             panic!("Variable {:?} is not in this universe.", var);
         }
         let mut bdd = self.mk_true();
-        bdd.push_node(BddNode::mk_node(var.clone(),
-        BddPointer::one(), BddPointer::zero()
+        bdd.push_node(BddNode::mk_node(
+            var.clone(),
+            BddPointer::one(),
+            BddPointer::zero(),
         ));
         return bdd;
     }
@@ -110,7 +126,8 @@ impl BddUniverse {
     ///
     /// *Pre:* `var` is a valid variable in this universe.
     pub fn mk_var_by_name(&self, var: &str) -> Bdd {
-        return self.var_by_name(var)
+        return self
+            .var_by_name(var)
             .map(|var| self.mk_var(&var))
             .unwrap_or_else(|| panic!("Variable {} is known present in this universe.", var));
     }
@@ -119,7 +136,8 @@ impl BddUniverse {
     ///
     /// *Pre:* `var` is a valid variable in this universe.
     pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
-        return self.var_by_name(var)
+        return self
+            .var_by_name(var)
             .map(|var| self.mk_not_var(&var))
             .unwrap_or_else(|| panic!("Variable {} is not known in this universe.", var));
     }
@@ -128,7 +146,11 @@ impl BddUniverse {
     /// formula given by a BDD.
     pub fn mk_not(&self, phi: &Bdd) -> Bdd {
         if cfg!(shields_up) && phi.num_vars() != self.num_vars {
-            panic!("BDD is not from this universe. {} != {}", phi.num_vars(), self.num_vars);
+            panic!(
+                "BDD is not from this universe. {} != {}",
+                phi.num_vars(),
+                self.num_vars
+            );
         }
         if phi.is_true() {
             return self.mk_false();
@@ -136,7 +158,8 @@ impl BddUniverse {
             return self.mk_true();
         } else {
             let mut result_vector = phi.0.clone();
-            for i in 2..result_vector.len() {   // skip terminals
+            for i in 2..result_vector.len() {
+                // skip terminals
                 result_vector[i].high_link.flip_if_terminal();
                 result_vector[i].low_link.flip_if_terminal();
             }
@@ -151,7 +174,7 @@ impl BddUniverse {
             (Some(true), Some(true)) => Some(true),
             (Some(false), _) => Some(false),
             (_, Some(false)) => Some(false),
-            _ => None
+            _ => None,
         });
     }
 
@@ -162,7 +185,7 @@ impl BddUniverse {
             (Some(false), Some(false)) => Some(false),
             (Some(true), _) => Some(true),
             (_, Some(true)) => Some(true),
-            _ => None
+            _ => None,
         });
     }
 
@@ -173,7 +196,7 @@ impl BddUniverse {
             (Some(true), Some(false)) => Some(false),
             (Some(false), _) => Some(true),
             (_, Some(true)) => Some(true),
-            _ => None
+            _ => None,
         });
     }
 
@@ -182,7 +205,7 @@ impl BddUniverse {
     pub fn mk_iff(&self, left: &Bdd, right: &Bdd) -> Bdd {
         return self.apply(left, right, |l, r| match (l, r) {
             (Some(l), Some(r)) => Some(l == r),
-            _ => None
+            _ => None,
         });
     }
 
@@ -191,7 +214,7 @@ impl BddUniverse {
     pub fn mk_xor(&self, left: &Bdd, right: &Bdd) -> Bdd {
         return self.apply(left, right, |l, r| match (l, r) {
             (Some(l), Some(r)) => Some(l ^ r),
-            _ => None
+            _ => None,
         });
     }
 
@@ -210,7 +233,9 @@ impl BddUniverse {
     /// by the function being implemented. For example, if one of the nodes is `false` and we are
     /// implementing `and`, we can immediately evaluate to `false`.
     fn apply<T>(&self, left: &Bdd, right: &Bdd, terminal_lookup: T) -> Bdd
-        where T: Fn(Option<bool>, Option<bool>) -> Option<bool> {
+    where
+        T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    {
         // Result holds the new BDD we are computing. Initially, `0` and `1` nodes are present. We
         // remember if the result is `false` or not (`is_not_empty`). If it is, we just provide
         // a `false` BDD instead of the result. This is easier than explicitly adding `1` later.
@@ -224,19 +249,28 @@ impl BddUniverse {
 
         // Task is a pair of pointers into the `left` and `right` BDDs.
         #[derive(Eq, PartialEq, Hash, Copy, Clone)]
-        struct Task { left: BddPointer, right: BddPointer };
+        struct Task {
+            left: BddPointer,
+            right: BddPointer,
+        };
 
         // `stack` is used to explore the two BDDs "side by side" in DFS-like manner. Each task
         // on the stack is a pair of nodes that needs to be fully processed before we are finished.
         let mut stack: Vec<Task> = Vec::new();
-        stack.push(Task { left: left.root_pointer(), right: right.root_pointer() });
+        stack.push(Task {
+            left: left.root_pointer(),
+            right: right.root_pointer(),
+        });
 
         // `finished` is a memoization cache of tasks which are already completed, since the same
         // combination of nodes can be often explored multiple times.
         let mut finished: HashMap<Task, BddPointer> = HashMap::new();
 
         while let Some(on_stack) = stack.last() {
-            if finished.contains_key(on_stack) { stack.pop(); } else {  // skip finished tasks
+            if finished.contains_key(on_stack) {
+                stack.pop();
+            } else {
+                // skip finished tasks
                 let (l, r) = (on_stack.left, on_stack.right);
 
                 // Determine which variable we are conditioning on, moving from smallest to largest.
@@ -245,35 +279,47 @@ impl BddUniverse {
 
                 // If the variable is the same as in the left/right decision node,
                 // advance the exploration there. Otherwise, keep the pointers the same.
-                let (l_low, l_high) = if l_v != decision_var { (l, l) } else {
+                let (l_low, l_high) = if l_v != decision_var {
+                    (l, l)
+                } else {
                     (left.low_link_of(&l), left.high_link_of(&l))
                 };
-                let (r_low, r_high) = if r_v != decision_var { (r, r) } else {
+                let (r_low, r_high) = if r_v != decision_var {
+                    (r, r)
+                } else {
                     (right.low_link_of(&r), right.high_link_of(&r))
                 };
 
                 // Two tasks which correspond to the two recursive sub-problems we need to solve.
-                let comp_low = Task { left: l_low, right: r_low };
-                let comp_high = Task { left: l_high, right: r_high };
+                let comp_low = Task {
+                    left: l_low,
+                    right: r_low,
+                };
+                let comp_high = Task {
+                    left: l_high,
+                    right: r_high,
+                };
 
                 // Try to solve the tasks using terminal lookup table or from cache.
                 let new_low = terminal_lookup(l_low.as_bool(), r_low.as_bool())
-                    .map(BddPointer::from_bool).or_else(|| finished.get(&comp_low).cloned());
+                    .map(BddPointer::from_bool)
+                    .or_else(|| finished.get(&comp_low).cloned());
                 let new_high = terminal_lookup(l_high.as_bool(), r_high.as_bool())
-                    .map(BddPointer::from_bool).or_else(|| finished.get(&comp_high).cloned());
+                    .map(BddPointer::from_bool)
+                    .or_else(|| finished.get(&comp_high).cloned());
 
                 // If both values are computed, mark this task as resolved.
                 if let (Some(new_low), Some(new_high)) = (new_low, new_high) {
-                    if new_low.is_one() || new_high.is_one() { is_not_empty = true }
+                    if new_low.is_one() || new_high.is_one() {
+                        is_not_empty = true
+                    }
 
                     if new_low == new_high {
                         // There is no decision, just skip this node and point to either child.
                         finished.insert(*on_stack, new_low);
                     } else {
                         // There is a decision here.
-                        let node = BddNode::mk_node(
-                            decision_var, new_low, new_high
-                        );
+                        let node = BddNode::mk_node(decision_var, new_low, new_high);
                         if let Some(index) = existing.get(&node) {
                             // Node already exists, just make it a result of this computation.
                             finished.insert(*on_stack, *index);
@@ -284,16 +330,24 @@ impl BddUniverse {
                             finished.insert(*on_stack, result.root_pointer());
                         }
                     }
-                    stack.pop();    // Mark as resolved.
+                    stack.pop(); // Mark as resolved.
                 } else {
                     // Otherwise, if either value is unknown, push it to the stack.
-                    if new_low.is_none() { stack.push(comp_low); }
-                    if new_high.is_none() { stack.push(comp_high); }
+                    if new_low.is_none() {
+                        stack.push(comp_low);
+                    }
+                    if new_high.is_none() {
+                        stack.push(comp_high);
+                    }
                 }
             }
         }
 
-        return if is_not_empty { result } else { self.mk_false() }
+        return if is_not_empty {
+            result
+        } else {
+            self.mk_false()
+        };
     }
 
     /// Evaluate a BDD for a specific valuation of variables.
@@ -301,7 +355,11 @@ impl BddUniverse {
     /// *Pre:* valuation needs to have the same number of variables as this universe.
     pub fn eval_in(&self, formula: &Bdd, valuation: &BddValuation) -> bool {
         if cfg!(feature = "shields_up") && valuation.num_vars() != self.num_vars {
-            panic!("Universe has {} variables, but valuation has {}.", self.num_vars, valuation.num_vars())
+            panic!(
+                "Universe has {} variables, but valuation has {}.",
+                self.num_vars,
+                valuation.num_vars()
+            )
         }
         let mut node = formula.root_pointer();
         while !node.is_terminal() {
@@ -326,15 +384,14 @@ impl BddUniverse {
             BooleanFormula::Xor(l, r) => self.mk_xor(&self.eval_formula(l), &self.eval_formula(r)),
             BooleanFormula::Imp(l, r) => self.mk_imp(&self.eval_formula(l), &self.eval_formula(r)),
             BooleanFormula::Iff(l, r) => self.mk_iff(&self.eval_formula(l), &self.eval_formula(r)),
-        }
+        };
     }
-
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::{bdd, parse_boolean_formula};
     use super::*;
+    use crate::{bdd, parse_boolean_formula};
 
     pub fn mk_universe_with_5_variables() -> BddUniverse {
         let mut builder = BddUniverseBuilder::new();
@@ -395,10 +452,22 @@ mod tests {
         let v2 = universe.var_by_name("x_1").unwrap();
         let v2 = universe.mk_var(&v2);
         let bdd = bdd!(universe, v1 & (!v2));
-        assert_eq!(true, universe.eval_in(&bdd, &BddValuation::new(vec![true, false])));
-        assert_eq!(false, universe.eval_in(&bdd, &BddValuation::new(vec![true, true])));
-        assert_eq!(false, universe.eval_in(&bdd, &BddValuation::new(vec![false, false])));
-        assert_eq!(false, universe.eval_in(&bdd, &BddValuation::new(vec![false, false])));
+        assert_eq!(
+            true,
+            universe.eval_in(&bdd, &BddValuation::new(vec![true, false]))
+        );
+        assert_eq!(
+            false,
+            universe.eval_in(&bdd, &BddValuation::new(vec![true, true]))
+        );
+        assert_eq!(
+            false,
+            universe.eval_in(&bdd, &BddValuation::new(vec![false, false]))
+        );
+        assert_eq!(
+            false,
+            universe.eval_in(&bdd, &BddValuation::new(vec![false, false]))
+        );
     }
 
     #[test]
@@ -412,14 +481,17 @@ mod tests {
     #[test]
     fn bdd_universe_eval_boolean_formula() {
         let universe = BddUniverse::new_anonymous(5);
-        let formula = parse_boolean_formula("((x_0 & !!x_1) => (!(x_2 | (!!x_0 & x_1)) <=> (x_3 ^ x_4)))").unwrap();
+        let formula =
+            parse_boolean_formula("((x_0 & !!x_1) => (!(x_2 | (!!x_0 & x_1)) <=> (x_3 ^ x_4)))")
+                .unwrap();
         let x_0 = universe.mk_var(&universe.var_by_name("x_0").unwrap());
         let x_1 = universe.mk_var(&universe.var_by_name("x_1").unwrap());
         let x_2 = universe.mk_var(&universe.var_by_name("x_2").unwrap());
         let x_3 = universe.mk_var(&universe.var_by_name("x_3").unwrap());
         let x_4 = universe.mk_var(&universe.var_by_name("x_4").unwrap());
 
-        let expected = bdd!(universe, ((x_0 & (!(!x_1))) => ((!(x_2 | ((!(!x_0)) & x_1))) <=> (x_3 ^ x_4))));
+        let expected =
+            bdd!(universe, ((x_0 & (!(!x_1))) => ((!(x_2 | ((!(!x_0)) & x_1))) <=> (x_3 ^ x_4))));
         let evaluated = universe.eval_formula(&formula);
 
         assert_eq!(expected, evaluated);

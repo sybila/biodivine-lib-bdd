@@ -1,23 +1,23 @@
-//! **What is this?** This crate provides basic implementation of **Binary Decision Diagrams** 
-//! (BDD), or more specifically, Reduced Ordered Binary Decision Diagrams (ROBDD). Using 
-//! `biodivine-lib-bdd`, you can safely create, manipulate and serialize BDDs, even in 
-//! multi-threaded environment. BDDs can be used to represent Boolean functions (or formulas) 
+//! **What is this?** This crate provides basic implementation of **Binary Decision Diagrams**
+//! (BDD), or more specifically, Reduced Ordered Binary Decision Diagrams (ROBDD). Using
+//! `biodivine-lib-bdd`, you can safely create, manipulate and serialize BDDs, even in
+//! multi-threaded environment. BDDs can be used to represent Boolean functions (or formulas)
 //! as well as Boolean relations or general sets of Boolean vectors.
 //!
-//! **Why is this useful?** Compared to other similar libraries, our BDDs do not share nodes in 
-//! one large graph, but each BDD has its own separate memory. While this prevents some 
-//! optimizations (and in the worst case it can increase memory usage significantly), it also 
-//! allows us to work with individual BDDs in a multi-threaded context easily and to avoid the 
-//! need for garbage collection or reference counting inside the BDDs. Serialisation is also 
-//! trivial. In terms of performance, this approach cannot outperform state of the art (thread 
-//! unsafe, garbage collected) implementations, at least not in ideal conditions (large enough 
+//! **Why is this useful?** Compared to other similar libraries, our BDDs do not share nodes in
+//! one large graph, but each BDD has its own separate memory. While this prevents some
+//! optimizations (and in the worst case it can increase memory usage significantly), it also
+//! allows us to work with individual BDDs in a multi-threaded context easily and to avoid the
+//! need for garbage collection or reference counting inside the BDDs. Serialisation is also
+//! trivial. In terms of performance, this approach cannot outperform state of the art (thread
+//! unsafe, garbage collected) implementations, at least not in ideal conditions (large enough
 //! cache, low pressure on GC), but even in the ideal conditions we seem to be at most 2-3x slower.
 //! In more favourable instances, we can even match or outperform such implementations.
 //!
-//! 
+//!
 //! Here, we provide a quick overview of BDDs and how they are implemented in this library. If
 //! you are interested in usage examples and API documentation, feel free to skip ahead :)
-//! 
+//!
 //! ## What is a BDD?
 //!
 //! BDD is a *directed acyclic graph* (DAG) with two types of vertices (or nodes). There are two
@@ -57,8 +57,8 @@
 //! has the same BDD (equality can be thus checked syntactically on the structure of the graph).
 //!
 //! ## Encoding BDD in an array
-//! 
-//! While BDD is a graph, it would be wasteful to store each node of the BDD as a separate memory 
+//!
+//! While BDD is a graph, it would be wasteful to store each node of the BDD as a separate memory
 //! object requiring allocations and book keeping. Instead, we sort nodes in each BDD in the
 //! DFS post-order (taking low edge first and high edge second, although this decision is arbitrary)
 //! of the graph and this way, we can easily save them as a sequence in an array. The only
@@ -84,8 +84,7 @@
 //!
 //! In order to create and manipulate BDDs, you have to first create a **BDD universe**.
 //! The universe maintains knowledge about individual Boolean variables and their ordering.
-//! You can't add or remove variables from the universe, because the universe
-//! does not own the BDDs, it just provides extra metadata used in individual computations.
+//! Once the universe is created, the set of variables is immutable.
 //!
 //! There are two ways to create a BDD universe. First is to initialize the universe with explicit
 //! named variables:
@@ -97,15 +96,31 @@
 //!   let vars = universe.make_variables(vec!["v2", "v3"]);    // new batch of variables
 //!   let universe = universe.build();
 //!
-//!   // ... work with the universe ...
+//!   assert_eq!(Some(v1), universe.var_by_name("v1"));
+//!   assert_eq!(None, universe.var_by_name("unknown"));
 //! ```
 //!
 //! Here, each BDD variable object (`v1` and elements of `vars`) can be later used to create
 //! BDDs conditioning on these variables. The purpose of the universe builder is to check for
 //! duplicate or invalid variable names (some special characters are not allowed because
-//! it would break export to .dot). Later on, universe builder can be also used to provide custom
-//! variable orderings. Right now, the ordering of variables corresponds to the order in which
-//! they are created.
+//! it would break export to .dot). Once the universe is created, you can use `var_by_name` to
+//! obtain a specific variable based on the name you used.
+//!
+//! Another option is to create an anonymous universe where the variables have default names:
+//!
+//! ```rust
+//!   use biodivine_lib_bdd::BddUniverse;
+//!
+//!   let universe = BddUniverse::new_anonymous(4);   // new universe with 4 variables
+//!   assert_eq!(4, universe.num_vars());
+//!
+//!   let vars = universe.variables();
+//!   assert_eq!("x_3", universe.name_of(vars[3]));   // default name is always x_{var index}
+//! ```
+//!
+//! By default, anonymous variables are named `x_{index}`, but you can use `name_of` to
+//! obtain the name of any variable at runtime. You can also use the `variables` function to get
+//! a vector of all available variables.
 //!
 //!
 //! TODO: Add crate documentation with description of BDDs
@@ -120,23 +135,23 @@
 
 use crate::bdd_node::BddNode;
 use crate::bdd_pointer::BddPointer;
-use std::ops::Range;
 use std::iter::Map;
+use std::ops::Range;
 
+mod bdd_dot_printer;
+mod bdd_expression_parser;
 mod bdd_node;
 mod bdd_pointer;
-mod bdd_dot_printer;
 mod bdd_universe_impl;
 mod bdd_valuation_impl;
-mod bdd_expression_parser;
 
 pub mod bdd_macro;
+pub use bdd_expression_parser::parse_boolean_formula;
+pub use bdd_expression_parser::BooleanFormula;
 pub use bdd_universe_impl::BddUniverse;
 pub use bdd_universe_impl::BddUniverseBuilder;
 pub use bdd_valuation_impl::BddValuation;
 pub use bdd_valuation_impl::BddValuationIterator;
-pub use bdd_expression_parser::BooleanFormula;
-pub use bdd_expression_parser::parse_boolean_formula;
 
 /// BDD variable identifies one of the variables in the associated BDD universe.
 ///
@@ -151,7 +166,6 @@ pub struct BddVariable(u16);
 pub struct Bdd(Vec<BddNode>);
 
 impl Bdd {
-
     /// The number of nodes in this BDD. (Do not confuse with cardinality!)
     pub fn size(&self) -> usize {
         return self.0.len();
@@ -165,7 +179,7 @@ impl Bdd {
 
     /// **(internal)** Pointer to the root of the decision diagram.
     fn root_pointer(&self) -> BddPointer {
-        return BddPointer((self.0.len() - 1) as u32)
+        return BddPointer((self.0.len() - 1) as u32);
     }
 
     /// **(internal)** Get the low link of the node at a specified location.
@@ -218,9 +232,8 @@ impl Bdd {
     /// The iteration order is the same as the underlying representation, so you can expect
     /// terminals to be the first two nodes.
     fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
-        return (0..self.size()).map(|index| BddPointer(index as u32))
+        return (0..self.size()).map(|index| BddPointer(index as u32));
     }
-
 }
 
 #[cfg(test)]
@@ -232,11 +245,15 @@ mod tests {
     /// A small BDD over variables $v_1, v_2, v_3, v_4, v_5$ corresponding to the formula $(v_3 \land \neg v_4)$
     pub fn mk_small_test_bdd() -> Bdd {
         let mut bdd = Bdd::mk_true(5);
-        bdd.push_node(BddNode::mk_node(BddVariable(3),  // !v4
-           BddPointer::one(), BddPointer::zero()
+        bdd.push_node(BddNode::mk_node(
+            BddVariable(3), // !v4
+            BddPointer::one(),
+            BddPointer::zero(),
         ));
-        bdd.push_node(BddNode::mk_node(BddVariable(2),  // v3
-           BddPointer::zero(), bdd.root_pointer()
+        bdd.push_node(BddNode::mk_node(
+            BddVariable(2), // v3
+            BddPointer::zero(),
+            bdd.root_pointer(),
         ));
         return bdd;
     }
