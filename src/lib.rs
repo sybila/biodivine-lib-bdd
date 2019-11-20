@@ -16,7 +16,7 @@
 //!
 //! 
 //! Here, we provide a quick overview of BDDs and how they are implemented in this library. If
-//! you are interested in usage examples and API documentation, you can skip ahead :) 
+//! you are interested in usage examples and API documentation, feel free to skip ahead :)
 //! 
 //! ## What is a BDD?
 //!
@@ -29,7 +29,7 @@
 //! Semantically, for a given valuation (assignment) of Boolean variables $Val(v) \to \\{ 0, 1 \\}$,
 //! we can "evaluate" the graph by starting in the root vertex and choosing the following vertex
 //! based on the value of the current decision variable in the given valuation. Once we reach
-//! a terminal vertex, we obtain a final boolean value. For example, consider the formula
+//! a terminal vertex, we obtain a final Boolean value. For example, consider the formula
 //! $a \land \neg b$. The corresponding BDD is the following:
 //!
 //! ```mermaid
@@ -45,7 +45,7 @@
 //! ```
 //!
 //! We can see that there is only one path from the root ($a$) to `1` and this path corresponds
-//! to the only valuation which satisfies the Boolean formula ($a = 1; b = 0$).
+//! to the only valuation which satisfies the Boolean formula (i.e. $a = 1; b = 0$).
 //!
 //! Typically, BDDs assume some **fixed ordering of variables** such that every path from root to
 //! terminal follows this ordering (thus *ordered*). Furthermore, in every BDD, all **redundant
@@ -60,12 +60,53 @@
 //! 
 //! While BDD is a graph, it would be wasteful to store each node of the BDD as a separate memory 
 //! object requiring allocations and book keeping. Instead, we sort nodes in each BDD in the
-//! DFS postorder (taking low edge first and high edge second) of the graph and this way, we can 
-//! easily save them as a sequence in an array. The only exception are the two terminal nodes 
-//! which we always place on positions 0 and 1 (empty BDD only has the 0 node).
+//! DFS post-order (taking low edge first and high edge second, although this decision is arbitrary)
+//! of the graph and this way, we can easily save them as a sequence in an array. The only
+//! exception are the two terminal nodes which we always place on positions 0 and 1
+//! (empty BDD only has the 0 node).
 //!
-//! Because DFS postorder is unique, we can still check BDD equlivalence syntactically. Another
-//! nice 
+//! Because DFS post-order is unique, we can still check formula equivalence by comparing the two
+//! arrays element-wise. Also notice that the root of the BDD is always the last element of the
+//! array and children of any node always have smaller indices than the parent.
+//!
+//! The BDD from the previous section translates to the following array:
+//!
+//! ```c
+//! [0, 1, (b, low = 1, high = 0), (a, low = 0, high = 2)]
+//! ```
+//!
+//! Notice that the edge pointers are now indices into the array itself instead of memory
+//! references. This also allows certain memory optimisations (for "small" BDDs, the pointers
+//! only need to be 32 bits even on 64 bit platforms, etc.). Also, such representation is trivial
+//! to serialize, deserialize or share, since we can just clone the whole array if needed.
+//!
+//! ## BDD Usage
+//!
+//! In order to create and manipulate BDDs, you have to first create a **BDD universe**.
+//! The universe maintains knowledge about individual Boolean variables and their ordering.
+//! You can't add or remove variables from the universe, because the universe
+//! does not own the BDDs, it just provides extra metadata used in individual computations.
+//!
+//! There are two ways to create a BDD universe. First is to initialize the universe with explicit
+//! named variables:
+//! ```rust
+//!   use biodivine_lib_bdd::BddUniverseBuilder;
+//!
+//!   let mut universe = BddUniverseBuilder::new();
+//!   let v1 = universe.make_variable("v1");   // a new individual variable
+//!   let vars = universe.make_variables(vec!["v2", "v3"]);    // new batch of variables
+//!   let universe = universe.build();
+//!
+//!   // ... work with the universe ...
+//! ```
+//!
+//! Here, each BDD variable object (`v1` and elements of `vars`) can be later used to create
+//! BDDs conditioning on these variables. The purpose of the universe builder is to check for
+//! duplicate or invalid variable names (some special characters are not allowed because
+//! it would break export to .dot). Later on, universe builder can be also used to provide custom
+//! variable orderings. Right now, the ordering of variables corresponds to the order in which
+//! they are created.
+//!
 //!
 //! TODO: Add crate documentation with description of BDDs
 //! Define: Boolean variables, BDD universe.
