@@ -6,6 +6,7 @@ use super::bdd_node::BddNode;
 use super::bdd_pointer::BddPointer;
 use super::{Bdd, BddValuation, BddVariable};
 use crate::bdd_dot_printer::bdd_as_dot_string;
+use crate::parse_boolean_formula;
 use std::cmp::min;
 use std::collections::HashMap;
 
@@ -39,7 +40,7 @@ pub struct BddUniverse {
     var_index_mapping: HashMap<String, u16>,
 }
 
-// TODO: Add a getter for "all variables in the universe" (handy for anonymous universes).
+// TODO: separate this huge impl block into smaller submodules
 impl BddUniverse {
     /// Create a new BDD universe with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
     /// the `num_vars` parameter.
@@ -55,6 +56,15 @@ impl BddUniverse {
             var_names: (0..num_vars).map(|i| format!("x_{}", i)).collect(),
             var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect(),
         };
+    }
+
+    /// Create a new BDD universe with the given named variables. Same as using the
+    /// `BddUniverseBuilder` with this name vector, but the `BddVariable` objects need to be
+    /// acquired after creating the universe.
+    pub fn new(vars: Vec<&str>) -> BddUniverse {
+        let mut builder = BddUniverseBuilder::new();
+        builder.make_variables(vars);
+        return builder.build();
     }
 
     /// Return the number of variables in this universe.
@@ -92,7 +102,7 @@ impl BddUniverse {
     /// this universe.
     ///
     /// *Pre:* `var` is valid variable from this universe.
-    pub fn mk_var(&self, var: &BddVariable) -> Bdd {
+    pub fn mk_var(&self, var: BddVariable) -> Bdd {
         if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this universe.", var);
         }
@@ -109,7 +119,7 @@ impl BddUniverse {
     /// this universe.
     ///
     /// *Pre:* `var` is a valid variable in this universe.
-    pub fn mk_not_var(&self, var: &BddVariable) -> Bdd {
+    pub fn mk_not_var(&self, var: BddVariable) -> Bdd {
         if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this universe.", var);
         }
@@ -128,7 +138,7 @@ impl BddUniverse {
     pub fn mk_var_by_name(&self, var: &str) -> Bdd {
         return self
             .var_by_name(var)
-            .map(|var| self.mk_var(&var))
+            .map(|var| self.mk_var(var))
             .unwrap_or_else(|| panic!("Variable {} is known present in this universe.", var));
     }
 
@@ -138,7 +148,7 @@ impl BddUniverse {
     pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
         return self
             .var_by_name(var)
-            .map(|var| self.mk_not_var(&var))
+            .map(|var| self.mk_not_var(var))
             .unwrap_or_else(|| panic!("Variable {} is not known in this universe.", var));
     }
 
@@ -377,7 +387,7 @@ impl BddUniverse {
     /// must match the names in this universe, otherwise the function panics.
     pub fn eval_formula(&self, formula: &BooleanFormula) -> Bdd {
         return match formula {
-            BooleanFormula::Variable(name) => self.mk_var(&self.var_by_name(name).unwrap()),
+            BooleanFormula::Variable(name) => self.mk_var(self.var_by_name(name).unwrap()),
             BooleanFormula::Not(inner) => self.mk_not(&self.eval_formula(inner)),
             BooleanFormula::And(l, r) => self.mk_and(&self.eval_formula(l), &self.eval_formula(r)),
             BooleanFormula::Or(l, r) => self.mk_or(&self.eval_formula(l), &self.eval_formula(r)),
@@ -385,6 +395,18 @@ impl BddUniverse {
             BooleanFormula::Imp(l, r) => self.mk_imp(&self.eval_formula(l), &self.eval_formula(r)),
             BooleanFormula::Iff(l, r) => self.mk_iff(&self.eval_formula(l), &self.eval_formula(r)),
         };
+    }
+
+    /// Parse the given string as Boolean formula and evaluate it into a BDD.
+    ///
+    /// Panics if the expression cannot be parsed successfully or when it uses names which
+    /// are not valid in this universe.
+    pub fn eval_expression(&self, expression: &str) -> Bdd {
+        if let Ok(formula) = parse_boolean_formula(expression) {
+            return self.eval_formula(&formula);
+        } else {
+            panic!("Cannot parse expression {}", expression);
+        }
     }
 }
 
@@ -423,13 +445,13 @@ mod tests {
     #[test]
     #[should_panic]
     fn bdd_universe_mk_var_invalid_id() {
-        mk_universe_with_5_variables().mk_var(&BddVariable(6));
+        mk_universe_with_5_variables().mk_var(BddVariable(6));
     }
 
     #[test]
     #[should_panic]
     fn bdd_universe_mk_not_var_invalid_id() {
-        mk_universe_with_5_variables().mk_not_var(&BddVariable(6));
+        mk_universe_with_5_variables().mk_not_var(BddVariable(6));
     }
 
     #[test]
@@ -448,9 +470,9 @@ mod tests {
     fn bdd_universe_eval() {
         let universe = BddUniverse::new_anonymous(2);
         let v1 = universe.var_by_name("x_0").unwrap();
-        let v1 = universe.mk_var(&v1);
+        let v1 = universe.mk_var(v1);
         let v2 = universe.var_by_name("x_1").unwrap();
-        let v2 = universe.mk_var(&v2);
+        let v2 = universe.mk_var(v2);
         let bdd = bdd!(universe, v1 & (!v2));
         assert_eq!(
             true,
@@ -484,11 +506,11 @@ mod tests {
         let formula =
             parse_boolean_formula("((x_0 & !!x_1) => (!(x_2 | (!!x_0 & x_1)) <=> (x_3 ^ x_4)))")
                 .unwrap();
-        let x_0 = universe.mk_var(&universe.var_by_name("x_0").unwrap());
-        let x_1 = universe.mk_var(&universe.var_by_name("x_1").unwrap());
-        let x_2 = universe.mk_var(&universe.var_by_name("x_2").unwrap());
-        let x_3 = universe.mk_var(&universe.var_by_name("x_3").unwrap());
-        let x_4 = universe.mk_var(&universe.var_by_name("x_4").unwrap());
+        let x_0 = universe.mk_var_by_name("x_0");
+        let x_1 = universe.mk_var_by_name("x_1");
+        let x_2 = universe.mk_var_by_name("x_2");
+        let x_3 = universe.mk_var_by_name("x_3");
+        let x_4 = universe.mk_var_by_name("x_4");
 
         let expected =
             bdd!(universe, ((x_0 & (!(!x_1))) => ((!(x_2 | ((!(!x_0)) & x_1))) <=> (x_3 ^ x_4))));

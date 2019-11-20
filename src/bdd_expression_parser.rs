@@ -8,6 +8,7 @@
 //! The parser is currently not optimized for speed and there is no way to transform BDD
 //! back into a formula, so using it for serialization is not advised.
 
+use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
 use std::iter::Peekable;
 use std::str::Chars;
@@ -22,6 +23,8 @@ pub fn parse_boolean_formula(from: &str) -> Result<BooleanFormula, String> {
     return Ok(*(parse_formula(&tokens)?));
 }
 
+// TODO: Rename BooleanFormula to BooleanExpression (BDDs are "formulas")
+
 /// Recursive type for Boolean formula.
 #[derive(Debug, Eq, PartialEq)]
 pub enum BooleanFormula {
@@ -32,6 +35,16 @@ pub enum BooleanFormula {
     Xor(Box<BooleanFormula>, Box<BooleanFormula>),
     Imp(Box<BooleanFormula>, Box<BooleanFormula>),
     Iff(Box<BooleanFormula>, Box<BooleanFormula>),
+}
+
+// TODO: Remove `parse_boolean_formula` and replace with From and TryFrom
+
+impl TryFrom<&str> for BooleanFormula {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        return parse_boolean_formula(value);
+    }
 }
 
 impl Display for BooleanFormula {

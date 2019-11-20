@@ -29,8 +29,8 @@ mod tests {
     #[test]
     fn bdd_macro_test() {
         let universe = BddUniverse::new_anonymous(5);
-        let v1 = universe.mk_var(&BddVariable(0));
-        let v2 = universe.mk_var(&BddVariable(1));
+        let v1 = universe.mk_var(BddVariable(0));
+        let v2 = universe.mk_var(BddVariable(1));
         assert_eq!(universe.mk_not(&v1), bdd!(universe, !v1));
         assert_eq!(universe.mk_and(&v1, &v2), bdd!(universe, v1 & v2));
         assert_eq!(universe.mk_or(&v1, &v2), bdd!(universe, v1 | v2));

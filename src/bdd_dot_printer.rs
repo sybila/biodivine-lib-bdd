@@ -109,8 +109,8 @@ mod tests {
         let mut builder = BddUniverseBuilder::new();
         builder.make_variables(vec!["a", "b", "c", "d", "e"]);
         let universe = builder.build();
-        let c = universe.mk_var(&universe.var_by_name("c").unwrap());
-        let d = universe.mk_var(&universe.var_by_name("d").unwrap());
+        let c = universe.mk_var(universe.var_by_name("c").unwrap());
+        let d = universe.mk_var(universe.var_by_name("d").unwrap());
         let bdd = bdd!(universe, c & (!d));
         let dot = universe.bdd_as_dot_string(&bdd, false);
         assert_eq!(load_expected_results("bdd_to_dot.dot"), dot);
@@ -121,8 +121,8 @@ mod tests {
         let mut builder = BddUniverseBuilder::new();
         builder.make_variables(vec!["a", "b", "c", "d", "e"]);
         let universe = builder.build();
-        let c = universe.mk_var(&universe.var_by_name("c").unwrap());
-        let d = universe.mk_var(&universe.var_by_name("d").unwrap());
+        let c = universe.mk_var(universe.var_by_name("c").unwrap());
+        let d = universe.mk_var(universe.var_by_name("d").unwrap());
         let bdd = bdd!(universe, c & (!d));
         let dot = universe.bdd_as_dot_string(&bdd, true);
         assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);

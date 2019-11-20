@@ -84,7 +84,7 @@ impl BddOpTree {
 
     /// Evaluate this op tree to BDD in the given universe.
     fn eval_in(&self, universe: &BddUniverse) -> Bdd {
-        let mut formulas: Vec<Bdd> = self.leaves.iter().map(|v| universe.mk_var(&v)).collect();
+        let mut formulas: Vec<Bdd> = self.leaves.iter().map(|v| universe.mk_var(*v)).collect();
 
         for level in self.ops.iter() {
             let mut i = 0;
