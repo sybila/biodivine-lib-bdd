@@ -64,27 +64,27 @@ impl Bdd {
 
     /// **(internal)** Pointer to the root of the decision diagram.
     fn root_pointer(&self) -> BddPointer {
-        return BddPointer((self.0.len() - 1) as u32);
+        return BddPointer::from_index(self.0.len() - 1);
     }
 
     /// **(internal)** Get the low link of the node at a specified location.
-    fn low_link_of(&self, node: &BddPointer) -> BddPointer {
-        return self.0[node.0 as usize].low_link;
+    fn low_link_of(&self, node: BddPointer) -> BddPointer {
+        return self.0[node.to_index()].low_link;
     }
 
     /// **(internal)** Get the high link of the node at a specified location.
-    fn high_link_of(&self, node: &BddPointer) -> BddPointer {
-        return self.0[node.0 as usize].high_link;
+    fn high_link_of(&self, node: BddPointer) -> BddPointer {
+        return self.0[node.to_index()].high_link;
     }
 
     /// **(internal)** Get the conditioning variable of the node at a specified location.
     ///
     /// *Pre:* `node` is not a terminal node.
-    fn var_of(&self, node: &BddPointer) -> BddVariable {
+    fn var_of(&self, node: BddPointer) -> BddVariable {
         if cfg!(shields_up) && (node.is_one() || node.is_zero()) {
             panic!("Terminal nodes don't have a conditioning variable!");
         }
-        return self.0[node.0 as usize].var;
+        return self.0[node.to_index()].var;
     }
 
     /// **(internal)** Create a new BDD for the `false` formula.
@@ -117,7 +117,7 @@ impl Bdd {
     /// The iteration order is the same as the underlying representation, so you can expect
     /// terminals to be the first two nodes.
     fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
-        return (0..self.size()).map(|index| BddPointer(index as u32));
+        return (0..self.size()).map(BddPointer::from_index);
     }
 }
 
@@ -149,13 +149,13 @@ mod tests {
 
         assert_eq!(4, bdd.size());
         assert_eq!(5, bdd.num_vars());
-        assert_eq!(BddPointer(3), bdd.root_pointer());
-        assert_eq!(BddPointer::one(), bdd.low_link_of(&BddPointer(2)));
-        assert_eq!(BddPointer::zero(), bdd.high_link_of(&BddPointer(2)));
-        assert_eq!(BddVariable(3), bdd.var_of(&BddPointer(2)));
-        assert_eq!(BddPointer::zero(), bdd.low_link_of(&BddPointer(3)));
-        assert_eq!(BddPointer(2), bdd.high_link_of(&BddPointer(3)));
-        assert_eq!(BddVariable(2), bdd.var_of(&BddPointer(3)));
+        assert_eq!(BddPointer::from_index(3), bdd.root_pointer());
+        assert_eq!(BddPointer::one(), bdd.low_link_of(BddPointer::from_index(2)));
+        assert_eq!(BddPointer::zero(), bdd.high_link_of(BddPointer::from_index(2)));
+        assert_eq!(BddVariable(3), bdd.var_of(BddPointer::from_index(2)));
+        assert_eq!(BddPointer::zero(), bdd.low_link_of(BddPointer::from_index(3)));
+        assert_eq!(BddPointer::from_index(2), bdd.high_link_of(BddPointer::from_index(3)));
+        assert_eq!(BddVariable(2), bdd.var_of(BddPointer::from_index(3)));
     }
 
 }

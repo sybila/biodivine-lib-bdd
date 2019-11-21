@@ -31,7 +31,7 @@ fn bdd_universe_mk_not() {
     expected.push_node(BddNode::mk_node(
         BddVariable(2),
         BddPointer::one(),
-        BddPointer(2),
+        BddPointer::from_index(2),
     ));
     assert_eq!(expected, bdd!(universe, !bdd));
     assert_eq!(bdd, bdd!(universe, !(!bdd)));

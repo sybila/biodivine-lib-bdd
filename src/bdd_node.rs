@@ -109,8 +109,8 @@ mod tests {
 
     #[test]
     fn bdd_node_create() {
-        let node = BddNode::mk_node(BddVariable(4), BddPointer(16), BddPointer::zero());
-        assert_eq!(BddPointer(16), node.low_link);
+        let node = BddNode::mk_node(BddVariable(4), BddPointer::from_index(16), BddPointer::zero());
+        assert_eq!(BddPointer::from_index(16), node.low_link);
         assert_eq!(BddPointer::zero(), node.high_link);
         assert_eq!(BddVariable(4), node.var);
         assert!(!node.is_terminal());

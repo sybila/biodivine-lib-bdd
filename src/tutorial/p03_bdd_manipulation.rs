@@ -1,9 +1,9 @@
-//! ## Manipulating `Bdd`-s idiomatically
+//! # Manipulating `Bdd`-s idiomatically
 //!
 //! Creating BDDs using the explicit fuctions provided by the `BddUniverse` can be quite
 //! cumbersome. Fortunately, there are two ways to simplify this process significantly.
 //!
-//! ### Boolean expressions
+//! ## Boolean expressions
 //!
 //! Once you have a `BddUniverse` ready, the most basic way to quickly create complex BDDs
 //! is to use our custom Boolean expression language:
@@ -32,7 +32,7 @@
 //! error when the parsing fails. However, `eval_formula` can still fail if there are some
 //! unknown variables in the formula.
 //!
-//! ### `bdd` macro
+//! ## `bdd` macro
 //!
 //! When using expressions, you can't reuse existing BDDs - secifically, expressions are
 //! awesome when creating small, self contained examples but don't work very well if you need

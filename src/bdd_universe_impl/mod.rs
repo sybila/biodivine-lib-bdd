@@ -284,7 +284,7 @@ impl BddUniverse {
                 let (l, r) = (on_stack.left, on_stack.right);
 
                 // Determine which variable we are conditioning on, moving from smallest to largest.
-                let (l_v, r_v) = (left.var_of(&l), right.var_of(&r));
+                let (l_v, r_v) = (left.var_of(l), right.var_of(r));
                 let decision_var = min(l_v, r_v);
 
                 // If the variable is the same as in the left/right decision node,
@@ -292,12 +292,12 @@ impl BddUniverse {
                 let (l_low, l_high) = if l_v != decision_var {
                     (l, l)
                 } else {
-                    (left.low_link_of(&l), left.high_link_of(&l))
+                    (left.low_link_of(l), left.high_link_of(l))
                 };
                 let (r_low, r_high) = if r_v != decision_var {
                     (r, r)
                 } else {
-                    (right.low_link_of(&r), right.high_link_of(&r))
+                    (right.low_link_of(r), right.high_link_of(r))
                 };
 
                 // Two tasks which correspond to the two recursive sub-problems we need to solve.
@@ -373,11 +373,11 @@ impl BddUniverse {
         }
         let mut node = formula.root_pointer();
         while !node.is_terminal() {
-            let var = formula.var_of(&node);
+            let var = formula.var_of(node);
             node = if valuation.value(&var) {
-                formula.high_link_of(&node)
+                formula.high_link_of(node)
             } else {
-                formula.low_link_of(&node)
+                formula.low_link_of(node)
             }
         }
         return node.is_one();

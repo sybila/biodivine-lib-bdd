@@ -15,7 +15,7 @@ pub fn bdd_as_dot(
 ) -> Result<(), std::io::Error> {
     output.write_all(b"digraph G {\n")?;
     output.write_all(b"init__ [label=\"\", style=invis, height=0, width=0];\n")?;
-    output.write_all(format!("init__ -> {};\n", bdd.root_pointer().0).as_bytes())?;
+    output.write_all(format!("init__ -> {};\n", bdd.root_pointer()).as_bytes())?;
     /*
        Fortunately, it seem that .dot does not care about ordering of graph elements,
        so we can just go through the BDD and print it as is.
@@ -34,20 +34,20 @@ pub fn bdd_as_dot(
     // decision nodes
     for node_pointer in bdd.pointers().skip(2) {
         // write the node itself
-        let var_name = &var_names[bdd.var_of(&node_pointer).0 as usize];
-        output.write_all(format!("{}[label=\"{}\"];\n", node_pointer.0, var_name).as_bytes())?;
-        let high_link = bdd.high_link_of(&node_pointer);
+        let var_name = &var_names[bdd.var_of(node_pointer).0 as usize];
+        output.write_all(format!("{}[label=\"{}\"];\n", node_pointer, var_name).as_bytes())?;
+        let high_link = bdd.high_link_of(node_pointer);
         if !zero_pruned || !high_link.is_zero() {
             // write "high" link
             output.write_all(
-                format!("{} -> {} [style=filled];\n", node_pointer.0, high_link.0).as_bytes(),
+                format!("{} -> {} [style=filled];\n", node_pointer, high_link).as_bytes(),
             )?;
         }
-        let low_link = bdd.low_link_of(&node_pointer);
+        let low_link = bdd.low_link_of(node_pointer);
         if !zero_pruned || !low_link.is_zero() {
             // write "low" link
             output.write_all(
-                format!("{} -> {} [style=dotted];\n", node_pointer.0, low_link.0).as_bytes(),
+                format!("{} -> {} [style=dotted];\n", node_pointer, low_link).as_bytes(),
             )?;
         }
     }

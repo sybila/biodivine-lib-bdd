@@ -1,8 +1,10 @@
-//! ### Creating a `BddUniverse` and `BddVariable`-s
+//! # Creating a `BddUniverse` and `BddVariable`-s
 //!
 //! In order to create and manipulate BDDs, you have to first create a **BDD universe**.
 //! The universe maintains knowledge about individual Boolean variables and their ordering.
 //! Once the universe is created, the set of variables is immutable.
+//!
+//! ## Using `BddUniverseBuilder`
 //!
 //! There are multiple ways to create a BDD universe. First is to initialize the universe with
 //! explicitly named variables using a safe builder:
@@ -24,6 +26,8 @@
 //! it would break export to .dot). Once the universe is created, you can use `var_by_name` to
 //! obtain a specific variable based on the names you used.
 //!
+//! ## Creating universe directly
+//!
 //! If you don't need the `BddVariable` objects right away and all variables are known beforehand
 //! (this may sound trivial, but sometimes different parts of your application can have different
 //! requirements regarding the variables and it is just simpler to let them manipulate the builder
@@ -36,6 +40,8 @@
 //! let universe = BddUniverse::new(vec!["v1", "v2", "v3"]);
 //! assert_eq!(3, universe.num_vars());
 //! ```
+//!
+//! ## Anonymous universes
 //!
 //! Finally, another option is to create an anonymous universe where the
 //! variables have default names:
@@ -52,6 +58,8 @@
 //! By default, anonymous variables are named `x_{index}`, but you can use `name_of` to
 //! obtain the name of any variable at runtime. You can also use the `variables` function to get
 //! a vector of all available variables.
+//!
+//! ## Working with universes
 //!
 //! Once we have a universe, we can use it to create basic `Bdd` objects:
 //!
