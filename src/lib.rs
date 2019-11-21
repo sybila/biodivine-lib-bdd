@@ -28,8 +28,8 @@ mod bdd_node;
 mod bdd_pointer;
 mod bdd_universe_impl;
 mod bdd_valuation_impl;
+mod bdd_macro;
 
-pub mod bdd_macro;
 pub mod tutorial;
 pub use bdd_expression_parser::parse_boolean_formula;
 pub use bdd_expression_parser::BooleanFormula;

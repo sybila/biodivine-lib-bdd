@@ -3,10 +3,15 @@
 # disabled, ...)
 
 # Enable docs with Mermaid, KaTeX and some small design tweaks.
-[tasks.rich-doc]
+[tasks.rich-doc-dev]
 env = { "RUSTDOCFLAGS" = "--html-in-header docs-head.html" }
 command = "cargo"
 args = ["doc", "--no-deps", "--document-private-items"]
+
+[tasks.rich-doc]
+env = { "RUSTDOCFLAGS" = "--html-in-header docs-head.html" }
+command = "cargo"
+args = ["doc", "--no-deps"]
 
 [tasks.all]
 dependencies = [
