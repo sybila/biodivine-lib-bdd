@@ -150,11 +150,23 @@ mod tests {
         assert_eq!(4, bdd.size());
         assert_eq!(5, bdd.num_vars());
         assert_eq!(BddPointer::from_index(3), bdd.root_pointer());
-        assert_eq!(BddPointer::one(), bdd.low_link_of(BddPointer::from_index(2)));
-        assert_eq!(BddPointer::zero(), bdd.high_link_of(BddPointer::from_index(2)));
+        assert_eq!(
+            BddPointer::one(),
+            bdd.low_link_of(BddPointer::from_index(2))
+        );
+        assert_eq!(
+            BddPointer::zero(),
+            bdd.high_link_of(BddPointer::from_index(2))
+        );
         assert_eq!(BddVariable(3), bdd.var_of(BddPointer::from_index(2)));
-        assert_eq!(BddPointer::zero(), bdd.low_link_of(BddPointer::from_index(3)));
-        assert_eq!(BddPointer::from_index(2), bdd.high_link_of(BddPointer::from_index(3)));
+        assert_eq!(
+            BddPointer::zero(),
+            bdd.low_link_of(BddPointer::from_index(3))
+        );
+        assert_eq!(
+            BddPointer::from_index(2),
+            bdd.high_link_of(BddPointer::from_index(3))
+        );
         assert_eq!(BddVariable(2), bdd.var_of(BddPointer::from_index(3)));
     }
 

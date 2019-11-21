@@ -8,7 +8,7 @@
 //!
 //!
 
-use std::fmt::{Display, Formatter, Error};
+use std::fmt::{Display, Error, Formatter};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 pub struct BddPointer(u32);
@@ -21,7 +21,6 @@ impl Display for BddPointer {
 }
 
 impl BddPointer {
-
     /// Make a new pointer to the `0` terminal node.
     pub fn zero() -> BddPointer {
         return BddPointer(0);
@@ -54,7 +53,7 @@ impl BddPointer {
 
     /// Create a pointer from an usize index.
     pub fn from_index(index: usize) -> BddPointer {
-        return BddPointer(index as u32)
+        return BddPointer(index as u32);
     }
 
     /// Convert a `bool` value to valid terminal BDD pointer.
