@@ -81,4 +81,14 @@ impl BddPointer {
             self.0 = (self.0 + 1) % 2;
         }
     }
+
+    // Convert to little endian bytes
+    pub fn to_le_bytes(&self) -> [u8; 4] {
+        return self.0.to_le_bytes();
+    }
+
+    // Read from little endian byte representation
+    pub fn from_le_bytes(bytes: [u8; 4]) -> BddPointer {
+        return BddPointer(u32::from_le_bytes(bytes));
+    }
 }

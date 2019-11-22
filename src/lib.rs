@@ -24,11 +24,12 @@ use std::ops::Range;
 
 mod bdd_dot_printer;
 mod bdd_expression_parser;
+mod bdd_macro;
 mod bdd_node;
 mod bdd_pointer;
+mod bdd_serialisation;
 mod bdd_universe_impl;
 mod bdd_valuation_impl;
-mod bdd_macro;
 
 pub mod tutorial;
 pub use bdd_expression_parser::parse_boolean_formula;
@@ -37,12 +38,32 @@ pub use bdd_universe_impl::BddUniverse;
 pub use bdd_universe_impl::BddUniverseBuilder;
 pub use bdd_valuation_impl::BddValuation;
 pub use bdd_valuation_impl::BddValuationIterator;
+use std::fmt::{Display, Error, Formatter};
+use std::slice::Iter;
 
 /// BDD variable identifies one of the variables in the associated BDD universe.
 ///
 /// Usage example: TODO.
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BddVariable(u16);
+
+impl Display for BddVariable {
+    fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+        f.write_fmt(format_args!("{}", self.0))
+    }
+}
+
+impl BddVariable {
+    // Convert to little endian bytes
+    pub fn to_le_bytes(&self) -> [u8; 2] {
+        return self.0.to_le_bytes();
+    }
+
+    // Read from little endian byte representation
+    pub fn from_le_bytes(bytes: [u8; 2]) -> BddVariable {
+        return BddVariable(u16::from_le_bytes(bytes));
+    }
+}
 
 /// BDD object is an array-based encoding of the binary decision diagram.
 ///
@@ -119,6 +140,11 @@ impl Bdd {
     fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
         return (0..self.size()).map(BddPointer::from_index);
     }
+
+    /// **(internal)** Create an iterator over all nodes of the BDD (including terminals).
+    fn nodes(&self) -> Iter<BddNode> {
+        return self.0.iter();
+    }
 }
 
 #[cfg(test)]
@@ -141,6 +167,11 @@ mod tests {
             bdd.root_pointer(),
         ));
         return bdd;
+    }
+
+    pub fn load_expected_results(test_name: &str) -> String {
+        return std::fs::read_to_string(format!("test_results/{}", test_name))
+            .expect("Cannot open result file.");
     }
 
     #[test]

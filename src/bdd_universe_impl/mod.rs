@@ -5,7 +5,7 @@
 use super::bdd_node::BddNode;
 use super::bdd_pointer::BddPointer;
 use super::{Bdd, BddValuation, BddVariable};
-use crate::bdd_dot_printer::bdd_as_dot_string;
+use crate::bdd_dot_printer::bdd_to_dot_string;
 use crate::parse_boolean_formula;
 use std::cmp::min;
 use std::collections::HashMap;
@@ -232,8 +232,8 @@ impl BddUniverse {
     ///
     /// Use `zero_pruned` to remove `0` terminal and all edges leading to it. This is
     /// usually much more readable while preserving all information.
-    pub fn bdd_as_dot_string(&self, bdd: &Bdd, zero_pruned: bool) -> String {
-        return bdd_as_dot_string(bdd, &self.var_names, zero_pruned);
+    pub fn bdd_to_dot_string(&self, bdd: &Bdd, zero_pruned: bool) -> String {
+        return bdd_to_dot_string(bdd, &self.var_names, zero_pruned);
     }
 
     /// **(internal)** Universal function to implement standard logical operators.
