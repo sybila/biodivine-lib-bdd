@@ -1,0 +1,173 @@
+use super::*;
+
+impl BddVariableSet {
+    /// Create a new BDD variable set with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
+    /// the `num_vars` parameter.
+    pub fn new_anonymous(num_vars: u16) -> BddVariableSet {
+        if num_vars >= (std::u16::MAX - 1) {
+            panic!(
+                "Too many BDD variables. There can be at most {} variables.",
+                std::u16::MAX - 1
+            )
+        }
+        return BddVariableSet {
+            num_vars,
+            var_names: (0..num_vars).map(|i| format!("x_{}", i)).collect(),
+            var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect(),
+        };
+    }
+
+    /// Create a new BDD variable set with the given named variables. Same as using the
+    /// `BddVariablesBuilder` with this name vector, but the `BddVariable` objects need to be
+    /// acquired after creating the set.
+    ///
+    /// Panics: `vars` must contain unique names which are allowed as variable names.
+    pub fn new(vars: Vec<&str>) -> BddVariableSet {
+        let mut builder = BddVariableSetBuilder::new();
+        builder.make_variables(vars);
+        return builder.build();
+    }
+
+    /// Return the number of variables in this set.
+    pub fn num_vars(&self) -> u16 {
+        return self.num_vars;
+    }
+
+    /// Create a BDD variable based on a variable name. If the name is not valid
+    /// in this set, return `None`.
+    pub fn var_by_name(&self, name: &str) -> Option<BddVariable> {
+        return self.var_index_mapping.get(name).map(|i| BddVariable(*i));
+    }
+
+    /// Provides a vector of all BDD variables in this set.
+    pub fn variables(&self) -> Vec<BddVariable> {
+        return (0..self.num_vars).map(|i| BddVariable(i)).collect();
+    }
+
+    /// Obtain the name of a specific BDD variable.
+    pub fn name_of(&self, variable: BddVariable) -> String {
+        return self.var_names[variable.0 as usize].clone();
+    }
+
+    /// Create a BDD corresponding to the `true` formula.
+    pub fn mk_true(&self) -> Bdd {
+        return Bdd::mk_true(self.num_vars);
+    }
+
+    /// Create a BDD corresponding to the `false` formula.
+    pub fn mk_false(&self) -> Bdd {
+        return Bdd::mk_false(self.num_vars);
+    }
+
+    /// Create a BDD corresponding to the $v$ formula where `v` is a specific variable in
+    /// this set.
+    ///
+    /// *Panics:* `var` must be a valid variable in this set.
+    pub fn mk_var(&self, var: BddVariable) -> Bdd {
+        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
+            panic!("Variable {:?} is not in this set.", var);
+        }
+        let mut bdd = self.mk_true();
+        bdd.push_node(BddNode::mk_node(
+            var.clone(),
+            BddPointer::zero(),
+            BddPointer::one(),
+        ));
+        return bdd;
+    }
+
+    /// Create a BDD corresponding to the $\neg v$ formula where `v` is a specific variable in
+    /// this set.
+    ///
+    /// *Panics:* `var` must be a valid variable in this set.
+    pub fn mk_not_var(&self, var: BddVariable) -> Bdd {
+        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
+            panic!("Variable {:?} is not in this set.", var);
+        }
+        let mut bdd = self.mk_true();
+        bdd.push_node(BddNode::mk_node(
+            var.clone(),
+            BddPointer::one(),
+            BddPointer::zero(),
+        ));
+        return bdd;
+    }
+
+    /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this set.
+    ///
+    /// *Panics:* `var` must be a name of a valid variable in this set.
+    pub fn mk_var_by_name(&self, var: &str) -> Bdd {
+        return self
+            .var_by_name(var)
+            .map(|var| self.mk_var(var))
+            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var));
+    }
+
+    /// Create a BDD corresponding to the $\neg v$ formula where `v` is a variable in this set.
+    ///
+    /// *Panics:* `var` must be a name of a valid variable in this set.
+    pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
+        return self
+            .var_by_name(var)
+            .map(|var| self.mk_not_var(var))
+            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var));
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{bdd, parse_boolean_formula};
+
+    pub fn mk_universe_with_5_variables() -> BddVariableSet {
+        let mut builder = BddVariableSetBuilder::new();
+        builder.make_variables(vec!["v1", "v2", "v3", "v4", "v5"]);
+        return builder.build();
+    }
+
+    #[test]
+    fn bdd_universe_anonymous() {
+        let universe = BddVariableSet::new_anonymous(5);
+        assert_eq!(Some(BddVariable(0)), universe.var_by_name("x_0"));
+        assert_eq!(Some(BddVariable(1)), universe.var_by_name("x_1"));
+        assert_eq!(Some(BddVariable(2)), universe.var_by_name("x_2"));
+        assert_eq!(Some(BddVariable(3)), universe.var_by_name("x_3"));
+        assert_eq!(Some(BddVariable(4)), universe.var_by_name("x_4"));
+    }
+
+    #[test]
+    fn bdd_universe_mk_const() {
+        let universe = mk_universe_with_5_variables();
+        let tt = universe.mk_true();
+        let ff = universe.mk_false();
+        assert!(tt.is_true());
+        assert!(ff.is_false());
+        assert_eq!(Bdd::mk_true(5), tt);
+        assert_eq!(Bdd::mk_false(5), ff);
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_var_invalid_id() {
+        mk_universe_with_5_variables().mk_var(BddVariable(6));
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_not_var_invalid_id() {
+        mk_universe_with_5_variables().mk_not_var(BddVariable(6));
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_var_by_name_invalid_name() {
+        mk_universe_with_5_variables().mk_var_by_name("abc");
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_universe_mk_not_var_by_name_invalid_name() {
+        mk_universe_with_5_variables().mk_not_var_by_name("abc");
+    }
+
+}
