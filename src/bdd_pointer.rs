@@ -1,13 +1,3 @@
-//! **(internal)** BDD pointer identifies one of the nodes in the associated BDD array.
-//!
-//! BDD pointers are an internal type-safe wrapper around indices into BDD arrays.
-//! Outside this crate, no one should know or care about their existence. Since
-//! we can't reasonably expect a BDD to be larger than 2^32 right now, the pointer is
-//! represented as `u32` instead of `usize`, because `usize` can be 64-bits and pointers
-//! represent most of the memory consumed by our BDDs.
-//!
-//!
-
 use std::fmt::{Display, Error, Formatter};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]

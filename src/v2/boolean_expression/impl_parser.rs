@@ -1,67 +1,19 @@
-//! **(internal)** A very simple (if not the most efficient) way
-//! to create BDDs from predefined Boolean formulas.
+//! **(internal)** Parsing functions for boolean expressions.
 //!
-//! Compared to the bdd! macro, expression cannot reference other existing BDDs or BDD variables
-//! by index only, just variable names. However, you have much more freedom with respect to
-//! syntax since we are doing the parsing manually.
-//!
-//! The parser is currently not optimized for speed and there is no way to transform BDD
-//! back into a formula, so using it for serialization is not advised.
+//! Expression parsing proceeds in recursive manner in the order of operator precedence:
+//! `<=>`, `=>`, `|`, `&` and `^`. For each operator, if there is no occurrence in the root of the
+//! token tree, we forward the tree to next operator. If there is an occurrence, we split
+//! the token tree at this point. Left part goes to the next operator, right part is processed
+//! by the same operator to extract additional occurrences.
 
-use std::convert::TryFrom;
-use std::fmt::{Display, Error, Formatter};
+use super::super::NOT_IN_VAR_NAME;
+use super::BooleanExpression;
+use super::BooleanExpression::*;
 use std::iter::Peekable;
 use std::str::Chars;
-use BooleanFormula::*;
 
-/// Takes a string argument and turns it into a Boolean formula. If the string is not a
-/// valid formula, an error is returned.
-///
-/// Syntax for the formula is described in the module documentation.
-pub fn parse_boolean_formula(from: &str) -> Result<BooleanFormula, String> {
-    let tokens = tokenize_group(&mut from.chars().peekable(), true)?;
-    return Ok(*(parse_formula(&tokens)?));
-}
-
-// TODO: Rename BooleanFormula to BooleanExpression (BDDs are "formulas")
-
-/// Recursive type for Boolean formula.
-#[derive(Debug, Eq, PartialEq)]
-pub enum BooleanFormula {
-    Variable(String),
-    Not(Box<BooleanFormula>),
-    And(Box<BooleanFormula>, Box<BooleanFormula>),
-    Or(Box<BooleanFormula>, Box<BooleanFormula>),
-    Xor(Box<BooleanFormula>, Box<BooleanFormula>),
-    Imp(Box<BooleanFormula>, Box<BooleanFormula>),
-    Iff(Box<BooleanFormula>, Box<BooleanFormula>),
-}
-
-// TODO: Remove `parse_boolean_formula` and replace with From and TryFrom
-
-impl TryFrom<&str> for BooleanFormula {
-    type Error = String;
-
-    fn try_from(value: &str) -> Result<Self, Self::Error> {
-        return parse_boolean_formula(value);
-    }
-}
-
-impl Display for BooleanFormula {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
-        match self {
-            Variable(name) => write!(f, "{}", name),
-            Not(inner) => write!(f, "!{}", inner),
-            And(l, r) => write!(f, "({} & {})", l, r),
-            Or(l, r) => write!(f, "({} | {})", l, r),
-            Xor(l, r) => write!(f, "({} ^ {})", l, r),
-            Imp(l, r) => write!(f, "({} => {})", l, r),
-            Iff(l, r) => write!(f, "({} <=> {})", l, r),
-        }
-    }
-}
-
-/// Tokens that can appear in the boolean formula.
+/// **(internal)** Tokens that can appear in the boolean expression.
+/// The tokens form a token tree defined by parenthesis groups.
 #[derive(Debug, Eq, PartialEq)]
 enum ExprToken {
     Not,                    // '!'
@@ -74,13 +26,18 @@ enum ExprToken {
     Tokens(Vec<ExprToken>), // A block of tokens inside parentheses
 }
 
-/// Characters that cannot appear in the variable name (based on possible tokens).
-pub const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
+/// Takes a `String` and turns it into a `BooleanExpression` or `Error` if the string is not valid.
+///
+/// Syntax for the formula is described in the tutorial.
+pub fn parse_boolean_expression(from: &str) -> Result<BooleanExpression, String> {
+    let tokens = tokenize_group(&mut from.chars().peekable(), true)?;
+    return Ok(*(parse_formula(&tokens)?));
+}
 
-/// Process a peekable iterator of characters into a vector of boolean expression tokens. The
-/// tokens form a token tree defined by parenthesis groups. The outer method always consumes
-/// the opening parenthesis and the recursive call consumes the closing parenthesis. Use `top_level`
-/// to indicate that there will be no closing parenthesis.
+/// **(internal)** Process a peekable iterator of characters into a vector of `ExprToken`s.
+///
+/// The outer method always consumes the opening parenthesis and the recursive call consumes the
+/// closing parenthesis. Use `top_level` to indicate that there will be no closing parenthesis.
 fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<ExprToken>, String> {
     let mut output = Vec::new();
     while let Some(c) = data.next() {
@@ -145,22 +102,18 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
     };
 }
 
-/// Formula parsing proceeds in recursive manner in the order of operator precedence:
-/// <=>, =>, |, & and ^. For each operator, if there is no occurrence in the root of the
-/// token tree, we forward the tree to next operator. If there is an occurrence, we split
-/// the token tree at this point. Left part goes to the next operator, right part is processed
-/// by the same operator to extract additional occurrences.
-///
-fn parse_formula(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
+/// **(internal)** Parse a `ExprToken` tree into a `BooleanExpression` (or error if invalid).
+fn parse_formula(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     return iff(data);
 }
 
-/// Utility method to find first occurrence of a specific token in the token tree.
+/// **(internal)** Utility method to find first occurrence of a specific token in the token tree.
 fn index_of_first(data: &[ExprToken], token: ExprToken) -> Option<usize> {
     return data.iter().position(|t| *t == token);
 }
 
-fn iff(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
+/// **(internal)** Recursive parsing step 1: extract `<=>` operators.
+fn iff(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let iff_token = index_of_first(data, ExprToken::Iff);
     return Ok(if let Some(iff_token) = iff_token {
         Box::new(Iff(
@@ -172,7 +125,8 @@ fn iff(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
     });
 }
 
-fn imp(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
+/// **(internal)** Recursive parsing step 2: extract `=>` operators.
+fn imp(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let imp_token = index_of_first(data, ExprToken::Imp);
     return Ok(if let Some(imp_token) = imp_token {
         Box::new(Imp(or(&data[..imp_token])?, imp(&data[(imp_token + 1)..])?))
@@ -181,7 +135,8 @@ fn imp(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
     });
 }
 
-fn or(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
+/// **(internal)** Recursive parsing step 3: extract `|` operators.
+fn or(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let or_token = index_of_first(data, ExprToken::Or);
     return Ok(if let Some(or_token) = or_token {
         Box::new(Or(and(&data[..or_token])?, or(&data[(or_token + 1)..])?))
@@ -190,7 +145,8 @@ fn or(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
     });
 }
 
-fn and(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
+/// **(internal)** Recursive parsing step 4: extract `&` operators.
+fn and(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let and_token = index_of_first(data, ExprToken::And);
     return Ok(if let Some(and_token) = and_token {
         Box::new(And(
@@ -202,7 +158,8 @@ fn and(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
     });
 }
 
-fn xor(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
+/// **(internal)** Recursive parsing step 5: extract `^` operators.
+fn xor(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let xor_token = index_of_first(data, ExprToken::Xor);
     return Ok(if let Some(xor_token) = xor_token {
         Box::new(Xor(
@@ -214,7 +171,8 @@ fn xor(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
     });
 }
 
-fn terminal(data: &[ExprToken]) -> Result<Box<BooleanFormula>, String> {
+/// **(internal)** Recursive parsing step 6: extract terminals and negations.
+fn terminal(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     return if data.is_empty() {
         Err("Expected formula, found nothing :(".to_string())
     } else {
@@ -253,7 +211,10 @@ mod tests {
             "(v_1 <=> v_2)", // iff
         ];
         for input in inputs {
-            assert_eq!(input, format!("{}", parse_boolean_formula(input).unwrap()));
+            assert_eq!(
+                input,
+                format!("{}", parse_boolean_expression(input).unwrap())
+            );
         }
     }
 
@@ -263,7 +224,7 @@ mod tests {
             "(((((!a ^ !b) & !c) | !d) => !e) <=> !f)",
             format!(
                 "{}",
-                parse_boolean_formula("!a ^ !b & !c | !d => !e <=> !f").unwrap()
+                parse_boolean_expression("!a ^ !b & !c | !d => !e <=> !f").unwrap()
             )
         )
     }
@@ -272,23 +233,23 @@ mod tests {
     fn parse_boolean_formula_operator_associativity() {
         assert_eq!(
             "(a & (b & c))",
-            format!("{}", parse_boolean_formula("a & b & c").unwrap())
+            format!("{}", parse_boolean_expression("a & b & c").unwrap())
         );
         assert_eq!(
             "(a | (b | c))",
-            format!("{}", parse_boolean_formula("a | b | c").unwrap())
+            format!("{}", parse_boolean_expression("a | b | c").unwrap())
         );
         assert_eq!(
             "(a ^ (b ^ c))",
-            format!("{}", parse_boolean_formula("a ^ b ^ c").unwrap())
+            format!("{}", parse_boolean_expression("a ^ b ^ c").unwrap())
         );
         assert_eq!(
             "(a => (b => c))",
-            format!("{}", parse_boolean_formula("a => b => c").unwrap())
+            format!("{}", parse_boolean_expression("a => b => c").unwrap())
         );
         assert_eq!(
             "(a <=> (b <=> c))",
-            format!("{}", parse_boolean_formula("a <=> b <=> c").unwrap())
+            format!("{}", parse_boolean_expression("a <=> b <=> c").unwrap())
         );
     }
 
@@ -298,7 +259,7 @@ mod tests {
             "((a & !!b) => (!(t | (!!a & b)) <=> (x ^ y)))",
             format!(
                 "{}",
-                parse_boolean_formula("a &!(!b)   => (!(t | !!a&b) <=> x^y)").unwrap()
+                parse_boolean_expression("a &!(!b)   => (!(t | !!a&b) <=> x^y)").unwrap()
             )
         )
     }
@@ -306,60 +267,60 @@ mod tests {
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_token_1() {
-        parse_boolean_formula("a = b").unwrap();
+        parse_boolean_expression("a = b").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_token_2() {
-        parse_boolean_formula("a < b").unwrap();
+        parse_boolean_expression("a < b").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_token_3() {
-        parse_boolean_formula("a <= b").unwrap();
+        parse_boolean_expression("a <= b").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_token_4() {
-        parse_boolean_formula("a > b").unwrap();
+        parse_boolean_expression("a > b").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_parentheses_1() {
-        parse_boolean_formula("(a").unwrap();
+        parse_boolean_expression("(a").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_parentheses_2() {
-        parse_boolean_formula("b)").unwrap();
+        parse_boolean_expression("b)").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_parentheses_3() {
-        parse_boolean_formula("(a & (b)").unwrap();
+        parse_boolean_expression("(a & (b)").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_parentheses_4() {
-        parse_boolean_formula("a & (b))").unwrap();
+        parse_boolean_expression("a & (b))").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_formula_1() {
-        parse_boolean_formula("a & & b").unwrap();
+        parse_boolean_expression("a & & b").unwrap();
     }
 
     #[test]
     #[should_panic]
     fn parse_boolean_formula_invalid_formula_2() {
-        parse_boolean_formula("a & c d & b").unwrap();
+        parse_boolean_expression("a & c d & b").unwrap();
     }
 }

@@ -117,14 +117,8 @@ impl BddVariableSet {
 
 #[cfg(test)]
 mod tests {
+    use super::test_util::mk_5_variable_set;
     use super::*;
-    use crate::{bdd, parse_boolean_formula};
-
-    pub fn mk_universe_with_5_variables() -> BddVariableSet {
-        let mut builder = BddVariableSetBuilder::new();
-        builder.make_variables(vec!["v1", "v2", "v3", "v4", "v5"]);
-        return builder.build();
-    }
 
     #[test]
     fn bdd_universe_anonymous() {
@@ -138,9 +132,9 @@ mod tests {
 
     #[test]
     fn bdd_universe_mk_const() {
-        let universe = mk_universe_with_5_variables();
-        let tt = universe.mk_true();
-        let ff = universe.mk_false();
+        let variables = mk_5_variable_set();
+        let tt = variables.mk_true();
+        let ff = variables.mk_false();
         assert!(tt.is_true());
         assert!(ff.is_false());
         assert_eq!(Bdd::mk_true(5), tt);
@@ -150,24 +144,24 @@ mod tests {
     #[test]
     #[should_panic]
     fn bdd_universe_mk_var_invalid_id() {
-        mk_universe_with_5_variables().mk_var(BddVariable(6));
+        mk_5_variable_set().mk_var(BddVariable(6));
     }
 
     #[test]
     #[should_panic]
     fn bdd_universe_mk_not_var_invalid_id() {
-        mk_universe_with_5_variables().mk_not_var(BddVariable(6));
+        mk_5_variable_set().mk_not_var(BddVariable(6));
     }
 
     #[test]
     #[should_panic]
     fn bdd_universe_mk_var_by_name_invalid_name() {
-        mk_universe_with_5_variables().mk_var_by_name("abc");
+        mk_5_variable_set().mk_var_by_name("abc");
     }
 
     #[test]
     #[should_panic]
     fn bdd_universe_mk_not_var_by_name_invalid_name() {
-        mk_universe_with_5_variables().mk_not_var_by_name("abc");
+        mk_5_variable_set().mk_not_var_by_name("abc");
     }
 }

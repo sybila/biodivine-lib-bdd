@@ -1,6 +1,7 @@
-use super::super::bdd_expression_parser::NOT_IN_VAR_NAME;
 use crate::{BddUniverse, BddVariable};
 use std::collections::{HashMap, HashSet};
+
+const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
 
 /// BDD universe builder is used to safely create BDD universes.
 pub struct BddUniverseBuilder {
@@ -65,60 +66,5 @@ impl BddUniverseBuilder {
             var_names: self.var_names,
             var_index_mapping: mapping,
         };
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    #[should_panic]
-    fn bdd_universe_builder_too_large() {
-        let mut builder = BddUniverseBuilder::new();
-        for i in 0..std::u16::MAX {
-            builder.make_variable(&format!("v{}", i));
-        }
-    }
-
-    #[test]
-    #[should_panic]
-    fn bdd_universe_builder_duplicate_variable() {
-        let mut builder = BddUniverseBuilder::new();
-        builder.make_variable("var1");
-        builder.make_variable("var1");
-    }
-
-    #[test]
-    fn bdd_universe_builder() {
-        let mut builder = BddUniverseBuilder::new();
-        let v1 = builder.make_variable("v1");
-        let v2 = builder.make_variable("v2");
-        let v3 = builder.make_variable("v3");
-        let universe = builder.build();
-        assert_eq!(3, universe.num_vars());
-        assert_eq!(Some(v1), universe.var_by_name("v1"));
-        assert_eq!(Some(v2), universe.var_by_name("v2"));
-        assert_eq!(Some(v3), universe.var_by_name("v3"));
-        assert_eq!(None, universe.var_by_name("v4"));
-    }
-
-    #[test]
-    fn bdd_universe_builder_batch() {
-        let mut builder = BddUniverseBuilder::new();
-        let vars = builder.make_variables(vec!["v1", "v2", "v3"]);
-        let universe = builder.build();
-        assert_eq!(3, universe.num_vars());
-        assert_eq!(Some(vars[0]), universe.var_by_name("v1"));
-        assert_eq!(Some(vars[1]), universe.var_by_name("v2"));
-        assert_eq!(Some(vars[2]), universe.var_by_name("v3"));
-        assert_eq!(None, universe.var_by_name("v4"));
-    }
-
-    #[test]
-    #[should_panic]
-    fn bdd_universe_builder_invalid_name() {
-        let mut builder = BddUniverseBuilder::new();
-        builder.make_variable("a^b");
     }
 }

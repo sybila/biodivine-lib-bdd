@@ -16,7 +16,6 @@
 //! leaves which need to be allocated and will dominate the memory usage of
 //! the benchmark.
 
-use super::super::{BddValuation, BddValuationIterator};
 use super::*;
 use rand::prelude::StdRng;
 use rand::{RngCore, SeedableRng};
@@ -82,9 +81,9 @@ impl BddOpTree {
         };
     }
 
-    /// Evaluate this op tree to BDD in the given universe.
-    fn eval_in(&self, universe: &BddUniverse) -> Bdd {
-        let mut formulas: Vec<Bdd> = self.leaves.iter().map(|v| universe.mk_var(*v)).collect();
+    /// Evaluate this op tree to `Bdd` using the given `BddVariableSet`.
+    fn eval_in(&self, variables: &BddVariableSet) -> Bdd {
+        let mut formulas: Vec<Bdd> = self.leaves.iter().map(|v| variables.mk_var(*v)).collect();
 
         for level in self.ops.iter() {
             let mut i = 0;
@@ -94,14 +93,14 @@ impl BddOpTree {
                 let b = &formulas[i + 1];
                 let op = &level[i / 2];
                 let result = match op.op {
-                    BddOp::AND => universe.mk_and(&a, &b),
-                    BddOp::OR => universe.mk_or(&a, &b),
-                    BddOp::XOR => universe.mk_xor(&a, &b),
-                    BddOp::IMP => universe.mk_imp(&a, &b),
-                    BddOp::IFF => universe.mk_iff(&a, &b),
+                    BddOp::AND => a.and(&b),
+                    BddOp::OR => a.or(&b),
+                    BddOp::XOR => a.xor(&b),
+                    BddOp::IMP => a.imp(&b),
+                    BddOp::IFF => a.iff(&b),
                 };
                 if op.negate {
-                    new_formulas.push(universe.mk_not(&result))
+                    new_formulas.push(result.not())
                 } else {
                     new_formulas.push(result);
                 }
@@ -113,9 +112,9 @@ impl BddOpTree {
         return formulas[0].clone();
     }
 
-    /// Evaluate this op tree with the specifies valuation.
+    /// Evaluate this op tree with the specified `BddValuation`.
     fn eval_in_valuation(&self, valuation: &BddValuation) -> bool {
-        let mut values: Vec<bool> = self.leaves.iter().map(|v| valuation.value(v)).collect();
+        let mut values: Vec<bool> = self.leaves.iter().map(|v| valuation.value(*v)).collect();
 
         for level in self.ops.iter() {
             let mut i = 0;
@@ -150,14 +149,14 @@ const FUZZ_SEEDS: [u64; 10] = [
 ];
 
 fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) {
-    let universe = BddUniverse::new_anonymous(num_vars);
+    let universe = BddVariableSet::new_anonymous(num_vars);
     let op_tree = BddOpTree::new_random(tree_height, num_vars, seed);
     let eval = op_tree.eval_in(&universe);
 
     for valuation in BddValuationIterator::new(num_vars) {
         assert_eq!(
             op_tree.eval_in_valuation(&valuation),
-            universe.eval_in(&eval, &valuation),
+            eval.eval_in(&valuation),
             "Error in valuation {:?}",
             valuation
         );

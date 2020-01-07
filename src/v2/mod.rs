@@ -1,15 +1,25 @@
 use std::collections::{HashMap, HashSet};
 
+pub mod boolean_expression;
+
 mod impl_bdd_boolean_ops;
+mod impl_bdd_export_dot;
 mod impl_bdd_serialisation;
 mod impl_bdd_util;
 
 mod impl_bdd_node;
 mod impl_bdd_pointer;
+mod impl_bdd_valuation;
 mod impl_bdd_variable;
 mod impl_bdd_variable_set;
 mod impl_bdd_variable_set_builder;
 
+mod macro_bdd;
+
+#[cfg(test)]
+mod test_bdd_logic_basic;
+#[cfg(test)]
+mod test_bdd_logic_fuzzing;
 #[cfg(test)]
 mod test_util;
 
@@ -20,12 +30,24 @@ const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')']
 /// An array-based encoding of the binary decision diagram implementing basic logical operations.
 ///
 /// To create `Bdd`s for atomic formulas, use a `BddVariableSet`.
-#[derive(Clone, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct Bdd(Vec<BddNode>);
 
 /// Identifies one of the variables that can appear as a decision condition in the `Bdd`.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct BddVariable(u16);
+
+/// Exactly describes one assignment of boolean values to variables of a `Bdd`.
+///
+/// It can be used as a witness of `Bdd` non-emptiness, since one can evaluate every `Bdd`
+/// in some corresponding valuation and get a `true/false` result.
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+pub struct BddValuation(Vec<bool>);
+
+/// Exhaustively iterates over all valuations with a certain number of variables.
+///
+/// Be aware of the exponential time complexity of such operation!
+pub struct BddValuationIterator(Option<BddValuation>);
 
 /// Maintains the set of variables that can appear in a `Bdd`.
 /// Used to create new `Bdd`s for basic formulas.
@@ -75,7 +97,7 @@ struct BddPointer(u32);
 /// pointers. Instead of variable id, we use the number of variables in the original
 /// `BddVariableSet`. This is consistent with the fact that we first condition on smallest
 /// variable ids. It can be also used for consistency checks inside the library.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 struct BddNode {
     pub var: BddVariable,
     pub low_link: BddPointer,

@@ -18,6 +18,13 @@ pub fn mk_small_test_bdd() -> Bdd {
     return bdd;
 }
 
+/// Make a new `BddVariableSet` with variables $v_1, v_2, v_3, v_4, v_5$.
+pub fn mk_5_variable_set() -> BddVariableSet {
+    let mut builder = BddVariableSetBuilder::new();
+    builder.make_variables(vec!["v1", "v2", "v3", "v4", "v5"]);
+    return builder.build();
+}
+
 pub fn load_expected_results(test_name: &str) -> String {
     return std::fs::read_to_string(format!("test_results/{}", test_name))
         .expect("Cannot open result file.");

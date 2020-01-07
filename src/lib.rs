@@ -22,20 +22,14 @@ use crate::bdd_pointer::BddPointer;
 use std::iter::Map;
 use std::ops::Range;
 
-mod bdd_dot_printer;
-mod bdd_expression_parser;
-mod bdd_macro;
 mod bdd_node;
 mod bdd_pointer;
-mod bdd_serialisation;
 mod bdd_universe_impl;
 mod bdd_valuation_impl;
 
 pub mod v2;
 
 pub mod tutorial;
-pub use bdd_expression_parser::parse_boolean_formula;
-pub use bdd_expression_parser::BooleanFormula;
 pub use bdd_universe_impl::BddUniverse;
 pub use bdd_universe_impl::BddUniverseBuilder;
 pub use bdd_valuation_impl::BddValuation;

@@ -1,13 +1,41 @@
-//! **(internal)** Simple export functions for printing BDDs as .dot files.
+//! **(internal)** Simple export functions for printing `Bdd`s as `.dot` files.
 
-use crate::Bdd;
+use super::*;
 use std::io::Write;
 
-/// Write given BDD into the output buffer as .dot graph. Use `var_names` to specify
+/// `.dot` export procedure for `Bdd`s.
+impl Bdd {
+    /// Output this `Bdd` as a `.dot` string into the given `output` writer.
+    ///
+    /// Variable names in the graph are resolved from the given `BddVariableSet`.
+    ///
+    /// If `zero_pruned` is true, edges leading to `zero` are not shown. This can greatly
+    /// simplify the graph without losing information.
+    pub fn write_as_dot_string(
+        &self,
+        output: &mut dyn Write,
+        variables: &BddVariableSet,
+        zero_pruned: bool,
+    ) -> Result<(), std::io::Error> {
+        return write_bdd_as_dot(output, self, &variables.var_names, zero_pruned);
+    }
+
+    /// Convert this `Bdd` to a `.dot` string.
+    ///
+    /// Variable names in the graph are resolved from the given `BddVariableSet`.
+    ///
+    /// If `zero_pruned` is true, edges leading to `zero` are not shown. This can greatly
+    /// simplify the graph without losing information.
+    pub fn to_dot_string(&self, variables: &BddVariableSet, zero_pruned: bool) -> String {
+        return bdd_to_dot_string(self, &variables.var_names, zero_pruned);
+    }
+}
+
+/// Write given `Bdd` into the output buffer as `.dot` graph. Use `var_names` to specify
 /// custom names for individual variables. If `pruned` is true, the output will only
 /// contain edges leading to the `1` terminal node (this is often much easier to read
 /// than the full graph while preserving all the information).
-pub fn write_bdd_as_dot(
+fn write_bdd_as_dot(
     output: &mut dyn Write,
     bdd: &Bdd,
     var_names: &Vec<String>,
@@ -66,7 +94,7 @@ pub fn write_bdd_as_dot(
 /// Converts the given BDD to a .dot graph string using given variable names.
 ///
 /// See also: [bdd_as_dot](fn.bdd_as_dot.html)
-pub fn bdd_to_dot_string(bdd: &Bdd, var_names: &Vec<String>, zero_pruned: bool) -> String {
+fn bdd_to_dot_string(bdd: &Bdd, var_names: &Vec<String>, zero_pruned: bool) -> String {
     let mut buffer: Vec<u8> = Vec::new();
     write_bdd_as_dot(&mut buffer, bdd, var_names, zero_pruned)
         .expect("Cannot write BDD to .dot string.");
@@ -75,39 +103,38 @@ pub fn bdd_to_dot_string(bdd: &Bdd, var_names: &Vec<String>, zero_pruned: bool) 
 
 #[cfg(test)]
 mod tests {
+    use super::super::test_util::{load_expected_results, mk_small_test_bdd};
     use super::*;
-    use crate::tests::{load_expected_results, mk_small_test_bdd};
-    use crate::BddUniverse;
 
     #[test]
     fn bdd_to_dot() {
         let bdd = mk_small_test_bdd();
-        let names: Vec<String> = vec!["a".into(), "b".into(), "c".into(), "d".into(), "e".into()];
-        let dot = bdd_to_dot_string(&bdd, &names, false);
+        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
+        let dot = bdd.to_dot_string(&variables, false);
         assert_eq!(load_expected_results("bdd_to_dot.dot"), dot);
     }
 
     #[test]
     fn bdd_to_dot_pruned() {
+        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
         let bdd = mk_small_test_bdd();
-        let names: Vec<String> = vec!["a".into(), "b".into(), "c".into(), "d".into(), "e".into()];
-        let dot = bdd_to_dot_string(&bdd, &names, true);
+        let dot = bdd.to_dot_string(&variables, true);
         assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);
     }
 
     #[test]
     fn bdd_universe_bdd_to_dot() {
-        let universe = BddUniverse::new(vec!["a", "b", "c", "d", "e"]);
-        let bdd = universe.eval_expression("c & !d");
-        let dot = universe.bdd_to_dot_string(&bdd, false);
+        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
+        let bdd = variables.eval_expression_string("c & !d");
+        let dot = bdd.to_dot_string(&variables, false);
         assert_eq!(load_expected_results("bdd_to_dot.dot"), dot);
     }
 
     #[test]
     fn bdd_universe_bdd_to_dot_pruned() {
-        let universe = BddUniverse::new(vec!["a", "b", "c", "d", "e"]);
-        let bdd = universe.eval_expression("c & !d");
-        let dot = universe.bdd_to_dot_string(&bdd, true);
+        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
+        let bdd = variables.eval_expression_string("c & !d");
+        let dot = bdd.to_dot_string(&variables, true);
         assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);
     }
 }
