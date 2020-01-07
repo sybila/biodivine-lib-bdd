@@ -38,5 +38,4 @@ mod tests {
         assert_eq!(universe.mk_imp(&v1, &v2), bdd!(universe, v1 => v2));
         assert_eq!(universe.mk_iff(&v1, &v2), bdd!(universe, v1 <=> v2));
     }
-
 }

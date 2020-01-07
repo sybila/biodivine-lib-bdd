@@ -1,9 +1,12 @@
+//! **(internal)** Implementation of basic logical operators for `Bdd`s using the `apply` function.
+
 use super::*;
 use std::cmp::min;
 
+/// Basic boolean logical operations for `Bdd`s:
+/// $\neg, \land, \lor, \Rightarrow, \Leftrightarrow, \oplus$.
 impl Bdd {
-    /// Create a BDD corresponding to the $\neg \phi$ formula, where $\phi$ is a specific
-    /// formula given by this BDD.
+    /// Create a `Bdd` corresponding to the $\neg \phi$ formula, where $\phi$ is this `Bdd`.
     pub fn not(&self) -> Bdd {
         if self.is_true() {
             return Bdd::mk_false(self.num_vars());
@@ -20,8 +23,8 @@ impl Bdd {
         }
     }
 
-    /// Create a BDD corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
-    /// are two specific BDDs.
+    /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
+    /// are the two given `Bdd`s.
     pub fn and(&self, right: &Bdd) -> Bdd {
         return apply(self, right, |l, r| match (l, r) {
             (Some(true), Some(true)) => Some(true),
@@ -31,8 +34,8 @@ impl Bdd {
         });
     }
 
-    /// Create a BDD corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
-    /// are two specific BDDs.
+    /// Create a `Bdd` corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
+    /// are the two given `Bdd`s.
     pub fn or(&self, right: &Bdd) -> Bdd {
         return apply(self, right, |l, r| match (l, r) {
             (Some(false), Some(false)) => Some(false),
@@ -42,8 +45,8 @@ impl Bdd {
         });
     }
 
-    /// Create a BDD corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
-    /// are two specific BDDs.
+    /// Create a `Bdd` corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
+    /// are the two given `Bdd`s.
     pub fn imp(&self, right: &Bdd) -> Bdd {
         return apply(self, right, |l, r| match (l, r) {
             (Some(true), Some(false)) => Some(false),
@@ -53,8 +56,8 @@ impl Bdd {
         });
     }
 
-    /// Create a BDD corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
-    /// are two specific BDDs.
+    /// Create a `Bdd` corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
+    /// are the two given `Bdd`s.
     pub fn iff(&self, right: &Bdd) -> Bdd {
         return apply(self, right, |l, r| match (l, r) {
             (Some(l), Some(r)) => Some(l == r),
@@ -62,8 +65,8 @@ impl Bdd {
         });
     }
 
-    /// Create a BDD corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
-    /// are two specific BDDs.
+    /// Create a `Bdd` corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
+    /// are the two given `Bdd`s.
     pub fn xor(&self, right: &Bdd) -> Bdd {
         return apply(self, right, |l, r| match (l, r) {
             (Some(l), Some(r)) => Some(l ^ r),

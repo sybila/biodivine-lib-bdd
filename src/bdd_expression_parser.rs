@@ -362,5 +362,4 @@ mod tests {
     fn parse_boolean_formula_invalid_formula_2() {
         parse_boolean_formula("a & c d & b").unwrap();
     }
-
 }

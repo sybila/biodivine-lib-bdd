@@ -121,5 +121,4 @@ mod tests {
         let mut builder = BddUniverseBuilder::new();
         builder.make_variable("a^b");
     }
-
 }

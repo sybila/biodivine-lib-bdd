@@ -1,3 +1,5 @@
+//! **(internal)** Implementation of the `BddVariableSetBuilder`.
+
 use super::*;
 use std::collections::HashMap;
 
@@ -10,12 +12,13 @@ impl BddVariableSetBuilder {
         };
     }
 
-    /// Create a new variable with the given `name`. Returns a BDD variable
+    /// Create a new variable with the given `name`. Returns a `BddVariable`
     /// instance that can be later used to create and query actual BDDs.
     ///
     /// *Panics*:
     ///  - Each variable name has to be unique.
     ///  - Currently, there can be at most 65535 variables.
+    ///  - The name must not contain `!`, `&`, `|`, `^`, `=`, `<`, `>`, `(` or `)`.
     pub fn make_variable(&mut self, name: &str) -> BddVariable {
         let new_variable_id = self.var_names.len();
         if new_variable_id >= (std::u16::MAX - 1) as usize {
@@ -38,7 +41,7 @@ impl BddVariableSetBuilder {
         return BddVariable(new_variable_id as u16);
     }
 
-    /// Similar to make_variable, but allows creating multiple variables at the same time.
+    /// Similar to `make_variable`, but allows creating multiple variables at the same time.
     pub fn make_variables(&mut self, names: Vec<&str>) -> Vec<BddVariable> {
         return names
             .into_iter()
@@ -114,5 +117,4 @@ mod tests {
         let mut builder = BddVariableSetBuilder::new();
         builder.make_variable("a^b");
     }
-
 }

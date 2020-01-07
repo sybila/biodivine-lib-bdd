@@ -1,12 +1,4 @@
-//! **(internal)** BDD pointer identifies one of the nodes in the associated BDD array.
-//!
-//! BDD pointers are an internal type-safe wrapper around indices into BDD arrays.
-//! Outside this crate, no one should know or care about their existence. Since
-//! we can't reasonably expect a BDD to be larger than 2^32 right now, the pointer is
-//! represented as `u32` instead of `usize`, because `usize` can be 64-bits and pointers
-//! represent most of the memory consumed by our BDDs.
-//!
-//!
+//! **(internal)** Implementation of the `BddPointer`.
 
 use super::*;
 use std::fmt::{Display, Error, Formatter};
@@ -80,12 +72,12 @@ impl BddPointer {
         }
     }
 
-    // Convert to little endian bytes
+    /// Convert to little endian bytes
     pub fn to_le_bytes(&self) -> [u8; 4] {
         return self.0.to_le_bytes();
     }
 
-    // Read from little endian byte representation
+    /// Read from little endian byte representation
     pub fn from_le_bytes(bytes: [u8; 4]) -> BddPointer {
         return BddPointer(u32::from_le_bytes(bytes));
     }

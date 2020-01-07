@@ -1,8 +1,11 @@
-use super::*;
-use std::io::{Write, Read};
+//! **(internal)** Implementation of the string and byte serialisation procedures for `Bdd`s.
 
+use super::*;
+use std::io::{Read, Write};
+
+/// Serialisation and deserialisation methods for `Bdd`s.
 impl Bdd {
-    /// Write a BDD into the given writer using a simple string format.
+    /// Write this `Bdd` into the given `output` writer using a simple string format.
     fn write_as_string(&self, output: &mut dyn Write) -> Result<(), std::io::Error> {
         write!(output, "|")?;
         for node in self.nodes() {
@@ -11,7 +14,7 @@ impl Bdd {
         return Ok(());
     }
 
-    /// Read a BDD from the given reader, assuming a simple string format.
+    /// Read a `Bdd` from the given `input` reader, assuming a simple string format.
     fn read_as_string(input: &mut dyn Read) -> Result<Bdd, String> {
         let mut data = String::new();
         lift_err(input.read_to_string(&mut data))?;
@@ -27,7 +30,8 @@ impl Bdd {
         }
         return Ok(Bdd(result));
     }
-    /// Write a BDD into the given writer using a simple little-endian binary encoding.
+
+    /// Write this `Bdd` into the given `output` writer using a simple little-endian binary encoding.
     pub fn write_as_bytes(&self, output: &mut dyn Write) -> Result<(), std::io::Error> {
         for node in self.nodes() {
             output.write(&node.var.to_le_bytes())?;
@@ -37,7 +41,7 @@ impl Bdd {
         return Ok(());
     }
 
-    /// Read a BDD from a given reader using a simple little-endian binary encoding.
+    /// Read a `Bdd` from a given `input` reader using a simple little-endian binary encoding.
     pub fn read_as_bytes(input: &mut dyn Read) -> Result<Bdd, std::io::Error> {
         let mut result = Vec::new();
         let mut buf = [0u8; 10];
@@ -51,7 +55,7 @@ impl Bdd {
         return Ok(Bdd(result));
     }
 
-    /// Convert a BDD to a serialized string format.
+    /// Convert this `Bdd` to a serialized string.
     pub fn to_string(&self) -> String {
         let mut buffer: Vec<u8> = Vec::new();
         self.write_as_string(&mut buffer)
@@ -59,12 +63,12 @@ impl Bdd {
         return String::from_utf8(buffer).expect("Invalid UTF formatting in string.");
     }
 
-    /// Read a BDD from a serialized string.
+    /// Read a `Bdd` from a serialized string.
     pub fn from_string(bdd: &str) -> Bdd {
         return Bdd::read_as_string(&mut bdd.as_bytes()).expect("Invalid BDD string.");
     }
 
-    /// Convert a BDD into a byte vector.
+    /// Convert this `Bdd` to a byte vector.
     pub fn to_bytes(&self) -> Vec<u8> {
         let mut buffer = Vec::new();
         self.write_as_bytes(&mut buffer)
@@ -72,7 +76,7 @@ impl Bdd {
         return buffer;
     }
 
-    /// Read a BDD from a byte vector.
+    /// Read a `Bdd` from a byte vector.
     pub fn from_bytes(data: &mut &[u8]) -> Bdd {
         return Bdd::read_as_bytes(data).expect("Error reading bytes.");
     }
@@ -84,8 +88,8 @@ fn lift_err<T, E: ToString>(item: Result<T, E>) -> Result<T, String> {
 
 #[cfg(test)]
 mod tests {
+    use super::super::test_util::{load_expected_results, mk_small_test_bdd};
     use super::*;
-    use crate::tests::{load_expected_results, mk_small_test_bdd};
 
     #[test]
     fn bdd_to_string() {
@@ -107,5 +111,4 @@ mod tests {
         let bdd_bytes = bdd.to_bytes();
         assert_eq!(bdd, Bdd::from_bytes(&mut &bdd_bytes[..]));
     }
-
 }

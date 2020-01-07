@@ -1,7 +1,7 @@
 //! # Serialising and visualising `Bdd`-s
 //!
-//! We currently provide tree ways to inspect BDDs. Human-friendly way is to export the
-//! BDD as a **`.dot` graph file** which can be then rendered into an SVG using things like
+//! We currently provide three ways to inspect BDDs. Human-friendly way is to export the
+//! BDD as a **`.dot` graph file** which can be then rendered into an SVG using tools like
 //! [graph-viz](http://www.webgraphviz.com/). Asides from .dot, we have two very basic
 //! formats for exporting BDDs. They both essentially just dump the corresponding node
 //! array. However, the difference is that one format is **string-based**, which means it
@@ -26,7 +26,7 @@
 //! ```
 //!
 //! Both serialisation and deserialisation methods have a "streaming" variant where
-//! you can provide your own custom `Read`/`Write` objects.
+//! you can provide your own custom `Read`/`Write` implementations.
 //!
 //! ## `u8` serialisation
 //!
@@ -61,6 +61,6 @@
 //!
 //! The method takes an extra boolean parameter, `pruned`. If set to true, only positive
 //! edges will be included in the graph. This makes it much more readable, since the
-//! negative edges can be inferred anyway.
+//! negative edges can be inferred from context anyway.
 //!
 //!

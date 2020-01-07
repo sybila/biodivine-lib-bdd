@@ -1,22 +1,4 @@
-//! **(internal)** BDD nodes represent individual vertices of the BDD directed acyclic graph.
-//!
-//! A BDD node can be a terminal, in which case it is either `0` or `1`, or a decision node,
-//! in which case it contains a variable $v_i$ which it conditions upon and two pointers
-//! (`low` and `high`) to other nodes in the same BDD:
-//!
-//! ```mermaid
-//! graph LR
-//!     id1($v_i$)
-//!     id2($v_j$)
-//!     id3($v_k$)
-//!     id1 -->|low| id2
-//!     id1 -->|high| id3
-//! ```
-//!
-//! Internally, we represent terminal nodes using the same structure, giving them cyclic
-//! pointers. Instead of variable id, we use the number of variables in the BDD universe.
-//! This is consistent with the fact that we first condition on smallest variable ids.
-//! It can be also used for consistency checks inside the library.
+//! **(internal)** Implementation of the `BddNode`.
 
 use super::*;
 
@@ -42,8 +24,8 @@ impl BddNode {
     /// Make a new general node.
     ///
     /// *Assumptions:*
-    ///  - `low` and `high` are pointers in the same BDD array.
-    ///  - Returned node is added to the same BDD where `low` and `high` are pointers.
+    ///  - `low` and `high` are pointers in the same `Bdd` array.
+    ///  - Returned node will be added to the same `Bdd` where `low` and `high` are pointers.
     pub fn mk_node(var: BddVariable, low_link: BddPointer, high_link: BddPointer) -> BddNode {
         return BddNode {
             var,
@@ -112,5 +94,4 @@ mod tests {
         assert!(!node.is_one());
         assert!(!node.is_zero());
     }
-
 }

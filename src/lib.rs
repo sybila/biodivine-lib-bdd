@@ -202,5 +202,4 @@ mod tests {
         );
         assert_eq!(BddVariable(2), bdd.var_of(BddPointer::from_index(3)));
     }
-
 }

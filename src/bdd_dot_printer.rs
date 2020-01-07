@@ -110,5 +110,4 @@ mod tests {
         let dot = universe.bdd_to_dot_string(&bdd, true);
         assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);
     }
-
 }

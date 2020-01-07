@@ -77,7 +77,7 @@
 //! However, manipulating BDDs in this way can be quite cumbersome and verbose. In next section,
 //! we show how to combine BDDs in a more idiomatic way using standard logical operators.
 //!
-//! Notice that `BddUniverse` can be cloned. This creates a new universe with the exact same set
+//! **Notice that `BddUniverse` can be cloned.** This creates a new universe with the exact same set
 //! of variables. The `BddVariable` and `Bdd` objects can be then used with both the original
 //! and cloned universe interchangably. `Bdd` objects are also clonable (since they are just
 //! vectors of BDD nodes) and can be used with any compatible BDD universe. This way, you can

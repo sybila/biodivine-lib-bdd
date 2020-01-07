@@ -1,30 +1,34 @@
 use std::collections::{HashMap, HashSet};
 
-mod bdd_ops;
-mod bdd_util;
-mod bdd_node_impl;
-mod bdd_pointer_impl;
-mod bdd_variable_impl;
-mod bdd_serialisation;
-mod bdd_variable_set_builder_impl;
-mod bdd_variable_set_impl;
+mod impl_bdd_boolean_ops;
+mod impl_bdd_serialisation;
+mod impl_bdd_util;
+
+mod impl_bdd_node;
+mod impl_bdd_pointer;
+mod impl_bdd_variable;
+mod impl_bdd_variable_set;
+mod impl_bdd_variable_set_builder;
+
+#[cfg(test)]
+mod test_util;
 
 /// Characters that cannot appear in the variable name
 /// (based on possible tokens in a boolean expression).
 const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
 
-/// BDD object is an array-based encoding of the binary decision diagram. Basic BDDs
-/// are created using the `BddVariableSet` object.
+/// An array-based encoding of the binary decision diagram implementing basic logical operations.
+///
+/// To create `Bdd`s for atomic formulas, use a `BddVariableSet`.
 #[derive(Clone, Debug, Eq, PartialEq, Hash)]
 pub struct Bdd(Vec<BddNode>);
 
-/// BDD variable identifies one of the variables that can appear as a decision condition
-/// in the BDDs.
+/// Identifies one of the variables that can appear as a decision condition in the `Bdd`.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct BddVariable(u16);
 
-/// BDD variable set holds the set of variables that can appear in a BDD. Using
-/// this object, you can create new BDDs for basic formulas.
+/// Maintains the set of variables that can appear in a `Bdd`.
+/// Used to create new `Bdd`s for basic formulas.
 #[derive(Clone)]
 pub struct BddVariableSet {
     num_vars: u16,
@@ -32,17 +36,45 @@ pub struct BddVariableSet {
     var_index_mapping: HashMap<String, u16>,
 }
 
-/// BDD variables builder is used to safely create BDD variable set.
+/// Used to safely initialize `BddVariableSet`.
+///
+/// Note that some characters are not allowed in variable names (to allow safe serialisation,
+/// formula parsers and export as `.dot`, etc.).
+/// These characters are `!`, `&`, `|`, `^`, `=`, `<`, `>`, `(` and `)`.
 pub struct BddVariableSetBuilder {
     var_names: Vec<String>,
     var_names_set: HashSet<String>,
 }
 
-/// **(internal)** BDD pointer is an index into the BDD node array representation.
+/// **(internal)** A type-safe index into the `Bdd` node array representation.
+///
+/// BDD pointers are an internal type-safe wrapper around indices into BDD arrays.
+/// Outside this crate, no one should know or care about their existence. Since
+/// we can't reasonably expect a BDD to be larger than `2^32` right now, the pointer is
+/// represented as `u32` instead of `usize`, because `usize` can be 64-bits and pointers
+/// represent most of the memory consumed by our BDDs.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 struct BddPointer(u32);
 
-/// **(internal)** BDD nodes represent individual vertices of the BDD directed acyclic graph.
+/// **(internal)** Representation of individual vertices of the `Bdd` directed acyclic graph.
+///
+/// A `BddNode` can be a terminal, in which case it is either `0` or `1`, or a decision node,
+/// in which case it contains a variable $v_i$ which it conditions upon and two pointers
+/// (`low` and `high`) to other nodes in the same `Bdd`:
+///
+/// ```mermaid
+/// graph LR
+///     id1($v_i$)
+///     id2($v_j$)
+///     id3($v_k$)
+///     id1 -->|low| id2
+///     id1 -->|high| id3
+/// ```
+///
+/// Internally, we represent terminal nodes using the same structure, giving them cyclic
+/// pointers. Instead of variable id, we use the number of variables in the original
+/// `BddVariableSet`. This is consistent with the fact that we first condition on smallest
+/// variable ids. It can be also used for consistency checks inside the library.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 struct BddNode {
     pub var: BddVariable,

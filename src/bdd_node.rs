@@ -121,5 +121,4 @@ mod tests {
         assert!(!node.is_one());
         assert!(!node.is_zero());
     }
-
 }

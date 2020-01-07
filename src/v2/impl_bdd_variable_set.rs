@@ -1,7 +1,9 @@
+//! **(internal)** Implementation of the `BddVariableSet`.
+
 use super::*;
 
 impl BddVariableSet {
-    /// Create a new BDD variable set with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
+    /// Create a new `BddVariableSet` with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
     /// the `num_vars` parameter.
     pub fn new_anonymous(num_vars: u16) -> BddVariableSet {
         if num_vars >= (std::u16::MAX - 1) {
@@ -17,11 +19,10 @@ impl BddVariableSet {
         };
     }
 
-    /// Create a new BDD variable set with the given named variables. Same as using the
-    /// `BddVariablesBuilder` with this name vector, but the `BddVariable` objects need to be
-    /// acquired after creating the set.
+    /// Create a new `BddVariableSet` with the given named variables. Same as using the
+    /// `BddVariablesBuilder` with this name vector, but no `BddVariable` objects are returned.
     ///
-    /// Panics: `vars` must contain unique names which are allowed as variable names.
+    /// *Panics:* `vars` must contain unique names which are allowed as variable names.
     pub fn new(vars: Vec<&str>) -> BddVariableSet {
         let mut builder = BddVariableSetBuilder::new();
         builder.make_variables(vars);
@@ -33,33 +34,33 @@ impl BddVariableSet {
         return self.num_vars;
     }
 
-    /// Create a BDD variable based on a variable name. If the name is not valid
+    /// Create a `BddVariable` based on a variable name. If the name does not appear
     /// in this set, return `None`.
     pub fn var_by_name(&self, name: &str) -> Option<BddVariable> {
         return self.var_index_mapping.get(name).map(|i| BddVariable(*i));
     }
 
-    /// Provides a vector of all BDD variables in this set.
+    /// Provides a vector of all `BddVariable`s in this set.
     pub fn variables(&self) -> Vec<BddVariable> {
         return (0..self.num_vars).map(|i| BddVariable(i)).collect();
     }
 
-    /// Obtain the name of a specific BDD variable.
+    /// Obtain the name of a specific `BddVariable`.
     pub fn name_of(&self, variable: BddVariable) -> String {
         return self.var_names[variable.0 as usize].clone();
     }
 
-    /// Create a BDD corresponding to the `true` formula.
+    /// Create a `Bdd` corresponding to the `true` formula.
     pub fn mk_true(&self) -> Bdd {
         return Bdd::mk_true(self.num_vars);
     }
 
-    /// Create a BDD corresponding to the `false` formula.
+    /// Create a `Bdd` corresponding to the `false` formula.
     pub fn mk_false(&self) -> Bdd {
         return Bdd::mk_false(self.num_vars);
     }
 
-    /// Create a BDD corresponding to the $v$ formula where `v` is a specific variable in
+    /// Create a `Bdd` corresponding to the $v$ formula where `v` is a specific variable in
     /// this set.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
@@ -169,5 +170,4 @@ mod tests {
     fn bdd_universe_mk_not_var_by_name_invalid_name() {
         mk_universe_with_5_variables().mk_not_var_by_name("abc");
     }
-
 }

@@ -107,5 +107,4 @@ mod tests {
         let bdd_bytes = bdd.to_bytes();
         assert_eq!(bdd, Bdd::from_bytes(&mut &bdd_bytes[..]));
     }
-
 }
