@@ -1,199 +1,105 @@
-//! **What is this?** This crate provides basic implementation of **Binary Decision Diagrams**
-//! (BDD), or more specifically, Reduced Ordered Binary Decision Diagrams (ROBDD). Using
-//! `biodivine-lib-bdd`, you can safely create, manipulate and serialize BDDs, even in
-//! multi-threaded environment. BDDs can be used to represent Boolean functions (or formulas)
-//! as well as Boolean relations or general sets of Boolean vectors.
-//!
-//! **Why is this useful?** Compared to other similar libraries, our BDDs do not share nodes in
-//! one large graph, but each BDD has its own separate memory. While this prevents some
-//! optimizations (and in the worst case it can increase memory usage significantly), it also
-//! allows us to work with individual BDDs in a multi-threaded context easily and to avoid the
-//! need for garbage collection or reference counting inside the BDDs. Serialisation is also
-//! trivial. In terms of performance, this approach cannot outperform state of the art (thread
-//! unsafe, garbage collected) implementations, at least not in ideal conditions (large enough
-//! cache, low pressure on GC), but even in the ideal conditions we seem to be at most 2-3x slower.
-//! In more favourable instances, we can even match or outperform such implementations.
-//!
-//! To quickly learn about what are BDDs and how to use this crate, check out the
-//! [tutorial](./tutorial/index.html) module. It contains a wide range of examples.
+use std::collections::{HashMap, HashSet};
 
-use crate::bdd_node::BddNode;
-use crate::bdd_pointer::BddPointer;
-use std::iter::Map;
-use std::ops::Range;
+pub mod boolean_expression;
 
-mod bdd_node;
-mod bdd_pointer;
-mod bdd_universe_impl;
-mod bdd_valuation_impl;
+mod impl_bdd_boolean_ops;
+mod impl_bdd_export_dot;
+mod impl_bdd_serialisation;
+mod impl_bdd_util;
 
-pub mod v2;
+mod impl_bdd_node;
+mod impl_bdd_pointer;
+mod impl_bdd_valuation;
+mod impl_bdd_variable;
+mod impl_bdd_variable_set;
+mod impl_bdd_variable_set_builder;
 
-pub mod tutorial;
-pub use bdd_universe_impl::BddUniverse;
-pub use bdd_universe_impl::BddUniverseBuilder;
-pub use bdd_valuation_impl::BddValuation;
-pub use bdd_valuation_impl::BddValuationIterator;
-use std::fmt::{Display, Error, Formatter};
-use std::slice::Iter;
-
-/// BDD variable identifies one of the variables in the associated BDD universe.
-///
-/// Usage example: TODO.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct BddVariable(u16);
-
-impl Display for BddVariable {
-    fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
-        f.write_fmt(format_args!("{}", self.0))
-    }
-}
-
-impl BddVariable {
-    // Convert to little endian bytes
-    pub fn to_le_bytes(&self) -> [u8; 2] {
-        return self.0.to_le_bytes();
-    }
-
-    // Read from little endian byte representation
-    pub fn from_le_bytes(bytes: [u8; 2]) -> BddVariable {
-        return BddVariable(u16::from_le_bytes(bytes));
-    }
-}
-
-/// BDD object is an array-based encoding of the binary decision diagram.
-///
-/// Usage example: TODO.
-#[derive(Debug, Eq, PartialEq, Clone)]
-pub struct Bdd(Vec<BddNode>);
-
-impl Bdd {
-    /// The number of nodes in this BDD. (Do not confuse with cardinality!)
-    pub fn size(&self) -> usize {
-        return self.0.len();
-    }
-
-    /// Number of variables in the corresponding BDD universe.
-    pub fn num_vars(&self) -> u16 {
-        // Assert: every BDD is not empty - it has at least the terminal zero node.
-        return self.0[0].var.0;
-    }
-
-    /// **(internal)** Pointer to the root of the decision diagram.
-    fn root_pointer(&self) -> BddPointer {
-        return BddPointer::from_index(self.0.len() - 1);
-    }
-
-    /// **(internal)** Get the low link of the node at a specified location.
-    fn low_link_of(&self, node: BddPointer) -> BddPointer {
-        return self.0[node.to_index()].low_link;
-    }
-
-    /// **(internal)** Get the high link of the node at a specified location.
-    fn high_link_of(&self, node: BddPointer) -> BddPointer {
-        return self.0[node.to_index()].high_link;
-    }
-
-    /// **(internal)** Get the conditioning variable of the node at a specified location.
-    ///
-    /// *Pre:* `node` is not a terminal node.
-    fn var_of(&self, node: BddPointer) -> BddVariable {
-        if cfg!(shields_up) && (node.is_one() || node.is_zero()) {
-            panic!("Terminal nodes don't have a conditioning variable!");
-        }
-        return self.0[node.to_index()].var;
-    }
-
-    /// **(internal)** Create a new BDD for the `false` formula.
-    fn mk_false(num_vars: u16) -> Bdd {
-        return Bdd(vec![BddNode::mk_zero(num_vars)]);
-    }
-
-    /// **(internal)** Create a new BDD for the `true` formula.
-    fn mk_true(num_vars: u16) -> Bdd {
-        return Bdd(vec![BddNode::mk_zero(num_vars), BddNode::mk_one(num_vars)]);
-    }
-
-    /// **(internal)** True if this BDD is exactly the `true` formula.
-    fn is_true(&self) -> bool {
-        return self.0.len() == 2;
-    }
-
-    /// **(internal)** True if this BDD is exactly the `false` formula.
-    fn is_false(&self) -> bool {
-        return self.0.len() == 1;
-    }
-
-    /// **(internal)** Add a new node to an existing BDD, making the new node the root of the BDD.
-    fn push_node(&mut self, node: BddNode) {
-        self.0.push(node);
-    }
-
-    /// **(internal)** Create an iterator over all pointers of the BDD (including terminals!).
-    ///
-    /// The iteration order is the same as the underlying representation, so you can expect
-    /// terminals to be the first two nodes.
-    fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
-        return (0..self.size()).map(BddPointer::from_index);
-    }
-
-    /// **(internal)** Create an iterator over all nodes of the BDD (including terminals).
-    fn nodes(&self) -> Iter<BddNode> {
-        return self.0.iter();
-    }
-}
+mod macro_bdd;
 
 #[cfg(test)]
-mod tests {
-    use super::*;
+mod test_bdd_logic_basic;
+#[cfg(test)]
+mod test_bdd_logic_fuzzing;
+#[cfg(test)]
+mod test_util;
 
-    //TODO: Add tests on DFS postorder of created BDDs
+/// Characters that cannot appear in the variable name
+/// (based on possible tokens in a boolean expression).
+const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
 
-    /// A small BDD over variables $v_1, v_2, v_3, v_4, v_5$ corresponding to the formula $(v_3 \land \neg v_4)$
-    pub fn mk_small_test_bdd() -> Bdd {
-        let mut bdd = Bdd::mk_true(5);
-        bdd.push_node(BddNode::mk_node(
-            BddVariable(3), // !v4
-            BddPointer::one(),
-            BddPointer::zero(),
-        ));
-        bdd.push_node(BddNode::mk_node(
-            BddVariable(2), // v3
-            BddPointer::zero(),
-            bdd.root_pointer(),
-        ));
-        return bdd;
-    }
+/// An array-based encoding of the binary decision diagram implementing basic logical operations.
+///
+/// To create `Bdd`s for atomic formulas, use a `BddVariableSet`.
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+pub struct Bdd(Vec<BddNode>);
 
-    pub fn load_expected_results(test_name: &str) -> String {
-        return std::fs::read_to_string(format!("test_results/{}", test_name))
-            .expect("Cannot open result file.");
-    }
+/// Identifies one of the variables that can appear as a decision condition in the `Bdd`.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct BddVariable(u16);
 
-    #[test]
-    fn bdd_impl() {
-        let bdd = mk_small_test_bdd();
+/// Exactly describes one assignment of boolean values to variables of a `Bdd`.
+///
+/// It can be used as a witness of `Bdd` non-emptiness, since one can evaluate every `Bdd`
+/// in some corresponding valuation and get a `true/false` result.
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+pub struct BddValuation(Vec<bool>);
 
-        assert_eq!(4, bdd.size());
-        assert_eq!(5, bdd.num_vars());
-        assert_eq!(BddPointer::from_index(3), bdd.root_pointer());
-        assert_eq!(
-            BddPointer::one(),
-            bdd.low_link_of(BddPointer::from_index(2))
-        );
-        assert_eq!(
-            BddPointer::zero(),
-            bdd.high_link_of(BddPointer::from_index(2))
-        );
-        assert_eq!(BddVariable(3), bdd.var_of(BddPointer::from_index(2)));
-        assert_eq!(
-            BddPointer::zero(),
-            bdd.low_link_of(BddPointer::from_index(3))
-        );
-        assert_eq!(
-            BddPointer::from_index(2),
-            bdd.high_link_of(BddPointer::from_index(3))
-        );
-        assert_eq!(BddVariable(2), bdd.var_of(BddPointer::from_index(3)));
-    }
+/// Exhaustively iterates over all valuations with a certain number of variables.
+///
+/// Be aware of the exponential time complexity of such operation!
+pub struct BddValuationIterator(Option<BddValuation>);
+
+/// Maintains the set of variables that can appear in a `Bdd`.
+/// Used to create new `Bdd`s for basic formulas.
+#[derive(Clone)]
+pub struct BddVariableSet {
+    num_vars: u16,
+    var_names: Vec<String>,
+    var_index_mapping: HashMap<String, u16>,
+}
+
+/// Used to safely initialize `BddVariableSet`.
+///
+/// Note that some characters are not allowed in variable names (to allow safe serialisation,
+/// formula parsers and export as `.dot`, etc.).
+/// These characters are `!`, `&`, `|`, `^`, `=`, `<`, `>`, `(` and `)`.
+pub struct BddVariableSetBuilder {
+    var_names: Vec<String>,
+    var_names_set: HashSet<String>,
+}
+
+/// **(internal)** A type-safe index into the `Bdd` node array representation.
+///
+/// BDD pointers are an internal type-safe wrapper around indices into BDD arrays.
+/// Outside this crate, no one should know or care about their existence. Since
+/// we can't reasonably expect a BDD to be larger than `2^32` right now, the pointer is
+/// represented as `u32` instead of `usize`, because `usize` can be 64-bits and pointers
+/// represent most of the memory consumed by our BDDs.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+struct BddPointer(u32);
+
+/// **(internal)** Representation of individual vertices of the `Bdd` directed acyclic graph.
+///
+/// A `BddNode` can be a terminal, in which case it is either `0` or `1`, or a decision node,
+/// in which case it contains a variable $v_i$ which it conditions upon and two pointers
+/// (`low` and `high`) to other nodes in the same `Bdd`:
+///
+/// ```mermaid
+/// graph LR
+///     id1($v_i$)
+///     id2($v_j$)
+///     id3($v_k$)
+///     id1 -->|low| id2
+///     id1 -->|high| id3
+/// ```
+///
+/// Internally, we represent terminal nodes using the same structure, giving them cyclic
+/// pointers. Instead of variable id, we use the number of variables in the original
+/// `BddVariableSet`. This is consistent with the fact that we first condition on smallest
+/// variable ids. It can be also used for consistency checks inside the library.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+struct BddNode {
+    pub var: BddVariable,
+    pub low_link: BddPointer,
+    pub high_link: BddPointer,
 }
