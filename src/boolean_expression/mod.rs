@@ -1,4 +1,4 @@
-//! Boolean expressions are a simple structures that represent boolean formulas explicitly.
+//! Boolean expressions are simple structures that represent boolean formulas explicitly.
 //!
 //! They can be parsed from a string representation (using `TryFrom`) and used to create
 //! complex `Bdd`s:

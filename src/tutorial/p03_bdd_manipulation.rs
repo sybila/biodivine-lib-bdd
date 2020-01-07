@@ -1,42 +1,64 @@
-//! # Manipulating `Bdd`-s idiomatically
+//! # Manipulating `Bdd`s idiomatically
 //!
-//! Creating BDDs using the explicit fuctions provided by the `BddUniverse` can be quite
-//! cumbersome. Fortunately, there are two ways to simplify this process significantly.
+//! There are multiple ways of creating `Bdd`s representing complex boolean formulas, each
+//! useful in different situations.
+//!
+//! ## Direct method calls
+//!
+//! Once you have created the basic formulas, you can combine them using the methods of
+//! the `Bdd` struct into more complex formulas:
+//!
+//! ```rust
+//! use biodivine_lib_bdd::BddVariableSet;
+//!
+//! let vars = BddVariableSet::new(vec!["a", "b", "c"]);
+//! let a = vars.mk_var_by_name("a");
+//! let b = vars.mk_var_by_name("b");
+//! let c = vars.mk_var_by_name("c");
+//!
+//! let a_and_b = a.and(&b);
+//! let b_or_c = b.or(&c);
+//! let a_and_b_not_eq_b_or_c = a_and_b.iff(&b_or_c).not();
+//! ```
+//!
+//! Sadly, this can be quite cumbersome for large formulas. Thankfully, there are easier
+//! ways to manipulate `Bdd`s.
 //!
 //! ## Boolean expressions
 //!
-//! Once you have a `BddUniverse` ready, the most basic way to quickly create complex BDDs
+//! Once you have a `BddVariableSet` ready, the most basic way to quickly create complex `Bdd`s
 //! is to use our custom Boolean expression language:
 //!
 //! ```rust
-//! use biodivine_lib_bdd::{BooleanFormula, BddUniverse};
+//! use biodivine_lib_bdd::BddVariableSet;
 //! use std::convert::TryFrom;
+//! use biodivine_lib_bdd::boolean_expression::BooleanExpression;
 //!
-//! let universe = BddUniverse::new(vec!["a", "b", "c"]);
+//! let variables = BddVariableSet::new(vec!["a", "b", "c"]);
 //!
-//! let foo = universe.eval_expression("a & (!b => c ^ a)");
+//! let f1 = variables.eval_expression_string("a & (!b => c ^ a)");
 //!
-//! let formula = BooleanFormula::try_from("(b | a ^ c) & a").unwrap();
-//! let goo = universe.eval_formula(&formula);
+//! let expression = BooleanExpression::try_from("(b | a ^ c) & a").unwrap();
+//! let f2 = variables.eval_expression(&expression);
 //!
-//! assert_eq!(foo, goo);
+//! assert_eq!(f1, f2);
 //! ```
 //!
 //! In these expressions, you can use all common logical operators (in the order of precedence:
-//! `<=>`, `=>`, `|`, `&`, `^`, `!`), parentheses, and any variable which is valid in your
-//! universe.
+//! `<=>`, `=>`, `|`, `&`, `^`, `!`), parentheses, and any variable name which is valid in your
+//! set.
 //!
-//! Notice that if something goes wrong, `eval_expression` panics. If you want to use
+//! Notice that if something goes wrong, `eval_expression_string` panics. If you want to use
 //! the same expression repeatedly or allow the user to enter their own expressions, you can parse
-//! the expression safely using `BooleanFormula::try_from`. This will give you a human readable
-//! error when the parsing fails. However, `eval_formula` can still fail if there are some
-//! unknown variables in the formula.
+//! the expression safely using `BooleanExpression::try_from` and then use `safe_eval_expression`.
+//! This will give you a human readable error when the parsing fails or there are invalid variables
+//! in the expression.
 //!
 //! ## `bdd` macro
 //!
-//! When using expressions, you can't reuse existing BDDs - secifically, expressions are
+//! When using expressions, you can't reuse existing `Bdd`s - secifically, expressions are
 //! awesome when creating small, self contained examples but don't work very well if you need
-//! to pass BDDs around and manipulate them.
+//! to pass `Bdd`s around and manipulate them.
 //!
 //! For this, you can use the `bdd` macro. Unfortunately, rust macro system is a bit more strict,
 //! hence macros are not as permissive as expressions, but they still allow a fair amount of
@@ -48,19 +70,19 @@
 //! you can use any `Bdd` object in the current scope:
 //!
 //! ```rust
-//! use biodivine_lib_bdd::{BddUniverse, bdd};
+//! use biodivine_lib_bdd::{BddVariableSet, bdd};
 //!
-//! let universe = BddUniverse::new(vec!["a", "b", "c"]);
+//! let variables = BddVariableSet::new(vec!["a", "b", "c"]);
 //!
-//! let a = universe.mk_var_by_name("a");
-//! let b = universe.mk_var_by_name("b");
-//! let c = universe.mk_var_by_name("c");
+//! let a = variables.mk_var_by_name("a");
+//! let b = variables.mk_var_by_name("b");
+//! let c = variables.mk_var_by_name("c");
 //!
-//! let foo = bdd!(universe, a & ((!b) => (c ^ a)));
-//! let goo = bdd!(universe, (b | (a ^ c)) & a);
-//! let eq = bdd!(universe, foo <=> goo);
+//! let f1 = bdd!(a & ((!b) => (c ^ a)));
+//! let f2 = bdd!((b | (a ^ c)) & a);
+//! let eq = bdd!(f1 <=> f2);
 //!
-//! assert_eq!(universe.mk_true(), eq);
+//! assert_eq!(variables.mk_true(), eq);
 //! ```
 //!
 //!

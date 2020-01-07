@@ -1,9 +1,9 @@
-//! # Serialising and visualising `Bdd`-s
+//! # Serialising and visualising `Bdd`s
 //!
-//! We currently provide three ways to inspect BDDs. Human-friendly way is to export the
-//! BDD as a **`.dot` graph file** which can be then rendered into an SVG using tools like
-//! [graph-viz](http://www.webgraphviz.com/). Asides from .dot, we have two very basic
-//! formats for exporting BDDs. They both essentially just dump the corresponding node
+//! We currently provide three ways to inspect `Bdd`s. Human-friendly way is to export the
+//! `Bdd` as a **`.dot` graph file** which can be then rendered into an SVG using tools like
+//! [graph-viz](http://www.webgraphviz.com/). Aside from `.dot`, we have two very basic
+//! formats for serialising `Bdd`s. They both essentially just dump the corresponding node
 //! array. However, the difference is that one format is **string-based**, which means it
 //! can be easily used inside things like JSON or XML. The second format uses the same
 //! layout, but is fully **binary**, hence it takes up much less space compared to the
@@ -11,14 +11,14 @@
 //!
 //! ## `String` serialisation
 //!
-//! Given a BDD, we can create a string where each node is serialized as three
-//! numbers, `variable,low_link,high_link` and nodes are written as present in the BDD
+//! Given a `Bdd`, we can create a string where each node is serialized as three
+//! numbers, `variable,low_link,high_link` and nodes are written as present in the `Bdd`
 //! array, separated by `|`:
 //!
 //! ```rust
-//! use biodivine_lib_bdd::{Bdd, BddUniverse};
-//! let universe = BddUniverse::new(vec!["a", "b"]);
-//! let bdd = universe.eval_expression("a & !b");
+//! use biodivine_lib_bdd::{Bdd, BddVariableSet};
+//! let variables = BddVariableSet::new(vec!["a", "b"]);
+//! let bdd = variables.eval_expression_string("a & !b");
 //! let bdd_string = bdd.to_string();
 //!
 //! assert_eq!("|2,0,0|2,1,1|1,1,0|0,0,2|", bdd_string);
@@ -30,13 +30,13 @@
 //!
 //! ## `u8` serialisation
 //!
-//! A BDD can be also written to a byte array. This is much more compact for large BDDs
+//! A `Bdd` can be also written to a byte array. This is much more compact for large `Bdd`s
 //! and has the advantage of predictable size:
 //!
 //! ```rust
-//! use biodivine_lib_bdd::{Bdd, BddUniverse};
-//! let universe = BddUniverse::new(vec!["a", "b"]);
-//! let bdd = universe.eval_expression("a & !b");
+//! use biodivine_lib_bdd::{Bdd, BddVariableSet};
+//! let variables = BddVariableSet::new(vec!["a", "b"]);
+//! let bdd = variables.eval_expression_string("a & !b");
 //! let bdd_bytes: Vec<u8> = bdd.to_bytes();
 //!
 //! assert_eq!(bdd_bytes.len(), bdd.size() * 10);
@@ -48,19 +48,19 @@
 //!
 //! ## `.dot` visualisation
 //!
-//! In order to output BDD as a `.dot` graph, we have to use a BDD universe as it provides
+//! In order to output `Bdd` as a `.dot` graph, we have to specify a `BddVariableSet` as it provides
 //! specific variable names used in the graph:
 //!
 //! ```rust
-//! use biodivine_lib_bdd::BddUniverse;
+//! use biodivine_lib_bdd::BddVariableSet;
 //!
-//! let universe = BddUniverse::new(vec!["a", "b", "c"]);
-//! let bdd = universe.eval_expression("a & !(b | c)");
-//! let dot = universe.bdd_to_dot_string(&bdd, true);
+//! let variables = BddVariableSet::new(vec!["a", "b", "c"]);
+//! let bdd = variables.eval_expression_string("a & !(b | c)");
+//! let dot = bdd.to_dot_string(&variables, true);
 //! ```
 //!
-//! The method takes an extra boolean parameter, `pruned`. If set to true, only positive
-//! edges will be included in the graph. This makes it much more readable, since the
-//! negative edges can be inferred from context anyway.
+//! The method takes an extra boolean parameter, `pruned`. If set to `true`, edges leading to the
+//! zero terminal are not included in the graph. This makes it much more readable, since these
+//! edges can be inferred from context anyway.
 //!
 //!

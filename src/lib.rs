@@ -1,6 +1,7 @@
 use std::collections::{HashMap, HashSet};
 
 pub mod boolean_expression;
+pub mod tutorial;
 
 mod impl_bdd_boolean_ops;
 mod impl_bdd_export_dot;

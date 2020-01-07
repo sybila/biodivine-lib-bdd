@@ -4,9 +4,9 @@
 //! terminal vertices called `1` and `0` which have no outgoing edges. The rest of the vertices
 //! are decision vertices. Each decision vertex has an associated Boolean variable $v$ and two
 //! outgoing edges $low$ and $high$. In diagrams, $low$ edges are typically drawn as dashed and
-//! $high$ edges as solid. The graph has always one root vertex (with no predecessors).
+//! $high$ edges as solid. The graph has always one *root vertex* (with no predecessors).
 //!
-//! Semantically, for a given valuation (assignment) of Boolean variables $Val(v) \to \\{ 0, 1 \\}$,
+//! Semantically, for a given valuation (assignment) of Boolean variables $Var \to \\{ 0, 1 \\}$,
 //! we can "evaluate" the graph by starting in the root vertex and choosing the following vertex
 //! based on the value of the current decision variable in the given valuation. Once we reach
 //! a terminal vertex, we obtain a final Boolean value. For example, consider the formula
