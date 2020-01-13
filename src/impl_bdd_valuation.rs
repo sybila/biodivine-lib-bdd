@@ -1,6 +1,7 @@
 //! **(internal)** Implementation of the `BddValuation`.
 
 use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
+use std::fmt::{Display, Error, Formatter};
 
 impl BddValuation {
     /// Create a new valuation from a vector of variables.
@@ -40,6 +41,21 @@ impl BddValuation {
         } else {
             Some(BddValuation(next_vec))
         };
+    }
+}
+
+impl Display for BddValuation {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        if self.0.is_empty() {
+            write!(f, "[]")?;
+        } else {
+            write!(f, "[{}", if self.0[0] { 1 } else { 0 })?;
+            for i in 1..self.0.len() {
+                write!(f, ",{}", if self.0[i] { 1 } else { 0 })?
+            }
+            write!(f, "]")?;
+        }
+        return Ok(());
     }
 }
 
@@ -114,5 +130,13 @@ mod tests {
         let universe = BddVariableSet::new_anonymous(2);
         let tt = universe.mk_true();
         tt.eval_in(&BddValuation::new(vec![true, true, true]));
+    }
+
+    #[test]
+    fn bdd_valuation_print() {
+        assert_eq!(
+            "[0,1,1,0]".to_string(),
+            BddValuation::new(vec![false, true, true, false]).to_string()
+        );
     }
 }
