@@ -79,8 +79,8 @@ impl Bdd {
             (Some(false), _) => Some(false),
             (_, Some(true)) => Some(false),
             (Some(true), Some(false)) => Some(true),
-            _ => None
-        })
+            _ => None,
+        });
     }
 }
 

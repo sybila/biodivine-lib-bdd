@@ -118,7 +118,7 @@ fn bdd_mk_and_not() {
     assert_eq!(not_bdd, tt.and_not(&bdd));
     assert_eq!(ff, bdd.and_not(&tt));
     assert_eq!(ff, ff.and_not(&bdd));
-    assert_eq!(bdd, bdd.and_not(&tt));
+    assert_eq!(bdd, bdd.and_not(&ff));
 }
 
 #[test]
