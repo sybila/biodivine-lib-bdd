@@ -18,6 +18,16 @@ impl Bdd {
         return self.0[0].var.0;
     }
 
+    /// True if this `Bdd` is exactly the `true` formula.
+    pub fn is_true(&self) -> bool {
+        return self.0.len() == 2;
+    }
+
+    /// True if this `Bdd` is exactly the `false` formula.
+    pub fn is_false(&self) -> bool {
+        return self.0.len() == 1;
+    }
+
     /// **(internal)** Pointer to the root of the decision diagram.
     pub(super) fn root_pointer(&self) -> BddPointer {
         return BddPointer::from_index(self.0.len() - 1);
@@ -51,16 +61,6 @@ impl Bdd {
     /// **(internal)** Create a new `Bdd` for the `true` formula.
     pub(super) fn mk_true(num_vars: u16) -> Bdd {
         return Bdd(vec![BddNode::mk_zero(num_vars), BddNode::mk_one(num_vars)]);
-    }
-
-    /// **(internal)** True if this `Bdd` is exactly the `true` formula.
-    pub(super) fn is_true(&self) -> bool {
-        return self.0.len() == 2;
-    }
-
-    /// **(internal)** True if this `Bdd` is exactly the `false` formula.
-    pub(super) fn is_false(&self) -> bool {
-        return self.0.len() == 1;
     }
 
     /// **(internal)** Add a new node to an existing `Bdd`, making the new node the root of the `Bdd`.
