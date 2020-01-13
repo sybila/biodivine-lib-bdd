@@ -73,6 +73,15 @@ impl Bdd {
             _ => None,
         });
     }
+
+    pub fn and_not(&self, right: &Bdd) -> Bdd {
+        return apply(self, right, |l, r| match (l, r) {
+            (Some(false), _) => Some(false),
+            (_, Some(true)) => Some(false),
+            (Some(true), Some(false)) => Some(true),
+            _ => None
+        })
+    }
 }
 
 /// **(internal)** Universal function to implement standard logical operators.

@@ -105,6 +105,23 @@ fn bdd_mk_imp() {
 }
 
 #[test]
+fn bdd_mk_and_not() {
+    let variables = mk_5_variable_set();
+    let bdd = mk_small_test_bdd();
+    let not_bdd = bdd.not();
+    let v3 = variables.mk_var(v3());
+    let v4 = variables.mk_var(v4());
+    let tt = variables.mk_true();
+    let ff = variables.mk_false();
+
+    assert_eq!(bdd, v3.and_not(&v4));
+    assert_eq!(not_bdd, tt.and_not(&bdd));
+    assert_eq!(ff, bdd.and_not(&tt));
+    assert_eq!(ff, ff.and_not(&bdd));
+    assert_eq!(bdd, bdd.and_not(&tt));
+}
+
+#[test]
 fn bdd_mk_iff() {
     let variables = mk_5_variable_set();
     let bdd = mk_small_test_bdd(); // v3 & !v4
