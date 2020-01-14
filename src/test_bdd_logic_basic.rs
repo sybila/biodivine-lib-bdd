@@ -206,4 +206,5 @@ fn nontrivial_identity_syntactic() {
 
     assert_eq!(cnf, dnf);
     assert!(bdd!((cnf <=> dnf)).is_true());
+    assert_eq!(20.0, cnf.cardinality());
 }

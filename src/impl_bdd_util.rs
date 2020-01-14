@@ -28,6 +28,49 @@ impl Bdd {
         return self.0.len() == 1;
     }
 
+    /// Approximately computes the number of valuations satisfying the formula given
+    /// by this `Bdd`.
+    pub fn cardinality(&self) -> f64 {
+        if self.is_false() {
+            return 0.0;
+        }
+        let mut cache = vec![-1.0; self.0.len()];
+        cache[0] = 0.0;
+        cache[1] = 1.0;
+        let mut stack: Vec<BddPointer> = Vec::new();
+        stack.push(self.root_pointer());
+        while let Some(node) = stack.last() {
+            if cache[node.0 as usize] >= 0.0 {
+                stack.pop();
+            } else {
+                let low = self.low_link_of(*node);
+                let high = self.high_link_of(*node);
+                let low_var = self.var_of(low).0;
+                let high_var = self.var_of(high).0;
+                let node_var = self.var_of(*node).0;
+                let low = low.0 as usize;
+                let high = high.0 as usize;
+
+                if cache[low] >= 0.0 && cache[high] >= 0.0 {
+                    let low_cardinality =
+                        cache[low] * 2.0_f64.powi((low_var - node_var - 1) as i32);
+                    let high_cardinality =
+                        cache[high] * 2.0_f64.powi((high_var - node_var - 1) as i32);
+                    cache[node.0 as usize] = low_cardinality + high_cardinality;
+                    stack.pop();
+                } else {
+                    if cache[low] < 0.0 {
+                        stack.push(BddPointer(low as u32));
+                    }
+                    if cache[high] < 0.0 {
+                        stack.push(BddPointer(high as u32));
+                    }
+                }
+            }
+        }
+        return *cache.last().unwrap() * 2.0_f64.powi(self.0.last().unwrap().var.0 as i32);
+    }
+
     /// **(internal)** Pointer to the root of the decision diagram.
     pub(super) fn root_pointer(&self) -> BddPointer {
         return BddPointer::from_index(self.0.len() - 1);
@@ -114,5 +157,12 @@ mod tests {
             bdd.high_link_of(BddPointer::from_index(3))
         );
         assert_eq!(BddVariable(2), bdd.var_of(BddPointer::from_index(3)));
+    }
+
+    #[test]
+    fn bdd_cardinality() {
+        // 5 variables, v3 & !v4
+        let bdd = mk_small_test_bdd();
+        assert_eq!(8.0, bdd.cardinality());
     }
 }
