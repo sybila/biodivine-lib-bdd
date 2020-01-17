@@ -46,6 +46,7 @@ pub struct BddVariable(u16);
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct BddValuation(Vec<bool>);
 
+/// TODO: Valuation iterator should also work when there are no variables (one iteration of a zero-sized valuation)!
 /// Exhaustively iterates over all valuations with a certain number of variables.
 ///
 /// Be aware of the exponential time complexity of such operation!
