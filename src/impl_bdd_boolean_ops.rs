@@ -1,7 +1,8 @@
 //! **(internal)** Implementation of basic logical operators for `Bdd`s using the `apply` function.
 
 use super::*;
-use std::cmp::min;
+use fxhash::FxBuildHasher;
+use std::cmp::{max, min};
 
 /// Basic boolean logical operations for `Bdd`s:
 /// $\neg, \land, \lor, \Rightarrow, \Leftrightarrow, \oplus$.
@@ -109,7 +110,8 @@ where
     let mut is_not_empty = false;
 
     // Every node in `result` is inserted into `existing` - this ensures we have no duplicates.
-    let mut existing: HashMap<BddNode, BddPointer> = HashMap::new();
+    let mut existing: HashMap<BddNode, BddPointer, FxBuildHasher> =
+        HashMap::with_capacity_and_hasher(max(left.size(), right.size()), FxBuildHasher::default());
     existing.insert(BddNode::mk_zero(num_vars), BddPointer::zero());
     existing.insert(BddNode::mk_one(num_vars), BddPointer::one());
 
@@ -122,7 +124,7 @@ where
 
     // `stack` is used to explore the two BDDs "side by side" in DFS-like manner. Each task
     // on the stack is a pair of nodes that needs to be fully processed before we are finished.
-    let mut stack: Vec<Task> = Vec::new();
+    let mut stack: Vec<Task> = Vec::with_capacity(max(left.size(), right.size()));
     stack.push(Task {
         left: left.root_pointer(),
         right: right.root_pointer(),
@@ -130,7 +132,8 @@ where
 
     // `finished` is a memoization cache of tasks which are already completed, since the same
     // combination of nodes can be often explored multiple times.
-    let mut finished: HashMap<Task, BddPointer> = HashMap::new();
+    let mut finished: HashMap<Task, BddPointer, FxBuildHasher> =
+        HashMap::with_capacity_and_hasher(max(left.size(), right.size()), FxBuildHasher::default());
 
     while let Some(on_stack) = stack.last() {
         if finished.contains_key(on_stack) {

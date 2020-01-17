@@ -9,6 +9,7 @@ edition = "2018"
 rustdoc-args = ["--html-in-header", "docs-head.html"]
 
 [dependencies]
+fxhash = "0.2.1"
 
 [features]
 # With shields_up you enable explicit assertions of pre/post conditions and invariants in critical
