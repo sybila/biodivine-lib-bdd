@@ -66,4 +66,20 @@ the whole thing into submodules.
 
 Naming convention: If you define a private module where you know stuff will be reexported 
 by some parent, suffix the name of that module with `_impl` so that it is clear this module
-is implementing the re-exported things in the main module. 
+is implementing the re-exported things in the main module.
+
+Passing by value/reference: In general, if something implements Copy, default
+decision should be to pass it by value. In case of a non-copy struct, use pass by
+reference. Of course, sometimes pass by reference is necessary for Copy types as well,
+but in general, by implementing Copy, you indicate that this type should be treated
+as "atomic" value. Also, please make sure to implement Copy only for types where this
+is true - small, flat types.
+
+Visibility/structure: In general, we want to have declarations of all structures in the 
+main module file where they are exported (although, some related private structures
+can be defined there as well if they are not sub-module specific). If some sub-module 
+uses local structures, they can be defined there. However, one should always immediately
+see the "data structure" of the module in the main file. This file should not contain any 
+implementation. Instead, methods are separated into sub-modules. If we need some
+module-specific private methods, we can make them visible only to this module by specifying
+`pub(super)` or something similar.

@@ -16,26 +16,32 @@
 //! leaves which need to be allocated and will dominate the memory usage of
 //! the benchmark.
 
-use super::super::{BddValuation, BddValuationIterator};
 use super::*;
 use rand::prelude::StdRng;
 use rand::{RngCore, SeedableRng};
 
+#[derive(Debug)]
+enum BddOp {
+    AND,
+    OR,
+    XOR,
+    IMP,
+    IFF,
+}
 
 #[derive(Debug)]
-enum BddOp { AND, OR, XOR, IMP, IFF }
-
-#[derive(Debug)]
-struct Op { op: BddOp, negate: bool }
+struct Op {
+    op: BddOp,
+    negate: bool,
+}
 
 #[derive(Debug)]
 struct BddOpTree {
     leaves: Vec<BddVariable>,
-    ops: Vec<Vec<Op>>
+    ops: Vec<Vec<Op>>,
 }
 
 impl BddOpTree {
-
     /// Create a new random tree. The `tree_height` is the number of levels in the tree
     /// (so the number of leaves will be `2^tree_height`).
     fn new_random(tree_height: u8, num_vars: u16, seed: u64) -> BddOpTree {
@@ -43,52 +49,58 @@ impl BddOpTree {
         let num_leafs = 1 << (tree_height as usize);
         let mut levels: Vec<Vec<Op>> = Vec::new();
 
-        let leaves: Vec<BddVariable> = (0..num_leafs).map(|_| {
-            let id = rand.next_u32() % num_vars as u32;
-            BddVariable(id as u16)
-        }).collect();
+        let leaves: Vec<BddVariable> = (0..num_leafs)
+            .map(|_| {
+                let id = rand.next_u32() % num_vars as u32;
+                BddVariable(id as u16)
+            })
+            .collect();
 
-        let mut level_width= num_leafs / 2;
+        let mut level_width = num_leafs / 2;
         for _ in 0..tree_height {
-            let level: Vec<Op> = (0..level_width).map(|_| {
-                let negate = rand.next_u32() % 2 == 0;
-                let op = match rand.next_u32() % 5 {
-                    0 => BddOp::AND, 1 => BddOp::OR, 2 => BddOp::XOR, 3 => BddOp::IMP,
-                    _ => BddOp::IFF
-                };
-                Op { op, negate }
-            }).collect();
+            let level: Vec<Op> = (0..level_width)
+                .map(|_| {
+                    let negate = rand.next_u32() % 2 == 0;
+                    let op = match rand.next_u32() % 5 {
+                        0 => BddOp::AND,
+                        1 => BddOp::OR,
+                        2 => BddOp::XOR,
+                        3 => BddOp::IMP,
+                        _ => BddOp::IFF,
+                    };
+                    Op { op, negate }
+                })
+                .collect();
             levels.push(level);
             level_width = level_width / 2;
         }
 
         return BddOpTree {
-            leaves, ops: levels
-        }
+            leaves,
+            ops: levels,
+        };
     }
 
-    /// Evaluate this op tree to BDD in the given universe.
-    fn eval_in(&self, universe: &BddUniverse) -> Bdd {
-        let mut formulas: Vec<Bdd> = self.leaves.iter()
-            .map(|v| universe.mk_var(&v))
-            .collect();
+    /// Evaluate this op tree to `Bdd` using the given `BddVariableSet`.
+    fn eval_in(&self, variables: &BddVariableSet) -> Bdd {
+        let mut formulas: Vec<Bdd> = self.leaves.iter().map(|v| variables.mk_var(*v)).collect();
 
         for level in self.ops.iter() {
             let mut i = 0;
             let mut new_formulas = Vec::new();
             while i < formulas.len() {
                 let a = &formulas[i];
-                let b = &formulas[i+1];
-                let op = &level[i/2];
+                let b = &formulas[i + 1];
+                let op = &level[i / 2];
                 let result = match op.op {
-                    BddOp::AND => universe.mk_and(&a, &b),
-                    BddOp::OR => universe.mk_or(&a, &b),
-                    BddOp::XOR => universe.mk_xor(&a, &b),
-                    BddOp::IMP => universe.mk_imp(&a, &b),
-                    BddOp::IFF => universe.mk_iff(&a, &b),
+                    BddOp::AND => a.and(&b),
+                    BddOp::OR => a.or(&b),
+                    BddOp::XOR => a.xor(&b),
+                    BddOp::IMP => a.imp(&b),
+                    BddOp::IFF => a.iff(&b),
                 };
                 if op.negate {
-                    new_formulas.push(universe.mk_not(&result))
+                    new_formulas.push(result.not())
                 } else {
                     new_formulas.push(result);
                 }
@@ -100,19 +112,17 @@ impl BddOpTree {
         return formulas[0].clone();
     }
 
-    /// Evaluate this op tree with the specifies valuation.
+    /// Evaluate this op tree with the specified `BddValuation`.
     fn eval_in_valuation(&self, valuation: &BddValuation) -> bool {
-        let mut values: Vec<bool> = self.leaves.iter()
-            .map(|v| valuation.value(v))
-            .collect();
+        let mut values: Vec<bool> = self.leaves.iter().map(|v| valuation.value(*v)).collect();
 
         for level in self.ops.iter() {
             let mut i = 0;
             let mut new_values = Vec::new();
             while i < values.len() {
                 let a = values[i];
-                let b = values[i+1];
-                let op = &level[i/2];
+                let b = values[i + 1];
+                let op = &level[i / 2];
                 let result = match op.op {
                     BddOp::AND => a && b,
                     BddOp::OR => a || b,
@@ -132,24 +142,23 @@ impl BddOpTree {
 
         return values[0];
     }
-
-
 }
 
 const FUZZ_SEEDS: [u64; 10] = [
-    1, 12, 123, 1234, 12345, 123456, 1234567, 12345678, 123456789, 1234567890
+    1, 12, 123, 1234, 12345, 123456, 1234567, 12345678, 123456789, 1234567890,
 ];
 
 fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) {
-    let universe = BddUniverse::new_anonymous(num_vars);
+    let universe = BddVariableSet::new_anonymous(num_vars);
     let op_tree = BddOpTree::new_random(tree_height, num_vars, seed);
     let eval = op_tree.eval_in(&universe);
 
     for valuation in BddValuationIterator::new(num_vars) {
         assert_eq!(
             op_tree.eval_in_valuation(&valuation),
-            universe.eval_in(&eval, &valuation),
-            "Error in valuation {:?}", valuation
+            eval.eval_in(&valuation),
+            "Error in valuation {:?}",
+            valuation
         );
     }
 }
