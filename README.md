@@ -68,9 +68,23 @@ AMD processor (2990WX) with 64GB of memory at the moment. For each log, please i
 hash of the last merged state from master and a date when the benchmarks were performed. Ideally, please
 also include a small commentary about changes since the last run to explain differences in results.
 
+#### 17.01.2019
+Change log: Switched hash function to FxHash and add table pre-allocation.
+ 
+Last commit in master: `72803b35667e0da9882bf5310bd085b31a9c119f`. Results:
+```
+bn_parametrised_activation_4    ... bench:     142,082 ns/iter (+/- 2,607)
+bn_parametrised_activation_5    ... bench:  28,053,511 ns/iter (+/- 124,039)
+bn_parametrised_observability_4 ... bench:     257,180 ns/iter (+/- 4,480)
+bn_parametrised_observability_5 ... bench:  61,559,665 ns/iter (+/- 791,229)
+ripple_carry_adder_16           ... bench:      76,269 ns/iter (+/- 1,234)
+ripple_carry_adder_32           ... bench:  26,639,188 ns/iter (+/- 243,766)
+ripple_carry_adder_4            ... bench:       1,479 ns/iter (+/- 32)
+ripple_carry_adder_8            ... bench:       5,798 ns/iter (+/- 118)
+```
+
 #### 28.10.2019
-Last commit in master: `a04bd8a65773a71ff538b4b56921e314d15e4118`
-Results:
+Last commit in master: `a04bd8a65773a71ff538b4b56921e314d15e4118`. Results:
 ```
 bn_parametrised_activation_4    ... bench:     519,160 ns/iter (+/- 1,715)
 bn_parametrised_activation_5    ... bench:  80,931,003 ns/iter (+/- 270,550)
