@@ -16,6 +16,7 @@ debug = true
 # codegen-units = 1
 
 [dependencies]
+fxhash = "0.2.1"
 
 [features]
 # With shields_up you enable explicit assertions of pre/post conditions and invariants in critical
