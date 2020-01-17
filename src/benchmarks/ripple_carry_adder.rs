@@ -1,15 +1,14 @@
+use crate::{bdd, BddVariable, BddVariableSet};
 use test::Bencher;
-use crate::{BddUniverse, BddVariable};
-use crate::bdd;
 
 fn ripple_carry_adder(b: &mut Bencher, num_vars: u16) {
-    let universe = BddUniverse::new_anonymous(num_vars);
+    let vars = BddVariableSet::new_anonymous(num_vars);
     b.iter(|| {
-        let mut result = universe.mk_false();
+        let mut result = vars.mk_false();
         for x in 0..(num_vars / 2) {
-            let x1 = universe.mk_var(&BddVariable(x));
-            let x2 = universe.mk_var(&BddVariable(x + num_vars / 2));
-            result = bdd!(universe, result | (x1 & x2));
+            let x1 = vars.mk_var(BddVariable(x));
+            let x2 = vars.mk_var(BddVariable(x + num_vars / 2));
+            result = bdd!(result | (x1 & x2));
         }
         result
     });
