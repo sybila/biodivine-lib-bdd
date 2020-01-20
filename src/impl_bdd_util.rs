@@ -1,6 +1,9 @@
 //! **(internal)** Implementation of some basic internal utility methods for `Bdd`s.
 
 use super::*;
+use crate::boolean_expression::BooleanExpression;
+use crate::boolean_expression::BooleanExpression::Variable;
+use std::convert::TryFrom;
 use std::iter::Map;
 use std::ops::Range;
 use std::slice::Iter;
@@ -99,6 +102,96 @@ impl Bdd {
         }
 
         return Some(BddValuation::new(valuation));
+    }
+
+    /// Convert this `Bdd` to a `BooleanExpression` (using the variable names from the given
+    /// `BddVariableSet`).
+    ///
+    /// TODO: Make the formula nicer by first deriving all fully determined variables.
+    /// That is, if I know all valid paths have `x` set to true, I can start the formula
+    /// with `x & ...` and later skip `x` completely (this can be also done for each sub-Bdd
+    /// in each expansion step).
+    /// Another nice optimisation would be to try to find implication/equivalence pairs.
+    /// That is, if `a <=> b` on all paths, I can put this as a condition at the beginning and then
+    /// skip `b` completely.
+    pub fn to_boolean_expression(&self, variables: &BddVariableSet) -> BooleanExpression {
+        if self.is_false() {
+            let v1 = &variables.var_names[0];
+            return BooleanExpression::try_from(format!("{} & !{}", v1, v1).as_str()).unwrap();
+        }
+        if self.is_true() {
+            let v1 = &variables.var_names[0];
+            return BooleanExpression::try_from(format!("{} | !{}", v1, v1).as_str()).unwrap();
+        }
+
+        let mut results: Vec<BooleanExpression> = Vec::with_capacity(self.0.len());
+        results.push(BooleanExpression::Variable("false".to_string())); // fake terminals
+        results.push(BooleanExpression::Variable("true".to_string())); // never used
+        for node in 2..self.0.len() {
+            // skip terminals
+            let node_var = self.0[node].var;
+            let var_name = variables.var_names[node_var.0 as usize].clone();
+
+            let low_link = self.0[node].low_link;
+            let high_link = self.0[node].high_link;
+            let expression = if low_link.is_terminal() && high_link.is_terminal() {
+                // Both links are terminal, which means this is an exactly determined variable
+                if high_link.is_one() && low_link.is_zero() {
+                    BooleanExpression::Variable(var_name)
+                } else if high_link.is_zero() && low_link.is_one() {
+                    BooleanExpression::Not(Box::new(BooleanExpression::Variable(var_name)))
+                } else {
+                    panic!("Invalid node {:?} in bdd {:?}.", self.0[node], self.0);
+                }
+            } else if low_link.is_terminal() {
+                if low_link.is_zero() {
+                    // a & high
+                    BooleanExpression::And(
+                        Box::new(BooleanExpression::Variable(var_name)),
+                        Box::new(results[high_link.0 as usize].clone()),
+                    )
+                } else {
+                    // !a | high
+                    BooleanExpression::Or(
+                        Box::new(BooleanExpression::Not(Box::new(
+                            BooleanExpression::Variable(var_name),
+                        ))),
+                        Box::new(results[high_link.0 as usize].clone()),
+                    )
+                }
+            } else if high_link.is_terminal() {
+                if high_link.is_zero() {
+                    // !a & low
+                    BooleanExpression::And(
+                        Box::new(BooleanExpression::Not(Box::new(
+                            BooleanExpression::Variable(var_name),
+                        ))),
+                        Box::new(results[low_link.0 as usize].clone()),
+                    )
+                } else {
+                    // a | low
+                    BooleanExpression::Or(
+                        Box::new(BooleanExpression::Variable(var_name)),
+                        Box::new(results[low_link.0 as usize].clone()),
+                    )
+                }
+            } else {
+                // (a & high) | (!a & low)
+                BooleanExpression::Or(
+                    Box::new(BooleanExpression::And(
+                        Box::new(Variable(var_name.clone())),
+                        Box::new(results[high_link.0 as usize].clone()),
+                    )),
+                    Box::new(BooleanExpression::And(
+                        Box::new(BooleanExpression::Not(Box::new(Variable(var_name.clone())))),
+                        Box::new(results[low_link.0 as usize].clone()),
+                    )),
+                )
+            };
+            results.push(expression);
+        }
+
+        return results.last().unwrap().clone();
     }
 
     /// **(internal)** Pointer to the root of the decision diagram.
@@ -208,9 +301,20 @@ mod tests {
     #[test]
     fn bdd_sat_witness_advanced() {
         let vars = BddVariableSet::new_anonymous(5);
-        let bdd = vars.eval_expression_string("x_0 & (x_1 | x_2) & x_0 => x_4");
+        let bdd = vars.eval_expression_string("x_0 & (x_1 | x_2) & (x_0 => x_4)");
         let valuation = BddValuation(vec![true, false, true, false, true]);
         assert_eq!(bdd.sat_witness().unwrap(), valuation);
         assert!(bdd.eval_in(&bdd.sat_witness().unwrap()));
+    }
+
+    #[test]
+    fn bdd_to_formula() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let bdd = vars.eval_expression_string("x_0 & (x_1 | x_2) & (x_0 => x_4)");
+        let expected_expression =
+            BooleanExpression::try_from("x_0 & ((x_1 & x_4) | (!x_1 & (x_2 & x_4)))").unwrap();
+        let actual_expression = bdd.to_boolean_expression(&vars);
+        assert_eq!(vars.eval_expression(&actual_expression), bdd);
+        assert_eq!(bdd.to_boolean_expression(&vars), expected_expression);
     }
 }

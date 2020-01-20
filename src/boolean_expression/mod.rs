@@ -9,7 +9,7 @@ mod impl_boolean_expression;
 mod impl_parser;
 
 /// Recursive type for boolean expression tree.
-#[derive(Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub enum BooleanExpression {
     Variable(String),
     Not(Box<BooleanExpression>),
