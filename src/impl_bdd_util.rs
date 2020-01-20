@@ -71,6 +71,36 @@ impl Bdd {
         return *cache.last().unwrap() * 2.0_f64.powi(self.0.last().unwrap().var.0 as i32);
     }
 
+    /// If the `Bdd` is satisfiable, return some `BddValuation` that satisfies the `Bdd`.
+    pub fn sat_witness(&self) -> Option<BddValuation> {
+        if self.is_false() {
+            return None;
+        }
+        let mut valuation: Vec<bool> = vec![false; self.num_vars() as usize];
+        let mut stack: Vec<BddPointer> = Vec::new();
+        stack.push(self.root_pointer());
+        let mut find = BddPointer::one(); // index 1 is the true node
+
+        // Run through the graph backwards, always looking for a parent of a specific node.
+        // Initially, that node is a `1` terminal. Since parents are stored after children,
+        // we know we will always find the parent.
+        for node in self.pointers() {
+            if node.is_terminal() {
+                continue;
+            }
+            if self.low_link_of(node) == find {
+                valuation[self.var_of(node).0 as usize] = false;
+                find = node;
+            }
+            if self.high_link_of(node) == find {
+                valuation[self.var_of(node).0 as usize] = true;
+                find = node;
+            }
+        }
+
+        return Some(BddValuation::new(valuation));
+    }
+
     /// **(internal)** Pointer to the root of the decision diagram.
     pub(super) fn root_pointer(&self) -> BddPointer {
         return BddPointer::from_index(self.0.len() - 1);
@@ -164,5 +194,23 @@ mod tests {
         // 5 variables, v3 & !v4
         let bdd = mk_small_test_bdd();
         assert_eq!(8.0, bdd.cardinality());
+    }
+
+    #[test]
+    fn bdd_sat_witness_basic() {
+        // v3 & !v4
+        let bdd = mk_small_test_bdd();
+        let expected = BddValuation(vec![false, false, true, false, false]);
+        assert_eq!(bdd.sat_witness().unwrap(), expected);
+        assert!(bdd.eval_in(&bdd.sat_witness().unwrap()));
+    }
+
+    #[test]
+    fn bdd_sat_witness_advanced() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let bdd = vars.eval_expression_string("x_0 & (x_1 | x_2) & x_0 => x_4");
+        let valuation = BddValuation(vec![true, false, true, false, true]);
+        assert_eq!(bdd.sat_witness().unwrap(), valuation);
+        assert!(bdd.eval_in(&bdd.sat_witness().unwrap()));
     }
 }
