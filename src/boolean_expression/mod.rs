@@ -11,6 +11,7 @@ mod impl_parser;
 /// Recursive type for boolean expression tree.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum BooleanExpression {
+    Const(bool),
     Variable(String),
     Not(Box<BooleanExpression>),
     And(Box<BooleanExpression>, Box<BooleanExpression>),

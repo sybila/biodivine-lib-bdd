@@ -3,7 +3,6 @@
 use super::*;
 use crate::boolean_expression::BooleanExpression;
 use crate::boolean_expression::BooleanExpression::Variable;
-use std::convert::TryFrom;
 use std::iter::Map;
 use std::ops::Range;
 use std::slice::Iter;
@@ -116,17 +115,15 @@ impl Bdd {
     /// skip `b` completely.
     pub fn to_boolean_expression(&self, variables: &BddVariableSet) -> BooleanExpression {
         if self.is_false() {
-            let v1 = &variables.var_names[0];
-            return BooleanExpression::try_from(format!("{} & !{}", v1, v1).as_str()).unwrap();
+            return BooleanExpression::Const(false);
         }
         if self.is_true() {
-            let v1 = &variables.var_names[0];
-            return BooleanExpression::try_from(format!("{} | !{}", v1, v1).as_str()).unwrap();
+            return BooleanExpression::Const(true);
         }
 
         let mut results: Vec<BooleanExpression> = Vec::with_capacity(self.0.len());
-        results.push(BooleanExpression::Variable("false".to_string())); // fake terminals
-        results.push(BooleanExpression::Variable("true".to_string())); // never used
+        results.push(BooleanExpression::Const(false)); // fake terminals
+        results.push(BooleanExpression::Const(true)); // never used
         for node in 2..self.0.len() {
             // skip terminals
             let node_var = self.0[node].var;
@@ -252,6 +249,7 @@ impl Bdd {
 mod tests {
     use super::super::test_util::mk_small_test_bdd;
     use super::*;
+    use std::convert::TryFrom;
 
     //TODO: Add tests on DFS postorder of created BDDs
 

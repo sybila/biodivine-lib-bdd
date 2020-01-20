@@ -185,7 +185,15 @@ fn terminal(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
             ))
         } else {
             match &data[0] {
-                ExprToken::Id(name) => Ok(Box::new(Variable(name.clone()))),
+                ExprToken::Id(name) => {
+                    if name == "true" {
+                        Ok(Box::new(Const(true)))
+                    } else if name == "false" {
+                        Ok(Box::new(Const(false)))
+                    } else {
+                        Ok(Box::new(Variable(name.clone())))
+                    }
+                }
                 ExprToken::Tokens(inner) => Ok(parse_formula(inner)?),
                 _ => unreachable!(
                     "Other tokens are matched by remaining functions, nothing else should remain."
@@ -204,6 +212,8 @@ mod tests {
         let inputs = vec![
             "v_1+{14}",      // just a variable name with fancy symbols
             "!v_1",          // negation
+            "true",          // true
+            "false",         // false
             "(v_1 & v_2)",   // and
             "(v_1 | v_2)",   // or
             "(v_1 ^ v_2)",   // xor
