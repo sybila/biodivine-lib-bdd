@@ -109,7 +109,7 @@ impl Iterator for BddValuationIterator {
 
 #[cfg(test)]
 mod tests {
-    use super::super::{BddValuation, BddVariableSet};
+    use super::super::{BddValuation, BddVariableSet, BddValuationIterator};
     use crate::bdd;
 
     #[test]
@@ -122,6 +122,13 @@ mod tests {
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![true, true])));
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
+    }
+
+    #[test]
+    fn bdd_valuation_iterator_empty() {
+        let mut it = BddValuationIterator::new(0);
+        assert_eq!(it.next(), Some(BddValuation::new(Vec::new())));
+        assert_eq!(it.next(), None);
     }
 
     #[test]
