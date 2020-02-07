@@ -1,5 +1,3 @@
-//! **(internal)** Implementation of the `BddValuation`.
-
 use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
 use std::fmt::{Display, Error, Formatter};
 

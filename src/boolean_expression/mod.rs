@@ -9,8 +9,11 @@
 //! let f: Bdd = vars.eval_expression_string("x_0 & !x_1 => (x_1 ^ x_3 <=> (x_0 | x_1))");
 //! ```
 
-mod impl_boolean_expression;
-mod impl_parser;
+/// **(internal)** Implements boolean expression evaluation for `BddVariableSet` and some utility methods.
+mod _impl_boolean_expression;
+
+/// **(internal)** Parsing functions for boolean expressions.
+mod _impl_parser;
 
 /// Recursive type for boolean expression tree.
 #[derive(Clone, Debug, Eq, PartialEq)]

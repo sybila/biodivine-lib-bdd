@@ -1,5 +1,3 @@
-//! **(internal)** Implementation of the `BddVariableSet`.
-
 use super::*;
 
 impl BddVariableSet {
@@ -117,7 +115,7 @@ impl BddVariableSet {
 
 #[cfg(test)]
 mod tests {
-    use super::test_util::mk_5_variable_set;
+    use super::_test_util::mk_5_variable_set;
     use super::*;
 
     #[test]

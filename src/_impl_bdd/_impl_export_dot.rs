@@ -1,6 +1,4 @@
-//! **(internal)** Simple export functions for printing `Bdd`s as `.dot` files.
-
-use super::*;
+use crate::*;
 use std::io::Write;
 
 /// `.dot` export procedure for `Bdd`s.
@@ -103,8 +101,8 @@ fn bdd_to_dot_string(bdd: &Bdd, var_names: &Vec<String>, zero_pruned: bool) -> S
 
 #[cfg(test)]
 mod tests {
-    use super::super::test_util::{load_expected_results, mk_small_test_bdd};
-    use super::*;
+    use crate::_test_util::{load_expected_results, mk_small_test_bdd};
+    use crate::*;
 
     #[test]
     fn bdd_to_dot() {

@@ -1,4 +1,3 @@
-//! **(internal)** Parsing functions for boolean expressions.
 //!
 //! Expression parsing proceeds in recursive manner in the order of operator precedence:
 //! `<=>`, `=>`, `|`, `&` and `^`. For each operator, if there is no occurrence in the root of the

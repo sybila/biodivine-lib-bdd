@@ -38,28 +38,39 @@ use std::collections::{HashMap, HashSet};
 pub mod boolean_expression;
 pub mod tutorial;
 
-mod impl_bdd_boolean_ops;
-mod impl_bdd_export_dot;
-mod impl_bdd_serialisation;
-mod impl_bdd_util;
+/// **(internal)** Implementations for the `Bdd` struct.
+mod _impl_bdd;
 
-mod impl_bdd_node;
-mod impl_bdd_pointer;
-mod impl_bdd_valuation;
-mod impl_bdd_variable;
-mod impl_bdd_variable_set;
-mod impl_bdd_variable_set_builder;
-
-mod macro_bdd;
-
+/// **(internal)** Several complex test scenarios for the `Bdd` struct.
 #[cfg(test)]
-mod test_bdd_logic_basic;
-#[cfg(test)]
-mod test_bdd_logic_fuzzing;
-#[cfg(test)]
-mod test_util;
+mod _test_bdd;
 
-/// Characters that cannot appear in the variable name
+/// **(internal)** Implementation of the `BddNode`.
+mod _impl_bdd_node;
+
+/// **(internal)** Implementation of the `BddPointer`.
+mod _impl_bdd_pointer;
+
+/// **(internal)** Implementation of the `BddValuation`.
+mod _impl_bdd_valuation;
+
+/// **(internal)** Implementation of the `BddVariable`.
+mod _impl_bdd_variable;
+
+/// **(internal)** Implementation of the `BddVariableSet`.
+mod _impl_bdd_variable_set;
+
+/// **(internal)** Implementation of the `BddVariableSetBuilder`.
+mod _impl_bdd_variable_set_builder;
+
+/// **(internal)** A macro module for simplifying BDD operations.
+mod _macro_bdd;
+
+/// Several basic utility methods for testing `Bdd`s.
+#[cfg(test)]
+mod _test_util;
+
+/// **(internal)** Characters that cannot appear in the variable name
 /// (based on possible tokens in a boolean expression).
 const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
 

@@ -1,5 +1,3 @@
-//! **(internal)** Implementation of the `BddVariable`.
-
 use super::*;
 use std::fmt::{Display, Error, Formatter};
 

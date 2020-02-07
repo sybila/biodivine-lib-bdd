@@ -1,9 +1,7 @@
-//! **(internal)** Implements boolean expression evaluation for `BddVariableSet` and some utility methods.
-
 use super::super::{Bdd, BddVariableSet};
-use super::impl_parser::parse_boolean_expression;
 use super::BooleanExpression;
 use super::BooleanExpression::*;
+use super::_impl_parser::parse_boolean_expression;
 use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
 

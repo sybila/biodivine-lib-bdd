@@ -1,6 +1,5 @@
-use super::test_util::{mk_5_variable_set, mk_small_test_bdd};
-use super::*;
-use crate::bdd;
+use crate::_test_util::{mk_5_variable_set, mk_small_test_bdd};
+use crate::*;
 
 fn v1() -> BddVariable {
     return BddVariable(0);

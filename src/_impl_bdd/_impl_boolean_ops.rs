@@ -1,6 +1,4 @@
-//! **(internal)** Implementation of basic logical operators for `Bdd`s using the `apply` function.
-
-use super::*;
+use crate::*;
 use fxhash::FxBuildHasher;
 use std::cmp::{max, min};
 
@@ -9,10 +7,10 @@ use std::cmp::{max, min};
 impl Bdd {
     /// Create a `Bdd` corresponding to the $\neg \phi$ formula, where $\phi$ is this `Bdd`.
     pub fn not(&self) -> Bdd {
-        if self.is_true() {
-            return Bdd::mk_false(self.num_vars());
+        return if self.is_true() {
+            Bdd::mk_false(self.num_vars())
         } else if self.is_false() {
-            return Bdd::mk_true(self.num_vars());
+            Bdd::mk_true(self.num_vars())
         } else {
             let mut result_vector = self.0.clone();
             for i in 2..result_vector.len() {
@@ -20,8 +18,8 @@ impl Bdd {
                 result_vector[i].high_link.flip_if_terminal();
                 result_vector[i].low_link.flip_if_terminal();
             }
-            return Bdd(result_vector);
-        }
+            Bdd(result_vector)
+        };
     }
 
     /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$

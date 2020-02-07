@@ -1,8 +1,6 @@
-//! **(internal)** Implementation of some basic internal utility methods for `Bdd`s.
-
-use super::*;
 use crate::boolean_expression::BooleanExpression;
 use crate::boolean_expression::BooleanExpression::Variable;
+use crate::*;
 use std::iter::Map;
 use std::ops::Range;
 use std::slice::Iter;
@@ -192,24 +190,24 @@ impl Bdd {
     }
 
     /// **(internal)** Pointer to the root of the decision diagram.
-    pub(super) fn root_pointer(&self) -> BddPointer {
+    pub(crate) fn root_pointer(&self) -> BddPointer {
         return BddPointer::from_index(self.0.len() - 1);
     }
 
     /// **(internal)** Get the low link of the node at a specified location.
-    pub(super) fn low_link_of(&self, node: BddPointer) -> BddPointer {
+    pub(crate) fn low_link_of(&self, node: BddPointer) -> BddPointer {
         return self.0[node.to_index()].low_link;
     }
 
     /// **(internal)** Get the high link of the node at a specified location.
-    pub(super) fn high_link_of(&self, node: BddPointer) -> BddPointer {
+    pub(crate) fn high_link_of(&self, node: BddPointer) -> BddPointer {
         return self.0[node.to_index()].high_link;
     }
 
     /// **(internal)** Get the conditioning variable of the node at a specified location.
     ///
     /// *Panics:* `node` must not be a terminal.
-    pub(super) fn var_of(&self, node: BddPointer) -> BddVariable {
+    pub(crate) fn var_of(&self, node: BddPointer) -> BddVariable {
         if cfg!(shields_up) && (node.is_one() || node.is_zero()) {
             panic!("Terminal nodes don't have a conditioning variable!");
         }
@@ -217,17 +215,17 @@ impl Bdd {
     }
 
     /// **(internal)** Create a new `Bdd` for the `false` formula.
-    pub(super) fn mk_false(num_vars: u16) -> Bdd {
+    pub(crate) fn mk_false(num_vars: u16) -> Bdd {
         return Bdd(vec![BddNode::mk_zero(num_vars)]);
     }
 
     /// **(internal)** Create a new `Bdd` for the `true` formula.
-    pub(super) fn mk_true(num_vars: u16) -> Bdd {
+    pub(crate) fn mk_true(num_vars: u16) -> Bdd {
         return Bdd(vec![BddNode::mk_zero(num_vars), BddNode::mk_one(num_vars)]);
     }
 
     /// **(internal)** Add a new node to an existing `Bdd`, making the new node the root of the `Bdd`.
-    pub(super) fn push_node(&mut self, node: BddNode) {
+    pub(crate) fn push_node(&mut self, node: BddNode) {
         self.0.push(node);
     }
 
@@ -235,20 +233,21 @@ impl Bdd {
     ///
     /// The iteration order is the same as the underlying representation, so you can expect
     /// terminals to be the first two nodes.
-    pub(super) fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
+    pub(crate) fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
         return (0..self.size()).map(BddPointer::from_index);
     }
 
     /// **(internal)** Create an iterator over all nodes of the `Bdd` (including terminals).
-    pub(super) fn nodes(&self) -> Iter<BddNode> {
+    pub(crate) fn nodes(&self) -> Iter<BddNode> {
         return self.0.iter();
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::test_util::mk_small_test_bdd;
-    use super::*;
+    use crate::_test_util::mk_small_test_bdd;
+    use crate::boolean_expression::BooleanExpression;
+    use crate::*;
     use std::convert::TryFrom;
 
     //TODO: Add tests on DFS postorder of created BDDs
