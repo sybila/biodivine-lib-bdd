@@ -7,7 +7,7 @@ description = "A simple thread-safe implementation of basic binary decision diag
 homepage = "https://github.com/sybila/biodivine-lib-bdd"
 repository = "https://github.com/sybila/biodivine-lib-bdd"
 readme = "README.md"
-keywords = ["bdd", "binary-decision-diagram", "boolean-expression"]
+keywords = ["bdd", "boolean-expression", "symbolic"]
 categories = ["data-structures", "mathematics", "science"]
 license = "MIT"
 
