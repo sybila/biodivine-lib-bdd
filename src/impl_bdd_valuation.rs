@@ -4,9 +4,8 @@ use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
 use std::fmt::{Display, Error, Formatter};
 
 impl BddValuation {
+    // TODO: This a very low-level API. We should be able to create valuations in some safer manner.
     /// Create a new valuation from a vector of variables.
-    ///
-    /// TODO: This a very low-level API. We should be able to create valuations in some safer manner.
     pub fn new(values: Vec<bool>) -> BddValuation {
         return BddValuation(values);
     }
@@ -109,7 +108,7 @@ impl Iterator for BddValuationIterator {
 
 #[cfg(test)]
 mod tests {
-    use super::super::{BddValuation, BddVariableSet, BddValuationIterator};
+    use super::super::{BddValuation, BddValuationIterator, BddVariableSet};
     use crate::bdd;
 
     #[test]

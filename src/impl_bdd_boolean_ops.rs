@@ -75,6 +75,8 @@ impl Bdd {
         });
     }
 
+    /// Create a `Bdd` corresponding to the $\phi \land \neg \psi$ formula, where $\phi$ and $\psi$
+    /// are the two given `Bdd`s.
     pub fn and_not(&self, right: &Bdd) -> Bdd {
         return apply(self, right, |l, r| match (l, r) {
             (Some(false), _) => Some(false),
