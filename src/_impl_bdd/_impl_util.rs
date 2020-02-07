@@ -101,13 +101,6 @@ impl Bdd {
         return Some(BddValuation::new(valuation));
     }
 
-    // TODO: Make the formula nicer by first deriving all fully determined variables.
-    // That is, if I know all valid paths have `x` set to true, I can start the formula
-    // with `x & ...` and later skip `x` completely (this can be also done for each sub-Bdd
-    // in each expansion step).
-    // Another nice optimisation would be to try to find implication/equivalence pairs.
-    // That is, if `a <=> b` on all paths, I can put this as a condition at the beginning and then
-    // skip `b` completely.
     /// Convert this `Bdd` to a `BooleanExpression` (using the variable names from the given
     /// `BddVariableSet`).
     ///
@@ -249,8 +242,6 @@ mod tests {
     use crate::boolean_expression::BooleanExpression;
     use crate::*;
     use std::convert::TryFrom;
-
-    //TODO: Add tests on DFS postorder of created BDDs
 
     #[test]
     fn bdd_impl() {

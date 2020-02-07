@@ -2,7 +2,6 @@ use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
 use std::fmt::{Display, Error, Formatter};
 
 impl BddValuation {
-    // TODO: This a very low-level API. We should be able to create valuations in some safer manner.
     /// Create a new valuation from a vector of variables.
     pub fn new(values: Vec<bool>) -> BddValuation {
         return BddValuation(values);

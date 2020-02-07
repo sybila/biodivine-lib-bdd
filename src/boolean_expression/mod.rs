@@ -21,7 +21,6 @@ pub enum BooleanExpression {
     Const(bool),
     Variable(String),
     Not(Box<BooleanExpression>),
-    // TODO: Change this to binary op (also, add BooleanOp to stdlib) - maybe even this whole module?...
     And(Box<BooleanExpression>, Box<BooleanExpression>),
     Or(Box<BooleanExpression>, Box<BooleanExpression>),
     Xor(Box<BooleanExpression>, Box<BooleanExpression>),

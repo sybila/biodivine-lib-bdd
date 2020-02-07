@@ -84,7 +84,6 @@ pub struct Bdd(Vec<BddNode>);
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct BddVariable(u16);
 
-// TODO: Rename this to BitVector and move it to std-lib? The same for the iterator.
 /// Exactly describes one assignment of boolean values to variables of a `Bdd`.
 ///
 /// It can be used as a witness of `Bdd` non-emptiness, since one can evaluate every `Bdd`
@@ -92,7 +91,6 @@ pub struct BddVariable(u16);
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct BddValuation(Vec<bool>);
 
-// TODO: Valuation iterator should also work when there are no variables (one iteration of a zero-sized valuation)!
 /// Exhaustively iterates over all valuations with a certain number of variables.
 ///
 /// Be aware of the exponential time complexity of such operation!
