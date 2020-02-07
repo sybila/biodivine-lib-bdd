@@ -1,10 +1,12 @@
-![Travis (.org)](https://img.shields.io/travis/sybila/biodivine-lib-bdd?style=flat-square)
-![Codecov](https://img.shields.io/codecov/c/github/sybila/biodivine-lib-bdd?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/sybila/biodivine-lib-bdd?style=flat-square)
-![Crates.io](https://img.shields.io/crates/v/biodivine-lib-bdd?style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/sybila/biodivine-lib-bdd?style=flat-square)
-![GitHub top language](https://img.shields.io/github/languages/top/sybila/biodivine-lib-bdd?style=flat-square)
-![Crates.io](https://img.shields.io/crates/l/biodivine-lib-bdd?style=flat-square)
+[![Travis (.org)](https://img.shields.io/travis/sybila/biodivine-lib-bdd?style=flat-square)](https://travis-ci.org/sybila/biodivine-lib-bdd)
+[![Codecov](https://img.shields.io/codecov/c/github/sybila/biodivine-lib-bdd?style=flat-square)](https://codecov.io/gh/sybila/biodivine-lib-bdd)
+[![GitHub issues](https://img.shields.io/github/issues/sybila/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/issues)
+[![Crates.io](https://img.shields.io/crates/v/biodivine-lib-bdd?style=flat-square)](https://crates.io/crates/biodivine-lib-bdd)
+[![GitHub last commit](https://img.shields.io/github/last-commit/sybila/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/commits/master)
+[![GitHub top language](https://img.shields.io/github/languages/top/sybila/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd)
+[![Crates.io](https://img.shields.io/crates/l/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/blob/master/LICENSE)
+[![Api Docs](https://img.shields.io/badge/biodivine-api--docs-yellowgreen?style=flat-square)](https://docs.rs/biodivine-lib-bdd/0.1.0/)
+[![Dev Docs](https://img.shields.io/badge/biodivine-dev--docs-orange?style=flat-square)](https://biodivine.fi.muni.cz/docs/biodivine-lib-bdd/v0.1.0/)
 
 # Biodivine/LibBDD
 
