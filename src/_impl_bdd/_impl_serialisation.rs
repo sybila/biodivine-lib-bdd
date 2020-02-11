@@ -1,6 +1,4 @@
-//! **(internal)** Implementation of the string and byte serialisation procedures for `Bdd`s.
-
-use super::*;
+use crate::*;
 use std::io::{Read, Write};
 
 /// Serialisation and deserialisation methods for `Bdd`s.
@@ -88,8 +86,8 @@ fn lift_err<T, E: ToString>(item: Result<T, E>) -> Result<T, String> {
 
 #[cfg(test)]
 mod tests {
-    use super::super::test_util::{load_expected_results, mk_small_test_bdd};
-    use super::*;
+    use crate::_test_util::{load_expected_results, mk_small_test_bdd};
+    use crate::*;
 
     #[test]
     fn bdd_to_string() {

@@ -11,6 +11,7 @@ Cargo.lock
 
 .DS_Store
 
+# Idea project files (in case you are using Idea Rust Plugin)
 .idea
 *.ipr
 *.iml

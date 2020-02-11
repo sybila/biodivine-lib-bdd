@@ -1,9 +1,7 @@
-//! **(internal)** Implements boolean expression evaluation for `BddVariableSet` and some utility methods.
-
 use super::super::{Bdd, BddVariableSet};
-use super::impl_parser::parse_boolean_expression;
 use super::BooleanExpression;
 use super::BooleanExpression::*;
+use super::_impl_parser::parse_boolean_expression;
 use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
 
@@ -18,6 +16,7 @@ impl TryFrom<&str> for BooleanExpression {
 impl Display for BooleanExpression {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         match self {
+            Const(value) => write!(f, "{}", value),
             Variable(name) => write!(f, "{}", name),
             Not(inner) => write!(f, "!{}", inner),
             And(l, r) => write!(f, "({} & {})", l, r),
@@ -35,6 +34,11 @@ impl BddVariableSet {
     /// variables are unknown.
     pub fn safe_eval_expression(&self, expression: &BooleanExpression) -> Option<Bdd> {
         return match expression {
+            Const(value) => Some(if *value {
+                self.mk_true()
+            } else {
+                self.mk_false()
+            }),
             Variable(name) => self.var_by_name(name).map(|v| self.mk_var(v)),
             Not(inner) => self.safe_eval_expression(inner).map(|b| b.not()),
             And(l, r) => {

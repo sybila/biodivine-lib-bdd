@@ -10,25 +10,6 @@ Each benchmark should have a separate file in the benchmarks module. We provide 
 way, one can quickly test optimisations with `large_benchmarks` disabled and then run a full test with
 larger instances. To benchmark everything, run `cargo bench --features "large_benchmarks"`.  
 
-### Few quick resources on optimisation and profiling
-
-Before optimizing anything, it is best to first profile your application to ensure you are truly 
-optimizing the hot spots in your code. For a nice Rust profiling helper utility on MacOS, see
-[Cargo Instruments](https://crates.io/crates/cargo-instruments).
-
-Another nice crate (multi platform even!) for visualising hot spots is 
-[Flame Graph](https://github.com/ferrous-systems/flamegraph).
-
-Sometimes when doing micro-optimisations, it is also beneficial to see the actual assembly your 
-code will compile to (however, this typically requires some well isolated instances of code).
-To quickly explore compiled code, see [Compiler Explorer](https://godbolt.org). However, remember
-to add the optimization flag `-O` to the compiler and make sure you consume the output values to
-ensure the whole benchmark is not just evaluated by the compiler.
-
-For profiling, it seems to be a little finicky to use rust benchmarks in these tools directly, so there
-is a special binary target added in this branch, `bench_profile`, where you can copy your benchmark
-code in order to make it easier to debug and visualise by instruments or flame graph.   
-
 ### List of benchmarks
 
 Please, if you add a benchmark, add it to this list so that we know where the benchmarks are coming

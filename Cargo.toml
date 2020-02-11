@@ -3,10 +3,18 @@ name = "biodivine-lib-bdd"
 version = "0.1.0"
 authors = ["Samuel Pastva <daemontus@gmail.com>"]
 edition = "2018"
+description = "A simple thread-safe implementation of basic binary decision diagrams."
+homepage = "https://github.com/sybila/biodivine-lib-bdd"
+repository = "https://github.com/sybila/biodivine-lib-bdd"
+readme = "README.md"
+keywords = ["bdd", "boolean-expression", "symbolic"]
+categories = ["data-structures", "mathematics", "science"]
+license = "MIT"
 
-# Enable rich docs for some online docs autogen services.
-[package.metadata.docs.rs]
-rustdoc-args = ["--html-in-header", "docs-head.html"]
+[badges]
+travis-ci = { repository = "sybila/biodivine-lib-bdd" }
+codecov = { repository = "sybila/biodivine-lib-bdd" }
+maintenance = { status = "actively-developed" }
 
 [profile.release]
 # This is important for profiling - otherwise we would get unreadable traces.
@@ -18,20 +26,21 @@ debug = true
 [dependencies]
 fxhash = "0.2.1"
 
+[dev-dependencies]
+rand = "0.7"
+
 [features]
-# With shields_up you enable explicit assertions of pre/post conditions and invariants in critical
-# codepaths that cannot be proved safe by the rust compiler. Every such assertion should be proven
-# correct by an associated comment. We use shields_up instead of debug_assertion to have it separated
-# from debug mode (shields_up is not strictly for debugging, its a general safety net / troubleshooting
-# measure). For official releases and benchmarks, you should disable shields_up to avoid unnecessary
-# performance penalty. Avoid introducing dead code when shields_up is enabled - this will mess with test coverage.
+# Use this config flag to enable checks or validation that should not be necessary
+# (for example, the check can fail only if function contract is violated).
+# In production/benchmark releases, this feature should be disabled to enable best
+# performance. Avoid introducing dead code when shields_up is on, to avoid
+# dead code coverage issues.
 shields_up = []
 
 # Use this to indicate that the benchmark can take a significant amount of time and thus can be filtered
 # out during quick iterative testing.
 large_benchmarks = []
 
-default = ["shields_up"]
-
-[dev-dependencies]
-rand = "0.7"
+# Enable rich docs for some online docs autogen services.
+[package.metadata.docs.rs]
+rustdoc-args = ["--html-in-header", "./res/docs-head.html"]

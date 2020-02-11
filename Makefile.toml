@@ -4,12 +4,12 @@
 
 # Enable docs with Mermaid, KaTeX and some small design tweaks.
 [tasks.rich-doc-dev]
-env = { "RUSTDOCFLAGS" = "--html-in-header docs-head.html" }
+env = { "RUSTDOCFLAGS" = "--html-in-header ./res/docs-head.html" }
 command = "cargo"
 args = ["doc", "--no-deps", "--document-private-items"]
 
 [tasks.rich-doc]
-env = { "RUSTDOCFLAGS" = "--html-in-header docs-head.html" }
+env = { "RUSTDOCFLAGS" = "--html-in-header ./res/docs-head.html" }
 command = "cargo"
 args = ["doc", "--no-deps"]
 
@@ -19,12 +19,17 @@ dependencies = [
     "doc-katex",
 ]
 
-# Run benchmark tests with shields_up disabled.
-[tasks.bench-unsafe]
+# Make a release build with shields_up enabled.
+[tasks.build-release-safe]
 command = "cargo"
-args = ["bench" , "--no-default-features"]
+args = ["build", "--release", "--features", "shields_up"]
 
-# Make a release build with shields_up disabled.
-[tasks.build-release-unsafe]
+# Make a debug build with shields_up enabled.
+[tasks.build-safe]
 command = "cargo"
-args = ["build", "--release", "--no-default-features"]
+args = ["build", "--features", "shields_up"]
+
+# Make a test build with shields_up enabled.
+[tasks.test-safe]
+command = "cargo"
+args = ["test", "--features", "shields_up"]

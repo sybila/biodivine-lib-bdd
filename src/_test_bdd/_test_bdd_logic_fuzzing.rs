@@ -1,3 +1,4 @@
+//!
 //! Here, we have a small toolbox for fuzzing out BDD framework.
 //! It allows us to create an evaluable binary tree of operations, where
 //! each leaf is a random BDD variable and each tree node represents one
@@ -16,7 +17,7 @@
 //! leaves which need to be allocated and will dominate the memory usage of
 //! the benchmark.
 
-use super::*;
+use crate::*;
 use rand::prelude::StdRng;
 use rand::{RngCore, SeedableRng};
 

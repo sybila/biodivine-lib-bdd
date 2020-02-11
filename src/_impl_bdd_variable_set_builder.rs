@@ -1,5 +1,3 @@
-//! **(internal)** Implementation of the `BddVariableSetBuilder`.
-
 use super::*;
 use std::collections::HashMap;
 

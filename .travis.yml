@@ -20,10 +20,10 @@ before_cache: |
 script:
   - cargo clean
   - cargo build
-  - cargo test
+  - cargo test --features "shields_up"
 
 after_success: |
   if [[ "$TRAVIS_RUST_VERSION" == stable ]]; then
-    cargo tarpaulin --out Xml
+    cargo tarpaulin --out Xml --features "shields_up"
     bash <(curl -s https://codecov.io/bash)
   fi

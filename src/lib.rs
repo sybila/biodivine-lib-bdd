@@ -1,3 +1,38 @@
+//! This crate provides a basic implementation of binary decision diagrams (BDDs) — a symbolic data
+//! structure for representing boolean functions or other equivalent objects (such as bit-vector
+//! sets).
+//!
+//! Compared to other popular implementations, every BDD owns its memory. It is thus trivial to
+//! serialise, but also to share between threads. This makes it useful for applications that
+//! process high number of BDDs concurrently.
+//!
+//! We currently provide support for explicit operations as well as evaluation of basic boolean
+//! expressions and a custom `bdd` macro for hybrid usage:
+//!
+//! ```rust
+//! use biodivine_lib_bdd::*;
+//!
+//! let vars = BddVariableSet::new(vec!["a", "b", "c"]);
+//! let a = vars.mk_var_by_name("a");
+//! let b = vars.mk_var_by_name("b");
+//! let c = vars.mk_var_by_name("c");
+//!
+//! let f1 = a.iff(&b.not()).or(&c.xor(&a));
+//! let f2 = vars.eval_expression_string("(a <=> !b) | c ^ a");
+//! let f3 = bdd!((a <=> (!b)) | (c ^ a));
+//!
+//! assert!(!f1.is_false());
+//! assert_eq!(f1.cardinality(), 6.0);
+//! assert_eq!(f1, f2);
+//! assert_eq!(f2, f3);
+//! assert!(f1.iff(&f2).is_true());
+//! assert!(f1.iff(&f3).is_true());
+//! ```
+//!
+//! Additionally, we provide serialisation into a custom string and binary formats as well as `.dot`.
+//! For a more detailed description, see the [tutorial module](./tutorial/index.html) documentation.
+//! There is also an experimental support for converting BDDs back into boolean expressions.
+
 #![feature(test)] // necessary for benchmark tests
 extern crate test;
 
@@ -9,28 +44,39 @@ use std::collections::{HashMap, HashSet};
 pub mod boolean_expression;
 pub mod tutorial;
 
-mod impl_bdd_boolean_ops;
-mod impl_bdd_export_dot;
-mod impl_bdd_serialisation;
-mod impl_bdd_util;
+/// **(internal)** Implementations for the `Bdd` struct.
+mod _impl_bdd;
 
-mod impl_bdd_node;
-mod impl_bdd_pointer;
-mod impl_bdd_valuation;
-mod impl_bdd_variable;
-mod impl_bdd_variable_set;
-mod impl_bdd_variable_set_builder;
-
-mod macro_bdd;
-
+/// **(internal)** Several complex test scenarios for the `Bdd` struct.
 #[cfg(test)]
-mod test_bdd_logic_basic;
-#[cfg(test)]
-mod test_bdd_logic_fuzzing;
-#[cfg(test)]
-mod test_util;
+mod _test_bdd;
 
-/// Characters that cannot appear in the variable name
+/// **(internal)** Implementation of the `BddNode`.
+mod _impl_bdd_node;
+
+/// **(internal)** Implementation of the `BddPointer`.
+mod _impl_bdd_pointer;
+
+/// **(internal)** Implementation of the `BddValuation`.
+mod _impl_bdd_valuation;
+
+/// **(internal)** Implementation of the `BddVariable`.
+mod _impl_bdd_variable;
+
+/// **(internal)** Implementation of the `BddVariableSet`.
+mod _impl_bdd_variable_set;
+
+/// **(internal)** Implementation of the `BddVariableSetBuilder`.
+mod _impl_bdd_variable_set_builder;
+
+/// **(internal)** A macro module for simplifying BDD operations.
+mod _macro_bdd;
+
+/// Several basic utility methods for testing `Bdd`s.
+#[cfg(test)]
+mod _test_util;
+
+/// **(internal)** Characters that cannot appear in the variable name
 /// (based on possible tokens in a boolean expression).
 const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
 
@@ -44,7 +90,6 @@ pub struct Bdd(Vec<BddNode>);
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct BddVariable(u16);
 
-/// TODO: Rename this to BitVector and move it to std-lib? The same for the iterator.
 /// Exactly describes one assignment of boolean values to variables of a `Bdd`.
 ///
 /// It can be used as a witness of `Bdd` non-emptiness, since one can evaluate every `Bdd`

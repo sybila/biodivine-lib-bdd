@@ -1,12 +1,8 @@
-//! **(internal)** Implementation of the `BddValuation`.
-
 use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
 use std::fmt::{Display, Error, Formatter};
 
 impl BddValuation {
     /// Create a new valuation from a vector of variables.
-    ///
-    /// TODO: This a very low-level API. We should be able to create valuations in some safer manner.
     pub fn new(values: Vec<bool>) -> BddValuation {
         return BddValuation(values);
     }
@@ -109,7 +105,7 @@ impl Iterator for BddValuationIterator {
 
 #[cfg(test)]
 mod tests {
-    use super::super::{BddValuation, BddVariableSet};
+    use super::super::{BddValuation, BddValuationIterator, BddVariableSet};
     use crate::bdd;
 
     #[test]
@@ -122,6 +118,13 @@ mod tests {
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![true, true])));
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
+    }
+
+    #[test]
+    fn bdd_valuation_iterator_empty() {
+        let mut it = BddValuationIterator::new(0);
+        assert_eq!(it.next(), Some(BddValuation::new(Vec::new())));
+        assert_eq!(it.next(), None);
     }
 
     #[test]

@@ -1,5 +1,3 @@
-//! **(internal)** Implementation of the `BddNode`.
-
 use super::*;
 
 impl BddNode {

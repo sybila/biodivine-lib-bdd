@@ -1,5 +1,3 @@
-//! A macro for simplifying BDD operations.
-
 /// A macro for simplifying `Bdd` operations. It evaluates given expression over `Bdd`s where
 /// you can use standard boolean operators `!`, `&`, `|`, `^`, `=>` and `<=>`.
 ///

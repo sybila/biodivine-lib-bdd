@@ -1,5 +1,3 @@
-//! **(internal)** Implementation of the `BddPointer`.
-
 use super::*;
 use std::fmt::{Display, Error, Formatter};
 

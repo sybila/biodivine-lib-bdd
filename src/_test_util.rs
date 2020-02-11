@@ -1,5 +1,3 @@
-//! Several basic utility methods for testing `Bdd`s.
-
 use super::*;
 
 /// A small BDD over variables $v_1, v_2, v_3, v_4, v_5$ corresponding to the formula $(v_3 \land \neg v_4)$
@@ -26,6 +24,6 @@ pub fn mk_5_variable_set() -> BddVariableSet {
 }
 
 pub fn load_expected_results(test_name: &str) -> String {
-    return std::fs::read_to_string(format!("test_results/{}", test_name))
+    return std::fs::read_to_string(format!("res/test_results/{}", test_name))
         .expect("Cannot open result file.");
 }
