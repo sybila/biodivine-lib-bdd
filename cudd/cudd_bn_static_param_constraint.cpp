@@ -45,7 +45,7 @@ void bench_observability(int num_regulators) {
         printf("\r%d...", r);
         fflush(stdout);
     }
-    printf("\rcudd_bn_parametrised_observability_%d: %ld (ns)\n", num_vars, total / repeat);
+    printf("\rcudd_bn_parametrised_observability_%d: %ld (ns)\n", num_regulators, total / repeat);
 }
 
 void bench_activation(int num_regulators) {
@@ -90,7 +90,7 @@ void bench_activation(int num_regulators) {
         printf("\r%d...", r);
         fflush(stdout);
     }
-    printf("\rcudd_bn_parametrised_activation_%d: %ld (ns)\n", num_vars, total / repeat);
+    printf("\rcudd_bn_parametrised_activation_%d: %ld (ns)\n", num_regulators, total / repeat);
 }
 
 int main (int argc, char *argv[])
