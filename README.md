@@ -10,6 +10,10 @@ Each benchmark should have a separate file in the benchmarks module. We provide 
 way, one can quickly test optimisations with `large_benchmarks` disabled and then run a full test with
 larger instances. To benchmark everything, run `cargo bench --features "large_benchmarks"`.  
 
+We also provide a comparison with the `Bex`, `CUDD` and `BuDDy` BDD libraries. Bex is integrated 
+directly into the benchmark suite (feature `bench_bex` or `cargo make bench-all`). To build `CUDD`
+and `BuDDy` benchmarks, see readme files in each individual folder. 
+
 ### List of benchmarks
 
 Please, if you add a benchmark, add it to this list so that we know where the benchmarks are coming
@@ -48,6 +52,49 @@ For reference, we keep a history of benchmark runs on our server (`psyche07`). T
 AMD processor (2990WX) with 64GB of memory at the moment. For each log, please include at least a commit 
 hash of the last merged state from master and a date when the benchmarks were performed. Ideally, please
 also include a small commentary about changes since the last run to explain differences in results.
+
+#### 12.02.2019
+Change log: Small refactors, but we have added other BDD libraries for comparison:
+
+Last commit in master: `c3a00f590f888299932d242c691d502ad576ca60`. Results:
+```
+==== LibBDD ====
+bn_parametrised_activation_4    ... bench:     136,646 ns/iter (+/- 291)
+bn_parametrised_activation_5    ... bench:  24,046,180 ns/iter (+/- 290,894)
+bn_parametrised_observability_4 ... bench:     253,207 ns/iter (+/- 831)
+bn_parametrised_observability_5 ... bench:  60,634,019 ns/iter (+/- 429,244)
+ripple_carry_adder_16           ... bench:      76,190 ns/iter (+/- 199)
+ripple_carry_adder_32           ... bench:  23,306,693 ns/iter (+/- 55,411)
+ripple_carry_adder_4            ... bench:       1,486 ns/iter (+/- 36)
+ripple_carry_adder_8            ... bench:       5,942 ns/iter (+/- 60)
+==== Bex ====
+bn_parametrised_activation_4    ... bench:     152,223 ns/iter (+/- 1,849)
+bn_parametrised_activation_5    ... bench:  40,468,041 ns/iter (+/- 550,254)
+bn_parametrised_observability_4 ... bench:     278,608 ns/iter (+/- 3,247)
+bn_parametrised_observability_5 ... bench:  95,397,103 ns/iter (+/- 2,104,086)
+ripple_carry_adder_16           ... bench:      97,077 ns/iter (+/- 482)
+ripple_carry_adder_32           ... bench:  40,375,817 ns/iter (+/- 304,021)
+ripple_carry_adder_4            ... bench:         639 ns/iter (+/- 9)
+ripple_carry_adder_8            ... bench:       4,794 ns/iter (+/- 42)
+==== CUDD ====
+bn_parametrised_activation_4    ... bench:     842,623 ns/iter
+bn_parametrised_activation_5    ... bench:  23,226,145 ns/iter
+bn_parametrised_observability_4 ... bench:     957,168 ns/iter
+bn_parametrised_observability_5 ... bench:  71,385,283 ns/iter
+ripple_carry_adder_16           ... bench:     859,520 ns/iter
+ripple_carry_adder_32           ... bench:  23,787,838 ns/iter
+ripple_carry_adder_4            ... bench:     937,278 ns/iter
+ripple_carry_adder_8            ... bench:     850,810 ns/iter
+==== BuDDy ====
+bn_parametrised_activation_4    ... bench:   2,043,298 ns/iter
+bn_parametrised_activation_5    ... bench:  18,219,168 ns/iter
+bn_parametrised_observability_4 ... bench:   4,685,028 ns/iter
+bn_parametrised_observability_5 ... bench:  41,808,454 ns/iter
+ripple_carry_adder_16           ... bench:   2,036,707 ns/iter
+ripple_carry_adder_32           ... bench:  21,308,823 ns/iter
+ripple_carry_adder_4            ... bench:     777,108 ns/iter
+ripple_carry_adder_8            ... bench:     405,424 ns/iter
+```
 
 #### 17.01.2019
 Change log: Switched hash function to FxHash and add table pre-allocation.
