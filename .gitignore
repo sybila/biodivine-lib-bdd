@@ -18,3 +18,4 @@ Cargo.lock
 *.iws
 
 cudd/*.a
+buddy/*.a
