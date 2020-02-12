@@ -42,6 +42,9 @@ shields_up = []
 # out during quick iterative testing.
 large_benchmarks = []
 
+# Enables Bex benchmarks
+bench_bex = []
+
 # Enable rich docs for some online docs autogen services.
 [package.metadata.docs.rs]
 rustdoc-args = ["--html-in-header", "./res/docs-head.html"]

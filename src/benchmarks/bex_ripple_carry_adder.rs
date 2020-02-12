@@ -1,5 +1,5 @@
+use bex::bdd::{nv, BDDBase, NID, O};
 use test::Bencher;
-use bex::bdd::{BDDBase, O, NID, nv};
 
 fn ripple_carry_adder(b: &mut Bencher, num_vars: u16) {
     b.iter(|| {
