@@ -1,0 +1,4 @@
+These benchmarks use the Cudd-3.0.0 library.
+
+To run the benchmarks, download and build the library using default settings
+and then copy the libcudd.a , libmtr.a , libst.a , and libutil.a to this directory.
