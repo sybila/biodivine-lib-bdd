@@ -1,4 +1,10 @@
-These benchmarks use the Cudd-3.0.0 library.
+These benchmarks use the cudd-3.0.0 library.
 
-To run the benchmarks, download and build the library using default settings
-and then copy the libcudd.a , libmtr.a , libst.a , and libutil.a to this directory.
+To run the benchmarks, build the included library using default settings
+and then copy the libcudd.a to this directory (it will be located in cudd/.libs).
+
+To run the benchmarks, execute
+
+make bench CXX=g++
+
+Use your preferred C++ compiler instead of g++...

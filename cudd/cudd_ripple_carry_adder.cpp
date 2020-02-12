@@ -5,15 +5,14 @@
 
 void bench(int num_vars) {
     int repeat = 100;
-    long long int total = 0;
+    long int total = 0;
     for (int r = 0; r < repeat; r++) {
         auto start = std::chrono::high_resolution_clock::now();
         DdManager *gbm;
         gbm = Cudd_Init(0,0,CUDD_UNIQUE_SLOTS,CUDD_CACHE_SLOTS,0);
 
-        DdNode *bdd, *tmp_neg, *tmp;
         // for some reason, Cudd_ReadZero is doing som bullshit
-        bdd = Cudd_bddAnd(gbm, Cudd_bddIthVar(gbm,0), Cudd_Not(Cudd_bddIthVar(gbm,0)));
+        DdNode *bdd = Cudd_bddAnd(gbm, Cudd_bddIthVar(gbm,0), Cudd_Not(Cudd_bddIthVar(gbm,0)));
         Cudd_Ref(bdd);
 
         for (int i = 0; i < (num_vars / 2); i++) {
@@ -27,18 +26,16 @@ void bench(int num_vars) {
         }
         Cudd_Quit(gbm);
         auto finish = std::chrono::high_resolution_clock::now();
-        long long int duration = std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count();
+        long int duration = std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count();
         total = total + duration;
-        printf("%d...", r);
+        printf("\r%d...", r);
         fflush(stdout);
     }
-    printf("\ncudd_ripple_carry_adder_%d: %ld (ns)\n", num_vars, total / repeat);
+    printf("\rcudd_ripple_carry_adder_%d: %ld (ns)\n", num_vars, total / repeat);
 }
 
 int main (int argc, char *argv[])
 {
-    printf("Starting...\n");
-    int num_vars = 32;
     bench(4);
     bench(8);
     bench(16);
