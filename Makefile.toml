@@ -33,3 +33,7 @@ args = ["build", "--features", "shields_up"]
 [tasks.test-safe]
 command = "cargo"
 args = ["test", "--features", "shields_up"]
+
+[tasks.bench-all]
+command = "cargo"
+args = ["bench", "--features", "large_benchmarks bench_bex"]
