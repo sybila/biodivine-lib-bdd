@@ -8,7 +8,7 @@ void bench(int num_vars) {
     for (int r = 0; r < repeat; r++) {
         auto start = std::chrono::high_resolution_clock::now();
 
-        bdd_init(300000,30000);
+        bdd_init(16384 * num_vars, 4096 * num_vars);
         bdd_setvarnum(num_vars);
 
         bdd result = bdd_false();

@@ -1,0 +1,10 @@
+These benchmarks use the BuDDy library.
+
+To run the benchmarks, build the included library using default settings
+and then copy the libbdd.a to this directory (it will be located in src/.libs).
+
+To run the benchmarks, execute
+
+make bench CXX=g++
+
+Use your preferred C++ compiler instead of g++...
