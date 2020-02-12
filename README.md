@@ -46,3 +46,19 @@ fn demo() {
 Additionally, we provide serialisation into a custom string and binary formats as well as `.dot`.
 For a more detailed description, see the [tutorial module](https://docs.rs/biodivine-lib-bdd/0.1.0/biodivine_lib_bdd/tutorial/index.html) documentation.
 There is also an experimental support for converting BDDs back into boolean expressions.
+
+### Performance
+
+Critical part of every BDD implementation is performance. Currently, the repository contains a 
+`benchmark` branch with several benchmark problems evaluable using this crate as well as other 
+state-of-the-art BDD libraries (`bex`, `cudd` and `buddy`). In our experience, 
+`biodivine-lib-bdd` performs comparably to these libraries for large problem instances:
+
+![Performance stats](https://docs.google.com/spreadsheets/d/e/2PACX-1vThU2ahv1f3PcLVheM09iFUYUemCa9uzd8-r9erc610n7YP-soTfclYnpooyXVPCDGEhLvTzW0c11wG/pubchart?oid=933758842&format=image)
+
+The benchmarks typically consist of incrementally constructing one large BDD of exponential size.
+For some applications where node reuse is more important (very similar formulas appear
+repeatedly), `lib-bdd` would probably be slower. Also note that even though `buddy` is winning,
+the setting of initial cache size was critical when achieving this level of performance
+(each benchmark has a specifically tuned cache size to avoid garbage collection and overallocation). 
+If the size of the problem is not known beforehand, `buddy` may perform significantly worse.
