@@ -207,3 +207,22 @@ fn nontrivial_identity_syntactic() {
     assert!(bdd!((cnf <=> dnf)).is_true());
     assert_eq!(20.0, cnf.cardinality());
 }
+
+#[test]
+fn invert_input() {
+    let variables = mk_5_variable_set();
+    let (var1, var2, var3, var4) = (v1(), v2(), v3(), v4());
+    let v1 = variables.mk_var(v1());
+    let v2 = variables.mk_var(v2());
+    let v3 = variables.mk_var(v3());
+
+    let original: Bdd = bdd!(!(v1 & (v2 & (!v3))));
+    let invert_v1: Bdd = bdd!(!((!v1) & (v2 & (!v3))));
+    let invert_v2: Bdd = bdd!(!(v1 & ((!v2) & (!v3))));
+    let invert_v3: Bdd = bdd!(!(v1 & (v2 & v3)));
+
+    assert!(invert_v1.iff(&original.invert_input(var1)).is_true());
+    assert!(invert_v2.iff(&original.invert_input(var2)).is_true());
+    assert!(invert_v3.iff(&original.invert_input(var3)).is_true());
+    assert!(original.iff(&original.invert_input(var4)).is_true());
+}

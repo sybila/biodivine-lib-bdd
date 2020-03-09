@@ -12,6 +12,7 @@ impl Bdd {
         } else if self.is_false() {
             Bdd::mk_true(self.num_vars())
         } else {
+            // Note that this does not break DFS order of the graph because
             let mut result_vector = self.0.clone();
             for i in 2..result_vector.len() {
                 // skip terminals
@@ -20,6 +21,27 @@ impl Bdd {
             }
             Bdd(result_vector)
         };
+    }
+
+    /// Create a `Bdd` which behaves as the original formula, but with all occurrences of
+    /// a specific variable inverted, i.e. instead of having $\phi(x, y, z)$, you get a `Bdd`
+    /// for $\phi(not(x), y, z)$ (if called with `x` as the `variable`).
+    ///
+    /// WARNING: Right now, this breaks the DFS order of the graph slightly (invariants still
+    /// hold, but the specific order of the nodes can be different) TODO
+    pub fn invert_input(&self, variable: BddVariable) -> Bdd {
+        let mut result_vector = self.0.clone();
+        for i in 2..result_vector.len() {
+            // Swap pointers for the specific variable. If we have both links leading to the same
+            // node (i.e. the decision node is not on the path), then by swaping, we would get
+            // the same result, so it's not a problem.
+            if result_vector[i].var == variable {
+                let swap = result_vector[i].high_link;
+                result_vector[i].high_link = result_vector[i].low_link;
+                result_vector[i].low_link = swap;
+            }
+        }
+        Bdd(result_vector)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
