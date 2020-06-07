@@ -44,6 +44,13 @@ use std::collections::{HashMap, HashSet};
 pub mod boolean_expression;
 pub mod tutorial;
 
+pub static mut CACHE_MISS: usize = 0;
+pub static mut CACHE_READ: usize = 0;
+pub static mut CACHE_READ_TRIVIAL: usize = 0;
+pub static mut CACHE_READ_SAME_VAR: usize = 0;
+pub static mut CACHE_READ_NEXT_VAR: usize = 0;
+pub static mut CACHE_READS: Vec<(usize, usize)> = Vec::new();
+
 /// **(internal)** Implementations for the `Bdd` struct.
 mod _impl_bdd;
 
@@ -88,7 +95,7 @@ pub struct Bdd(Vec<BddNode>);
 
 /// Identifies one of the variables that can appear as a decision condition in the `Bdd`.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub struct BddVariable(u16);
+pub struct BddVariable(pub u16);
 
 /// Exactly describes one assignment of boolean values to variables of a `Bdd`.
 ///

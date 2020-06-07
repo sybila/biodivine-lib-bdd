@@ -189,10 +189,25 @@ where
                 } else {
                     // There is a decision here.
                     let node = BddNode::mk_node(decision_var, new_low, new_high);
+                    unsafe {
+                        CACHE_READ += 1;
+                        if new_low.is_terminal() || new_high.is_terminal() {
+                            CACHE_READ_TRIVIAL += 1;
+                        } else if result.var_of(new_low) == result.var_of(new_high) {
+                            if decision_var.0 + 1 == result.var_of(new_low).0 {
+                                CACHE_READ_NEXT_VAR += 1;
+                            } else {
+                                CACHE_READ_SAME_VAR += 1;
+                            }
+                        }
+                    }
                     if let Some(index) = existing.get(&node) {
                         // Node already exists, just make it a result of this computation.
                         finished.insert(*on_stack, *index);
                     } else {
+                        unsafe {
+                            CACHE_MISS += 1;
+                        }
                         // Node does not exist, it needs to be pushed to result.
                         result.push_node(node);
                         existing.insert(node, result.root_pointer());
