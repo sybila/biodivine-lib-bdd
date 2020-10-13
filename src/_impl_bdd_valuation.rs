@@ -7,6 +7,11 @@ impl BddValuation {
         return BddValuation(values);
     }
 
+    /// Convert the valuation to its underlying vector.
+    pub fn vector(self) -> Vec<bool> {
+        return self.0;
+    }
+
     /// Get a value of a specific BDD variable in this valuation.
     pub fn value(&self, variable: BddVariable) -> bool {
         return self.0[variable.0 as usize];
