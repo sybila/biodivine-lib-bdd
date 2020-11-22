@@ -78,3 +78,14 @@ fn bdd_extended_witness_simple() {
     assert_eq!(bdd, bdd.extended_witness(4));
     assert_eq!(bdd, bdd.extended_witness(5));
 }
+
+#[test]
+fn bdd_var_projection() {
+    let variables = mk_5_variable_set();
+    let bdd = variables.eval_expression_string("(v1 => (v3 <=> v2)) & (!v1 => !(v2 <=> v5))");
+    let v1 = variables.var_by_name("v1").unwrap();
+    assert_eq!(
+        bdd.var_projection(v1),
+        variables.eval_expression_string("(v3 <=> v2) | !(v2 <=> v5)")
+    );
+}

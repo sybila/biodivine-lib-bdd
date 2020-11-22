@@ -5,6 +5,15 @@ use std::collections::HashMap;
 
 /// Advanced relation-like operations for `Bdd`s. Currently **experimental/unstable**.
 impl Bdd {
+    /// Eliminates one given variable from the `Bdd`.
+    ///
+    /// For variable `x` and bdd `B`, this is equivalent to writing `(x & B) | (!x & B)`. Currently,
+    /// this is also the implementation we are using. In the future it is possible to explore more
+    /// efficient implementations.
+    pub fn var_projection(&self, variable: BddVariable) -> Bdd {
+        return self.or(&self.invert_input(variable));
+    }
+
     /// Performs projection, keeping the first `keep` variables in this `Bdd`, unifying the remaining ones.
     /// The variables remain "in the Bdd" (the number of variables does not decrease), they are just
     /// "effectively" quantified away.
