@@ -54,6 +54,9 @@ mod _impl_bdd_pointer;
 /// **(internal)** Implementation of the `BddValuation`.
 mod _impl_bdd_valuation;
 
+/// **(internal)** Implementation of the `BddValuationsIterator`.
+mod _impl_bdd_satisfying_valuations;
+
 /// **(internal)** Implementation of the `BddVariable`.
 mod _impl_bdd_variable;
 
@@ -88,13 +91,21 @@ pub struct BddVariable(u16);
 ///
 /// It can be used as a witness of `Bdd` non-emptiness, since one can evaluate every `Bdd`
 /// in some corresponding valuation and get a `true/false` result.
-#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Ord, PartialOrd)]
 pub struct BddValuation(Vec<bool>);
 
 /// Exhaustively iterates over all valuations with a certain number of variables.
 ///
 /// Be aware of the exponential time complexity of such operation!
 pub struct BddValuationIterator(Option<BddValuation>);
+
+/// An iterator over all satisfying valuations of a specific BDD.
+///
+/// Be aware of the potential exponential number of iterations!
+pub struct BddSatisfyingValuations<'a> {
+    bdd: &'a Bdd,
+    continuation: Option<(Vec<BddPointer>, BddValuation, BddValuation)>,
+}
 
 /// Maintains the set of variables that can appear in a `Bdd`.
 /// Used to create new `Bdd`s for basic formulas.

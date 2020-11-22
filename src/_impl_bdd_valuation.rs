@@ -7,6 +7,30 @@ impl BddValuation {
         return BddValuation(values);
     }
 
+    /// Create a valuation with all variables set to false.
+    pub fn all_false(num_vars: u16) -> BddValuation {
+        return BddValuation(vec![false; num_vars as usize]);
+    }
+
+    /// Create a valuation with all variables set to true.
+    pub fn all_true(num_vars: u16) -> BddValuation {
+        return BddValuation(vec![true; num_vars as usize]);
+    }
+
+    /// Flip the value of a given Bdd variable.
+    pub fn flip_value(&mut self, variable: BddVariable) {
+        let i = variable.0 as usize;
+        self.0[i] = !self.0[i];
+    }
+
+    pub fn clear(&mut self, variable: BddVariable) {
+        self.0[(variable.0 as usize)] = false;
+    }
+
+    pub fn set(&mut self, variable: BddVariable) {
+        self.0[(variable.0 as usize)] = true;
+    }
+
     /// Convert the valuation to its underlying vector.
     pub fn vector(self) -> Vec<bool> {
         return self.0;
@@ -22,9 +46,9 @@ impl BddValuation {
         return self.0.len() as u16;
     }
 
-    /// "Increment" this valuation if possible. Interpret the valuation as bit-vector and
+    /// **(internal)** "Increment" this valuation if possible. Interpret the valuation as bit-vector and
     /// perform a standard increment. This can be used to iterate over all valuations.
-    fn next(&self) -> Option<BddValuation> {
+    pub(crate) fn next(&self) -> Option<BddValuation> {
         let mut next_vec = self.0.clone();
         let mut carry = true; // initially, we want to increment
         for i in 0..next_vec.len() {
