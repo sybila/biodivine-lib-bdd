@@ -1,4 +1,5 @@
 use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
+use crate::{BddNode, BddPointer};
 use std::fmt::{Display, Error, Formatter};
 
 impl BddValuation {
@@ -107,6 +108,29 @@ impl Bdd {
             }
         }
         return node.is_one();
+    }
+}
+
+/// Convert a BddValuation to a Bdd with, well, exactly that one valuation.
+impl From<BddValuation> for Bdd {
+    fn from(valuation: BddValuation) -> Self {
+        let mut bdd = Bdd::mk_true(valuation.num_vars());
+        for i_var in (0..valuation.num_vars()).rev() {
+            let var = BddVariable(i_var);
+            let is_true = valuation.value(var);
+            let low_link = if is_true {
+                BddPointer::zero()
+            } else {
+                bdd.root_pointer()
+            };
+            let high_link = if is_true {
+                bdd.root_pointer()
+            } else {
+                BddPointer::zero()
+            };
+            bdd.push_node(BddNode::mk_node(var, low_link, high_link));
+        }
+        return bdd;
     }
 }
 

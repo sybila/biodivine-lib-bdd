@@ -92,6 +92,8 @@ impl BddVariableSet {
         return bdd;
     }
 
+    // TODO: Replace mk_var and mk_not_var with mk_literal(var, true/false) and mk_var_true/mk_var_false.
+
     /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
