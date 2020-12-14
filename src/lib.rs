@@ -36,6 +36,7 @@
 use std::collections::{HashMap, HashSet};
 
 pub mod boolean_expression;
+pub mod op_function;
 pub mod tutorial;
 
 /// **(internal)** Implementations for the `Bdd` struct.
