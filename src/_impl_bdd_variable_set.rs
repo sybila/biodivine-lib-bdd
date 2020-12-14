@@ -66,13 +66,7 @@ impl BddVariableSet {
         if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this set.", var);
         }
-        let mut bdd = self.mk_true();
-        bdd.push_node(BddNode::mk_node(
-            var.clone(),
-            BddPointer::zero(),
-            BddPointer::one(),
-        ));
-        return bdd;
+        return Bdd::mk_var(self.num_vars, var);
     }
 
     /// Create a BDD corresponding to the $\neg v$ formula where `v` is a specific variable in
@@ -83,16 +77,18 @@ impl BddVariableSet {
         if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this set.", var);
         }
-        let mut bdd = self.mk_true();
-        bdd.push_node(BddNode::mk_node(
-            var.clone(),
-            BddPointer::one(),
-            BddPointer::zero(),
-        ));
-        return bdd;
+        return Bdd::mk_not_var(self.num_vars, var);
     }
 
-    // TODO: Replace mk_var and mk_not_var with mk_literal(var, true/false) and mk_var_true/mk_var_false.
+    /// Create a BDD corresponding to the $v <=> \texttt{value}$ formula.
+    ///
+    /// *Panics:* `var` must be a valid variable in this set.
+    pub fn mk_literal(&self, var: BddVariable, value: bool) -> Bdd {
+        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
+            panic!("Variable {:?} is not in this set.", var);
+        }
+        return Bdd::mk_literal(self.num_vars, var, value);
+    }
 
     /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this set.
     ///

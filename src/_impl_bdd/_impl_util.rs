@@ -217,6 +217,26 @@ impl Bdd {
         return Bdd(vec![BddNode::mk_zero(num_vars), BddNode::mk_one(num_vars)]);
     }
 
+    pub(crate) fn mk_var(num_vars: u16, var: BddVariable) -> Bdd {
+        let mut bdd = Self::mk_true(num_vars);
+        bdd.push_node(BddNode::mk_node(var, BddPointer::zero(), BddPointer::one()));
+        return bdd;
+    }
+
+    pub(crate) fn mk_not_var(num_vars: u16, var: BddVariable) -> Bdd {
+        let mut bdd = Self::mk_true(num_vars);
+        bdd.push_node(BddNode::mk_node(var, BddPointer::one(), BddPointer::zero()));
+        return bdd;
+    }
+
+    pub(crate) fn mk_literal(num_vars: u16, var: BddVariable, value: bool) -> Bdd {
+        return if value {
+            Self::mk_var(num_vars, var)
+        } else {
+            Self::mk_not_var(num_vars, var)
+        };
+    }
+
     /// **(internal)** Add a new node to an existing `Bdd`, making the new node the root of the `Bdd`.
     pub(crate) fn push_node(&mut self, node: BddNode) {
         self.0.push(node);
