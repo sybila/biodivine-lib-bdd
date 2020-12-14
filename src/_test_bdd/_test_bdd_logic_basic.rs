@@ -15,6 +15,36 @@ fn v4() -> BddVariable {
 }
 
 #[test]
+fn bdd_not_preserves_equivalence() {
+    let variables = mk_5_variable_set();
+    let a = variables.mk_var(v1());
+    let not_a = variables.mk_not_var(v1());
+    let b = variables.mk_var(v2());
+    let not_b = variables.mk_not_var(v2());
+    assert_eq!(a.not(), not_a);
+    assert_eq!(bdd!(!(a & not_b)), bdd!(not_a | b));
+}
+
+#[test]
+fn bdd_flip_preserves_equivalence() {
+    let variables = mk_5_variable_set();
+    let a = variables.mk_var(v1());
+    let b = variables.mk_var(v2());
+    let c = variables.mk_var(v3());
+    let native = bdd!(((!a) => c) & (a => b));
+    let left = bdd!((!a) => b);
+    let right = bdd!(a => c);
+    let inverted = Bdd::fused_binary_flip_op(
+        (&left, None),
+        (&right, None),
+        Some(v1()),
+        crate::op_function::and,
+    );
+    assert!(native.iff(&inverted).is_true());
+    assert_eq!(native, inverted);
+}
+
+#[test]
 fn bdd_mk_not() {
     let variables = mk_5_variable_set();
     let bdd = mk_small_test_bdd();
@@ -221,8 +251,32 @@ fn invert_input() {
     let invert_v2: Bdd = bdd!(!(v1 & ((!v2) & (!v3))));
     let invert_v3: Bdd = bdd!(!(v1 & (v2 & v3)));
 
-    assert!(invert_v1.iff(&original.invert_input(var1)).is_true());
-    assert!(invert_v2.iff(&original.invert_input(var2)).is_true());
-    assert!(invert_v3.iff(&original.invert_input(var3)).is_true());
-    assert!(original.iff(&original.invert_input(var4)).is_true());
+    assert!(Bdd::fused_binary_flip_op(
+        (&invert_v1, None),
+        (&original, Some(var1)),
+        None,
+        crate::op_function::iff
+    )
+    .is_true());
+    assert!(Bdd::fused_binary_flip_op(
+        (&original, Some(var2)),
+        (&invert_v2, None),
+        None,
+        crate::op_function::iff
+    )
+    .is_true());
+    assert!(Bdd::fused_binary_flip_op(
+        (&invert_v3, None),
+        (&original, Some(var3)),
+        None,
+        crate::op_function::iff
+    )
+    .is_true());
+    assert!(Bdd::fused_binary_flip_op(
+        (&original, Some(var4)),
+        (&original, None),
+        None,
+        crate::op_function::iff
+    )
+    .is_true());
 }

@@ -13,6 +13,7 @@ impl Bdd {
             Bdd::mk_true(self.num_vars())
         } else {
             // Note that this does not break DFS order of the graph because
+            // we are only flipping terminals, which already have special positions.
             let mut result_vector = self.0.clone();
             for i in 2..result_vector.len() {
                 // skip terminals
@@ -23,88 +24,83 @@ impl Bdd {
         };
     }
 
-    /// Create a `Bdd` which behaves as the original formula, but with all occurrences of
-    /// a specific variable inverted, i.e. instead of having $\phi(x, y, z)$, you get a `Bdd`
-    /// for $\phi(not(x), y, z)$ (if called with `x` as the `variable`).
-    ///
-    /// WARNING: Right now, this breaks the DFS order of the graph slightly (invariants still
-    /// hold, but the specific order of the nodes can be different) TODO
-    pub fn invert_input(&self, variable: BddVariable) -> Bdd {
-        let mut result_vector = self.0.clone();
-        for i in 2..result_vector.len() {
-            // Swap pointers for the specific variable. If we have both links leading to the same
-            // node (i.e. the decision node is not on the path), then by swaping, we would get
-            // the same result, so it's not a problem.
-            if result_vector[i].var == variable {
-                let swap = result_vector[i].high_link;
-                result_vector[i].high_link = result_vector[i].low_link;
-                result_vector[i].low_link = swap;
-            }
-        }
-        Bdd(result_vector)
-    }
-
     /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, |l, r| match (l, r) {
-            (Some(true), Some(true)) => Some(true),
-            (Some(false), _) => Some(false),
-            (_, Some(false)) => Some(false),
-            _ => None,
-        });
+        return apply(self, right, crate::op_function::and);
     }
 
     /// Create a `Bdd` corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn or(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, |l, r| match (l, r) {
-            (Some(false), Some(false)) => Some(false),
-            (Some(true), _) => Some(true),
-            (_, Some(true)) => Some(true),
-            _ => None,
-        });
+        return apply(self, right, crate::op_function::or);
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn imp(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, |l, r| match (l, r) {
-            (Some(true), Some(false)) => Some(false),
-            (Some(false), _) => Some(true),
-            (_, Some(true)) => Some(true),
-            _ => None,
-        });
+        return apply(self, right, crate::op_function::imp);
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn iff(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, |l, r| match (l, r) {
-            (Some(l), Some(r)) => Some(l == r),
-            _ => None,
-        });
+        return apply(self, right, crate::op_function::iff);
     }
 
     /// Create a `Bdd` corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn xor(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, |l, r| match (l, r) {
-            (Some(l), Some(r)) => Some(l ^ r),
-            _ => None,
-        });
+        return apply(self, right, crate::op_function::xor);
     }
 
     /// Create a `Bdd` corresponding to the $\phi \land \neg \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and_not(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, |l, r| match (l, r) {
-            (Some(false), _) => Some(false),
-            (_, Some(true)) => Some(false),
-            (Some(true), Some(false)) => Some(true),
-            _ => None,
-        });
+        return apply(self, right, crate::op_function::and_not);
     }
+
+    /// Apply a general binary operation to two given `Bdd` objects.
+    ///
+    /// The `op_function` specifies the actual logical operation that will be performed. See
+    /// `crate::op_function` module for examples.
+    ///
+    /// In general, this function can be used to slightly speed up less common Boolean operations
+    /// or to fuse together several operations (like negation and binary operation).
+    pub fn binary_op<T>(left: &Bdd, right: &Bdd, op_function: T) -> Bdd
+    where
+        T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    {
+        return apply(left, right, op_function);
+    }
+
+    /// Apply a general binary operation together with up-to three Bdd variable flips. See also `binary_op`.
+    ///
+    /// A flip exchanges the edges of all decision nodes with the specified variable `x`.
+    /// As a result, the set of bitvectors represented by this Bdd has the value of `x` negated.
+    ///
+    /// With this operation, you can apply such flip to both input operands as well as the output
+    /// Bdd. This can greatly simplify implementation of state space generators for asynchronous
+    /// systems.
+    pub fn fused_binary_flip_op<T>(
+        left: (&Bdd, Option<BddVariable>),
+        right: (&Bdd, Option<BddVariable>),
+        flip_output: Option<BddVariable>,
+        op_function: T,
+    ) -> Bdd
+    where
+        T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    {
+        return apply_with_flip(left.0, right.0, left.1, right.1, flip_output, op_function);
+    }
+}
+
+/// **(internal)** Shorthand for the more advanced apply which includes variable flipping
+fn apply<T>(left: &Bdd, right: &Bdd, terminal_lookup: T) -> Bdd
+where
+    T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+{
+    return apply_with_flip(left, right, None, None, None, terminal_lookup);
 }
 
 /// **(internal)** Universal function to implement standard logical operators.
@@ -113,7 +109,23 @@ impl Bdd {
 /// if the node is not terminal) and returns a boolean if these two nodes can be evaluated
 /// by the function being implemented. For example, if one of the nodes is `false` and we are
 /// implementing `and`, we can immediately evaluate to `false`.
-fn apply<T>(left: &Bdd, right: &Bdd, terminal_lookup: T) -> Bdd
+///
+/// Additionally, you can provide `flip_left_if`, `flip_right_if` and `flip_out_if` `BddVariables`
+/// which will, given the corresponding node has the given decision variable, flip the low/high
+/// link of the node. This is used to implement faster state-space generators for asynchronous
+/// systems.
+///
+/// The reason why we allow this behaviour in apply, is that flipping the pointers in a BDD is cheap,
+/// but breaks the DFS order, which may result in unexpected behaviour. Furthermore, since the
+/// function is generic, in most performance intensive paths, it should be optimized anyway.
+fn apply_with_flip<T>(
+    left: &Bdd,
+    right: &Bdd,
+    flip_left_if: Option<BddVariable>,
+    flip_right_if: Option<BddVariable>,
+    flip_out_if: Option<BddVariable>,
+    terminal_lookup: T,
+) -> Bdd
 where
     T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
 {
@@ -125,6 +137,9 @@ where
             right.num_vars()
         );
     }
+    check_flip_bounds(num_vars, flip_left_if);
+    check_flip_bounds(num_vars, flip_right_if);
+    check_flip_bounds(num_vars, flip_out_if);
     // Result holds the new BDD we are computing. Initially, `0` and `1` nodes are present. We
     // remember if the result is `false` or not (`is_not_empty`). If it is, we just provide
     // a `false` BDD instead of the result. This is easier than explicitly adding `1` later.
@@ -172,11 +187,15 @@ where
             // advance the exploration there. Otherwise, keep the pointers the same.
             let (l_low, l_high) = if l_v != decision_var {
                 (l, l)
+            } else if Some(l_v) == flip_left_if {
+                (left.high_link_of(l), left.low_link_of(l))
             } else {
                 (left.low_link_of(l), left.high_link_of(l))
             };
             let (r_low, r_high) = if r_v != decision_var {
                 (r, r)
+            } else if Some(r_v) == flip_right_if {
+                (right.high_link_of(r), right.low_link_of(r))
             } else {
                 (right.low_link_of(r), right.high_link_of(r))
             };
@@ -210,7 +229,11 @@ where
                     finished.insert(*on_stack, new_low);
                 } else {
                     // There is a decision here.
-                    let node = BddNode::mk_node(decision_var, new_low, new_high);
+                    let node = if flip_out_if == Some(decision_var) {
+                        BddNode::mk_node(decision_var, new_high, new_low)
+                    } else {
+                        BddNode::mk_node(decision_var, new_low, new_high)
+                    };
                     if let Some(index) = existing.get(&node) {
                         // Node already exists, just make it a result of this computation.
                         finished.insert(*on_stack, *index);
@@ -224,11 +247,21 @@ where
                 stack.pop(); // Mark as resolved.
             } else {
                 // Otherwise, if either value is unknown, push it to the stack.
-                if new_low.is_none() {
-                    stack.push(comp_low);
-                }
-                if new_high.is_none() {
-                    stack.push(comp_high);
+                if flip_out_if == Some(decision_var) {
+                    // If we are flipping output, we have to compute subtasks in the right order.
+                    if new_high.is_none() {
+                        stack.push(comp_high);
+                    }
+                    if new_low.is_none() {
+                        stack.push(comp_low);
+                    }
+                } else {
+                    if new_low.is_none() {
+                        stack.push(comp_low);
+                    }
+                    if new_high.is_none() {
+                        stack.push(comp_high);
+                    }
                 }
             }
         }
@@ -239,4 +272,16 @@ where
     } else {
         Bdd::mk_false(num_vars)
     };
+}
+
+/// **(internal)** A simple utility method for checking bounds of a flip variable.
+fn check_flip_bounds(num_vars: u16, var: Option<BddVariable>) {
+    if let Some(BddVariable(var)) = var {
+        if var >= num_vars {
+            panic!(
+                "Cannot flip variable {} in Bdd with {} variables.",
+                var, num_vars
+            );
+        }
+    }
 }
