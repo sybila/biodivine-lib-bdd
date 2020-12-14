@@ -1,6 +1,7 @@
 use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
 use crate::{BddNode, BddPointer};
 use std::fmt::{Display, Error, Formatter};
+use std::ops::Index;
 
 impl BddValuation {
     /// Create a new valuation from a vector of variables.
@@ -85,6 +86,15 @@ impl Display for BddValuation {
     }
 }
 
+/// Allow indexing of `BddValuation` using `BddVariables`.
+impl Index<BddVariable> for BddValuation {
+    type Output = bool;
+
+    fn index(&self, index: BddVariable) -> &Self::Output {
+        return &self.0[usize::from(index.0)];
+    }
+}
+
 /// Methods for working with `Bdd` valuations.
 impl Bdd {
     /// Evaluate this `Bdd` in a specified `BddValuation`.
@@ -101,7 +111,7 @@ impl Bdd {
         let mut node = self.root_pointer();
         while !node.is_terminal() {
             let var = self.var_of(node);
-            node = if valuation.value(var) {
+            node = if valuation[var] {
                 self.high_link_of(node)
             } else {
                 self.low_link_of(node)
