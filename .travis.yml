@@ -14,13 +14,20 @@ matrix:
   allow_failures:
     - rust: nightly
 
+env: RUSTFLAGS="-D warnings"
+
 before_cache: |
   if [[ "$TRAVIS_RUST_VERSION" == stable ]]; then
     cargo install cargo-tarpaulin
   fi
 
+before_script:
+  - rustup component add clippy
+
 script:
   - cargo clean
+  - cargo fmt -- --check
+  - cargo clippy
   - cargo build
   - cargo test --features "shields_up"
 

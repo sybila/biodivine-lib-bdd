@@ -15,7 +15,7 @@ impl Bdd {
         variables: &BddVariableSet,
         zero_pruned: bool,
     ) -> Result<(), std::io::Error> {
-        return write_bdd_as_dot(output, self, &variables.var_names, zero_pruned);
+        write_bdd_as_dot(output, self, &variables.var_names, zero_pruned)
     }
 
     /// Convert this `Bdd` to a `.dot` string.
@@ -25,7 +25,7 @@ impl Bdd {
     /// If `zero_pruned` is true, edges leading to `zero` are not shown. This can greatly
     /// simplify the graph without losing information.
     pub fn to_dot_string(&self, variables: &BddVariableSet, zero_pruned: bool) -> String {
-        return bdd_to_dot_string(self, &variables.var_names, zero_pruned);
+        bdd_to_dot_string(self, &variables.var_names, zero_pruned)
     }
 }
 
@@ -36,15 +36,15 @@ impl Bdd {
 fn write_bdd_as_dot(
     output: &mut dyn Write,
     bdd: &Bdd,
-    var_names: &Vec<String>,
+    var_names: &[String],
     zero_pruned: bool,
 ) -> Result<(), std::io::Error> {
-    write!(output, "digraph G {{\n")?;
-    write!(
+    writeln!(output, "digraph G {{")?;
+    writeln!(
         output,
-        "init__ [label=\"\", style=invis, height=0, width=0];\n"
+        "init__ [label=\"\", style=invis, height=0, width=0];"
     )?;
-    write!(output, "init__ -> {};\n", bdd.root_pointer())?;
+    writeln!(output, "init__ -> {};", bdd.root_pointer())?;
 
     /*
        Fortunately, it seem that .dot does not care about ordering of graph elements,
@@ -55,48 +55,44 @@ fn write_bdd_as_dot(
 
     // terminal nodes
     if !zero_pruned {
-        write!(
+        writeln!(
             output,
-            "0 [shape=box, label=\"0\", style=filled, shape=box, height=0.3, width=0.3];\n"
+            "0 [shape=box, label=\"0\", style=filled, shape=box, height=0.3, width=0.3];"
         )?;
     }
-    write!(
+    writeln!(
         output,
-        "1 [shape=box, label=\"1\", style=filled, shape=box, height=0.3, width=0.3];\n"
+        "1 [shape=box, label=\"1\", style=filled, shape=box, height=0.3, width=0.3];"
     )?;
 
     // decision nodes
     for node_pointer in bdd.pointers().skip(2) {
         // write the node itself
         let var_name = &var_names[bdd.var_of(node_pointer).0 as usize];
-        write!(output, "{}[label=\"{}\"];\n", node_pointer, var_name)?;
+        writeln!(output, "{}[label=\"{}\"];", node_pointer, var_name)?;
         let high_link = bdd.high_link_of(node_pointer);
         if !zero_pruned || !high_link.is_zero() {
             // write "high" link
-            write!(
-                output,
-                "{} -> {} [style=filled];\n",
-                node_pointer, high_link
-            )?;
+            writeln!(output, "{} -> {} [style=filled];", node_pointer, high_link)?;
         }
         let low_link = bdd.low_link_of(node_pointer);
         if !zero_pruned || !low_link.is_zero() {
             // write "low" link
-            write!(output, "{} -> {} [style=dotted];\n", node_pointer, low_link)?;
+            writeln!(output, "{} -> {} [style=dotted];", node_pointer, low_link)?;
         }
     }
-    write!(output, "}}\n")?;
-    return Result::Ok(());
+    writeln!(output, "}}")?;
+    Ok(())
 }
 
 /// Converts the given BDD to a .dot graph string using given variable names.
 ///
 /// See also: [bdd_as_dot](fn.bdd_as_dot.html)
-fn bdd_to_dot_string(bdd: &Bdd, var_names: &Vec<String>, zero_pruned: bool) -> String {
+fn bdd_to_dot_string(bdd: &Bdd, var_names: &[String], zero_pruned: bool) -> String {
     let mut buffer: Vec<u8> = Vec::new();
     write_bdd_as_dot(&mut buffer, bdd, var_names, zero_pruned)
         .expect("Cannot write BDD to .dot string.");
-    return String::from_utf8(buffer).expect("Invalid UTF formatting in .dot string.");
+    String::from_utf8(buffer).expect("Invalid UTF formatting in .dot string.")
 }
 
 #[cfg(test)]

@@ -10,11 +10,11 @@ impl BddVariableSet {
                 std::u16::MAX - 1
             )
         }
-        return BddVariableSet {
+        BddVariableSet {
             num_vars,
             var_names: (0..num_vars).map(|i| format!("x_{}", i)).collect(),
             var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect(),
-        };
+        }
     }
 
     /// Create a new `BddVariableSet` with the given named variables. Same as using the
@@ -24,38 +24,38 @@ impl BddVariableSet {
     pub fn new(vars: Vec<&str>) -> BddVariableSet {
         let mut builder = BddVariableSetBuilder::new();
         builder.make_variables(vars);
-        return builder.build();
+        builder.build()
     }
 
     /// Return the number of variables in this set.
     pub fn num_vars(&self) -> u16 {
-        return self.num_vars;
+        self.num_vars
     }
 
     /// Create a `BddVariable` based on a variable name. If the name does not appear
     /// in this set, return `None`.
     pub fn var_by_name(&self, name: &str) -> Option<BddVariable> {
-        return self.var_index_mapping.get(name).map(|i| BddVariable(*i));
+        self.var_index_mapping.get(name).cloned().map(BddVariable)
     }
 
     /// Provides a vector of all `BddVariable`s in this set.
     pub fn variables(&self) -> Vec<BddVariable> {
-        return (0..self.num_vars).map(|i| BddVariable(i)).collect();
+        (0..self.num_vars).map(BddVariable).collect()
     }
 
     /// Obtain the name of a specific `BddVariable`.
     pub fn name_of(&self, variable: BddVariable) -> String {
-        return self.var_names[variable.0 as usize].clone();
+        self.var_names[variable.0 as usize].clone()
     }
 
     /// Create a `Bdd` corresponding to the `true` formula.
     pub fn mk_true(&self) -> Bdd {
-        return Bdd::mk_true(self.num_vars);
+        Bdd::mk_true(self.num_vars)
     }
 
     /// Create a `Bdd` corresponding to the `false` formula.
     pub fn mk_false(&self) -> Bdd {
-        return Bdd::mk_false(self.num_vars);
+        Bdd::mk_false(self.num_vars)
     }
 
     /// Create a `Bdd` corresponding to the $v$ formula where `v` is a specific variable in
@@ -66,7 +66,7 @@ impl BddVariableSet {
         if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this set.", var);
         }
-        return Bdd::mk_var(self.num_vars, var);
+        Bdd::mk_var(self.num_vars, var)
     }
 
     /// Create a BDD corresponding to the $\neg v$ formula where `v` is a specific variable in
@@ -77,7 +77,7 @@ impl BddVariableSet {
         if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this set.", var);
         }
-        return Bdd::mk_not_var(self.num_vars, var);
+        Bdd::mk_not_var(self.num_vars, var)
     }
 
     /// Create a BDD corresponding to the $v <=> \texttt{value}$ formula.
@@ -87,27 +87,25 @@ impl BddVariableSet {
         if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
             panic!("Variable {:?} is not in this set.", var);
         }
-        return Bdd::mk_literal(self.num_vars, var, value);
+        Bdd::mk_literal(self.num_vars, var, value)
     }
 
     /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_var_by_name(&self, var: &str) -> Bdd {
-        return self
-            .var_by_name(var)
+        self.var_by_name(var)
             .map(|var| self.mk_var(var))
-            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var));
+            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var))
     }
 
     /// Create a BDD corresponding to the $\neg v$ formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
-        return self
-            .var_by_name(var)
+        self.var_by_name(var)
             .map(|var| self.mk_not_var(var))
-            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var));
+            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var))
     }
 }
 

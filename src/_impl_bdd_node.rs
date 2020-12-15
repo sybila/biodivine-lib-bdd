@@ -3,20 +3,20 @@ use super::*;
 impl BddNode {
     /// Make a new terminal `zero` node.
     pub fn mk_zero(num_vars: u16) -> BddNode {
-        return BddNode {
+        BddNode {
             var: BddVariable(num_vars),
             low_link: BddPointer::zero(),
             high_link: BddPointer::zero(),
-        };
+        }
     }
 
     /// Make a new terminal `one` node.
     pub fn mk_one(num_vars: u16) -> BddNode {
-        return BddNode {
+        BddNode {
             var: BddVariable(num_vars),
             low_link: BddPointer::one(),
             high_link: BddPointer::one(),
-        };
+        }
     }
 
     /// Make a new general node.
@@ -25,11 +25,11 @@ impl BddNode {
     ///  - `low` and `high` are pointers in the same `Bdd` array.
     ///  - Returned node will be added to the same `Bdd` where `low` and `high` are pointers.
     pub fn mk_node(var: BddVariable, low_link: BddPointer, high_link: BddPointer) -> BddNode {
-        return BddNode {
+        BddNode {
             var,
             low_link,
             high_link,
-        };
+        }
     }
 }
 
@@ -45,18 +45,17 @@ mod tests {
         /// point to a terminal node, effectively gaining its value. However, this should not
         /// happen in minimized BDDs.
         pub fn is_terminal(&self) -> bool {
-            return self.low_link == self.high_link
-                && (self.low_link.is_one() || self.low_link.is_zero());
+            self.low_link == self.high_link && (self.low_link.is_one() || self.low_link.is_zero())
         }
 
         /// Check whether this node is *effectively* one.
         pub fn is_one(&self) -> bool {
-            return self.is_terminal() && self.low_link.is_one();
+            self.is_terminal() && self.low_link.is_one()
         }
 
         /// Check whether this node is *effectively* zero.
         pub fn is_zero(&self) -> bool {
-            return self.is_terminal() && self.low_link.is_zero();
+            self.is_terminal() && self.low_link.is_zero()
         }
     }
 

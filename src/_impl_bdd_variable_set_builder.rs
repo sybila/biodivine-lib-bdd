@@ -4,10 +4,10 @@ use std::collections::HashMap;
 impl BddVariableSetBuilder {
     /// Create a new builder without any variables.
     pub fn new() -> BddVariableSetBuilder {
-        return BddVariableSetBuilder {
+        BddVariableSetBuilder {
             var_names: Vec::new(),
             var_names_set: HashSet::new(),
-        };
+        }
     }
 
     /// Create a new variable with the given `name`. Returns a `BddVariable`
@@ -36,15 +36,15 @@ impl BddVariableSetBuilder {
         }
         self.var_names_set.insert(name.to_string());
         self.var_names.push(name.to_string());
-        return BddVariable(new_variable_id as u16);
+        BddVariable(new_variable_id as u16)
     }
 
     /// Similar to `make_variable`, but allows creating multiple variables at the same time.
     pub fn make_variables(&mut self, names: Vec<&str>) -> Vec<BddVariable> {
-        return names
+        names
             .into_iter()
             .map(|name| self.make_variable(name))
-            .collect();
+            .collect()
     }
 
     /// Convert this builder to an actual variable set.
@@ -54,11 +54,17 @@ impl BddVariableSetBuilder {
             let name = self.var_names[name_index].clone();
             mapping.insert(name, name_index as u16);
         }
-        return BddVariableSet {
+        BddVariableSet {
             num_vars: self.var_names.len() as u16,
             var_names: self.var_names,
             var_index_mapping: mapping,
-        };
+        }
+    }
+}
+
+impl Default for BddVariableSetBuilder {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

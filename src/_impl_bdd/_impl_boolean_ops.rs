@@ -7,7 +7,7 @@ use std::cmp::{max, min};
 impl Bdd {
     /// Create a `Bdd` corresponding to the $\neg \phi$ formula, where $\phi$ is this `Bdd`.
     pub fn not(&self) -> Bdd {
-        return if self.is_true() {
+        if self.is_true() {
             Bdd::mk_false(self.num_vars())
         } else if self.is_false() {
             Bdd::mk_true(self.num_vars())
@@ -15,49 +15,49 @@ impl Bdd {
             // Note that this does not break DFS order of the graph because
             // we are only flipping terminals, which already have special positions.
             let mut result_vector = self.0.clone();
-            for i in 2..result_vector.len() {
+            for node in result_vector.iter_mut().skip(2) {
                 // skip terminals
-                result_vector[i].high_link.flip_if_terminal();
-                result_vector[i].low_link.flip_if_terminal();
+                node.high_link.flip_if_terminal();
+                node.low_link.flip_if_terminal();
             }
             Bdd(result_vector)
-        };
+        }
     }
 
     /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, crate::op_function::and);
+        apply(self, right, crate::op_function::and)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn or(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, crate::op_function::or);
+        apply(self, right, crate::op_function::or)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn imp(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, crate::op_function::imp);
+        apply(self, right, crate::op_function::imp)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn iff(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, crate::op_function::iff);
+        apply(self, right, crate::op_function::iff)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn xor(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, crate::op_function::xor);
+        apply(self, right, crate::op_function::xor)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \land \neg \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and_not(&self, right: &Bdd) -> Bdd {
-        return apply(self, right, crate::op_function::and_not);
+        apply(self, right, crate::op_function::and_not)
     }
 
     /// Apply a general binary operation to two given `Bdd` objects.
@@ -71,7 +71,7 @@ impl Bdd {
     where
         T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
-        return apply(left, right, op_function);
+        apply(left, right, op_function)
     }
 
     /// Apply a general binary operation together with up-to three Bdd variable flips. See also `binary_op`.
@@ -91,7 +91,7 @@ impl Bdd {
     where
         T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
-        return apply_with_flip(left.0, right.0, left.1, right.1, flip_output, op_function);
+        apply_with_flip(left.0, right.0, left.1, right.1, flip_output, op_function)
     }
 }
 
@@ -100,7 +100,7 @@ fn apply<T>(left: &Bdd, right: &Bdd, terminal_lookup: T) -> Bdd
 where
     T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
 {
-    return apply_with_flip(left, right, None, None, None, terminal_lookup);
+    apply_with_flip(left, right, None, None, None, terminal_lookup)
 }
 
 /// **(internal)** Universal function to implement standard logical operators.
@@ -267,11 +267,11 @@ where
         }
     }
 
-    return if is_not_empty {
+    if is_not_empty {
         result
     } else {
         Bdd::mk_false(num_vars)
-    };
+    }
 }
 
 /// **(internal)** A simple utility method for checking bounds of a flip variable.

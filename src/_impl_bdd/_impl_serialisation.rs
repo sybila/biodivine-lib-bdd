@@ -1,4 +1,5 @@
 use crate::*;
+use std::fmt::{Display, Formatter};
 use std::io::{Read, Write};
 
 /// Serialisation and deserialisation methods for `Bdd`s.
@@ -9,7 +10,7 @@ impl Bdd {
         for node in self.nodes() {
             write!(output, "{},{},{}|", node.var, node.low_link, node.high_link)?;
         }
-        return Ok(());
+        Ok(())
     }
 
     /// Read a `Bdd` from the given `input` reader, assuming a simple string format.
@@ -26,17 +27,17 @@ impl Bdd {
             );
             result.push(node);
         }
-        return Ok(Bdd(result));
+        Ok(Bdd(result))
     }
 
     /// Write this `Bdd` into the given `output` writer using a simple little-endian binary encoding.
     pub fn write_as_bytes(&self, output: &mut dyn Write) -> Result<(), std::io::Error> {
         for node in self.nodes() {
-            output.write(&node.var.to_le_bytes())?;
-            output.write(&node.low_link.to_le_bytes())?;
-            output.write(&node.high_link.to_le_bytes())?;
+            output.write_all(&node.var.to_le_bytes())?;
+            output.write_all(&node.low_link.to_le_bytes())?;
+            output.write_all(&node.high_link.to_le_bytes())?;
         }
-        return Ok(());
+        Ok(())
     }
 
     /// Read a `Bdd` from a given `input` reader using a simple little-endian binary encoding.
@@ -50,20 +51,12 @@ impl Bdd {
                 BddPointer::from_le_bytes([buf[6], buf[7], buf[8], buf[9]]),
             ))
         }
-        return Ok(Bdd(result));
-    }
-
-    /// Convert this `Bdd` to a serialized string.
-    pub fn to_string(&self) -> String {
-        let mut buffer: Vec<u8> = Vec::new();
-        self.write_as_string(&mut buffer)
-            .expect("Cannot write BDD to string.");
-        return String::from_utf8(buffer).expect("Invalid UTF formatting in string.");
+        Ok(Bdd(result))
     }
 
     /// Read a `Bdd` from a serialized string.
     pub fn from_string(bdd: &str) -> Bdd {
-        return Bdd::read_as_string(&mut bdd.as_bytes()).expect("Invalid BDD string.");
+        Bdd::read_as_string(&mut bdd.as_bytes()).expect("Invalid BDD string.")
     }
 
     /// Convert this `Bdd` to a byte vector.
@@ -71,17 +64,26 @@ impl Bdd {
         let mut buffer = Vec::new();
         self.write_as_bytes(&mut buffer)
             .expect("Error writing bytes.");
-        return buffer;
+        buffer
     }
 
     /// Read a `Bdd` from a byte vector.
     pub fn from_bytes(data: &mut &[u8]) -> Bdd {
-        return Bdd::read_as_bytes(data).expect("Error reading bytes.");
+        Bdd::read_as_bytes(data).expect("Error reading bytes.")
+    }
+}
+
+impl Display for Bdd {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        let mut buffer: Vec<u8> = Vec::new();
+        self.write_as_string(&mut buffer)
+            .expect("Cannot write BDD to string.");
+        f.write_str(&String::from_utf8(buffer).expect("Invalid UTF formatting in string."))
     }
 }
 
 fn lift_err<T, E: ToString>(item: Result<T, E>) -> Result<T, String> {
-    return item.map_err(|e| e.to_string());
+    item.map_err(|e| e.to_string())
 }
 
 #[cfg(test)]

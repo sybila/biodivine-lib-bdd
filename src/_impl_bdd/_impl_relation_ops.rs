@@ -7,12 +7,12 @@ impl Bdd {
     /// If we see the Bdd as a set of bitvectors, this is essentially existential quantification:
     /// $\exists x_i : (x_1, ..., x_i, ..., x_n) \in BDD$.
     pub fn var_projection(&self, variable: BddVariable) -> Bdd {
-        return Bdd::fused_binary_flip_op(
+        Bdd::fused_binary_flip_op(
             (self, None),
             (self, Some(variable)),
             None,
             crate::op_function::or,
-        );
+        )
     }
 
     /// Eliminate all given variables from the `Bdd`. This is a generalized variant
@@ -20,13 +20,13 @@ impl Bdd {
     ///
     /// This can be used to implement operations like `domain` and `range` of
     /// a certain relation.
-    pub fn projection(&self, variables: &Vec<BddVariable>) -> Bdd {
+    pub fn projection(&self, variables: &[BddVariable]) -> Bdd {
         // Starting from the last Bdd variables is more efficient, we therefore enforce it.
         // (variables vector is always very small anyway)
-        return sorted(variables)
+        sorted(variables)
             .into_iter()
             .rev()
-            .fold(self.clone(), |result, v| result.var_projection(v));
+            .fold(self.clone(), |result, v| result.var_projection(v))
     }
 
     /// Picks one valuation for the given `BddVariable`.
@@ -40,12 +40,12 @@ impl Bdd {
     /// is probably not what you think. So make sure to prove and test thoroughly.
     pub fn var_pick(&self, variable: BddVariable) -> Bdd {
         // original \ flip(original & !x_i)
-        return Bdd::fused_binary_flip_op(
+        Bdd::fused_binary_flip_op(
             (self, None),
             (&self.var_select(variable, false), Some(variable)),
             None,
             crate::op_function::and_not,
-        );
+        )
     }
 
     /// Picks one "witness" valuation for the given variables. This is a generalized variant
@@ -57,30 +57,30 @@ impl Bdd {
     ///
     /// This can be used to implement non-trivial element picking on relations (for example,
     /// for $A \times B$, picking one $b \in B$ for every $a \in A$).
-    pub fn pick(&self, variables: &Vec<BddVariable>) -> Bdd {
+    pub fn pick(&self, variables: &[BddVariable]) -> Bdd {
         fn r_pick(set: &Bdd, variables: &[BddVariable]) -> Bdd {
-            return if let Some((last_var, rest)) = variables.split_last() {
+            if let Some((last_var, rest)) = variables.split_last() {
                 let picked = r_pick(&set.var_projection(*last_var), rest);
                 picked.and(&set.var_pick(*last_var))
             } else {
                 set.clone()
-            };
+            }
         }
 
-        return r_pick(self, &sorted(variables));
+        r_pick(self, &sorted(variables))
     }
 
     /// Fix the value of a specific `BddVariable` to the given `value`. This is just a shorthand
     /// for $B \land (x <=> \texttt{value})$.
     pub fn var_select(&self, variable: BddVariable, value: bool) -> Bdd {
-        return self.and(&Bdd::mk_literal(self.num_vars(), variable, value));
+        self.and(&Bdd::mk_literal(self.num_vars(), variable, value))
     }
 
     /// Generalized operation to `var_select`, allows effectively fixing multiple variables to
     /// the given values. Similar to `BddValuation.into::<Bdd>()`, but here you don't have to
     /// specify all variables.
-    pub fn select(&self, variables: &Vec<(BddVariable, bool)>) -> Bdd {
-        let mut partial_valuation = variables.clone();
+    pub fn select(&self, variables: &[(BddVariable, bool)]) -> Bdd {
+        let mut partial_valuation = variables.to_vec();
         partial_valuation.sort_by_key(|(v, _)| *v);
         let mut valuation_bdd = Bdd::mk_true(self.num_vars());
         for (var, value) in partial_valuation.into_iter().rev() {
@@ -91,13 +91,13 @@ impl Bdd {
             };
             valuation_bdd.push_node(node);
         }
-        return self.and(&valuation_bdd);
+        self.and(&valuation_bdd)
     }
 }
 
 /// **(internal)** Helper function for sorting variable list arguments.
-fn sorted(variables: &Vec<BddVariable>) -> Vec<BddVariable> {
-    let mut variables = variables.clone();
+fn sorted(variables: &[BddVariable]) -> Vec<BddVariable> {
+    let mut variables: Vec<BddVariable> = variables.to_vec();
     variables.sort();
-    return variables;
+    variables
 }

@@ -30,7 +30,7 @@ enum ExprToken {
 /// Syntax for the formula is described in the tutorial.
 pub fn parse_boolean_expression(from: &str) -> Result<BooleanExpression, String> {
     let tokens = tokenize_group(&mut from.chars().peekable(), true)?;
-    return Ok(*(parse_formula(&tokens)?));
+    Ok(*(parse_formula(&tokens)?))
 }
 
 /// **(internal)** Process a peekable iterator of characters into a vector of `ExprToken`s.
@@ -94,112 +94,110 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
             }
         }
     }
-    return if top_level {
+    if top_level {
         Result::Ok(output)
     } else {
         Result::Err("Expected ')'.".to_string())
-    };
+    }
 }
 
 /// **(internal)** Parse a `ExprToken` tree into a `BooleanExpression` (or error if invalid).
 fn parse_formula(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
-    return iff(data);
+    iff(data)
 }
 
 /// **(internal)** Utility method to find first occurrence of a specific token in the token tree.
 fn index_of_first(data: &[ExprToken], token: ExprToken) -> Option<usize> {
-    return data.iter().position(|t| *t == token);
+    data.iter().position(|t| *t == token)
 }
 
 /// **(internal)** Recursive parsing step 1: extract `<=>` operators.
 fn iff(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let iff_token = index_of_first(data, ExprToken::Iff);
-    return Ok(if let Some(iff_token) = iff_token {
+    Ok(if let Some(iff_token) = iff_token {
         Box::new(Iff(
             imp(&data[..iff_token])?,
             iff(&data[(iff_token + 1)..])?,
         ))
     } else {
         imp(data)?
-    });
+    })
 }
 
 /// **(internal)** Recursive parsing step 2: extract `=>` operators.
 fn imp(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let imp_token = index_of_first(data, ExprToken::Imp);
-    return Ok(if let Some(imp_token) = imp_token {
+    Ok(if let Some(imp_token) = imp_token {
         Box::new(Imp(or(&data[..imp_token])?, imp(&data[(imp_token + 1)..])?))
     } else {
         or(data)?
-    });
+    })
 }
 
 /// **(internal)** Recursive parsing step 3: extract `|` operators.
 fn or(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let or_token = index_of_first(data, ExprToken::Or);
-    return Ok(if let Some(or_token) = or_token {
+    Ok(if let Some(or_token) = or_token {
         Box::new(Or(and(&data[..or_token])?, or(&data[(or_token + 1)..])?))
     } else {
         and(data)?
-    });
+    })
 }
 
 /// **(internal)** Recursive parsing step 4: extract `&` operators.
 fn and(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let and_token = index_of_first(data, ExprToken::And);
-    return Ok(if let Some(and_token) = and_token {
+    Ok(if let Some(and_token) = and_token {
         Box::new(And(
             xor(&data[..and_token])?,
             and(&data[(and_token + 1)..])?,
         ))
     } else {
         xor(data)?
-    });
+    })
 }
 
 /// **(internal)** Recursive parsing step 5: extract `^` operators.
 fn xor(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let xor_token = index_of_first(data, ExprToken::Xor);
-    return Ok(if let Some(xor_token) = xor_token {
+    Ok(if let Some(xor_token) = xor_token {
         Box::new(Xor(
             terminal(&data[..xor_token])?,
             xor(&data[(xor_token + 1)..])?,
         ))
     } else {
         terminal(data)?
-    });
+    })
 }
 
 /// **(internal)** Recursive parsing step 6: extract terminals and negations.
 fn terminal(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
-    return if data.is_empty() {
+    if data.is_empty() {
         Err("Expected formula, found nothing :(".to_string())
+    } else if data[0] == ExprToken::Not {
+        Ok(Box::new(Not(terminal(&data[1..])?)))
+    } else if data.len() > 1 {
+        Err(format!(
+            "Expected variable name or (...), but found {:?}.",
+            data
+        ))
     } else {
-        if data[0] == ExprToken::Not {
-            Ok(Box::new(Not(terminal(&data[1..])?)))
-        } else if data.len() > 1 {
-            Err(format!(
-                "Expected variable name or (...), but found {:?}.",
-                data
-            ))
-        } else {
-            match &data[0] {
-                ExprToken::Id(name) => {
-                    if name == "true" {
-                        Ok(Box::new(Const(true)))
-                    } else if name == "false" {
-                        Ok(Box::new(Const(false)))
-                    } else {
-                        Ok(Box::new(Variable(name.clone())))
-                    }
+        match &data[0] {
+            ExprToken::Id(name) => {
+                if name == "true" {
+                    Ok(Box::new(Const(true)))
+                } else if name == "false" {
+                    Ok(Box::new(Const(false)))
+                } else {
+                    Ok(Box::new(Variable(name.clone())))
                 }
-                ExprToken::Tokens(inner) => Ok(parse_formula(inner)?),
-                _ => unreachable!(
-                    "Other tokens are matched by remaining functions, nothing else should remain."
-                ),
             }
+            ExprToken::Tokens(inner) => Ok(parse_formula(inner)?),
+            _ => unreachable!(
+                "Other tokens are matched by remaining functions, nothing else should remain."
+            ),
         }
-    };
+    }
 }
 
 #[cfg(test)]

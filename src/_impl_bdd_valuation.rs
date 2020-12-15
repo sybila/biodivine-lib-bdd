@@ -6,17 +6,17 @@ use std::ops::Index;
 impl BddValuation {
     /// Create a new valuation from a vector of variables.
     pub fn new(values: Vec<bool>) -> BddValuation {
-        return BddValuation(values);
+        BddValuation(values)
     }
 
     /// Create a valuation with all variables set to false.
     pub fn all_false(num_vars: u16) -> BddValuation {
-        return BddValuation(vec![false; num_vars as usize]);
+        BddValuation(vec![false; num_vars as usize])
     }
 
     /// Create a valuation with all variables set to true.
     pub fn all_true(num_vars: u16) -> BddValuation {
-        return BddValuation(vec![true; num_vars as usize]);
+        BddValuation(vec![true; num_vars as usize])
     }
 
     /// Flip the value of a given Bdd variable.
@@ -35,17 +35,17 @@ impl BddValuation {
 
     /// Convert the valuation to its underlying vector.
     pub fn vector(self) -> Vec<bool> {
-        return self.0;
+        self.0
     }
 
     /// Get a value of a specific BDD variable in this valuation.
     pub fn value(&self, variable: BddVariable) -> bool {
-        return self.0[variable.0 as usize];
+        self.0[variable.0 as usize]
     }
 
     /// Number of variables in this valuation (used mostly for consistency checks).
     pub fn num_vars(&self) -> u16 {
-        return self.0.len() as u16;
+        self.0.len() as u16
     }
 
     /// **(internal)** "Increment" this valuation if possible. Interpret the valuation as bit-vector and
@@ -53,21 +53,21 @@ impl BddValuation {
     pub(crate) fn next(&self) -> Option<BddValuation> {
         let mut next_vec = self.0.clone();
         let mut carry = true; // initially, we want to increment
-        for i in 0..next_vec.len() {
-            let new_value = next_vec[i] ^ carry;
-            let new_carry = next_vec[i] && carry;
-            next_vec[i] = new_value;
+        for bit in &mut next_vec {
+            let new_value = *bit ^ carry;
+            let new_carry = *bit && carry;
+            *bit = new_value;
             carry = new_carry;
             if !new_carry {
                 break;
             } // if there is no carry, we can just break
         }
 
-        return if carry {
+        if carry {
             None
         } else {
             Some(BddValuation(next_vec))
-        };
+        }
     }
 }
 
@@ -82,7 +82,7 @@ impl Display for BddValuation {
             }
             write!(f, "]")?;
         }
-        return Ok(());
+        Ok(())
     }
 }
 
@@ -91,7 +91,7 @@ impl Index<BddVariable> for BddValuation {
     type Output = bool;
 
     fn index(&self, index: BddVariable) -> &Self::Output {
-        return &self.0[usize::from(index.0)];
+        &self.0[usize::from(index.0)]
     }
 }
 
@@ -117,7 +117,7 @@ impl Bdd {
                 self.low_link_of(node)
             }
         }
-        return node.is_one();
+        node.is_one()
     }
 }
 
@@ -140,14 +140,14 @@ impl From<BddValuation> for Bdd {
             };
             bdd.push_node(BddNode::mk_node(var, low_link, high_link));
         }
-        return bdd;
+        bdd
     }
 }
 
 impl BddValuationIterator {
     /// Create a new iterator with a specified number of variables.
     pub fn new(num_vars: u16) -> BddValuationIterator {
-        return BddValuationIterator(Some(BddValuation(vec![false; num_vars as usize])));
+        BddValuationIterator(Some(BddValuation(vec![false; num_vars as usize])))
     }
 }
 
@@ -155,14 +155,14 @@ impl Iterator for BddValuationIterator {
     type Item = BddValuation;
 
     fn next(&mut self) -> Option<Self::Item> {
-        return if let Some(valuation) = &self.0 {
+        if let Some(valuation) = &self.0 {
             let ret = valuation.clone();
             let next = valuation.next();
             self.0 = next;
             Some(ret)
         } else {
             None
-        };
+        }
     }
 }
 

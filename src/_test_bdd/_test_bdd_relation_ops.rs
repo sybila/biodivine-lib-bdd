@@ -62,17 +62,14 @@ fn bdd_projection_trivial() {
     let tt = variables.mk_true();
     let ff = variables.mk_false();
 
+    let vars = (0..5).map(BddVariable).collect::<Vec<_>>();
     for k in 0..5 {
-        let variables: Vec<BddVariable> = (0..k).map(|i| BddVariable(i)).collect();
-        assert_eq!(ff, ff.projection(&variables));
-        assert_eq!(tt, tt.projection(&variables));
+        assert_eq!(ff, ff.projection(&vars[0..k]));
+        assert_eq!(tt, tt.projection(&vars[0..k]));
     }
 
     assert_eq!(bdd, bdd.projection(&Vec::new()));
-    assert_eq!(
-        tt,
-        bdd.projection(&(0..5).map(|i| BddVariable(i)).collect())
-    );
+    assert_eq!(tt, bdd.projection(&vars));
 }
 
 #[test]

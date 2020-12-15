@@ -9,7 +9,7 @@ impl TryFrom<&str> for BooleanExpression {
     type Error = String;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        return parse_boolean_expression(value);
+        parse_boolean_expression(value)
     }
 }
 
@@ -33,7 +33,7 @@ impl BddVariableSet {
     /// Evaluate the given `BooleanExpression` in the context of this `BddVariableSet`. Return `None` if some
     /// variables are unknown.
     pub fn safe_eval_expression(&self, expression: &BooleanExpression) -> Option<Bdd> {
-        return match expression {
+        match expression {
             Const(value) => Some(if *value {
                 self.mk_true()
             } else {
@@ -66,13 +66,13 @@ impl BddVariableSet {
                 let right = self.safe_eval_expression(r)?;
                 Some(left.iff(&right))
             }
-        };
+        }
     }
 
     /// Evaluate the given `BooleanExpression` in the context of this `BddVariableSet`. Panic if some
     /// variables are unknown.
     pub fn eval_expression(&self, expression: &BooleanExpression) -> Bdd {
-        return self.safe_eval_expression(expression).unwrap();
+        self.safe_eval_expression(expression).unwrap()
     }
 
     /// Evaluate the given `String` as a `BooleanExpression` in the context of this `BddVariableSet`.
@@ -80,7 +80,7 @@ impl BddVariableSet {
     /// Panics if the expression cannot be parsed or contains unknown variables.
     pub fn eval_expression_string(&self, expression: &str) -> Bdd {
         let parsed = BooleanExpression::try_from(expression).unwrap();
-        return self.eval_expression(&parsed);
+        self.eval_expression(&parsed)
     }
 }
 

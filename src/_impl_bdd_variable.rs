@@ -10,11 +10,11 @@ impl Display for BddVariable {
 impl BddVariable {
     /// Convert to little endian bytes
     pub(super) fn to_le_bytes(&self) -> [u8; 2] {
-        return self.0.to_le_bytes();
+        self.0.to_le_bytes()
     }
 
     /// Read from little endian byte representation
     pub(super) fn from_le_bytes(bytes: [u8; 2]) -> BddVariable {
-        return BddVariable(u16::from_le_bytes(bytes));
+        BddVariable(u16::from_le_bytes(bytes))
     }
 }

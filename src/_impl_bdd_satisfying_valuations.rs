@@ -2,14 +2,14 @@ use crate::{Bdd, BddPointer, BddSatisfyingValuations, BddValuation, BddVariable}
 
 impl Bdd {
     pub fn sat_valuations(&self) -> BddSatisfyingValuations {
-        return BddSatisfyingValuations {
+        BddSatisfyingValuations {
             bdd: self,
             continuation: if self.is_false() {
                 None
             } else {
                 Some(self.first_sat_path())
             },
-        };
+        }
     }
 
     /// **(internal)** Find first satisfying path in the Bdd, its path mask (bits where the path
@@ -20,7 +20,7 @@ impl Bdd {
         let mut first_valuation = BddValuation::all_false(self.num_vars());
         sat_path.push(self.root_pointer());
         self.continue_sat_path(&mut sat_path, &mut path_mask, &mut first_valuation);
-        return (sat_path, path_mask, first_valuation);
+        (sat_path, path_mask, first_valuation)
     }
 
     /// **(internal)** Take last node on given `sat_path` and find the first satisfiable path that follows from it.
@@ -74,7 +74,7 @@ impl BddSatisfyingValuations<'_> {
                 }
             }
         }
-        return false; // Valuation increment overflow.
+        false // Valuation increment overflow.
     }
 
     /// **(internal)** Find next satisfying path in the Bdd and update path mask and first valuation
@@ -121,7 +121,7 @@ impl BddSatisfyingValuations<'_> {
         }
         // If we got here, it means there was no link on path that we could have flipped from low
         // to high, hence this was the last path...
-        return false;
+        false
     }
 }
 
@@ -129,7 +129,7 @@ impl Iterator for BddSatisfyingValuations<'_> {
     type Item = BddValuation;
 
     fn next(&mut self) -> Option<Self::Item> {
-        return if let Some((sat_path, path_mask, next_valuation)) = &mut self.continuation {
+        if let Some((sat_path, path_mask, next_valuation)) = &mut self.continuation {
             let result = next_valuation.clone();
             if BddSatisfyingValuations::increment_masked_valuation(next_valuation, path_mask) {
                 // Done. Valuation successfully incremented.
@@ -147,7 +147,7 @@ impl Iterator for BddSatisfyingValuations<'_> {
             }
         } else {
             None
-        };
+        }
     }
 }
 
