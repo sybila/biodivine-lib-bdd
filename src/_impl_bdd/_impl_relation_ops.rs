@@ -6,7 +6,7 @@ impl Bdd {
     ///
     /// If we see the Bdd as a set of bitvectors, this is essentially existential quantification:
     /// $\exists x_i : (x_1, ..., x_i, ..., x_n) \in BDD$.
-    pub fn var_projection(&self, variable: BddVariable) -> Bdd {
+    pub fn var_project(&self, variable: BddVariable) -> Bdd {
         Bdd::fused_binary_flip_op(
             (self, None),
             (self, Some(variable)),
@@ -20,13 +20,13 @@ impl Bdd {
     ///
     /// This can be used to implement operations like `domain` and `range` of
     /// a certain relation.
-    pub fn projection(&self, variables: &[BddVariable]) -> Bdd {
+    pub fn project(&self, variables: &[BddVariable]) -> Bdd {
         // Starting from the last Bdd variables is more efficient, we therefore enforce it.
         // (variables vector is always very small anyway)
         sorted(variables)
             .into_iter()
             .rev()
-            .fold(self.clone(), |result, v| result.var_projection(v))
+            .fold(self.clone(), |result, v| result.var_project(v))
     }
 
     /// Picks one valuation for the given `BddVariable`.
@@ -60,7 +60,7 @@ impl Bdd {
     pub fn pick(&self, variables: &[BddVariable]) -> Bdd {
         fn r_pick(set: &Bdd, variables: &[BddVariable]) -> Bdd {
             if let Some((last_var, rest)) = variables.split_last() {
-                let picked = r_pick(&set.var_projection(*last_var), rest);
+                let picked = r_pick(&set.var_project(*last_var), rest);
                 picked.and(&set.var_pick(*last_var))
             } else {
                 set.clone()

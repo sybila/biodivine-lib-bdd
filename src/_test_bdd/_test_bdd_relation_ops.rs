@@ -23,7 +23,7 @@ fn bdd_var_projection() {
     let bdd = variables.eval_expression_string("(v1 => (v2 <=> v3)) & (!v1 => !(v2 <=> v5))");
     let v1 = BddVariable(0);
     assert_eq!(
-        bdd.var_projection(v1),
+        bdd.var_project(v1),
         variables.eval_expression_string("(v2 <=> v3) | !(v2 <=> v5)")
     );
 }
@@ -64,12 +64,12 @@ fn bdd_projection_trivial() {
 
     let vars = (0..5).map(BddVariable).collect::<Vec<_>>();
     for k in 0..5 {
-        assert_eq!(ff, ff.projection(&vars[0..k]));
-        assert_eq!(tt, tt.projection(&vars[0..k]));
+        assert_eq!(ff, ff.project(&vars[0..k]));
+        assert_eq!(tt, tt.project(&vars[0..k]));
     }
 
-    assert_eq!(bdd, bdd.projection(&Vec::new()));
-    assert_eq!(tt, bdd.projection(&vars));
+    assert_eq!(bdd, bdd.project(&Vec::new()));
+    assert_eq!(tt, bdd.project(&vars));
 }
 
 #[test]
@@ -79,20 +79,17 @@ fn bdd_projection_simple() {
     {
         let bdd = variables.eval_expression_string("(v1 <=> v2) & (v4 <=> v5)");
         let projected = variables.eval_expression_string("(v1 <=> v2)");
-        assert_eq!(projected, bdd.projection(&vec![v4, v5]));
-        assert_eq!(
-            bdd.projection(&vec![v3, v4, v5]),
-            bdd.projection(&vec![v4, v5])
-        );
+        assert_eq!(projected, bdd.project(&vec![v4, v5]));
+        assert_eq!(bdd.project(&vec![v3, v4, v5]), bdd.project(&vec![v4, v5]));
     }
     {
         let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
         let projected_3 = variables.eval_expression_string("(v1 & v2) | (!v1 & v3)");
         let projected_2 = variables.eval_expression_string("(v1 & v2) | !v1");
-        assert_eq!(bdd, bdd.projection(&vec![v5]));
-        assert_eq!(projected_3, bdd.projection(&vec![v4]));
-        assert_eq!(projected_2, bdd.projection(&vec![v3, v4]));
-        assert_eq!(variables.mk_true(), bdd.projection(&vec![v2, v3, v4]));
+        assert_eq!(bdd, bdd.project(&vec![v5]));
+        assert_eq!(projected_3, bdd.project(&vec![v4]));
+        assert_eq!(projected_2, bdd.project(&vec![v3, v4]));
+        assert_eq!(variables.mk_true(), bdd.project(&vec![v2, v3, v4]));
     }
 }
 
