@@ -47,7 +47,7 @@ pub fn xor(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     }
 }
 
-/// Partial operator function corresponding to $x \land \not y$.
+/// Partial operator function corresponding to $x \land \neg y$.
 pub fn and_not(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     match (l, r) {
         (Some(false), _) => Some(false),

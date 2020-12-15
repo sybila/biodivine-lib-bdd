@@ -1,6 +1,6 @@
 use crate::{Bdd, BddNode, BddPointer, BddVariable};
 
-/// Advanced relation-like operations for `Bdd`s. Currently **experimental/unstable**.
+/// Advanced relation-like operations for `Bdd`s.
 impl Bdd {
     /// Eliminates one given variable from the `Bdd`.
     ///
@@ -32,7 +32,7 @@ impl Bdd {
     /// Picks one valuation for the given `BddVariable`.
     ///
     /// Essentially, what this means is that
-    /// $(x_1, ..., x_i, ..., x_n) \in BDD \Leftrightarrow (x_1, ..., !x_i, ..., x_n) \not\in BDD$.
+    /// $(x_1, ..., x_i, ..., x_n) \in B \Leftrightarrow (x_1, ..., \neg x_i, ..., x_n) \not\in B$.
     /// That is, each valuation (without $x_i$) can be present only with either $x_i = 1$ or
     /// $x_i = 0$, but not both.
     ///
@@ -71,7 +71,7 @@ impl Bdd {
     }
 
     /// Fix the value of a specific `BddVariable` to the given `value`. This is just a shorthand
-    /// for $B \land (x <=> \texttt{value})$.
+    /// for $B \land (x \Leftrightarrow \texttt{value})$.
     pub fn var_select(&self, variable: BddVariable, value: bool) -> Bdd {
         self.and(&Bdd::mk_literal(self.num_vars(), variable, value))
     }
