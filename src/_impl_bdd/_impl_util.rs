@@ -34,13 +34,13 @@ impl Bdd {
         if self.is_false() {
             return 0.0;
         }
-        let mut cache = vec![-1.0; self.0.len()];
-        cache[0] = 0.0;
-        cache[1] = 1.0;
+        let mut cache = vec![None; self.0.len()];
+        cache[0] = Some(0.0);
+        cache[1] = Some(1.0);
         let mut stack: Vec<BddPointer> = Vec::new();
         stack.push(self.root_pointer());
         while let Some(node) = stack.last() {
-            if cache[node.0 as usize] >= 0.0 {
+            if cache[node.0 as usize].is_some() {
                 stack.pop();
             } else {
                 let low = self.low_link_of(*node);
@@ -51,24 +51,29 @@ impl Bdd {
                 let low = low.0 as usize;
                 let high = high.0 as usize;
 
-                if cache[low] >= 0.0 && cache[high] >= 0.0 {
+                if cache[low].is_some() && cache[high].is_some() {
                     let low_cardinality =
-                        cache[low] * 2.0_f64.powi((low_var - node_var - 1) as i32);
+                        cache[low].unwrap() * 2.0_f64.powi((low_var - node_var - 1) as i32);
                     let high_cardinality =
-                        cache[high] * 2.0_f64.powi((high_var - node_var - 1) as i32);
-                    cache[node.0 as usize] = low_cardinality + high_cardinality;
+                        cache[high].unwrap() * 2.0_f64.powi((high_var - node_var - 1) as i32);
+                    cache[node.0 as usize] = Some(low_cardinality + high_cardinality);
                     stack.pop();
                 } else {
-                    if cache[low] < 0.0 {
+                    if cache[low].is_none() {
                         stack.push(BddPointer(low as u32));
                     }
-                    if cache[high] < 0.0 {
+                    if cache[high].is_none() {
                         stack.push(BddPointer(high as u32));
                     }
                 }
             }
         }
-        *cache.last().unwrap() * 2.0_f64.powi(self.0.last().unwrap().var.0 as i32)
+        let r = cache.last().unwrap().unwrap() * 2.0_f64.powi(self.0.last().unwrap().var.0 as i32);
+        if r.is_nan() {
+            f64::INFINITY
+        } else {
+            r
+        }
     }
 
     /// If the `Bdd` is satisfiable, return some `BddValuation` that satisfies the `Bdd`.
