@@ -4,6 +4,7 @@ use test::Bencher;
 fn bn_parametrised_observability(b: &mut Bencher, num_regulators: u16) {
     let num_vars: u16 = 1 << num_regulators;
     let vars = BddVariableSet::new_anonymous(num_vars);
+    let variables = vars.variables();
     b.iter(|| {
         let mut result = vars.mk_true();
         for input in 0..num_regulators {
@@ -12,8 +13,8 @@ fn bn_parametrised_observability(b: &mut Bencher, num_regulators: u16) {
             let mut regulator_formula = vars.mk_false();
             for block in 0..(num_vars / block_size) {
                 for block_item in 0..half_block {
-                    let var1 = BddVariable(block_size * block + block_item);
-                    let var2 = BddVariable(block_size * block + block_item + half_block);
+                    let var1 = variables[(block_size * block + block_item) as usize];
+                    let var2 = variables[(block_size * block + block_item + half_block) as usize];
                     let x1 = vars.mk_var(var1);
                     let x2 = vars.mk_var(var2);
                     regulator_formula = bdd!(regulator_formula | (!(x1 <=> x2)));
@@ -28,6 +29,7 @@ fn bn_parametrised_observability(b: &mut Bencher, num_regulators: u16) {
 fn bn_parametrised_activation(b: &mut Bencher, num_regulators: u16) {
     let num_vars: u16 = 1 << num_regulators;
     let vars = BddVariableSet::new_anonymous(num_vars);
+    let variables = vars.variables();
     b.iter(|| {
         let mut result = vars.mk_true();
         for input in 0..num_regulators {
@@ -36,8 +38,8 @@ fn bn_parametrised_activation(b: &mut Bencher, num_regulators: u16) {
             let mut regulator_formula = vars.mk_true();
             for block in 0..(num_vars / block_size) {
                 for block_item in 0..half_block {
-                    let var1 = BddVariable(block_size * block + block_item);
-                    let var2 = BddVariable(block_size * block + block_item + half_block);
+                    let var1 = variables[(block_size * block + block_item) as usize];
+                    let var2 = variables[(block_size * block + block_item + half_block) as usize];
                     let x1 = vars.mk_var(var1);
                     let x2 = vars.mk_var(var2);
                     regulator_formula = bdd!(regulator_formula & (x1 => x2));

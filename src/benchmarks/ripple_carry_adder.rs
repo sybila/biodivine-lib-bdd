@@ -3,11 +3,12 @@ use test::Bencher;
 
 fn ripple_carry_adder(b: &mut Bencher, num_vars: u16) {
     let vars = BddVariableSet::new_anonymous(num_vars);
+    let variables = vars.variables();
     b.iter(|| {
         let mut result = vars.mk_false();
         for x in 0..(num_vars / 2) {
-            let x1 = vars.mk_var(BddVariable(x));
-            let x2 = vars.mk_var(BddVariable(x + num_vars / 2));
+            let x1 = vars.mk_var(variables[x as usize]);
+            let x2 = vars.mk_var(variables[(x + num_vars / 2) as usize]);
             result = bdd!(result | (x1 & x2));
         }
         result
