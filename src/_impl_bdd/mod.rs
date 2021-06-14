@@ -13,3 +13,6 @@ pub mod _impl_serialisation;
 
 /// **(internal)** Implementation of some basic internal utility methods for `Bdd`s.
 pub mod _impl_util;
+
+/// **(internal)** Provides operations for extracting cubes from `Bdds`.
+pub mod _impl_cube_ops;
