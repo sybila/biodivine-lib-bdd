@@ -130,21 +130,16 @@ impl Iterator for BddSatisfyingValuations<'_> {
 
     fn next(&mut self) -> Option<Self::Item> {
         if let Some((sat_path, path_mask, next_valuation)) = &mut self.continuation {
+            // Make a copy of the original valuation.
             let result = next_valuation.clone();
-            if BddSatisfyingValuations::increment_masked_valuation(next_valuation, path_mask) {
-                // Done. Valuation successfully incremented.
-                Some(result)
-            } else {
+            if !BddSatisfyingValuations::increment_masked_valuation(next_valuation, path_mask) {
                 // Valuation cannot be incremented (overflow) - find next SAT path.
-                if Self::next_sat_path(self.bdd, sat_path, path_mask, next_valuation) {
-                    // Done. Found next sat path, continuing with this path.
-                    Some(result)
-                } else {
+                if !Self::next_sat_path(self.bdd, sat_path, path_mask, next_valuation) {
                     // No more paths. Return last valuation and then die.
                     self.continuation = None;
-                    Some(result)
                 }
             }
+            Some(result)
         } else {
             None
         }

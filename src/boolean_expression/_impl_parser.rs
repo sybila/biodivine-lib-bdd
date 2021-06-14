@@ -83,7 +83,7 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
                 // start of a variable name
                 let mut name = vec![c];
                 while let Some(c) = data.peek() {
-                    if c.is_whitespace() || NOT_IN_VAR_NAME.contains(&c) {
+                    if c.is_whitespace() || NOT_IN_VAR_NAME.contains(c) {
                         break;
                     } else {
                         name.push(*c);

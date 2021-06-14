@@ -157,7 +157,7 @@ where
     struct Task {
         left: BddPointer,
         right: BddPointer,
-    };
+    }
 
     // `stack` is used to explore the two BDDs "side by side" in DFS-like manner. Each task
     // on the stack is a pair of nodes that needs to be fully processed before we are finished.

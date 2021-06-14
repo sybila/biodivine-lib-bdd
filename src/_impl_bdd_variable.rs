@@ -9,7 +9,7 @@ impl Display for BddVariable {
 
 impl BddVariable {
     /// Convert to little endian bytes
-    pub(super) fn to_le_bytes(&self) -> [u8; 2] {
+    pub(super) fn to_le_bytes(self) -> [u8; 2] {
         self.0.to_le_bytes()
     }
 

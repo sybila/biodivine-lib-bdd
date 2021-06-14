@@ -37,8 +37,7 @@ impl Bdd {
         let mut cache = vec![None; self.0.len()];
         cache[0] = Some(0.0);
         cache[1] = Some(1.0);
-        let mut stack: Vec<BddPointer> = Vec::new();
-        stack.push(self.root_pointer());
+        let mut stack: Vec<BddPointer> = vec![self.root_pointer()];
         while let Some(node) = stack.last() {
             if cache[node.0 as usize].is_some() {
                 stack.pop();
@@ -82,8 +81,6 @@ impl Bdd {
             return None;
         }
         let mut valuation: Vec<bool> = vec![false; self.num_vars() as usize];
-        let mut stack: Vec<BddPointer> = Vec::new();
-        stack.push(self.root_pointer());
         let mut find = BddPointer::one(); // index 1 is the true node
 
         // Run through the graph backwards, always looking for a parent of a specific node.

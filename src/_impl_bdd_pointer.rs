@@ -35,7 +35,7 @@ impl BddPointer {
     }
 
     /// Cast this pointer to standard usize index.
-    pub fn to_index(&self) -> usize {
+    pub fn to_index(self) -> usize {
         self.0 as usize
     }
 
@@ -71,7 +71,7 @@ impl BddPointer {
     }
 
     /// Convert to little endian bytes
-    pub fn to_le_bytes(&self) -> [u8; 4] {
+    pub fn to_le_bytes(self) -> [u8; 4] {
         self.0.to_le_bytes()
     }
 
