@@ -1,7 +1,7 @@
 use super::*;
 
 impl BddVariableSet {
-    /// Create a new `BddVariableSet` with anonymous variables $(x_1, \ldots, x_n)$ where $n$ is
+    /// Create a new `BddVariableSet` with anonymous variables $(x_0, \ldots, x_n)$ where $n$ is
     /// the `num_vars` parameter.
     pub fn new_anonymous(num_vars: u16) -> BddVariableSet {
         if num_vars >= (std::u16::MAX - 1) {
@@ -121,7 +121,6 @@ impl BddVariableSet {
         }
         result
     }
-
 }
 
 #[cfg(test)]
