@@ -107,6 +107,21 @@ impl BddVariableSet {
             .map(|var| self.mk_not_var(var))
             .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var))
     }
+
+    /// Create a new BDD corresponding to the given [cube] partial assignment.
+    pub fn mk_cube(&self, cube: &BddCube) -> Bdd {
+        let mut result = Bdd::mk_true(self.num_vars());
+        for (v, value) in cube.values().iter().rev() {
+            let node = if *value {
+                BddNode::mk_node(*v, BddPointer::zero(), result.root_pointer())
+            } else {
+                BddNode::mk_node(*v, result.root_pointer(), BddPointer::zero())
+            };
+            result.push_node(node);
+        }
+        result
+    }
+
 }
 
 #[cfg(test)]
@@ -133,6 +148,17 @@ mod tests {
         assert!(ff.is_false());
         assert_eq!(Bdd::mk_true(5), tt);
         assert_eq!(Bdd::mk_false(5), ff);
+    }
+
+    #[test]
+    fn bdd_universe_mk_cube() {
+        let universe = BddVariableSet::new_anonymous(5);
+        let mut cube = BddCube::new(5);
+        assert_eq!(universe.mk_true(), universe.mk_cube(&cube));
+        cube.set(BddVariable(1), false);
+        assert_eq!(universe.mk_not_var(BddVariable(1)), universe.mk_cube(&cube));
+        cube.set(BddVariable(3), true);
+        assert_eq!(8.0, universe.mk_cube(&cube).cardinality());
     }
 
     #[test]

@@ -55,6 +55,9 @@ mod _impl_bdd_pointer;
 /// **(internal)** Implementation of the `BddValuation`.
 mod _impl_bdd_valuation;
 
+/// **(internal)** Implementation of the `BddCube`.
+mod _impl_bdd_cube;
+
 /// **(internal)** Implementation of the `BddValuationsIterator`.
 mod _impl_bdd_satisfying_valuations;
 
@@ -94,6 +97,13 @@ pub struct BddVariable(u16);
 /// in some corresponding valuation and get a `true/false` result.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Ord, PartialOrd)]
 pub struct BddValuation(Vec<bool>);
+
+/// A cube is a partial assignment of the Boolean variables in a BDD.
+///
+/// It represents one path in the BDD (undefined values are the variables
+/// which were not decided upon).
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Ord, PartialOrd)]
+pub struct BddCube(Vec<Option<bool>>);
 
 /// Exhaustively iterates over all valuations with a certain number of variables.
 ///
