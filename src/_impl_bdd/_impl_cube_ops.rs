@@ -51,6 +51,51 @@ impl Bdd {
         }
         result
     }
+
+    /// Opposite of `min_cube`.
+    pub fn max_cube(&self) -> BddCube {
+        // TODO: Separate this into two algorithms.
+        if self.is_false() {
+            panic!("Calling `max_cube` on an empty Bdd.");
+        }
+        // A vector which contains the size (no. of free variables) of the max
+        // cube originating in the corresponding Bdd node, and which link is
+        // used in such cube (i.e. low=false, true=high).
+        let mut cube_sizes: Vec<(u16, bool)> = Vec::new();
+        // For leaves, the link does not really matter.
+        cube_sizes.push((0, true));
+        cube_sizes.push((0, true));
+        for node in self.nodes().skip(2) {
+            if node.low_link.is_zero() {
+                let high_link = usize::try_from(node.high_link.0).unwrap();
+                cube_sizes.push((cube_sizes[high_link].0 + 1, true));
+            } else if node.high_link.is_zero() {
+                let low_link = usize::try_from(node.low_link.0).unwrap();
+                cube_sizes.push((cube_sizes[low_link].0 + 1, false));
+            } else {
+                let low_link = usize::try_from(node.low_link.0).unwrap();
+                let high_link = usize::try_from(node.high_link.0).unwrap();
+                if cube_sizes[high_link].0 < cube_sizes[low_link].0 {
+                    cube_sizes.push((cube_sizes[high_link].0 + 1, true));
+                } else {
+                    cube_sizes.push((cube_sizes[low_link].0 + 1, false));
+                }
+            }
+        }
+        let mut result = BddCube::new(self.num_vars());
+        let mut pointer = self.root_pointer();
+        while !pointer.is_one() {
+            let var = self.var_of(pointer);
+            let value = cube_sizes[pointer.to_index()].1;
+            result.set(var, value);
+            pointer = if value {
+                self.high_link_of(pointer)
+            } else {
+                self.low_link_of(pointer)
+            }
+        }
+        result
+    }
 }
 
 #[cfg(test)]
@@ -79,6 +124,20 @@ mod tests {
                 (BddVariable(2), true),
                 (BddVariable(3), false),
                 (BddVariable(4), true)
+            ]
+        );
+    }
+
+    #[test]
+    fn test_max_cube_complex() {
+        let universe = BddVariableSet::new_anonymous(5);
+        let bdd = universe.eval_expression_string("x_1 & ((x_2 & !x_3 & x_4) | x_3)");
+        assert_eq!(
+            bdd.max_cube().values(),
+            vec![
+                (BddVariable(1), true),
+                (BddVariable(2), false),
+                (BddVariable(3), true),
             ]
         );
     }
