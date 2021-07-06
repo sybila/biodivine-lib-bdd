@@ -1,6 +1,7 @@
 use crate::*;
 use fxhash::FxBuildHasher;
 use std::cmp::{max, min};
+use std::sync::RwLock;
 
 /// Basic boolean logical operations for `Bdd`s:
 /// $\neg, \land, \lor, \Rightarrow, \Leftrightarrow, \oplus$.
@@ -27,37 +28,37 @@ impl Bdd {
     /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::and)
+        apply(self, right, crate::op_function::and, "and")
     }
 
     /// Create a `Bdd` corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn or(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::or)
+        apply(self, right, crate::op_function::or, "or")
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn imp(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::imp)
+        apply(self, right, crate::op_function::imp, "imp")
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn iff(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::iff)
+        apply(self, right, crate::op_function::iff, "iff")
     }
 
     /// Create a `Bdd` corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn xor(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::xor)
+        apply(self, right, crate::op_function::xor, "xor")
     }
 
     /// Create a `Bdd` corresponding to the $\phi \land \neg \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and_not(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::and_not)
+        apply(self, right, crate::op_function::and_not, "and_not")
     }
 
     /// Apply a general binary operation to two given `Bdd` objects.
@@ -71,7 +72,7 @@ impl Bdd {
     where
         T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
-        apply(left, right, op_function)
+        apply(left, right, op_function, "custom")
     }
 
     /// Apply a general binary operation together with up-to three Bdd variable flips. See also `binary_op`.
@@ -91,16 +92,28 @@ impl Bdd {
     where
         T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
-        apply_with_flip(left.0, right.0, left.1, right.1, flip_output, op_function)
+        apply_with_flip(
+            left.0,
+            right.0,
+            left.1,
+            right.1,
+            flip_output,
+            op_function,
+            "custom",
+        )
     }
 }
 
 /// **(internal)** Shorthand for the more advanced apply which includes variable flipping
-fn apply<T>(left: &Bdd, right: &Bdd, terminal_lookup: T) -> Bdd
+fn apply<T>(left: &Bdd, right: &Bdd, terminal_lookup: T, op: &str) -> Bdd
 where
     T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
 {
-    apply_with_flip(left, right, None, None, None, terminal_lookup)
+    apply_with_flip(left, right, None, None, None, terminal_lookup, op)
+}
+
+lazy_static! {
+    static ref BENCH_PROFILE: RwLock<HashMap<String, usize>> = RwLock::new(HashMap::new());
 }
 
 /// **(internal)** Universal function to implement standard logical operators.
@@ -125,6 +138,7 @@ fn apply_with_flip<T>(
     flip_right_if: Option<BddVariable>,
     flip_out_if: Option<BddVariable>,
     terminal_lookup: T,
+    op: &str,
 ) -> Bdd
 where
     T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
@@ -263,6 +277,41 @@ where
                         stack.push(comp_high);
                     }
                 }
+            }
+        }
+    }
+
+    if cfg!(feature = "capture_profile") {
+        /* Collect profiling data */
+        let larger_size = max(left.size(), right.size());
+        if op != "custom" && larger_size > 100 {
+            let smaller_size = min(left.size(), right.size());
+            let smaller_size = if smaller_size < larger_size / 2 {
+                "small"
+            } else {
+                "large"
+            };
+            let result_size = if !is_not_empty {
+                "empty"
+            } else if result.size() < larger_size / 2 {
+                "small"
+            } else {
+                "large"
+            };
+
+            let profile_triple = format!("large-{}-{}", smaller_size, result_size);
+            let last_size = BENCH_PROFILE.read().unwrap().get(&profile_triple).cloned();
+            if last_size.is_none() || last_size.unwrap() < (larger_size - larger_size / 10) {
+                // Save this benchmark
+                BENCH_PROFILE
+                    .write()
+                    .unwrap()
+                    .insert(profile_triple.clone(), larger_size);
+
+                let profile_key = format!("{}.{}.{}", profile_triple, larger_size, op);
+                std::fs::write(format!("perf/{}.left.bdd", profile_key), left.to_string()).unwrap();
+                std::fs::write(format!("perf/{}.right.bdd", profile_key), right.to_string())
+                    .unwrap();
             }
         }
     }

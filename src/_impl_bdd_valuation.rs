@@ -192,6 +192,7 @@ mod tests {
 
     #[test]
     #[should_panic]
+    #[cfg(feature = "shields_up")]
     fn bdd_universe_eval_invalid() {
         let universe = BddVariableSet::new_anonymous(2);
         let tt = universe.mk_true();

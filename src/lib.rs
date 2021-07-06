@@ -32,6 +32,8 @@
 //! Additionally, we provide serialisation into a custom string and binary formats as well as `.dot`.
 //! For a more detailed description, see the [tutorial module](./tutorial/index.html) documentation.
 //! There is also an experimental support for converting BDDs back into boolean expressions.
+#[macro_use]
+extern crate lazy_static;
 
 use std::collections::{HashMap, HashSet};
 

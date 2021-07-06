@@ -18,6 +18,7 @@ maintenance = { status = "actively-developed" }
 
 [dependencies]
 fxhash = "0.2.1"
+lazy_static = "1.4.0"
 
 [dev-dependencies]
 rand = "0.7"
@@ -29,6 +30,7 @@ rand = "0.7"
 # performance. Avoid introducing dead code when shields_up is on, to avoid
 # dead code coverage issues.
 shields_up = []
+capture_profile = []
 
 # Enable rich docs for some online docs autogen services.
 [package.metadata.docs.rs]

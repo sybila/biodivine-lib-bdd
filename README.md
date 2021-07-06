@@ -8,6 +8,16 @@
 [![Crates.io](https://img.shields.io/crates/l/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/blob/master/LICENSE)
 [![GitHub top language](https://img.shields.io/github/languages/top/sybila/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd)
 
+## Profile Capture
+
+This branch contains a modified version of the library which automatically produces "profile data" from all executed operations. Profile consists of all binary operations performed by the library and depends on the size of the larger operand. Specifically, we say that a profile is `big-big-big` if all operands and result are roughly the same size (up to 0.5x) and then we distinguish `big-big-small` (operands equal, result small), up to `big-small-empty`. Here `small` means the second operand is `<0.5` of the larger one, and result is `empty`.
+
+The information is stored in the folder `/perf` and files are named as `profile-type.size.op.left/right.bdd` where `profile-type` is explained above, `size` is the number of nodes in the larger BDD and `A/B` is `left/right` operand.
+
+The collector will keep track of max size of BDD in each category and output a new benchmark instance if a BDD with at least +10% nodes is encountered. The capture only happens for BDD with 100 or more nodes. We don't capture bit flips, as these don't really change the size of the BDD.
+
+To enable collection of performance data, compile with `--features capture_profile`.
+
 # Biodivine/LibBDD
 
 This crate provides a basic implementation of binary decision diagrams (BDDs) — a symbolic data
