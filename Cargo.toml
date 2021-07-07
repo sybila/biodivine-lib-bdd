@@ -21,6 +21,11 @@ fxhash = "0.2.1"
 
 [dev-dependencies]
 rand = "0.7"
+criterion = "0.3.4"
+
+[[bench]]
+name = "itgr"
+harness = false
 
 [features]
 # Use this config flag to enable checks or validation that should not be necessary
