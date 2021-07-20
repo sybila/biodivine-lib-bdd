@@ -284,22 +284,31 @@ where
     if cfg!(feature = "capture_profile") {
         /* Collect profiling data */
         let larger_size = max(left.size(), right.size());
-        if op != "custom" && larger_size > 100 {
-            let smaller_size = min(left.size(), right.size());
-            let smaller_size = if smaller_size < larger_size / 2 {
+        let smaller_size = min(left.size(), right.size());
+        if op != "custom" && larger_size > 100 && larger_size > 2 {
+            let smaller_size_str = if smaller_size < larger_size / 10 {
+                "mini"
+            } else if smaller_size < larger_size / 2 {
                 "small"
             } else {
-                "large"
-            };
-            let result_size = if !is_not_empty {
-                "empty"
-            } else if result.size() < larger_size / 2 {
-                "small"
-            } else {
-                "large"
+                "same"
             };
 
-            let profile_triple = format!("large-{}-{}", smaller_size, result_size);
+            let result_size_str = if !is_not_empty {
+                "empty"
+            } else if result.size() < larger_size / 10 {
+                "mini"
+            } else if result.size() < larger_size / 2 {
+                "small"
+            } else if result.size() < larger_size + larger_size / 10 {
+                "same"
+            } else if result.size() < (larger_size * smaller_size) / 4 {
+                "larger"
+            } else {
+                "explosion"
+            };
+
+            let profile_triple = format!("large-{}-{}", smaller_size_str, result_size_str);
             let last_size = BENCH_PROFILE.read().unwrap().get(&profile_triple).cloned();
             if last_size.is_none() || last_size.unwrap() < (larger_size - larger_size / 10) {
                 // Save this benchmark
