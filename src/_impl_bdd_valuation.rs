@@ -187,6 +187,7 @@ mod tests {
 
     #[test]
     #[should_panic]
+    #[cfg(debug_assertions)]
     fn bdd_universe_eval_invalid() {
         let universe = BddVariableSet::new_anonymous(2);
         let tt = universe.mk_true();
