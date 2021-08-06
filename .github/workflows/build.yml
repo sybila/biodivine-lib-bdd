@@ -1,0 +1,81 @@
+name: build
+on: [push]
+env:
+  # A fixed version used for testing, so that the builds don't
+  # spontaneously break after a few years.
+  # Make sure to update this from time to time.
+  RUST_VERSION: "1.53.0"
+jobs:
+  # Checks syntax formatting.
+  fmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ env.RUST_VERSION }}
+          override: true
+      - run: rustup component add rustfmt
+      - uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+
+  # Run basic code validity check.
+  check:
+    needs: fmt
+    name: Check
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ env.RUST_VERSION }}
+          override: true
+      - uses: actions-rs/cargo@v1
+        with:
+          command: check
+
+  # Run tests.
+  test:
+    needs: check
+    name: Test Suite (linux)
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ env.RUST_VERSION }}
+          override: true
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+
+  # Checks code style.
+  clippy:
+    needs: check
+    name: Clippy
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ env.RUST_VERSION }}
+          override: true
+      - run: rustup component add clippy
+      - uses: actions-rs/cargo@v1
+        with:
+          command: clippy
