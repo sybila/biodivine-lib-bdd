@@ -6,19 +6,18 @@
 [![Dev Docs](https://img.shields.io/badge/docs-dev-orange?style=flat-square)](https://biodivine.fi.muni.cz/docs/biodivine-lib-bdd/v0.2.0/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/sybila/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/commits/master)
 [![Crates.io](https://img.shields.io/crates/l/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/blob/master/LICENSE)
-[![GitHub top language](https://img.shields.io/github/languages/top/sybila/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd)
 
 # Biodivine/LibBDD
 
 This crate provides a basic implementation of binary decision diagrams (BDDs) — a symbolic data
-structure for representing boolean functions or other equivalent objects (such as bit-vector
+structure for representing Boolean functions or other equivalent objects (such as bit-vector
 sets).
 
 Compared to other popular implementations, every BDD owns its memory. It is thus trivial to
 serialise, but also to share between threads. This makes it useful for applications that
 process high number of BDDs concurrently.
 
-We currently provide support for explicit operations as well as evaluation of basic boolean
+We currently provide support for explicit operations as well as evaluation of basic Boolean
 expressions and a custom `bdd` macro for hybrid usage:
 
 ```rust
@@ -45,7 +44,7 @@ fn demo() {
 
 Additionally, we provide serialisation into a custom string and binary formats as well as `.dot`.
 For a more detailed description, see the [tutorial module](https://docs.rs/biodivine-lib-bdd/0.1.0/biodivine_lib_bdd/tutorial/index.html) documentation.
-There is also an experimental support for converting BDDs back into boolean expressions.
+There is also an experimental support for converting BDDs back into Boolean expressions.
 
 ### Performance
 
@@ -58,7 +57,7 @@ state-of-the-art BDD libraries (`bex`, `cudd` and `buddy`). In our experience,
 
 The benchmarks typically consist of incrementally constructing one large BDD of exponential size.
 For some applications where node reuse is more important (very similar formulas appear
-repeatedly), `lib-bdd` would probably be slower. Also note that even though `buddy` is winning,
+repeatedly), `lib-bdd` would probably be slower (although, in our experience the difference in most cases is still not significant). Also note that even though `buddy` is winning,
 the setting of initial cache size was critical when achieving this level of performance
 (each benchmark has a specifically tuned cache size to avoid garbage collection and overallocation). 
 If the size of the problem is not known beforehand, `buddy` may perform significantly worse.
