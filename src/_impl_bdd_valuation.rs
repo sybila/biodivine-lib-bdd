@@ -98,16 +98,11 @@ impl Index<BddVariable> for BddValuation {
 /// Methods for working with `Bdd` valuations.
 impl Bdd {
     /// Evaluate this `Bdd` in a specified `BddValuation`.
-    ///
-    /// Panics if the number of variables in the valuation is different than the `Bdd`.
     pub fn eval_in(&self, valuation: &BddValuation) -> bool {
-        if cfg!(feature = "shields_up") && valuation.num_vars() != self.num_vars() {
-            panic!(
-                "Universe has {} variables, but valuation has {}.",
-                self.num_vars(),
-                valuation.num_vars()
-            )
-        }
+        debug_assert!(
+            valuation.num_vars() == self.num_vars(),
+            "Incompatible variable count."
+        );
         let mut node = self.root_pointer();
         while !node.is_terminal() {
             let var = self.var_of(node);

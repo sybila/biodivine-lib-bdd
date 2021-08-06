@@ -200,12 +200,7 @@ impl Bdd {
     }
 
     /// **(internal)** Get the conditioning variable of the node at a specified location.
-    ///
-    /// *Panics:* `node` must not be a terminal.
     pub(crate) fn var_of(&self, node: BddPointer) -> BddVariable {
-        if cfg!(shields_up) && (node.is_one() || node.is_zero()) {
-            panic!("Terminal nodes don't have a conditioning variable!");
-        }
         self.0[node.to_index()].var
     }
 
