@@ -24,7 +24,7 @@ rand = "0.7"
 criterion = "0.3.4"
 
 [[bench]]
-name = "itgr"
+name = "dnf"
 harness = false
 
 [features]

@@ -13,3 +13,5 @@ pub mod _impl_serialisation;
 
 /// **(internal)** Implementation of some basic internal utility methods for `Bdd`s.
 pub mod _impl_util;
+
+pub mod dnf;
