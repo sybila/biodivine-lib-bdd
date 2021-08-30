@@ -1,10 +1,14 @@
 use crate::{BddPartialValuation, BddVariable};
 
 impl BddPartialValuation {
-
     /// Creates an empty valuation without any variables set.
     pub fn empty() -> BddPartialValuation {
         BddPartialValuation(Vec::new())
+    }
+
+    /// True if the valuation contains no values.
+    pub fn is_empty(&self) -> bool {
+        self.0.iter().all(|it| it.is_none())
     }
 
     /// Create a partial valuation from a list of variables and values.
@@ -22,11 +26,10 @@ impl BddPartialValuation {
 
     /// Consume this valuation and turn it into a vector of values which are stored in it.
     pub fn to_values(&self) -> Vec<(BddVariable, bool)> {
-        self.0.iter()
+        self.0
+            .iter()
             .enumerate()
-            .filter_map(|(i, value)| {
-                value.map(|value| (BddVariable(i as u16), value))
-            })
+            .filter_map(|(i, value)| value.map(|value| (BddVariable(i as u16), value)))
             .collect()
     }
 
@@ -55,7 +58,6 @@ impl BddPartialValuation {
         *cell = None;
     }
 
-
     fn mut_cell(&mut self, id: BddVariable) -> &mut Option<bool> {
         let index = usize::from(id.0);
         while self.0.len() <= index {
@@ -63,7 +65,6 @@ impl BddPartialValuation {
         }
         &mut self.0[index]
     }
-
 }
 
 impl Default for BddPartialValuation {
@@ -99,5 +100,4 @@ mod tests {
         assert_eq!(a, b);
         assert_eq!(a, BddPartialValuation::from_values(&a.to_values()));
     }
-
 }
