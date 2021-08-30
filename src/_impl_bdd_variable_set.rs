@@ -180,6 +180,24 @@ impl BddVariableSet {
 
         result
     }
+
+    /// Interpret each `BddPartialValuation` in `cnf` as a disjunctive clause, and produce
+    /// a conjunction of such clauses. Effectively, this constructs a formula based on its
+    /// conjunctive normal form.
+    pub fn mk_cnf(&self, cnf: &[BddPartialValuation]) -> Bdd {
+        cnf.iter()
+            .map(|it| self.mk_disjunctive_clause(it))
+            .fold(self.mk_true(), |a, b| a.and(&b))
+    }
+
+    /// Interpret each `BddPartialValuation` in `dnf` as a conjunctive clause, and produce
+    /// a disjunction of such clauses. Effectively, this constructs a formula based on its
+    /// disjunctive normal form.
+    pub fn mk_dnf(&self, dnf: &[BddPartialValuation]) -> Bdd {
+        dnf.iter()
+            .map(|it| self.mk_conjunctive_clause(it))
+            .fold(self.mk_false(), |a, b| a.or(&b))
+    }
 }
 
 #[cfg(test)]
@@ -272,5 +290,30 @@ mod tests {
         let universe = BddVariableSet::new_anonymous(5);
         let valuation = BddPartialValuation::from_values(&[(BddVariable(7), true)]);
         universe.mk_conjunctive_clause(&valuation);
+    }
+
+    #[test]
+    fn bdd_mk_normal_form() {
+        let universe = BddVariableSet::new_anonymous(5);
+        let variables = universe.variables();
+
+        let cnf_expected =
+            universe.eval_expression_string("(x_0 | !x_4) & (x_1 | !x_3 | !x_0) & x_2");
+        let dnf_expected =
+            universe.eval_expression_string("(x_0 & !x_4) | (x_1 & !x_3 & !x_0) | x_2");
+        // just a sanity check that the formulas are non-trivial
+        assert!(!cnf_expected.is_true() && !cnf_expected.is_false());
+        assert!(!dnf_expected.is_true() && !dnf_expected.is_false());
+
+        let c1 = BddPartialValuation::from_values(&[(variables[0], true), (variables[4], false)]);
+        let c2 = BddPartialValuation::from_values(&[
+            (variables[1], true),
+            (variables[3], false),
+            (variables[0], false),
+        ]);
+        let c3 = BddPartialValuation::from_values(&[(variables[2], true)]);
+        let formula = &[c1, c2, c3];
+        assert_eq!(cnf_expected, universe.mk_cnf(formula));
+        assert_eq!(dnf_expected, universe.mk_dnf(formula));
     }
 }
