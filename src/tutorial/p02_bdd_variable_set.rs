@@ -80,7 +80,7 @@
 //!
 //! **Notice that `BddVariableSet` can be cloned.** This creates a new set with the exact same
 //! variables. The `BddVariable` and `Bdd` objects can be then used with both the original
-//! and cloned set interchangably. `Bdd` objects are also clonable (since they are just
+//! and cloned set interchangeably. `Bdd` objects are also cloneable (since they are just
 //! vectors of BDD nodes) and can be used with any compatible `BddVariableSet`. This way, you can
 //! quickly and easily share BDDs between different threads (each thread has its own clone of
 //! the `BddVariableSet`).
