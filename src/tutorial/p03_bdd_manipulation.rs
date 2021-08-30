@@ -85,4 +85,49 @@
 //! assert_eq!(variables.mk_true(), eq);
 //! ```
 //!
+//! ## Conjunctive/Disjunctive clauses and normal forms
 //!
+//! Various tools often output logical formulas in either conjunctive or disjunctive normal form
+//! (CNF or DNF). To better support this type of format, you can rely on `BddPartialValuation`
+//! to create clauses (either disjunctive or conjunctive) and then full CNF/DNF formulas.
+//!
+//! One advantage of this approach is relative conciseness and machine-friendlines. Another reason
+//! why this API is available is that creating clauses explicitly (via `and`/`or` methods) can
+//! be resource intensive for formulas with a large amount of variables and clauses. In these cases,
+//! each literal in such a formula requires creation of a new `Bdd` object which is
+//! quite costly when there are, say, 10.000+ literals. These special methods partially avoid
+//! this problem.
+//!
+//! ```rust
+//! use biodivine_lib_bdd::{BddVariableSet, BddPartialValuation, BddVariableSetBuilder};
+//!
+//! let mut builder = BddVariableSetBuilder::new();
+//! let a = builder.make_variable("a");
+//! let b = builder.make_variable("b");
+//! let c = builder.make_variable("c");
+//!
+//! let variables = builder.build();
+//!
+//! // A partial assignment of variables: a=true, c=false, b remains unspecified.
+//! let clause_one = BddPartialValuation::from_values(&[(a, true), (c, false)]);
+//! // Order of variables can be arbitrary. Duplicates resolve to the last provided value.
+//! let clause_two = BddPartialValuation::from_values(&[(b, true), (a, false), (b, false)]);
+//!
+//! // Building a single clause:
+//! assert_eq!(
+//!     variables.mk_disjunctive_clause(&clause_one),
+//!     variables.eval_expression_string("a | !c")
+//! );
+//! assert_eq!(
+//!     variables.mk_conjunctive_clause(&clause_one),
+//!     variables.eval_expression_string("a & !c")
+//! );
+//!
+//! // Or a full CNF/DNF formula:
+//! let cnf_formula = variables.eval_expression_string("(a | !c) & (!b | !a)");
+//! let dnf_formula = variables.eval_expression_string("(a & !c) | (!b & !a)");
+//!
+//! let formula = [clause_one, clause_two];
+//! assert_eq!(variables.mk_dnf(&formula), dnf_formula);
+//! assert_eq!(variables.mk_cnf(&formula), cnf_formula);
+//! ```
