@@ -64,9 +64,7 @@ impl BddVariableSet {
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_var(&self, var: BddVariable) -> Bdd {
-        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
-            panic!("Variable {:?} is not in this set.", var);
-        }
+        debug_assert!(var.0 < self.num_vars, "Invalid variable id.");
         Bdd::mk_var(self.num_vars, var)
     }
 
@@ -75,9 +73,7 @@ impl BddVariableSet {
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_not_var(&self, var: BddVariable) -> Bdd {
-        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
-            panic!("Variable {:?} is not in this set.", var);
-        }
+        debug_assert!(var.0 < self.num_vars, "Invalid variable id.");
         Bdd::mk_not_var(self.num_vars, var)
     }
 
@@ -85,9 +81,7 @@ impl BddVariableSet {
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_literal(&self, var: BddVariable, value: bool) -> Bdd {
-        if cfg!(feature = "shields_up") && var.0 >= self.num_vars {
-            panic!("Variable {:?} is not in this set.", var);
-        }
+        debug_assert!(var.0 < self.num_vars, "Invalid variable id.");
         Bdd::mk_literal(self.num_vars, var, value)
     }
 
@@ -228,12 +222,14 @@ mod tests {
 
     #[test]
     #[should_panic]
+    #[cfg(debug_assertions)]
     fn bdd_universe_mk_var_invalid_id() {
         mk_5_variable_set().mk_var(BddVariable(6));
     }
 
     #[test]
     #[should_panic]
+    #[cfg(debug_assertions)]
     fn bdd_universe_mk_not_var_invalid_id() {
         mk_5_variable_set().mk_not_var(BddVariable(6));
     }
