@@ -55,6 +55,9 @@ mod _impl_bdd_pointer;
 /// **(internal)** Implementation of the `BddValuation`.
 mod _impl_bdd_valuation;
 
+/// **(internal)** Implementation of the `BddPartialValuation`.
+mod _impl_bdd_partial_valuation;
+
 /// **(internal)** Implementation of the `BddValuationsIterator`.
 mod _impl_bdd_satisfying_valuations;
 
@@ -94,6 +97,14 @@ pub struct BddVariable(u16);
 /// in some corresponding valuation and get a `true/false` result.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Ord, PartialOrd)]
 pub struct BddValuation(Vec<bool>);
+
+/// Describes assignment of some arbitrary number of `Bdd` variables.
+///
+/// A partial valuation can be used to quickly construct simple conjunctive/disjunctive clauses.
+/// It also exactly describes one path in a `Bdd` and hence can be used as an intermediate
+/// value when traversing the valuations of a `Bdd`.
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+pub struct BddPartialValuation(Vec<Option<bool>>);
 
 /// Exhaustively iterates over all valuations with a certain number of variables.
 ///
