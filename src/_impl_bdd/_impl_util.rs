@@ -200,6 +200,9 @@ impl Bdd {
     }
 
     /// **(internal)** Get the conditioning variable of the node at a specified location.
+    ///
+    /// Note that this also technically works for terminals, but the returned `BddVariable` is
+    /// not valid in this `Bdd`.
     pub(crate) fn var_of(&self, node: BddPointer) -> BddVariable {
         self.0[node.to_index()].var
     }
@@ -250,6 +253,42 @@ impl Bdd {
     /// **(internal)** Create an iterator over all nodes of the `Bdd` (including terminals).
     pub(crate) fn nodes(&self) -> Iter<BddNode> {
         self.0.iter()
+    }
+
+    /// Check if this `Bdd` represents a single valuation with all variables fixed to a
+    /// specific value.
+    ///
+    /// This can be used for example to verify that a set represented by a `Bdd` is a singleton.
+    pub fn is_single_valuation(&self) -> bool {
+        // Note that this check works for any ordering of nodes in the BDD, but only
+        // works if the BDD itself is canonical (i.e. no duplicates and redundant nodes).
+        // If it is not canonical and the result is true, it is indeed a singleton, but
+        // if the result is false, it may be just a non-canonical singleton with unnecessary nodes.
+        let mut expected_variable: u16 = 0;
+        let mut node = self.root_pointer();
+        while !node.is_one() {
+            if node.is_zero() { // This is only triggered for non-canonical BDDs.
+                return false;
+            }
+            // The variables on the path should grow continuously.
+            if self.var_of(node).0 != expected_variable {
+                return false;
+            } else {
+                expected_variable += 1;
+            }
+            // One of the links must be zero, the other link follows the path.
+            if self.low_link_of(node).is_zero() {
+                node = self.high_link_of(node);
+            } else if self.high_link_of(node).is_zero() {
+                node = self.low_link_of(node);
+            } else {
+                return false;
+            }
+        }
+
+        // We got to the terminal node, but we still need to check that some variable was not
+        // skipped by the last edge that got us there.
+        self.var_of(node).0 == expected_variable
     }
 }
 
@@ -321,5 +360,19 @@ mod tests {
         let actual_expression = bdd.to_boolean_expression(&vars);
         assert_eq!(vars.eval_expression(&actual_expression), bdd);
         assert_eq!(bdd.to_boolean_expression(&vars), expected_expression);
+    }
+
+    #[test]
+    fn bdd_singleton_check() {
+        let vars = BddVariableSet::new_anonymous(4);
+        let is_singleton = vars.eval_expression_string("x_0 & !x_1 & !x_2 & x_3");
+        let not_singleton_1 = vars.eval_expression_string("x_0 & !x_1 | !x_2 & x_3");
+        let not_singleton_2 = vars.eval_expression_string("x_0 & !x_1 & !x_2");
+        let not_singleton_3 = vars.eval_expression_string("x_0 & !x_1 & x_3");
+
+        assert!(is_singleton.is_single_valuation());
+        assert!(!not_singleton_1.is_single_valuation());
+        assert!(!not_singleton_2.is_single_valuation());
+        assert!(!not_singleton_3.is_single_valuation());
     }
 }
