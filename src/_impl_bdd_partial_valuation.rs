@@ -65,6 +65,22 @@ impl BddPartialValuation {
         }
         &mut self.0[index]
     }
+
+    /// Returns true if the values set in this partial valuation match the values fixed in the
+    /// other given valuation. I.e. the two valuations agree on fixed values in `valuation`.
+    ///
+    /// In other words `this >= valuation` in terms of specificity.
+    pub fn extends(&self, valuation: &BddPartialValuation) -> bool {
+        for var_id in 0..(valuation.0.len() as u16) {
+            let var = BddVariable(var_id);
+            let expected = valuation.get_value(var);
+            if expected.is_some() && self.get_value(var) != expected {
+                return false;
+            }
+        }
+
+        true
+    }
 }
 
 impl Default for BddPartialValuation {
@@ -84,6 +100,7 @@ mod tests {
         let v5 = BddVariable(5);
 
         let mut a = BddPartialValuation::default();
+        assert!(!a.has_value(v1));
         a.set_value(v1, true);
         assert!(a.has_value(v1));
         assert_eq!(Some(true), a.get_value(v1));
