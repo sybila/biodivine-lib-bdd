@@ -45,13 +45,21 @@
 //! let variables = BddVariableSet::new(vec!["v1", "v2", "v3", "v4"]);
 //! let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
 //!
+//! let mut total = 0;
 //! bdd.paths().for_each(|path| {
 //!     // To convert a path back into a `Bdd`, we need to interpret it as a conjunctive clause.
 //!     let path_as_bdd = variables.mk_conjunctive_clause(&path);
 //!     assert!(!path_as_bdd.and(&bdd).is_false());
 //!     // And we can also test whether the `Bdd` is a single path.
 //!     assert!(path_as_bdd.is_clause());
+//!
+//!     // Keep in mind that you can still iterate over valuations that match a specific path:
+//!     for valuation in ValuationsOfClauseIterator::new(path, bdd.num_vars()) {
+//!         total += 1;
+//!     }
 //! });
+//!
+//! assert_eq!(total, bdd.sat_valuations().count());
 //! ```
 //!
 //! ## Path/valuation selectors
