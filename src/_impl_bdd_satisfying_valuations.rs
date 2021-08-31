@@ -3,6 +3,10 @@ use crate::{
 };
 
 impl Bdd {
+    /// Create an iterator that goes through all the satisfying valuations of this `Bdd`.
+    ///
+    /// Note that the number of such valuations can be substantial and can be approximated
+    /// using `Bdd.cardinality`.
     pub fn sat_valuations(&self) -> BddSatisfyingValuations {
         let mut path_iter = BddPathIterator::new(self);
         let val_iter = if let Some(first) = path_iter.next() {
@@ -16,6 +20,15 @@ impl Bdd {
             paths: path_iter,
             valuations: val_iter,
         }
+    }
+
+    /// Create an iterator that goes through all paths of this `Bdd`. Each path is represented
+    /// as a *conjunctive clause* in the form of `BddPartialValuation`.
+    ///
+    /// The whole formula represented by a `Bdd` can be then seen as a disjunction of these
+    /// clauses/paths.
+    pub fn paths(&self) -> BddPathIterator {
+        BddPathIterator::new(self)
     }
 }
 
