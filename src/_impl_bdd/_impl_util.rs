@@ -259,7 +259,7 @@ impl Bdd {
     /// specific value.
     ///
     /// This can be used for example to verify that a set represented by a `Bdd` is a singleton.
-    pub fn is_single_valuation(&self) -> bool {
+    pub fn is_valuation(&self) -> bool {
         // Note that this check works for any ordering of nodes in the BDD, but only
         // works if the BDD itself is canonical (i.e. no duplicates and redundant nodes).
         // If it is not canonical and the result is true, it is indeed a singleton, but
@@ -267,7 +267,8 @@ impl Bdd {
         let mut expected_variable: u16 = 0;
         let mut node = self.root_pointer();
         while !node.is_one() {
-            if node.is_zero() { // This is only triggered for non-canonical BDDs.
+            if node.is_zero() {
+                // This is only triggered for non-canonical BDDs.
                 return false;
             }
             // The variables on the path should grow continuously.
@@ -289,6 +290,31 @@ impl Bdd {
         // We got to the terminal node, but we still need to check that some variable was not
         // skipped by the last edge that got us there.
         self.var_of(node).0 == expected_variable
+    }
+
+    /// Check if this `Bdd` represents a single *conjunctive* clause, i.e. that the formula
+    /// represented by this `Bdd` is for example `x & !y & z & ...` (here `x`, `!y`, `z` are
+    /// some positive/negative literals).
+    pub fn is_clause(&self) -> bool {
+        // Similar to `is_single_valuation`, this function only works for canonical BDDs,
+        // regardless of node order, but can only output false negative for non-canonical BDDs.
+
+        let mut node = self.root_pointer();
+        while !node.is_one() {
+            if node.is_zero() {
+                return false;
+            }
+
+            if self.low_link_of(node).is_zero() {
+                node = self.high_link_of(node);
+            } else if self.high_link_of(node).is_zero() {
+                node = self.low_link_of(node);
+            } else {
+                return false;
+            }
+        }
+
+        true
     }
 }
 
@@ -363,16 +389,29 @@ mod tests {
     }
 
     #[test]
-    fn bdd_singleton_check() {
+    fn bdd_valuation_check() {
         let vars = BddVariableSet::new_anonymous(4);
         let is_singleton = vars.eval_expression_string("x_0 & !x_1 & !x_2 & x_3");
         let not_singleton_1 = vars.eval_expression_string("x_0 & !x_1 | !x_2 & x_3");
         let not_singleton_2 = vars.eval_expression_string("x_0 & !x_1 & !x_2");
         let not_singleton_3 = vars.eval_expression_string("x_0 & !x_1 & x_3");
 
-        assert!(is_singleton.is_single_valuation());
-        assert!(!not_singleton_1.is_single_valuation());
-        assert!(!not_singleton_2.is_single_valuation());
-        assert!(!not_singleton_3.is_single_valuation());
+        assert!(is_singleton.is_valuation());
+        assert!(!not_singleton_1.is_valuation());
+        assert!(!not_singleton_2.is_valuation());
+        assert!(!not_singleton_3.is_valuation());
+    }
+
+    #[test]
+    fn bdd_clause_check() {
+        let vars = BddVariableSet::new_anonymous(4);
+
+        let is_clause_1 = vars.eval_expression_string("x_0 & !x_1 & x_2 & x_3");
+        let is_clause_2 = vars.eval_expression_string("x_0 & !x_2");
+        let is_not_clause = vars.eval_expression_string("x_0 | x_1");
+
+        assert!(is_clause_1.is_clause());
+        assert!(is_clause_2.is_clause());
+        assert!(!is_not_clause.is_clause())
     }
 }
