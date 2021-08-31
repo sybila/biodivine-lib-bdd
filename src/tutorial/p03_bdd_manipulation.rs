@@ -131,3 +131,6 @@
 //! assert_eq!(variables.mk_dnf(&formula), dnf_formula);
 //! assert_eq!(variables.mk_cnf(&formula), cnf_formula);
 //! ```
+//!
+//! To learn more about how to work with individual valuations of a `Bdd`, you can also look
+//! at the fourth chapter of this tutorial.

@@ -1,5 +1,6 @@
-use super::{Bdd, BddValuation, BddValuationIterator, BddVariable};
-use crate::{BddNode, BddPointer};
+use super::{Bdd, BddValuation, BddVariable};
+use crate::{BddNode, BddPartialValuation, BddPointer, ValuationsOfClauseIterator};
+use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
 use std::ops::Index;
 
@@ -25,12 +26,19 @@ impl BddValuation {
         self.0[i] = !self.0[i];
     }
 
+    /// Set the value of the given `variable` to `false`.
     pub fn clear(&mut self, variable: BddVariable) {
         self.0[(variable.0 as usize)] = false;
     }
 
+    /// Set the value of the given `variable` to `true`.
     pub fn set(&mut self, variable: BddVariable) {
         self.0[(variable.0 as usize)] = true;
+    }
+
+    /// Update `value` of the given `variable`.
+    pub fn set_value(&mut self, variable: BddVariable, value: bool) {
+        self.0[(variable.0 as usize)] = value;
     }
 
     /// Convert the valuation to its underlying vector.
@@ -48,25 +56,58 @@ impl BddValuation {
         self.0.len() as u16
     }
 
+    /// Returns true if the values set in this valuation match the values fixed in the
+    /// given partial valuation. I.e. the two valuations agree on fixed values.
+    ///
+    /// In other words `this >= valuation` in terms of specificity.
+    pub fn extends(&self, valuation: &BddPartialValuation) -> bool {
+        for var_id in 0..self.num_vars() {
+            let var = BddVariable(var_id);
+            if let Some(value) = valuation.get_value(var) {
+                if value != self.value(var) {
+                    return false;
+                }
+            }
+        }
+
+        true
+    }
+
     /// **(internal)** "Increment" this valuation if possible. Interpret the valuation as bit-vector and
     /// perform a standard increment. This can be used to iterate over all valuations.
-    pub(crate) fn next(&self) -> Option<BddValuation> {
-        let mut next_vec = self.0.clone();
-        let mut carry = true; // initially, we want to increment
-        for bit in &mut next_vec {
-            let new_value = *bit ^ carry;
-            let new_carry = *bit && carry;
-            *bit = new_value;
+    ///
+    /// You can provide a `clause` which restricts which variables of the valuation can change.
+    /// That is, any variable that has a fixed value in `clause` is considered to be fixed.
+    /// Note that the method also *checks* whether the fixed values are the same as in the
+    /// `clause` (i.e. the valuation and clause are mutually compatible) and **panics** if
+    /// inconsistencies are found.
+    pub(crate) fn next(&self, clause: &BddPartialValuation) -> Option<BddValuation> {
+        let mut result = self.clone();
+        let mut carry = true; // first value needs to be incremented
+
+        for var_id in 0..self.num_vars() {
+            let variable = BddVariable(var_id);
+
+            if clause.has_value(variable) {
+                // Do not increment variables that are fixed.
+                assert_eq!(clause.get_value(variable), Some(self.value(variable)));
+                continue;
+            }
+
+            let new_value = self.value(variable) ^ carry;
+            let new_carry = self.value(variable) && carry;
+
+            result.set_value(variable, new_value);
             carry = new_carry;
             if !new_carry {
                 break;
-            } // if there is no carry, we can just break
+            } // No need to continue incrementing.
         }
 
         if carry {
             None
         } else {
-            Some(BddValuation(next_vec))
+            Some(result)
         }
     }
 }
@@ -139,32 +180,50 @@ impl From<BddValuation> for Bdd {
     }
 }
 
-impl BddValuationIterator {
-    /// Create a new iterator with a specified number of variables.
-    pub fn new(num_vars: u16) -> BddValuationIterator {
-        BddValuationIterator(Some(BddValuation(vec![false; num_vars as usize])))
+/// If possible, convert the given partial valuation to valuation with the same
+/// number of variables. Partial valuation must contain values of all variables.
+impl TryFrom<BddPartialValuation> for BddValuation {
+    type Error = ();
+
+    fn try_from(value: BddPartialValuation) -> Result<Self, Self::Error> {
+        let mut result = BddValuation::all_false(value.0.len() as u16);
+        for var_id in 0..result.num_vars() {
+            let var = BddVariable(var_id);
+            if let Some(value) = value.get_value(var) {
+                result.set_value(var, value);
+            } else {
+                return Err(());
+            }
+        }
+
+        Ok(result)
     }
 }
 
-impl Iterator for BddValuationIterator {
+// This code allows compatibility with older implementations and will be removed
+// once `BddValuationIterator` is removed.
+
+#[allow(deprecated)]
+impl super::BddValuationIterator {
+    /// Create a new iterator with a specified number of variables.
+    pub fn new(num_vars: u16) -> super::BddValuationIterator {
+        super::BddValuationIterator(ValuationsOfClauseIterator::new_unconstrained(num_vars))
+    }
+}
+
+#[allow(deprecated)]
+impl Iterator for super::BddValuationIterator {
     type Item = BddValuation;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if let Some(valuation) = &self.0 {
-            let ret = valuation.clone();
-            let next = valuation.next();
-            self.0 = next;
-            Some(ret)
-        } else {
-            None
-        }
+        self.0.next()
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::{BddValuation, BddValuationIterator, BddVariableSet};
-    use crate::bdd;
+    use super::super::{BddValuation, BddVariableSet};
+    use crate::{bdd, BddPartialValuation, BddVariable};
 
     #[test]
     fn bdd_universe_eval() {
@@ -176,13 +235,6 @@ mod tests {
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![true, true])));
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
         assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
-    }
-
-    #[test]
-    fn bdd_valuation_iterator_empty() {
-        let mut it = BddValuationIterator::new(0);
-        assert_eq!(it.next(), Some(BddValuation::new(Vec::new())));
-        assert_eq!(it.next(), None);
     }
 
     #[test]
@@ -200,5 +252,17 @@ mod tests {
             "[0,1,1,0]".to_string(),
             BddValuation::new(vec![false, true, true, false]).to_string()
         );
+    }
+
+    #[test]
+    fn valuation_consistency() {
+        let total = BddValuation::new(vec![true, false, true, false]);
+        let partial =
+            BddPartialValuation::from_values(&[(BddVariable(1), false), (BddVariable(2), true)]);
+
+        assert!(total.extends(&partial));
+
+        let total = BddValuation::new(vec![true, true, true, false]);
+        assert!(!total.extends(&partial));
     }
 }

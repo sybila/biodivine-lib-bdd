@@ -1,127 +1,34 @@
-use crate::{Bdd, BddPointer, BddSatisfyingValuations, BddValuation, BddVariable};
+use crate::{
+    Bdd, BddPathIterator, BddSatisfyingValuations, BddValuation, ValuationsOfClauseIterator,
+};
 
 impl Bdd {
+    /// Create an iterator that goes through all the satisfying valuations of this `Bdd`.
+    ///
+    /// Note that the number of such valuations can be substantial and can be approximated
+    /// using `Bdd.cardinality`.
     pub fn sat_valuations(&self) -> BddSatisfyingValuations {
+        let mut path_iter = BddPathIterator::new(self);
+        let val_iter = if let Some(first) = path_iter.next() {
+            ValuationsOfClauseIterator::new(first, self.num_vars())
+        } else {
+            // This is a special case for the `false` BDD.
+            ValuationsOfClauseIterator::empty()
+        };
         BddSatisfyingValuations {
             bdd: self,
-            continuation: if self.is_false() {
-                None
-            } else {
-                Some(self.first_sat_path())
-            },
+            paths: path_iter,
+            valuations: val_iter,
         }
     }
 
-    /// **(internal)** Find first satisfying path in the Bdd, its path mask (bits where the path
-    /// has fixed values) and smallest valuation on this path.
-    fn first_sat_path(&self) -> (Vec<BddPointer>, BddValuation, BddValuation) {
-        let mut sat_path = Vec::new();
-        let mut path_mask = BddValuation::all_false(self.num_vars());
-        let mut first_valuation = BddValuation::all_false(self.num_vars());
-        sat_path.push(self.root_pointer());
-        self.continue_sat_path(&mut sat_path, &mut path_mask, &mut first_valuation);
-        (sat_path, path_mask, first_valuation)
-    }
-
-    /// **(internal)** Take last node on given `sat_path` and find the first satisfiable path that follows from it.
+    /// Create an iterator that goes through all paths of this `Bdd`. Each path is represented
+    /// as a *conjunctive clause* in the form of `BddPartialValuation`.
     ///
-    /// When this function returns, last pointer in `sat_path` is the one pointer.
-    ///
-    /// Assumes `path_mask` and `first_valuation` is cleared for every variable greater than `varOf(last(sat_path))`.
-    fn continue_sat_path(
-        &self,
-        sat_path: &mut Vec<BddPointer>,
-        path_mask: &mut BddValuation,
-        first_valuation: &mut BddValuation,
-    ) {
-        while let Some(top) = sat_path.last() {
-            if top.is_zero() {
-                panic!("No SAT path!");
-            } else if top.is_one() {
-                return; // Found sat path.
-            } else {
-                let var = self.var_of(*top);
-                let low = self.low_link_of(*top);
-                let high = self.high_link_of(*top);
-                path_mask.set(var);
-                if !low.is_zero() {
-                    sat_path.push(low);
-                } else {
-                    // Can't follow low; follow high.
-                    assert!(!high.is_zero());
-                    sat_path.push(high);
-                    first_valuation.flip_value(var);
-                }
-            }
-        }
-    }
-}
-
-impl BddSatisfyingValuations<'_> {
-    /// **(internal)** Increment the given valuation, but do not change the bits that have mask set to true.
-    /// Returns true if increment was successful, false when overflowed.
-    fn increment_masked_valuation(valuation: &mut BddValuation, mask: &BddValuation) -> bool {
-        for i in (0..valuation.0.len()).rev() {
-            if mask.0[i] {
-                // This position is fixed, don't change it!
-                continue;
-            } else {
-                // This position can be changed.
-                valuation.0[i] = !valuation.0[i];
-                if valuation.0[i] {
-                    // If it changed from 0 to 1, we are done.
-                    return true;
-                }
-            }
-        }
-        false // Valuation increment overflow.
-    }
-
-    /// **(internal)** Find next satisfying path in the Bdd and update path mask and first valuation
-    /// accordingly. If this was the last satisfying path, returns false.
-    fn next_sat_path(
-        bdd: &Bdd,
-        sat_path: &mut Vec<BddPointer>,
-        path_mask: &mut BddValuation,
-        first_valuation: &mut BddValuation,
-    ) -> bool {
-        // Pop unusable end of path until a variable that can be flipped from 0 to 1 is found.
-        while let Some(top) = sat_path.pop() {
-            if let Some(candidate) = sat_path.last() {
-                if top == bdd.high_link_of(*candidate) {
-                    // This path already follows the high link of candidate - that means we
-                    // will pop candidate and look for a completely new path.
-                } else {
-                    // Here, we can switching from low link to high link.
-                    assert_eq!(top, bdd.low_link_of(*candidate));
-                    let high = bdd.high_link_of(*candidate);
-                    if high.is_zero() {
-                        // But if high is zero, there will be no sat path there and we cannot switch,
-                        // so just pop it as well.
-                    } else {
-                        // Here, we actually have a non-empty high link that we can switch to!
-                        // But first, we have to clear path_mask and first_valuation up to the variable
-                        // of candidate (which remains to be set, just not to 0, but to 1).
-                        let var = bdd.var_of(*candidate);
-                        assert!(path_mask.value(var));
-                        assert!(!first_valuation.value(var));
-                        sat_path.push(high);
-                        first_valuation.set(var); // flip candidate from 0 to 1
-                        for i in (var.0 + 1)..bdd.num_vars() {
-                            // clear everything that comes after candidate
-                            path_mask.clear(BddVariable(i));
-                            first_valuation.clear(BddVariable(i))
-                        }
-                        // Now we are ready to finalize the fresh path.
-                        bdd.continue_sat_path(sat_path, path_mask, first_valuation);
-                        return true;
-                    }
-                }
-            }
-        }
-        // If we got here, it means there was no link on path that we could have flipped from low
-        // to high, hence this was the last path...
-        false
+    /// The whole formula represented by a `Bdd` can be then seen as a disjunction of these
+    /// clauses/paths.
+    pub fn paths(&self) -> BddPathIterator {
+        BddPathIterator::new(self)
     }
 }
 
@@ -129,18 +36,15 @@ impl Iterator for BddSatisfyingValuations<'_> {
     type Item = BddValuation;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if let Some((sat_path, path_mask, next_valuation)) = &mut self.continuation {
-            // Make a copy of the original valuation.
-            let result = next_valuation.clone();
-            if !BddSatisfyingValuations::increment_masked_valuation(next_valuation, path_mask) {
-                // Valuation cannot be incremented (overflow) - find next SAT path.
-                if !Self::next_sat_path(self.bdd, sat_path, path_mask, next_valuation) {
-                    // No more paths. Return last valuation and then die.
-                    self.continuation = None;
-                }
-            }
-            Some(result)
+        let next_valuation = self.valuations.next();
+        if next_valuation.is_some() {
+            next_valuation
+        } else if let Some(next_path) = self.paths.next() {
+            self.valuations = ValuationsOfClauseIterator::new(next_path, self.bdd.num_vars());
+            // A new valuations iterator is never empty unless created using the `empty` constructor.
+            self.valuations.next()
         } else {
+            // We are done.
             None
         }
     }
@@ -149,7 +53,7 @@ impl Iterator for BddSatisfyingValuations<'_> {
 #[cfg(test)]
 mod tests {
     use crate::_test_util::mk_5_variable_set;
-    use crate::{Bdd, BddValuation, BddValuationIterator};
+    use crate::{Bdd, BddValuation, ValuationsOfClauseIterator};
 
     #[test]
     fn bdd_sat_valuations_trivial() {
@@ -157,7 +61,8 @@ mod tests {
         let f = Bdd::mk_false(4);
         assert!(f.sat_valuations().next().is_none());
         let mut sat_valuations: Vec<BddValuation> = t.sat_valuations().collect();
-        let mut expected: Vec<BddValuation> = BddValuationIterator::new(4).collect();
+        let mut expected: Vec<BddValuation> =
+            ValuationsOfClauseIterator::new_unconstrained(4).collect();
         sat_valuations.sort();
         expected.sort();
 
@@ -176,7 +81,7 @@ mod tests {
         let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
 
         let mut sat_valuations: Vec<BddValuation> = bdd.sat_valuations().collect();
-        let mut expected: Vec<BddValuation> = BddValuationIterator::new(5)
+        let mut expected: Vec<BddValuation> = ValuationsOfClauseIterator::new_unconstrained(5)
             .filter(|valuation| bdd.eval_in(valuation))
             .collect();
 

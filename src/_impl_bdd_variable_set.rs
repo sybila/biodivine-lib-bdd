@@ -110,11 +110,11 @@ impl BddVariableSet {
     /// a `Bdd` for the formula `x & !y & z`. An empty valuation evaluates to `true`.
     ///
     /// *Panics:* All variables in the partial valuation must belong into this set.
-    pub fn mk_conjunctive_clause(&self, valuation: &BddPartialValuation) -> Bdd {
+    pub fn mk_conjunctive_clause(&self, clause: &BddPartialValuation) -> Bdd {
         let mut result = self.mk_true();
         // It is important to iterate in this direction, otherwise we are going to mess with
         // variable ordering.
-        for (index, value) in valuation.0.iter().enumerate().rev() {
+        for (index, value) in clause.0.iter().enumerate().rev() {
             if let Some(value) = value {
                 assert!(index < self.num_vars as usize);
                 // This is safe because valuation cannot contain larger indices due to the way
@@ -144,9 +144,9 @@ impl BddVariableSet {
     /// a `Bdd` for the formula `x | !y | z`. An empty valuation evaluates to `false`.
     ///
     /// *Panics:* All variables in the valuation must belong into this set.
-    pub fn mk_disjunctive_clause(&self, valuation: &BddPartialValuation) -> Bdd {
+    pub fn mk_disjunctive_clause(&self, clause: &BddPartialValuation) -> Bdd {
         // See `mk_conjunctive_clause`, for details.
-        if valuation.is_empty() {
+        if clause.is_empty() {
             return self.mk_false();
         }
 
@@ -155,7 +155,7 @@ impl BddVariableSet {
         // zero as the root instead of one. So we use a variable which is pre-set in the
         // first iteration but will evaluate to real root in later iterations.
         let mut shadow_root = BddPointer::zero();
-        for (index, value) in valuation.0.iter().enumerate().rev() {
+        for (index, value) in clause.0.iter().enumerate().rev() {
             if let Some(value) = value {
                 assert!(index < self.num_vars as usize);
                 debug_assert!(u16::try_from(index).is_ok());

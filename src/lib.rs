@@ -70,6 +70,12 @@ mod _impl_bdd_variable_set;
 /// **(internal)** Implementation of the `BddVariableSetBuilder`.
 mod _impl_bdd_variable_set_builder;
 
+/// **(internal)** Implementation of the `ValuationOfClauseIterator`.
+mod _impl_iterator_valuations_of_clause;
+
+/// **(internal)** Implementation of the `BddPathIterator`.
+mod _impl_bdd_path_iterator;
+
 /// **(internal)** A macro module for simplifying BDD operations.
 mod _macro_bdd;
 
@@ -109,14 +115,38 @@ pub struct BddPartialValuation(Vec<Option<bool>>);
 /// Exhaustively iterates over all valuations with a certain number of variables.
 ///
 /// Be aware of the exponential time complexity of such operation!
-pub struct BddValuationIterator(Option<BddValuation>);
+///
+/// *Deprecated in favour of `ValuationsOfClauseIterator` which provides the same
+/// functionality when given an empty clause.*
+#[deprecated]
+pub struct BddValuationIterator(ValuationsOfClauseIterator);
 
 /// An iterator over all satisfying valuations of a specific BDD.
 ///
 /// Be aware of the potential exponential number of iterations!
 pub struct BddSatisfyingValuations<'a> {
     bdd: &'a Bdd,
-    continuation: Option<(Vec<BddPointer>, BddValuation, BddValuation)>,
+    paths: BddPathIterator<'a>,
+    valuations: ValuationsOfClauseIterator,
+}
+
+/// An iterator which goes through all paths in the `Bdd`, representing them as clauses using
+/// `BddPartialValuation`.
+pub struct BddPathIterator<'a> {
+    bdd: &'a Bdd,
+    // Stack keeps the last discovered path. If last path was consumed, the stack is empty.
+    stack: Vec<BddPointer>,
+}
+
+/// An iterator which goes through all valuations that satisfy a specific *conjunctive* clause.
+///
+/// Mind that the number of valuations satisfying a clause can be exponential!
+///
+/// Note that the clause can be empty, in which case this is equivalent to `BddValuationIterator`.
+#[derive(Clone)]
+pub struct ValuationsOfClauseIterator {
+    next_valuation: Option<BddValuation>,
+    clause: BddPartialValuation,
 }
 
 /// Maintains the set of variables that can appear in a `Bdd`.

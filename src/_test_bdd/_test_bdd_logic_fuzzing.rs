@@ -154,7 +154,7 @@ fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) {
     let op_tree = BddOpTree::new_random(tree_height, num_vars, seed);
     let eval = op_tree.eval_in(&universe);
 
-    for valuation in BddValuationIterator::new(num_vars) {
+    for valuation in ValuationsOfClauseIterator::new_unconstrained(num_vars) {
         assert_eq!(
             op_tree.eval_in_valuation(&valuation),
             eval.eval_in(&valuation),

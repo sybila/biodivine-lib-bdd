@@ -1,4 +1,5 @@
 use crate::{BddPartialValuation, BddVariable};
+use std::convert::TryFrom;
 
 impl BddPartialValuation {
     /// Creates an empty valuation without any variables set.
@@ -9,6 +10,22 @@ impl BddPartialValuation {
     /// True if the valuation contains no values.
     pub fn is_empty(&self) -> bool {
         self.0.iter().all(|it| it.is_none())
+    }
+
+    /// Return the number of fixed variables in this valuation.
+    pub fn cardinality(&self) -> u16 {
+        u16::try_from(self.0.iter().filter(|it| it.is_some()).count()).unwrap()
+    }
+
+    /// Return the identifier of the last fixed variable in this valuation. Returns `None` if
+    /// no variable is fixed.
+    pub fn last_fixed_variable(&self) -> Option<BddVariable> {
+        for i in (0..self.0.len()).rev() {
+            if self.0[i].is_some() {
+                return Some(BddVariable(i as u16));
+            }
+        }
+        None
     }
 
     /// Create a partial valuation from a list of variables and values.
@@ -65,6 +82,22 @@ impl BddPartialValuation {
         }
         &mut self.0[index]
     }
+
+    /// Returns true if the values set in this partial valuation match the values fixed in the
+    /// other given valuation. I.e. the two valuations agree on fixed values in `valuation`.
+    ///
+    /// In other words `this >= valuation` in terms of specificity.
+    pub fn extends(&self, valuation: &BddPartialValuation) -> bool {
+        for var_id in 0..(valuation.0.len() as u16) {
+            let var = BddVariable(var_id);
+            let expected = valuation.get_value(var);
+            if expected.is_some() && self.get_value(var) != expected {
+                return false;
+            }
+        }
+
+        true
+    }
 }
 
 impl Default for BddPartialValuation {
@@ -84,6 +117,8 @@ mod tests {
         let v5 = BddVariable(5);
 
         let mut a = BddPartialValuation::default();
+        assert!(a.last_fixed_variable().is_none());
+        assert!(!a.has_value(v1));
         a.set_value(v1, true);
         assert!(a.has_value(v1));
         assert_eq!(Some(true), a.get_value(v1));
@@ -93,7 +128,9 @@ mod tests {
         assert!(!a.has_value(v1));
 
         a.set_value(v5, true);
+        assert_eq!(Some(v5), a.last_fixed_variable());
         a.set_value(v1, false);
+        assert_eq!(3, a.cardinality());
 
         let b = BddPartialValuation::from_values(&[(v1, false), (v5, true), (v2, false)]);
 
