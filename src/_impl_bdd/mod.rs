@@ -13,3 +13,7 @@ pub mod _impl_serialisation;
 
 /// **(internal)** Implementation of some basic internal utility methods for `Bdd`s.
 pub mod _impl_util;
+
+/// **(internal)** Implementation of some utility methods for extracting interesting
+/// valuations and paths from a `Bdd`.
+pub mod _impl_valuation_utils;
