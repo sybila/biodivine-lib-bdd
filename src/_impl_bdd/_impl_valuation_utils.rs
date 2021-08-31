@@ -203,6 +203,102 @@ impl Bdd {
 
         Some(valuation)
     }
+
+    /// Compute the path in this `Bdd` that has the highest amount of fixed variables.
+    ///
+    /// If there are multiple such paths, try to order them lexicographically.
+    pub fn most_fixed_path(&self) -> Option<BddPartialValuation> {
+        if self.is_false() {
+            return None;
+        }
+
+        let mut cache: Vec<(usize, bool)> = Vec::with_capacity(self.size());
+        cache.push((0, true));
+        cache.push((0, true));
+
+        for i in self.pointers().skip(2) {
+            let low_link = self.low_link_of(i);
+            let high_link = self.high_link_of(i);
+
+            let result = if low_link.is_zero() && high_link.is_zero() {
+                panic!("Non canonical BDD.");
+            } else if low_link.is_zero() {
+                (cache[high_link.to_index()].0 + 1, true)
+            } else if high_link.is_zero() {
+                (cache[low_link.to_index()].0 + 1, false)
+            } else if cache[high_link.to_index()] > cache[low_link.to_index()] {
+                (cache[high_link.to_index()].0 + 1, true)
+            } else {
+                (cache[low_link.to_index()].0 + 1, false)
+            };
+
+            cache.push(result);
+        }
+
+        let mut valuation = BddPartialValuation::empty();
+        let mut node = self.root_pointer();
+        while !node.is_terminal() {
+            let (_, child) = cache[node.to_index()];
+            valuation.set_value(self.var_of(node), child);
+            node = if child {
+                self.high_link_of(node)
+            } else {
+                self.low_link_of(node)
+            };
+        }
+
+        Some(valuation)
+    }
+
+    /// Compute the path in this `Bdd` that has the highest amount of free variables.
+    ///
+    /// If there are multiple such paths, try to order them lexicographically.
+    pub fn most_free_path(&self) -> Option<BddPartialValuation> {
+        if self.is_false() {
+            return None;
+        }
+
+        let mut cache: Vec<(u16, bool)> = Vec::with_capacity(self.size());
+        cache.push((0, true));
+        cache.push((0, true));
+
+        let mut cache: Vec<(usize, bool)> = Vec::with_capacity(self.size());
+        cache.push((0, true));
+        cache.push((0, true));
+
+        for i in self.pointers().skip(2) {
+            let low_link = self.low_link_of(i);
+            let high_link = self.high_link_of(i);
+
+            let result = if low_link.is_zero() && high_link.is_zero() {
+                panic!("Non canonical BDD.");
+            } else if low_link.is_zero() {
+                (cache[high_link.to_index()].0 + 1, true)
+            } else if high_link.is_zero() {
+                (cache[low_link.to_index()].0 + 1, false)
+            } else if cache[high_link.to_index()] < cache[low_link.to_index()] {
+                (cache[high_link.to_index()].0 + 1, true)
+            } else {
+                (cache[low_link.to_index()].0 + 1, false)
+            };
+
+            cache.push(result);
+        }
+
+        let mut valuation = BddPartialValuation::empty();
+        let mut node = self.root_pointer();
+        while !node.is_terminal() {
+            let (_, child) = cache[node.to_index()];
+            valuation.set_value(self.var_of(node), child);
+            node = if child {
+                self.high_link_of(node)
+            } else {
+                self.low_link_of(node)
+            };
+        }
+
+        Some(valuation)
+    }
 }
 
 #[cfg(test)]
@@ -212,10 +308,15 @@ mod tests {
     #[test]
     fn first_last_valuation() {
         let vars = BddVariableSet::new_anonymous(5);
-        let bdd = vars.eval_expression_string("x_0 & (!x_2 | x_3) & !x_4");
+        let v = vars.variables();
 
-        let first_valuation = BddValuation(vec![true, false, false, false, false]);
-        let last_valuation = BddValuation(vec![true, true, true, true, false]);
+        let c1 = BddPartialValuation::from_values(&[(v[0], true), (v[1], false)]);
+        let c2 = BddPartialValuation::from_values(&[(v[1], true), (v[3], false)]);
+        let c3 = BddPartialValuation::from_values(&[(v[2], false), (v[4], true)]);
+        let bdd = vars.mk_dnf(&[c1.clone(), c2.clone(), c3.clone()]);
+
+        let first_valuation = BddValuation(vec![false, false, false, false, true]);
+        let last_valuation = BddValuation(vec![true, true, true, false, true]);
 
         assert_eq!(Some(first_valuation), bdd.first_valuation());
         assert_eq!(Some(last_valuation), bdd.last_valuation());
@@ -225,16 +326,24 @@ mod tests {
     fn first_last_path() {
         let vars = BddVariableSet::new_anonymous(5);
         let v = vars.variables();
-        let bdd = vars.eval_expression_string("x_0 & (!x_2 | x_3) & !x_4");
 
-        let first_path =
-            BddPartialValuation::from_values(&[(v[0], true), (v[2], false), (v[4], false)]);
+        let c1 = BddPartialValuation::from_values(&[(v[0], true), (v[1], false)]);
+        let c2 = BddPartialValuation::from_values(&[(v[1], true), (v[3], false)]);
+        let c3 = BddPartialValuation::from_values(&[(v[2], false), (v[4], true)]);
+        let bdd = vars.mk_dnf(&[c1.clone(), c2.clone(), c3.clone()]);
+
+        let first_path = BddPartialValuation::from_values(&[
+            (v[0], false),
+            (v[1], false),
+            (v[2], false),
+            (v[4], true),
+        ]);
 
         let last_path = BddPartialValuation::from_values(&[
             (v[0], true),
+            (v[1], true),
             (v[2], true),
-            (v[3], true),
-            (v[4], false),
+            (v[3], false),
         ]);
 
         assert_eq!(Some(first_path), bdd.first_path());
@@ -244,12 +353,42 @@ mod tests {
     #[test]
     fn most_positive_negative_valuation() {
         let vars = BddVariableSet::new_anonymous(5);
-        let bdd = vars.eval_expression_string("x_0 & (!x_2 | x_3) & !x_4");
+        let v = vars.variables();
 
-        let most_positive_valuation = BddValuation(vec![true, true, true, true, false]);
-        let most_negative_valuation = BddValuation(vec![true, false, false, false, false]);
+        let c1 = BddPartialValuation::from_values(&[(v[0], true), (v[1], false)]);
+        let c2 = BddPartialValuation::from_values(&[(v[1], true), (v[3], false)]);
+        let c3 = BddPartialValuation::from_values(&[(v[2], false), (v[4], true)]);
+        let bdd = vars.mk_dnf(&[c1.clone(), c2.clone(), c3.clone()]);
+
+        let most_positive_valuation = BddValuation(vec![true, false, true, true, true]);
+        let most_negative_valuation = BddValuation(vec![false, false, false, false, true]);
 
         assert_eq!(Some(most_positive_valuation), bdd.most_positive_valuation());
         assert_eq!(Some(most_negative_valuation), bdd.most_negative_valuation());
+    }
+
+    #[test]
+    fn most_fixed_free_path() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let v = vars.variables();
+
+        let c1 = BddPartialValuation::from_values(&[(v[0], true), (v[1], false)]);
+        let c2 = BddPartialValuation::from_values(&[(v[1], true), (v[3], false)]);
+        let c3 = BddPartialValuation::from_values(&[(v[2], false), (v[4], true)]);
+        let bdd = vars.mk_dnf(&[c1.clone(), c2.clone(), c3.clone()]);
+
+        //println!("{}", bdd.to_dot_string(&vars, true));
+
+        let fixed_path = BddPartialValuation::from_values(&[
+            (v[0], false),
+            (v[1], true),
+            (v[2], false),
+            (v[3], true),
+            (v[4], true),
+        ]);
+        let free_path = BddPartialValuation::from_values(&[(v[0], true), (v[1], false)]);
+
+        assert_eq!(Some(fixed_path), bdd.most_fixed_path());
+        assert_eq!(Some(free_path), bdd.most_free_path());
     }
 }
