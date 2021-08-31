@@ -8,8 +8,7 @@ impl BddPathIterator<'_> {
                 stack: Vec::new(),
             }
         } else {
-            let mut stack = Vec::new();
-            stack.push(bdd.root_pointer());
+            let mut stack = vec![bdd.root_pointer()];
             continue_path(bdd, &mut stack); // Compute the first valid path.
             BddPathIterator { bdd, stack }
         }

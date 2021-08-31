@@ -39,15 +39,13 @@ impl Iterator for BddSatisfyingValuations<'_> {
         let next_valuation = self.valuations.next();
         if next_valuation.is_some() {
             next_valuation
+        } else if let Some(next_path) = self.paths.next() {
+            self.valuations = ValuationsOfClauseIterator::new(next_path, self.bdd.num_vars());
+            // A new valuations iterator is never empty unless created using the `empty` constructor.
+            self.valuations.next()
         } else {
-            if let Some(next_path) = self.paths.next() {
-                self.valuations = ValuationsOfClauseIterator::new(next_path, self.bdd.num_vars());
-                // A new valuations iterator is never empty unless created using the `empty` constructor.
-                self.valuations.next()
-            } else {
-                // We are done.
-                None
-            }
+            // We are done.
+            None
         }
     }
 }
