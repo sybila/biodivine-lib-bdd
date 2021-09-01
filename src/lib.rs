@@ -1,37 +1,55 @@
-//! This crate provides a basic implementation of binary decision diagrams (BDDs) — a symbolic data
-//! structure for representing boolean functions or other equivalent objects (such as bit-vector
+//! # Biodivine/LibBDD
+//!
+//! This crate provides a basic implementation of [binary decision diagrams](https://en.wikipedia.org/wiki/Binary_decision_diagram) (BDDs) — a symbolic data
+//! structure for representing Boolean functions or other equivalent objects (such as bit-vector
 //! sets).
 //!
 //! Compared to other popular implementations, every BDD owns its memory. It is thus trivial to
 //! serialise, but also to share between threads. This makes it useful for applications that
-//! process high number of BDDs concurrently.
+//! process high number of BDDs concurrently, but is also generally more idiomatic in Rust.
 //!
-//! We currently provide support for explicit operations as well as evaluation of basic boolean
-//! expressions and a custom `bdd` macro for hybrid usage:
+//! At the moment, we support many standard operations on BDDs:
+//!
+//!  - Any binary logical operation (`and`, `or`, `iff`, ...), and of course negation.
+//!  - Evaluation of Boolean expressions parsed from a string.
+//!  - A `bdd!` macro for a more idiomatic specification of operation chains.
+//!  - Simplified methods for CNF/DNF formula construction.
+//!  - Binary and text serialization/deserialization.
+//!  - Valuation/path iterators and other `Bdd` introspection methods (`random_valuation`, `most_fixed_clause`, ...).
+//!  - Export of `Bdd` back into a Boolean expression.
+//!  - "Relational" operations: projection (existential quantification), selection (restriction) and unique subset picking (see tutorials for more info).
+//!  - A "variable flip" operation fused with custom logical binary operators.
+//!  - Export to `.dot` graphs.
+//!
+//! More detailed description of all features can be found in our [tutorial module](https://docs.rs/biodivine-lib-bdd/latest/biodivine_lib_bdd/tutorial/index.html), and of course in the [API documentation](https://docs.rs/biodivine-lib-bdd/latest/).
 //!
 //! ```rust
 //! use biodivine_lib_bdd::*;
 //!
-//! let vars = BddVariableSet::new(vec!["a", "b", "c"]);
-//! let a = vars.mk_var_by_name("a");
-//! let b = vars.mk_var_by_name("b");
-//! let c = vars.mk_var_by_name("c");
+//! let mut builder = BddVariableSetBuilder::new();
+//! let [a, b, c] = builder.make(&["a", "b", "c"]);
+//! let variables: BddVariableSet = builder.build();
 //!
-//! let f1 = a.iff(&b.not()).or(&c.xor(&a));
-//! let f2 = vars.eval_expression_string("(a <=> !b) | c ^ a");
-//! let f3 = bdd!((a <=> (!b)) | (c ^ a));
+//! // String expressions:
+//! let x = variables.eval_expression_string("(a <=> !b) | c ^ a");
+//! // Macro:
+//! let y = bdd!(variables, (a <=> (!b)) | (c ^ a));
+//! // Logical operators:
+//! let z = variables.mk_literal(a, true)
+//!     .iff(&variables.mk_literal(b, false))
+//!     .or(&variables.mk_literal(c, true).xor(&variables.mk_literal(a, true)));
 //!
-//! assert!(!f1.is_false());
-//! assert_eq!(f1.cardinality(), 6.0);
-//! assert_eq!(f1, f2);
-//! assert_eq!(f2, f3);
-//! assert!(f1.iff(&f2).is_true());
-//! assert!(f1.iff(&f3).is_true());
+//! assert!(!x.is_false());
+//! assert_eq!(6.0, x.cardinality());
+//! assert_eq!(x, y);
+//! assert_eq!(y, z);
+//! assert_eq!(z, x);
+//!
+//! for valuation in x.sat_valuations() {
+//!     assert!(x.eval_in(&valuation));
+//! }
 //! ```
 //!
-//! Additionally, we provide serialisation into a custom string and binary formats as well as `.dot`.
-//! For a more detailed description, see the [tutorial module](./tutorial/index.html) documentation.
-//! There is also an experimental support for converting BDDs back into boolean expressions.
 
 use std::collections::{HashMap, HashSet};
 
