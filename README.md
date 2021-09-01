@@ -43,7 +43,7 @@ fn main() {
     // String expressions:
     let x = variables.eval_expression_string("(a <=> !b) | c ^ a");
     // Macro:
-    let y = bdd!((a <=> (!b)) | (c ^ a));
+    let y = bdd!(variables, (a <=> (!b)) | (c ^ a));
     // Logical operators:
     let z = variables.mk_literal(a, true)
         .iff(&variables.mk_literal(b, false))
