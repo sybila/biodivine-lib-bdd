@@ -56,30 +56,32 @@
 //!
 //! ## `bdd` macro
 //!
-//! When using expressions, you can't reuse existing `Bdd`s - secifically, expressions are
+//! When using expressions, you can't reuse existing `Bdd`s - specifically, expressions are
 //! awesome when creating small, self contained examples but don't work very well if you need
 //! to pass `Bdd`s around and manipulate them.
 //!
 //! For this, you can use the `bdd` macro. Unfortunately, rust macro system is a bit more strict,
 //! hence macros are not as permissive as expressions, but they still allow a fair amount of
-//! succintness.
+//! succinctness.
 //!
 //! The main difference compared to expressions is that in a macro, every operator (even `!`) must
-//! be properly parenthesised (except the very top of the expression). On the other hand,
+//! be properly parenthesised (except for the root of the expression). On the other hand,
 //! you are no longer limited to variable names as atoms,
-//! you can use any `Bdd` object in the current scope:
+//! you can use any `Bdd` object in the current scope. Furthermore, if you specify
+//! a `BddVariableSet`, you can also use ony `BddVariable`, or even `&str` (which will be
+//! interpreted as a variable name).
 //!
 //! ```rust
-//! use biodivine_lib_bdd::{BddVariableSet, bdd};
+//! use biodivine_lib_bdd::{BddVariableSet, bdd, BddVariableSetBuilder};
 //!
-//! let variables = BddVariableSet::new(vec!["a", "b", "c"]);
+//! let mut builder = BddVariableSetBuilder::new();
+//! let [a, b, c] = builder.make(&["a", "b", "c"]);
+//! let variables = builder.build();
 //!
-//! let a = variables.mk_var_by_name("a");
-//! let b = variables.mk_var_by_name("b");
-//! let c = variables.mk_var_by_name("c");
-//!
-//! let f1 = bdd!(a & ((!b) => (c ^ a)));
-//! let f2 = bdd!((b | (a ^ c)) & a);
+//! // Mixed usage of `BddVariable` and `&str` to create literals.
+//! let f1 = bdd!(variables, a & ((!"b") => ("c" ^ a)));
+//! let f2 = bdd!(variables, (b | ("a" ^ c)) & "a");
+//! // If all literals are `Bdd` objects, you can omit the `BddVariableSet`.
 //! let eq = bdd!(f1 <=> f2);
 //!
 //! assert_eq!(variables.mk_true(), eq);

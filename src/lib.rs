@@ -203,3 +203,9 @@ struct BddNode {
     pub low_link: BddPointer,
     pub high_link: BddPointer,
 }
+
+/// A trait which allows quick conversion of a type into a `Bdd`, assuming an appropriate
+/// `BddVariablesSet` is provided.
+pub trait IntoBdd {
+    fn into_bdd(self, variables: &BddVariableSet) -> Bdd;
+}
