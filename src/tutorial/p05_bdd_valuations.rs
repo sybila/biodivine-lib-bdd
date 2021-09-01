@@ -1,6 +1,6 @@
-//! # `Bdd` paths and valuations
+//! # `Bdd` clauses and valuations
 //!
-//! In many cases, we need to inspect the "contents" of a `Bdd`. That is, the valuations or paths
+//! In many cases, we need to inspect the "contents" of a `Bdd`. That is, the valuations or clauses
 //! that are stored in the graph.
 //!
 //! ## Iterators
@@ -36,8 +36,8 @@
 //! assert!(first.is_valuation());  // Tests that a `Bdd` represents exactly one valuation.
 //! ```
 //!
-//! If the number of valuations is too big, you can often still examine all *paths* of a `Bdd`
-//! (leading to `1`):
+//! If the number of valuations is too big, you can often still examine all *clauses* of a `Bdd`
+//! (i.e. paths leading to `1`):
 //!
 //! ```rust
 //! use biodivine_lib_bdd::{Bdd, ValuationsOfClauseIterator, BddVariableSet};
@@ -46,15 +46,15 @@
 //! let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
 //!
 //! let mut total = 0;
-//! bdd.paths().for_each(|path| {
+//! bdd.sat_clauses().for_each(|clause| {
 //!     // To convert a path back into a `Bdd`, we need to interpret it as a conjunctive clause.
-//!     let path_as_bdd = variables.mk_conjunctive_clause(&path);
-//!     assert!(!path_as_bdd.and(&bdd).is_false());
+//!     let clause_bdd = variables.mk_conjunctive_clause(&clause);
+//!     assert!(!clause_bdd.and(&bdd).is_false());
 //!     // And we can also test whether the `Bdd` is a single path.
-//!     assert!(path_as_bdd.is_clause());
+//!     assert!(clause_bdd.is_clause());
 //!
 //!     // Keep in mind that you can still iterate over valuations that match a specific path:
-//!     for valuation in ValuationsOfClauseIterator::new(path, bdd.num_vars()) {
+//!     for valuation in ValuationsOfClauseIterator::new(clause, bdd.num_vars()) {
 //!         total += 1;
 //!     }
 //! });
@@ -69,10 +69,11 @@
 //!
 //!  - `Bdd.first_valuation` and `Bdd.last_valuation` will give you the (lexicographically) first
 //! and last valuation.
-//!  - Similarly, `Bdd.first_path` and `Bdd.last_path` will give you the first and last path.
+//!  - Similarly, `Bdd.first_clause` and `Bdd.last_clause` will give you the first and last path
+//! satisfying path.
 //!  - `Bdd.most_positive_valuation` and `Bdd.most_negative_valuation` return the valuations
 //! with highest amount of positive/negative literals.
-//!  - `Bdd.most_fixed_path` and `Bdd.most_free_path` wil give you satisfying paths with
+//!  - `Bdd.most_fixed_clause` and `Bdd.most_free_clause` wil give you satisfying paths with
 //! greatest and least amount of fixed variables respectively.
 //!
 //!

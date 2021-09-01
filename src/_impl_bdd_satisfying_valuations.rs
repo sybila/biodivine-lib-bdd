@@ -27,7 +27,7 @@ impl Bdd {
     ///
     /// The whole formula represented by a `Bdd` can be then seen as a disjunction of these
     /// clauses/paths.
-    pub fn paths(&self) -> BddPathIterator {
+    pub fn sat_clauses(&self) -> BddPathIterator {
         BddPathIterator::new(self)
     }
 }
