@@ -19,10 +19,10 @@ impl BddVariableSetBuilder {
     ///  - The name must not contain `!`, `&`, `|`, `^`, `=`, `<`, `>`, `(` or `)`.
     pub fn make_variable(&mut self, name: &str) -> BddVariable {
         let new_variable_id = self.var_names.len();
-        if new_variable_id >= (std::u16::MAX - 1) as usize {
+        if new_variable_id >= (u16::MAX - 1) as usize {
             panic!(
                 "Too many BDD variables. There can be at most {} variables.",
-                std::u16::MAX - 1
+                u16::MAX - 1
             )
         }
         if self.var_names_set.contains(name) {
@@ -76,7 +76,7 @@ mod tests {
     #[should_panic]
     fn bdd_variables_builder_too_large() {
         let mut builder = BddVariableSetBuilder::new();
-        for i in 0..std::u16::MAX {
+        for i in 0..u16::MAX {
             builder.make_variable(&format!("v{}", i));
         }
     }
