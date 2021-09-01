@@ -1,4 +1,5 @@
-use crate::{Bdd, BddPartialValuation, BddValuation};
+use crate::{Bdd, BddPartialValuation, BddValuation, BddVariable};
+use rand::Rng;
 
 /// Utilities for extracting interesting valuations and paths from a `Bdd`.
 impl Bdd {
@@ -299,11 +300,83 @@ impl Bdd {
 
         Some(valuation)
     }
+
+    /// Pick a random valuation that satisfies this `Bdd`, using a provided random number
+    /// generator.
+    ///
+    /// Note that the random distribution with which the valuations are picked depends
+    /// on the structure of the `Bdd` and is not necessarily uniform.
+    pub fn random_valuation<R: Rng>(&self, rng: &mut R) -> Option<BddValuation> {
+        if self.is_false() {
+            return None;
+        }
+
+        let mut valuation = BddValuation::all_false(self.num_vars());
+        let mut node = self.root_pointer();
+        for i_var in 0..self.num_vars() {
+            let var = BddVariable(i_var);
+            if self.var_of(node) != var {
+                // Just pick random.
+                valuation.set_value(var, rng.gen_bool(0.5));
+            } else {
+                let child = if self.low_link_of(node).is_zero() {
+                    true
+                } else if self.high_link_of(node).is_zero() {
+                    false
+                } else {
+                    rng.gen_bool(0.5)
+                };
+
+                valuation.set_value(var, child);
+                node = if child {
+                    self.high_link_of(node)
+                } else {
+                    self.low_link_of(node)
+                }
+            }
+        }
+
+        Some(valuation)
+    }
+
+    /// Pick a random path that appears in this `Bdd`, using a provided random number
+    /// generator.
+    ///
+    /// Note that the distribution with which the path is picked depends on the structure
+    /// of the `Bdd` and is not necessarily uniform.
+    pub fn random_clause<R: Rng>(&self, rng: &mut R) -> Option<BddPartialValuation> {
+        if self.is_false() {
+            return None;
+        }
+
+        let mut path = BddPartialValuation::empty();
+        let mut node = self.root_pointer();
+        while !node.is_one() {
+            let child = if self.low_link_of(node).is_zero() {
+                true
+            } else if self.high_link_of(node).is_zero() {
+                false
+            } else {
+                rng.gen_bool(0.5)
+            };
+
+            path.set_value(self.var_of(node), child);
+            node = if child {
+                self.high_link_of(node)
+            } else {
+                self.low_link_of(node)
+            }
+        }
+
+        Some(path)
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use crate::{BddPartialValuation, BddValuation, BddVariableSet};
+    use rand::prelude::StdRng;
+    use rand::SeedableRng;
 
     #[test]
     fn first_last_valuation() {
@@ -390,5 +463,44 @@ mod tests {
 
         assert_eq!(Some(fixed_path), bdd.most_fixed_path());
         assert_eq!(Some(free_path), bdd.most_free_path());
+    }
+
+    #[test]
+    fn random_valuation() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let v = vars.variables();
+
+        let c1 = BddPartialValuation::from_values(&[(v[0], true), (v[1], false)]);
+        let c2 = BddPartialValuation::from_values(&[(v[1], true), (v[3], false)]);
+        let c3 = BddPartialValuation::from_values(&[(v[2], false), (v[4], true)]);
+        let bdd = vars.mk_dnf(&[c1.clone(), c2.clone(), c3.clone()]);
+
+        let mut random = StdRng::seed_from_u64(1234567890);
+        for _ in 0..100 {
+            let valuation = bdd.random_valuation(&mut random).unwrap();
+            assert!(bdd.eval_in(&valuation));
+        }
+
+        assert_eq!(None, vars.mk_false().random_valuation(&mut random));
+    }
+
+    #[test]
+    fn random_clause() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let v = vars.variables();
+
+        let c1 = BddPartialValuation::from_values(&[(v[0], true), (v[1], false)]);
+        let c2 = BddPartialValuation::from_values(&[(v[1], true), (v[3], false)]);
+        let c3 = BddPartialValuation::from_values(&[(v[2], false), (v[4], true)]);
+        let bdd = vars.mk_dnf(&[c1.clone(), c2.clone(), c3.clone()]);
+
+        let mut random = StdRng::seed_from_u64(1234567890);
+        for _ in 0..100 {
+            let clause = bdd.random_clause(&mut random).unwrap();
+            let clause_bdd = vars.mk_conjunctive_clause(&clause);
+            assert_eq!(clause_bdd.and(&bdd), clause_bdd);
+        }
+
+        assert_eq!(None, vars.mk_false().random_clause(&mut random));
     }
 }
