@@ -12,7 +12,7 @@
 //! ```rust
 //! use biodivine_lib_bdd::{Bdd, ValuationsOfClauseIterator, BddVariableSet};
 //! use std::collections::HashSet;
-//! let variables = BddVariableSet::new(vec!["v1", "v2", "v3", "v4"]);
+//! let variables = BddVariableSet::new(&["v1", "v2", "v3", "v4"]);
 //! let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
 //!
 //! bdd.sat_valuations().for_each(|valuation| {
@@ -42,7 +42,7 @@
 //! ```rust
 //! use biodivine_lib_bdd::{Bdd, ValuationsOfClauseIterator, BddVariableSet};
 //! use std::collections::HashSet;
-//! let variables = BddVariableSet::new(vec!["v1", "v2", "v3", "v4"]);
+//! let variables = BddVariableSet::new(&["v1", "v2", "v3", "v4"]);
 //! let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
 //!
 //! let mut total = 0;

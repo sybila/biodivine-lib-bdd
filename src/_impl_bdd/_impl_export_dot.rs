@@ -103,14 +103,14 @@ mod tests {
     #[test]
     fn bdd_to_dot() {
         let bdd = mk_small_test_bdd();
-        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
+        let variables = BddVariableSet::new(&["a", "b", "c", "d", "e"]);
         let dot = bdd.to_dot_string(&variables, false);
         assert_eq!(load_expected_results("bdd_to_dot.dot"), dot);
     }
 
     #[test]
     fn bdd_to_dot_pruned() {
-        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
+        let variables = BddVariableSet::new(&["a", "b", "c", "d", "e"]);
         let bdd = mk_small_test_bdd();
         let dot = bdd.to_dot_string(&variables, true);
         assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);
@@ -118,7 +118,7 @@ mod tests {
 
     #[test]
     fn bdd_universe_bdd_to_dot() {
-        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
+        let variables = BddVariableSet::new(&["a", "b", "c", "d", "e"]);
         let bdd = variables.eval_expression_string("c & !d");
         let dot = bdd.to_dot_string(&variables, false);
         assert_eq!(load_expected_results("bdd_to_dot.dot"), dot);
@@ -126,7 +126,7 @@ mod tests {
 
     #[test]
     fn bdd_universe_bdd_to_dot_pruned() {
-        let variables = BddVariableSet::new(vec!["a", "b", "c", "d", "e"]);
+        let variables = BddVariableSet::new(&["a", "b", "c", "d", "e"]);
         let bdd = variables.eval_expression_string("c & !d");
         let dot = bdd.to_dot_string(&variables, true);
         assert_eq!(load_expected_results("bdd_to_dot_pruned.dot"), dot);

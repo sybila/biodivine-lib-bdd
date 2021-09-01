@@ -11,7 +11,7 @@
 //! ```rust
 //! use biodivine_lib_bdd::BddVariableSet;
 //!
-//! let vars = BddVariableSet::new(vec!["a", "b", "c"]);
+//! let vars = BddVariableSet::new(&["a", "b", "c"]);
 //! let a = vars.mk_var_by_name("a");
 //! let b = vars.mk_var_by_name("b");
 //! let c = vars.mk_var_by_name("c");
@@ -34,7 +34,7 @@
 //! use std::convert::TryFrom;
 //! use biodivine_lib_bdd::boolean_expression::BooleanExpression;
 //!
-//! let variables = BddVariableSet::new(vec!["a", "b", "c"]);
+//! let variables = BddVariableSet::new(&["a", "b", "c"]);
 //!
 //! let f1 = variables.eval_expression_string("a & (!b => c ^ a)");
 //!
@@ -102,10 +102,7 @@
 //! use biodivine_lib_bdd::{BddVariableSet, BddPartialValuation, BddVariableSetBuilder};
 //!
 //! let mut builder = BddVariableSetBuilder::new();
-//! let a = builder.make_variable("a");
-//! let b = builder.make_variable("b");
-//! let c = builder.make_variable("c");
-//!
+//! let [a, b, c] = builder.make(&["a", "b", "c"]);
 //! let variables = builder.build();
 //!
 //! // A partial assignment of variables: a=true, c=false, b remains unspecified.

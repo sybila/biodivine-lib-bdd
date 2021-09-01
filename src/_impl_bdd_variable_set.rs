@@ -22,7 +22,7 @@ impl BddVariableSet {
     /// `BddVariablesBuilder` with this name vector, but no `BddVariable` objects are returned.
     ///
     /// *Panics:* `vars` must contain unique names which are allowed as variable names.
-    pub fn new(vars: Vec<&str>) -> BddVariableSet {
+    pub fn new(vars: &[&str]) -> BddVariableSet {
         let mut builder = BddVariableSetBuilder::new();
         builder.make_variables(vars);
         builder.build()

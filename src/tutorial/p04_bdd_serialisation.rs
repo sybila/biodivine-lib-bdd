@@ -17,7 +17,7 @@
 //!
 //! ```rust
 //! use biodivine_lib_bdd::{Bdd, BddVariableSet};
-//! let variables = BddVariableSet::new(vec!["a", "b"]);
+//! let variables = BddVariableSet::new(&["a", "b"]);
 //! let bdd = variables.eval_expression_string("a & !b");
 //! let bdd_string = bdd.to_string();
 //!
@@ -35,7 +35,7 @@
 //!
 //! ```rust
 //! use biodivine_lib_bdd::{Bdd, BddVariableSet};
-//! let variables = BddVariableSet::new(vec!["a", "b"]);
+//! let variables = BddVariableSet::new(&["a", "b"]);
 //! let bdd = variables.eval_expression_string("a & !b");
 //! let bdd_bytes: Vec<u8> = bdd.to_bytes();
 //!
@@ -54,7 +54,7 @@
 //! ```rust
 //! use biodivine_lib_bdd::BddVariableSet;
 //!
-//! let variables = BddVariableSet::new(vec!["a", "b", "c"]);
+//! let variables = BddVariableSet::new(&["a", "b", "c"]);
 //! let bdd = variables.eval_expression_string("a & !(b | c)");
 //! let dot = bdd.to_dot_string(&variables, true);
 //! ```

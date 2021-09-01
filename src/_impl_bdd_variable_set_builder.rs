@@ -1,5 +1,6 @@
 use super::*;
 use std::collections::HashMap;
+use std::convert::TryInto;
 
 impl BddVariableSetBuilder {
     /// Create a new builder without any variables.
@@ -39,12 +40,15 @@ impl BddVariableSetBuilder {
         BddVariable(new_variable_id as u16)
     }
 
+    /// A more convenient version of `make_variables` which allows irrefutable pattern matching
+    /// on the result, because it is an array instead of a vector.
+    pub fn make<const X: usize>(&mut self, names: &[&str; X]) -> [BddVariable; X] {
+        self.make_variables(names).try_into().unwrap()
+    }
+
     /// Similar to `make_variable`, but allows creating multiple variables at the same time.
-    pub fn make_variables(&mut self, names: Vec<&str>) -> Vec<BddVariable> {
-        names
-            .into_iter()
-            .map(|name| self.make_variable(name))
-            .collect()
+    pub fn make_variables(&mut self, names: &[&str]) -> Vec<BddVariable> {
+        names.iter().map(|name| self.make_variable(name)).collect()
     }
 
     /// Convert this builder to an actual variable set.
@@ -106,12 +110,12 @@ mod tests {
     #[test]
     fn bdd_variables_builder_batch() {
         let mut builder = BddVariableSetBuilder::new();
-        let vars = builder.make_variables(vec!["v1", "v2", "v3"]);
+        let [v1, v2, v3] = builder.make(&["v1", "v2", "v3"]);
         let variables = builder.build();
         assert_eq!(3, variables.num_vars());
-        assert_eq!(Some(vars[0]), variables.var_by_name("v1"));
-        assert_eq!(Some(vars[1]), variables.var_by_name("v2"));
-        assert_eq!(Some(vars[2]), variables.var_by_name("v3"));
+        assert_eq!(Some(v1), variables.var_by_name("v1"));
+        assert_eq!(Some(v2), variables.var_by_name("v2"));
+        assert_eq!(Some(v3), variables.var_by_name("v3"));
         assert_eq!(None, variables.var_by_name("v4"));
     }
 

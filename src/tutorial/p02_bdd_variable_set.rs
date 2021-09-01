@@ -13,7 +13,7 @@
 //!
 //! let mut var = BddVariableSetBuilder::new();
 //! let v1 = var.make_variable("v1");                   // a new individual variable
-//! let vars = var.make_variables(vec!["v2", "v3"]);    // new batch of variables
+//! let [v2, v3] = var.make(&["v2", "v3"]);             // a new batch of variables
 //! let var_set = var.build();
 //!
 //! assert_eq!(Some(v1), var_set.var_by_name("v1"));
@@ -37,7 +37,7 @@
 //! ```rust
 //! use biodivine_lib_bdd::BddVariableSet;
 //!
-//! let variables = BddVariableSet::new(vec!["v1", "v2", "v3"]);
+//! let variables = BddVariableSet::new(&["v1", "v2", "v3"]);
 //! assert_eq!(3, variables.num_vars());
 //! ```
 //!
