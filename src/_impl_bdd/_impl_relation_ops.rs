@@ -1,4 +1,5 @@
 use crate::{Bdd, BddNode, BddPointer, BddVariable};
+use rand::Rng;
 
 /// Advanced relation-like operations for `Bdd`s.
 impl Bdd {
@@ -48,6 +49,21 @@ impl Bdd {
         )
     }
 
+    /// Same as `bdd.var_pick`, but the *preferred* value is picked randomly using
+    /// the provided generator, instead of defaulting to `false`.
+    ///
+    /// Note that this is not the same as having a random value picked on each path in the `Bdd`.
+    /// Instead, there is one "global" value that is preferred on every path.
+    pub fn var_pick_random<R: Rng>(&self, variable: BddVariable, rng: &mut R) -> Bdd {
+        let preferred = self.var_select(variable, rng.gen_bool(0.5));
+        Bdd::fused_binary_flip_op(
+            (self, None),
+            (&preferred, Some(variable)),
+            None,
+            crate::op_function::and_not,
+        )
+    }
+
     /// Picks one "witness" valuation for the given variables. This is a generalized variant
     /// of `var_pick`.
     ///
@@ -68,6 +84,21 @@ impl Bdd {
         }
 
         r_pick(self, &sorted(variables))
+    }
+
+    /// Same as `bdd.pick`, but the preferred value for each variable is picked randomly using
+    /// the provided generator.
+    pub fn pick_random<R: Rng>(&self, variables: &[BddVariable], rng: &mut R) -> Bdd {
+        fn r_pick<R: Rng>(set: &Bdd, variables: &[BddVariable], rng: &mut R) -> Bdd {
+            if let Some((last_var, rest)) = variables.split_last() {
+                let picked = r_pick(&set.var_project(*last_var), rest, rng);
+                picked.and(&set.var_pick_random(*last_var, rng))
+            } else {
+                set.clone()
+            }
+        }
+
+        r_pick(self, &sorted(variables), rng)
     }
 
     /// Fix the value of a specific `BddVariable` to the given `value`. This is just a shorthand

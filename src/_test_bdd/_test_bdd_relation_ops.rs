@@ -1,5 +1,7 @@
 use crate::_test_util::{mk_5_variable_set, mk_small_test_bdd};
 use crate::{Bdd, BddVariable};
+use rand::rngs::StdRng;
+use rand::SeedableRng;
 
 fn vars() -> (
     BddVariable,
@@ -38,6 +40,21 @@ fn bdd_var_pick() {
         variables
             .eval_expression_string("(v1 => ((v2 <=> v3) & (v3 <=> v5))) & (!v1 => !(v2 <=> v5))")
     );
+}
+
+#[test]
+fn bdd_var_pick_random() {
+    let variables = mk_5_variable_set();
+    let bdd = variables.eval_expression_string("(v1 => (v2 <=> v3)) & (!v1 => !(v2 <=> v5))");
+    let v1 = BddVariable(0);
+    let mut random = StdRng::seed_from_u64(1234567890);
+    for _ in 0..10 {
+        let picked = bdd.var_pick_random(v1, &mut random);
+        assert_eq!(picked.and(&bdd), picked);
+        let v1_true_paths = picked.var_select(v1, true).var_project(v1);
+        let v1_false_paths = picked.var_select(v1, false).var_project(v1);
+        assert!(v1_true_paths.and(&v1_false_paths).is_false());
+    }
 }
 
 #[test]
@@ -137,6 +154,34 @@ fn bdd_pick_simple() {
     assert_eq!(expected, bdd.pick(&vec![v4, v5])); // accidentally, this works out
     assert_eq!(bdd, bdd.pick(&vec![v5]));
     assert_eq!(bdd, bdd.pick(&vec![]));
+}
+
+#[test]
+fn bdd_pick_random() {
+    let variables = mk_5_variable_set();
+    let bdd = variables.eval_expression_string("(v1 => (v4 <=> v5)) & (!v1 => !(v4 <=> v5))");
+    let (_, v2, v3, _, _) = vars();
+
+    let mut random = StdRng::seed_from_u64(1234567890);
+
+    for _ in 0..100 {
+        let picked = bdd.pick_random(&[v2, v3], &mut random);
+        assert_eq!(picked.and(&bdd), picked);
+
+        let picked_00 = picked
+            .select(&[(v2, false), (v3, false)])
+            .project(&[v2, v3]);
+        let picked_01 = picked.select(&[(v2, false), (v3, true)]).project(&[v2, v3]);
+        let picked_10 = picked.select(&[(v2, true), (v3, false)]).project(&[v2, v3]);
+        let picked_11 = picked.select(&[(v2, true), (v3, true)]).project(&[v2, v3]);
+
+        assert!(picked_00.and(&picked_01).is_false());
+        assert!(picked_00.and(&picked_10).is_false());
+        assert!(picked_00.and(&picked_11).is_false());
+        assert!(picked_01.and(&picked_10).is_false());
+        assert!(picked_01.and(&picked_11).is_false());
+        assert!(picked_10.and(&picked_11).is_false());
+    }
 }
 
 #[test]
