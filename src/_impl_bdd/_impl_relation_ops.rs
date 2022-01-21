@@ -124,6 +124,22 @@ impl Bdd {
         }
         self.and(&valuation_bdd)
     }
+
+    /// Fixes a `variable` to the given `value`, and then eliminates said variable using projection.
+    ///
+    /// A valuation `v` satisfies the resulting formula `B'` if and only if `v[variable = value]`
+    /// satisfied the original formula `B`.
+    pub fn var_restrict(&self, variable: BddVariable, value: bool) -> Bdd {
+        // TODO: Provide a faster algorithm exactly for this operation.
+        self.var_select(variable, value).var_project(variable)
+    }
+
+    /// Generalized operation to `var_restrict`. Allows fixing multiple Bdd variables and
+    /// eliminating them at the same time.
+    pub fn restrict(&self, variables: &[(BddVariable, bool)]) -> Bdd {
+        let vars = variables.iter().map(|(v, _)| *v).collect::<Vec<_>>();
+        self.select(variables).project(&vars)
+    }
 }
 
 /// **(internal)** Helper function for sorting variable list arguments.
