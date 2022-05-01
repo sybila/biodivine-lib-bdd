@@ -19,6 +19,7 @@ maintenance = { status = "actively-developed" }
 [dependencies]
 fxhash = "0.2.1"
 rand = "0.7"
+num-bigint = "0.4.3"
 
 # Enable rich docs for some online docs autogen services.
 [package.metadata.docs.rs]
