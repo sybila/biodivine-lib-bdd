@@ -51,7 +51,7 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
                 if Some('>') == data.next() {
                     output.push(ExprToken::Imp);
                 } else {
-                    return Result::Err("Expected '>' after '='.".to_string());
+                    return Err("Expected '>' after '='.".to_string());
                 }
             }
             '<' => {
@@ -59,19 +59,19 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
                     if Some('>') == data.next() {
                         output.push(ExprToken::Iff)
                     } else {
-                        return Result::Err("Expected '>' after '='.".to_string());
+                        return Err("Expected '>' after '='.".to_string());
                     }
                 } else {
-                    return Result::Err("Expected '=' after '<'.".to_string());
+                    return Err("Expected '=' after '<'.".to_string());
                 }
             }
             // '>' is invalid as a start of a token
-            '>' => return Result::Err("Unexpected '>'.".to_string()),
+            '>' => return Err("Unexpected '>'.".to_string()),
             ')' => {
                 return if !top_level {
-                    Result::Ok(output)
+                    Ok(output)
                 } else {
-                    Result::Err("Unexpected ')'.".to_string())
+                    Err("Unexpected ')'.".to_string())
                 }
             }
             '(' => {
@@ -95,9 +95,9 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
         }
     }
     if top_level {
-        Result::Ok(output)
+        Ok(output)
     } else {
-        Result::Err("Expected ')'.".to_string())
+        Err("Expected ')'.".to_string())
     }
 }
 

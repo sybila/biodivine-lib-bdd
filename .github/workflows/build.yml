@@ -4,7 +4,7 @@ env:
   # A fixed version used for testing, so that the builds don't
   # spontaneously break after a few years.
   # Make sure to update this from time to time.
-  RUST_VERSION: "1.53.0"
+  RUST_VERSION: "1.60.0"
 jobs:
   # Checks syntax formatting.
   fmt:

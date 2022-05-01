@@ -169,9 +169,9 @@ impl Bdd {
             let expression = if low_link.is_terminal() && high_link.is_terminal() {
                 // Both links are terminal, which means this is an exactly determined variable
                 if high_link.is_one() && low_link.is_zero() {
-                    BooleanExpression::Variable(var_name)
+                    Variable(var_name)
                 } else if high_link.is_zero() && low_link.is_one() {
-                    BooleanExpression::Not(Box::new(BooleanExpression::Variable(var_name)))
+                    BooleanExpression::Not(Box::new(Variable(var_name)))
                 } else {
                     panic!("Invalid node {:?} in bdd {:?}.", self.0[node], self.0);
                 }
@@ -179,15 +179,13 @@ impl Bdd {
                 if low_link.is_zero() {
                     // a & high
                     BooleanExpression::And(
-                        Box::new(BooleanExpression::Variable(var_name)),
+                        Box::new(Variable(var_name)),
                         Box::new(results[high_link.0 as usize].clone()),
                     )
                 } else {
                     // !a | high
                     BooleanExpression::Or(
-                        Box::new(BooleanExpression::Not(Box::new(
-                            BooleanExpression::Variable(var_name),
-                        ))),
+                        Box::new(BooleanExpression::Not(Box::new(Variable(var_name)))),
                         Box::new(results[high_link.0 as usize].clone()),
                     )
                 }
@@ -195,15 +193,13 @@ impl Bdd {
                 if high_link.is_zero() {
                     // !a & low
                     BooleanExpression::And(
-                        Box::new(BooleanExpression::Not(Box::new(
-                            BooleanExpression::Variable(var_name),
-                        ))),
+                        Box::new(BooleanExpression::Not(Box::new(Variable(var_name)))),
                         Box::new(results[low_link.0 as usize].clone()),
                     )
                 } else {
                     // a | low
                     BooleanExpression::Or(
-                        Box::new(BooleanExpression::Variable(var_name)),
+                        Box::new(Variable(var_name)),
                         Box::new(results[low_link.0 as usize].clone()),
                     )
                 }

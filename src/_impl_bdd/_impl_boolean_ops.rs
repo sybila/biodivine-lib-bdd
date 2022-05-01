@@ -27,37 +27,37 @@ impl Bdd {
     /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::and)
+        apply(self, right, op_function::and)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn or(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::or)
+        apply(self, right, op_function::or)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn imp(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::imp)
+        apply(self, right, op_function::imp)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn iff(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::iff)
+        apply(self, right, op_function::iff)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn xor(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::xor)
+        apply(self, right, op_function::xor)
     }
 
     /// Create a `Bdd` corresponding to the $\phi \land \neg \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and_not(&self, right: &Bdd) -> Bdd {
-        apply(self, right, crate::op_function::and_not)
+        apply(self, right, op_function::and_not)
     }
 
     /// Apply a general binary operation to two given `Bdd` objects.

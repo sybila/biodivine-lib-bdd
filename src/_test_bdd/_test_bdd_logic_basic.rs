@@ -34,12 +34,8 @@ fn bdd_flip_preserves_equivalence() {
     let native = bdd!(((!a) => c) & (a => b));
     let left = bdd!((!a) => b);
     let right = bdd!(a => c);
-    let inverted = Bdd::fused_binary_flip_op(
-        (&left, None),
-        (&right, None),
-        Some(v1()),
-        crate::op_function::and,
-    );
+    let inverted =
+        Bdd::fused_binary_flip_op((&left, None), (&right, None), Some(v1()), op_function::and);
     assert!(native.iff(&inverted).is_true());
     assert_eq!(native, inverted);
 }
@@ -255,28 +251,28 @@ fn invert_input() {
         (&invert_v1, None),
         (&original, Some(var1)),
         None,
-        crate::op_function::iff
+        op_function::iff
     )
     .is_true());
     assert!(Bdd::fused_binary_flip_op(
         (&original, Some(var2)),
         (&invert_v2, None),
         None,
-        crate::op_function::iff
+        op_function::iff
     )
     .is_true());
     assert!(Bdd::fused_binary_flip_op(
         (&invert_v3, None),
         (&original, Some(var3)),
         None,
-        crate::op_function::iff
+        op_function::iff
     )
     .is_true());
     assert!(Bdd::fused_binary_flip_op(
         (&original, Some(var4)),
         (&original, None),
         None,
-        crate::op_function::iff
+        op_function::iff
     )
     .is_true());
 }

@@ -2,7 +2,7 @@
 name = "biodivine-lib-bdd"
 version = "0.3.0"
 authors = ["Samuel Pastva <daemontus@gmail.com>"]
-edition = "2018"
+edition = "2021"
 description = "A simple thread-safe implementation of basic binary decision diagrams."
 homepage = "https://github.com/sybila/biodivine-lib-bdd"
 repository = "https://github.com/sybila/biodivine-lib-bdd"
