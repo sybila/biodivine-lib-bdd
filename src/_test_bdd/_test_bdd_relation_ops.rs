@@ -20,6 +20,31 @@ fn vars() -> (
 }
 
 #[test]
+fn bdd_restrict() {
+    let variables = mk_5_variable_set();
+    let var_a = variables.var_by_name("v1").unwrap();
+    let var_b = variables.var_by_name("v2").unwrap();
+    let a = variables.mk_var(var_a);
+    let b = variables.mk_var(var_b);
+    let a_xor_b = variables.eval_expression_string("v1 ^ v2");
+    let a_or_b = variables.eval_expression_string("v1 | v2");
+    let a_and_b = variables.eval_expression_string("v1 & v2");
+
+    assert_eq!(a.not(), a_xor_b.var_restrict(var_b, true));
+    assert_eq!(b, a_xor_b.var_restrict(var_a, false));
+    assert_eq!(a, a_or_b.var_restrict(var_b, false));
+    assert!(a_or_b.var_restrict(var_b, true).is_true());
+    assert_eq!(a, a_and_b.var_restrict(var_b, true));
+    assert!(a_and_b.var_restrict(var_b, false).is_false());
+
+    assert!(a_xor_b.restrict(&[(var_a, true), (var_b, false)]).is_true());
+    assert!(a_and_b
+        .restrict(&[(var_a, true), (var_b, false)])
+        .is_false());
+    assert!(a_or_b.restrict(&[(var_a, true), (var_b, false)]).is_true());
+}
+
+#[test]
 fn bdd_var_projection() {
     let variables = mk_5_variable_set();
     let bdd = variables.eval_expression_string("(v1 => (v2 <=> v3)) & (!v1 => !(v2 <=> v5))");
