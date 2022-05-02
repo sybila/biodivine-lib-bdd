@@ -8,7 +8,7 @@ impl Bdd {
     where
         T: Fn(Option<bool>, Option<bool>, Option<bool>) -> Option<bool>,
     {
-        ternary_apply(a, b, c, None, None, None, None, op_function)
+        ternary_apply((a, b, c), (None, None, None), None, op_function)
     }
 
     pub fn fused_ternary_op<T>(
@@ -21,23 +21,26 @@ impl Bdd {
     where
         T: Fn(Option<bool>, Option<bool>, Option<bool>) -> Option<bool>,
     {
-        ternary_apply(a.0, b.0, c.0, a.1, b.1, c.1, flip_output, op_function)
+        ternary_apply((a.0, b.0, c.0), (a.1, b.1, c.1), flip_output, op_function)
     }
 }
 
 fn ternary_apply<T>(
-    a: &Bdd,
-    b: &Bdd,
-    c: &Bdd,
-    flip_a_if: Option<BddVariable>,
-    flip_b_if: Option<BddVariable>,
-    flip_c_if: Option<BddVariable>,
+    args: (&Bdd, &Bdd, &Bdd),
+    flips: (
+        Option<BddVariable>,
+        Option<BddVariable>,
+        Option<BddVariable>,
+    ),
     flip_out_if: Option<BddVariable>,
     terminal_lookup: T,
 ) -> Bdd
 where
     T: Fn(Option<bool>, Option<bool>, Option<bool>) -> Option<bool>,
 {
+    let (a, b, c) = args;
+    let (flip_a_if, flip_b_if, flip_c_if) = flips;
+
     let num_vars = a.num_vars();
     if a.num_vars() != b.num_vars() || b.num_vars() != c.num_vars() {
         panic!(
