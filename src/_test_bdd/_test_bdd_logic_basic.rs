@@ -41,6 +41,21 @@ fn bdd_flip_preserves_equivalence() {
 }
 
 #[test]
+fn basic_ternary_test() {
+    let variables = mk_5_variable_set();
+    let a = variables.mk_var(v1());
+    let b = variables.mk_var(v2());
+    let c = variables.mk_var(v3());
+    let native = bdd!(((!a) => c) & (a => b));
+    let ternary = Bdd::ternary_op(&a, &b, &c, |a, b, c| match (a, b, c) {
+        (Some(a), Some(b), Some(c)) => Some((!(!a) | c) & (!a | b)),
+        _ => None,
+    });
+    assert!(native.iff(&ternary).is_true());
+    assert_eq!(native, ternary);
+}
+
+#[test]
 fn bdd_mk_not() {
     let variables = mk_5_variable_set();
     let bdd = mk_small_test_bdd();

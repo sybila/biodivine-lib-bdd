@@ -1,6 +1,11 @@
 /// **(internal)** Implementation of basic logical operators for `Bdd`s using the `apply` function.
 pub mod _impl_boolean_ops;
 
+/// **(internal)** Implementation of a generic ternary operations. These may be faster for certain
+/// special cases, e.g. when the intermediate result is expected to be large, but the final
+/// result is typically small or empty.
+pub mod _impl_ternary_ops;
+
 /// **(internal)** Implementation of extra operations which enable relation-like treatment of BDDs
 /// (quantification, selection, projection, partial element picking)
 pub mod _impl_relation_ops;
