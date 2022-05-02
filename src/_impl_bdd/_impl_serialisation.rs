@@ -5,7 +5,7 @@ use std::io::{Read, Write};
 /// Serialisation and deserialisation methods for `Bdd`s.
 impl Bdd {
     /// Write this `Bdd` into the given `output` writer using a simple string format.
-    fn write_as_string(&self, output: &mut dyn Write) -> Result<(), std::io::Error> {
+    pub fn write_as_string(&self, output: &mut dyn Write) -> Result<(), std::io::Error> {
         write!(output, "|")?;
         for node in self.nodes() {
             write!(output, "{},{},{}|", node.var, node.low_link, node.high_link)?;
@@ -14,7 +14,7 @@ impl Bdd {
     }
 
     /// Read a `Bdd` from the given `input` reader, assuming a simple string format.
-    fn read_as_string(input: &mut dyn Read) -> Result<Bdd, String> {
+    pub fn read_as_string(input: &mut dyn Read) -> Result<Bdd, String> {
         let mut data = String::new();
         lift_err(input.read_to_string(&mut data))?;
         let mut result = Vec::new();
