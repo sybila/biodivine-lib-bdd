@@ -64,7 +64,7 @@ fn fused_ternary_test() {
     let native = bdd!(((!a) => (c | (!b))) & (a => b));
     // In this simple case, flipping a variable in output is the same as
     // flipping it in the input BDD, because each input is a single variable.
-    let ternary = Bdd::fused_ternary_op(
+    let ternary = Bdd::fused_ternary_flip_op(
         (&a, Some(v1())),
         (&b, None),
         (&c, Some(v3())),

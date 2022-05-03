@@ -11,7 +11,7 @@ impl Bdd {
         ternary_apply((a, b, c), (None, None, None), None, op_function)
     }
 
-    pub fn fused_ternary_op<T>(
+    pub fn fused_ternary_flip_op<T>(
         a: (&Bdd, Option<BddVariable>),
         b: (&Bdd, Option<BddVariable>),
         c: (&Bdd, Option<BddVariable>),
