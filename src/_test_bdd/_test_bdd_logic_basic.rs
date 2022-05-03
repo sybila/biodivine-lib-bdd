@@ -56,6 +56,33 @@ fn basic_ternary_test() {
 }
 
 #[test]
+fn fused_ternary_test() {
+    let variables = mk_5_variable_set();
+    let a = variables.mk_var(v1());
+    let b = variables.mk_var(v2());
+    let c = variables.mk_var(v3());
+    let native = bdd!(((!a) => (c | (!b))) & (a => b));
+    // In this simple case, flipping a variable in output is the same as
+    // flipping it in the input BDD, because each input is a single variable.
+    let ternary = Bdd::fused_ternary_op(
+        (&a, Some(v1())),
+        (&b, None),
+        (&c, Some(v3())),
+        Some(v2()),
+        |a, b, c| {
+            // (a => (!c | b)) & (!a => !b)
+            match (a, b, c) {
+                (Some(a), Some(b), Some(c)) => Some((!a | (!c | b)) & (!(!a) | !b)),
+                _ => None,
+            }
+        },
+    );
+
+    assert!(native.iff(&ternary).is_true());
+    assert_eq!(native, ternary);
+}
+
+#[test]
 fn bdd_mk_not() {
     let variables = mk_5_variable_set();
     let bdd = mk_small_test_bdd();
