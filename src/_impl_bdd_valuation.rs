@@ -223,7 +223,8 @@ impl Iterator for super::BddValuationIterator {
 #[cfg(test)]
 mod tests {
     use super::super::{BddValuation, BddVariableSet};
-    use crate::{bdd, BddPartialValuation, BddVariable};
+    use crate::{bdd, Bdd, BddPartialValuation, BddVariable};
+    use num_bigint::BigInt;
 
     #[test]
     fn bdd_universe_eval() {
@@ -264,5 +265,19 @@ mod tests {
 
         let total = BddValuation::new(vec![true, true, true, false]);
         assert!(!total.extends(&partial));
+    }
+
+    #[test]
+    fn test_valuation_conversion() {
+        let valuation = BddValuation::new(vec![true, false, true, false]);
+        let bdd = Bdd::from(valuation);
+
+        assert!(bdd.is_valuation());
+        assert_eq!(bdd.exact_cardinality(), BigInt::from(1));
+
+        let variables = BddVariableSet::new_anonymous(4);
+        let bdd_2 = variables.eval_expression_string("x_0 & !x_1 & x_2 & !x_3");
+
+        assert!(bdd_2.iff(&bdd).is_true());
     }
 }
