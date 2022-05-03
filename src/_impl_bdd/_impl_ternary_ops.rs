@@ -4,6 +4,12 @@ use std::cmp::{max, min};
 use std::collections::HashMap;
 
 impl Bdd {
+    /// A ternary logical operation on three `Bdd` objects. Works the same as `Bdd::binary_op`,
+    /// but with three arguments.
+    ///
+    /// Note that this may not necessarily be faster than performing two (or more) binary
+    /// operations. However, in some cases it can significantly reduce overhead incurred by
+    /// creating large intermediate decision diagrams.
     pub fn ternary_op<T>(a: &Bdd, b: &Bdd, c: &Bdd, op_function: T) -> Bdd
     where
         T: Fn(Option<bool>, Option<bool>, Option<bool>) -> Option<bool>,
@@ -11,6 +17,12 @@ impl Bdd {
         ternary_apply((a, b, c), (None, None, None), None, op_function)
     }
 
+    /// A ternary version of `Bdd::fused_binary_flip_op` that makes it possible to flip
+    /// the meaning of a single variable the input and output diagrams.
+    ///
+    /// Note that this may not necessarily be faster than performing two (or more) binary
+    /// operations. However, in some cases it can significantly reduce overhead incurred by
+    /// creating large intermediate decision diagrams.
     pub fn fused_ternary_flip_op<T>(
         a: (&Bdd, Option<BddVariable>),
         b: (&Bdd, Option<BddVariable>),
