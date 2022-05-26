@@ -51,6 +51,7 @@
 //! ```
 //!
 
+use fxhash::FxBuildHasher;
 use std::collections::{HashMap, HashSet};
 
 pub mod boolean_expression;
@@ -101,6 +102,8 @@ mod _macro_bdd;
 #[cfg(test)]
 mod _test_util;
 
+mod _mutable_bdd;
+
 /// **(internal)** Characters that cannot appear in the variable name
 /// (based on possible tokens in a boolean expression).
 const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
@@ -110,6 +113,9 @@ const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')']
 /// To create `Bdd`s for atomic formulas, use a `BddVariableSet`.
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct Bdd(Vec<BddNode>);
+
+#[derive(Clone, Eq, PartialEq)]
+pub struct MutableBdd(Bdd, HashMap<BddNode, BddPointer, FxBuildHasher>, usize);
 
 /// Identifies one of the variables that can appear as a decision condition in the `Bdd`.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
