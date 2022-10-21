@@ -1,6 +1,6 @@
 [package]
 name = "biodivine-lib-bdd"
-version = "0.4.0"
+version = "0.4.1"
 authors = ["Samuel Pastva <daemontus@gmail.com>"]
 edition = "2021"
 description = "A simple thread-safe implementation of basic binary decision diagrams."
@@ -18,7 +18,7 @@ maintenance = { status = "actively-developed" }
 
 [dependencies]
 fxhash = "0.2.1"
-rand = "0.7"
+rand = "0.8.5"
 num-bigint = "0.4.3"
 
 # Enable rich docs for some online docs autogen services.
