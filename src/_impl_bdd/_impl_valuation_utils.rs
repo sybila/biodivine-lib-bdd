@@ -381,6 +381,10 @@ impl Bdd {
             return None;
         }
 
+        if self.is_true() {
+            return Some(BddPartialValuation::empty());
+        }
+
         let mut stack = Vec::new();
         let mut seen_one = vec![false; usize::from(self.num_vars())];
         let mut seen_zero = vec![false; usize::from(self.num_vars())];
@@ -391,6 +395,11 @@ impl Bdd {
         expanded[1] = true;
 
         stack.push(self.root_pointer());
+
+        let top_var_id = usize::from(self.var_of(self.root_pointer()).0);
+        for i in &mut seen_any[0..top_var_id] {
+            *i = true;
+        }
 
         while let Some(top) = stack.pop() {
             if !expanded[top.to_index()] {
@@ -403,24 +412,22 @@ impl Bdd {
                 let high_link_var_id = usize::from(self.var_of(high_link).0);
                 let low_link_var_id = usize::from(self.var_of(low_link).0);
 
-                if high_link.is_zero() {
+                let range = if high_link.is_zero() {
                     seen_zero[var_id] = true;
 
-                    for i in (var_id + 1)..low_link_var_id {
-                        seen_any[i] = true;
-                    }
+                    (var_id + 1)..low_link_var_id
                 } else if low_link.is_zero() {
                     seen_one[var_id] = true;
 
-                    for i in (var_id + 1)..high_link_var_id {
-                        seen_any[i] = true;
-                    }
+                    (var_id + 1)..high_link_var_id
                 } else {
                     seen_any[var_id] = true;
 
-                    for i in (var_id + 1)..max(high_link_var_id, low_link_var_id) {
-                        seen_any[i] = true;
-                    }
+                    (var_id + 1)..max(high_link_var_id, low_link_var_id)
+                };
+
+                for i in &mut seen_any[range] {
+                    *i = true;
                 }
 
                 if !expanded[high_link.to_index()] {
@@ -612,6 +619,10 @@ mod tests {
         result.set_value(v[4], true);
         assert_eq!(Some(result), f.necessary_clause());
 
+        assert_eq!(
+            Some(BddPartialValuation::empty()),
+            vars.mk_true().necessary_clause()
+        );
         assert_eq!(None, vars.mk_false().necessary_clause());
     }
 }
