@@ -354,6 +354,16 @@ impl Bdd {
 
         true
     }
+
+    /// Compute the number of nodes that condition on individual variables.
+    pub fn size_per_variable(&self) -> Vec<usize> {
+        let mut counts = vec![0; usize::from(self.num_vars())];
+        for node in self.pointers().skip(2) {
+            counts[usize::from(self.var_of(node).0)] += 1;
+        }
+
+        counts
+    }
 }
 
 #[cfg(test)]
