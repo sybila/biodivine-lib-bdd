@@ -385,57 +385,71 @@ impl Bdd {
             return Some(BddPartialValuation::empty());
         }
 
-        let mut stack = Vec::new();
         let mut seen_one = vec![false; usize::from(self.num_vars())];
         let mut seen_zero = vec![false; usize::from(self.num_vars())];
         let mut seen_any = vec![false; usize::from(self.num_vars())];
-
-        let mut expanded: Vec<bool> = vec![false; self.size()];
-        expanded[0] = true;
-        expanded[1] = true;
-
-        stack.push(self.root_pointer());
 
         let top_var_id = usize::from(self.var_of(self.root_pointer()).0);
         for i in &mut seen_any[0..top_var_id] {
             *i = true;
         }
 
-        while let Some(top) = stack.pop() {
-            if !expanded[top.to_index()] {
-                expanded[top.to_index()] = true;
+        // First, quickly scan the BDD to designate variables based on which decisions are made.
+        for id in self.pointers().skip(2) {
+            let var_id = usize::from(self.var_of(id).0);
+            let high_link = self.high_link_of(id);
+            let low_link = self.low_link_of(id);
 
-                let high_link = self.high_link_of(top);
-                let low_link = self.low_link_of(top);
+            if !(low_link.is_zero() || high_link.is_zero()) {
+                seen_any[var_id] = true;
+            }
+        }
 
-                let var_id = usize::from(self.var_of(top).0);
+        // Then go through the remaining variables, and see if some other variable
+        // can also be designated as free. Sadly, this will need to scan the BDD as many times
+        // as there are fixed variables, as these will never be
+        for var in 0..usize::from(self.num_vars()) {
+            if seen_any[var] {
+                continue;
+            }
+
+            for id in self.pointers().skip(2) {
+                let high_link = self.high_link_of(id);
+                let low_link = self.low_link_of(id);
+
+                let var_id = usize::from(self.var_of(id).0);
                 let high_link_var_id = usize::from(self.var_of(high_link).0);
                 let low_link_var_id = usize::from(self.var_of(low_link).0);
 
                 let range = if high_link.is_zero() {
-                    seen_zero[var_id] = true;
-
                     (var_id + 1)..low_link_var_id
                 } else if low_link.is_zero() {
-                    seen_one[var_id] = true;
-
                     (var_id + 1)..high_link_var_id
                 } else {
                     seen_any[var_id] = true;
-
-                    (var_id + 1)..max(high_link_var_id, low_link_var_id)
+                    (var_id)..max(high_link_var_id, low_link_var_id)
                 };
 
-                for i in &mut seen_any[range] {
-                    *i = true;
+                if range.contains(&var) {
+                    for var in range {
+                        seen_any[var] = true;
+                    }
+                    break;
                 }
+            }
+        }
 
-                if !expanded[high_link.to_index()] {
-                    stack.push(high_link);
-                }
+        // Finally, run one extra loop that just designates all ones/zeroes.
+        for id in self.pointers().skip(2) {
+            let var_id = usize::from(self.var_of(id).0);
+            if !seen_any[var_id] {
+                let high_link = self.high_link_of(id);
+                let low_link = self.low_link_of(id);
 
-                if !expanded[low_link.to_index()] {
-                    stack.push(low_link);
+                if high_link.is_zero() {
+                    seen_zero[var_id] = true;
+                } else if low_link.is_zero() {
+                    seen_one[var_id] = true;
                 }
             }
         }
