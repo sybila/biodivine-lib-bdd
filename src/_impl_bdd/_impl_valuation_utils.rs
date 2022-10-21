@@ -1,5 +1,6 @@
 use crate::{Bdd, BddPartialValuation, BddValuation, BddVariable};
 use rand::Rng;
+use std::cmp::max;
 
 /// Utilities for extracting interesting valuations and paths from a `Bdd`.
 impl Bdd {
@@ -370,6 +371,92 @@ impl Bdd {
 
         Some(path)
     }
+
+    /// Compute the most restrictive conjunctive clause the covers all satisfying values
+    /// in this BDD. In other words, if you compute the BDD corresponding to the resulting
+    /// partial valuation, the new BDD will be a superset of this BDD, and it will be the smallest
+    /// superset that can be described using a single clause.
+    pub fn necessary_clause(&self) -> Option<BddPartialValuation> {
+        if self.is_false() {
+            return None;
+        }
+
+        let mut stack = Vec::new();
+        let mut seen_one = vec![false; usize::from(self.num_vars())];
+        let mut seen_zero = vec![false; usize::from(self.num_vars())];
+        let mut seen_any = vec![false; usize::from(self.num_vars())];
+
+        let mut expanded: Vec<bool> = vec![false; self.size()];
+        expanded[0] = true;
+        expanded[1] = true;
+
+        stack.push(self.root_pointer());
+
+        while let Some(top) = stack.pop() {
+            if !expanded[top.to_index()] {
+                expanded[top.to_index()] = true;
+
+                let high_link = self.high_link_of(top);
+                let low_link = self.low_link_of(top);
+
+                let var_id = usize::from(self.var_of(top).0);
+                let high_link_var_id = usize::from(self.var_of(high_link).0);
+                let low_link_var_id = usize::from(self.var_of(low_link).0);
+
+                if high_link.is_zero() {
+                    seen_zero[var_id] = true;
+
+                    for i in (var_id + 1)..low_link_var_id {
+                        seen_any[i] = true;
+                    }
+                } else if low_link.is_zero() {
+                    seen_one[var_id] = true;
+
+                    for i in (var_id + 1)..high_link_var_id {
+                        seen_any[i] = true;
+                    }
+                } else {
+                    seen_any[var_id] = true;
+
+                    for i in (var_id + 1)..max(high_link_var_id, low_link_var_id) {
+                        seen_any[i] = true;
+                    }
+                }
+
+                if !expanded[high_link.to_index()] {
+                    stack.push(high_link);
+                }
+
+                if !expanded[low_link.to_index()] {
+                    stack.push(low_link);
+                }
+            }
+        }
+
+        let mut result = BddPartialValuation::empty();
+        for i in 0..usize::from(self.num_vars()) {
+            match (seen_zero[i], seen_one[i], seen_any[i]) {
+                (_, _, true) | (true, true, _) => {
+                    // Either we have seen a node which implies both var=1 and var=0 are possible,
+                    // or we have seen two decision nodes, one implying var=1 and the other var=0.
+                    // In such case, the value is "any" and we do not have to update result.
+                }
+                (true, false, false) => {
+                    result.set_value(BddVariable(i as u16), false);
+                }
+                (false, true, false) => {
+                    result.set_value(BddVariable(i as u16), true);
+                }
+                (false, false, false) => {
+                    // At some point while traversing the graph, one of the three must
+                    // have been encountered.
+                    unreachable!()
+                }
+            }
+        }
+
+        Some(result)
+    }
 }
 
 #[cfg(test)]
@@ -510,5 +597,21 @@ mod tests {
         }
 
         assert_eq!(None, vars.mk_false().random_clause(&mut random));
+    }
+
+    #[test]
+    fn necessary_clause() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let v = vars.variables();
+
+        let f = vars.eval_expression_string("x_3 & !x_0 & (x_1 | x_2) & (!x_3 | x_4)");
+
+        let mut result = BddPartialValuation::empty();
+        result.set_value(v[0], false);
+        result.set_value(v[3], true);
+        result.set_value(v[4], true);
+        assert_eq!(Some(result), f.necessary_clause());
+
+        assert_eq!(None, vars.mk_false().necessary_clause());
     }
 }
