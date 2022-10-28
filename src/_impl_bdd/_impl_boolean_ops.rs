@@ -386,13 +386,23 @@ where
         HashSet::with_capacity_and_hasher(max(left.size(), right.size()), FxBuildHasher::default());
 
     while let Some(on_stack) = stack.pop() {
-        if finished.contains(&on_stack) {
-            // skip finished tasks
+        let lookup = terminal_lookup(on_stack.left.as_bool(), on_stack.right.as_bool());
+        if lookup.is_some() {
+            // Terminal task, just check for emptiness and continue.
+            is_not_empty = is_not_empty || (lookup == Some(true));
             continue;
+        } else if finished.contains(&on_stack) {
+            // This task was already visited... continue.
+            continue;
+        } else if finished.len() > limit {
+            // If limit is exceeded, return.
+            return None;
         } else {
-            if finished.len() > limit {
-                return None;
-            }
+            // Otherwise, add task to cache and expand it.
+
+            // Mark the task as finished. We don't need to re-visit tasks in this method (as is
+            // the case for normal binary operations).
+            finished.insert(on_stack);
 
             let (l, r) = (on_stack.left, on_stack.right);
 
@@ -427,36 +437,13 @@ where
                 right: r_high,
             };
 
-            // Try to solve the tasks using terminal lookup table.
-            let new_low =
-                terminal_lookup(l_low.as_bool(), r_low.as_bool()).map(BddPointer::from_bool);
-            let new_high =
-                terminal_lookup(l_high.as_bool(), r_high.as_bool()).map(BddPointer::from_bool);
-
-            // If both values are computed, we don't have to continue.
-            if let (Some(new_low), Some(new_high)) = (new_low, new_high) {
-                if new_low.is_one() || new_high.is_one() {
-                    is_not_empty = true
-                }
-                finished.insert(on_stack);
+            if flip_out_if == Some(decision_var) {
+                // If we are flipping output, we have to compute subtasks in the right order.
+                stack.push(comp_high);
+                stack.push(comp_low);
             } else {
-                // Otherwise, if either value is unknown, push it to the stack.
-                if flip_out_if == Some(decision_var) {
-                    // If we are flipping output, we have to compute subtasks in the right order.
-                    if new_high.is_none() {
-                        stack.push(comp_high);
-                    }
-                    if new_low.is_none() {
-                        stack.push(comp_low);
-                    }
-                } else {
-                    if new_low.is_none() {
-                        stack.push(comp_low);
-                    }
-                    if new_high.is_none() {
-                        stack.push(comp_high);
-                    }
-                }
+                stack.push(comp_low);
+                stack.push(comp_high);
             }
         }
     }
