@@ -102,30 +102,47 @@ impl Bdd {
     /// 2. A number of low-level BDD tasks that need to be completed to resolve the
     ///    operation.
     ///
+    /// You can also limit the enumeration up to a specific number of tasks using the `limit`
+    /// parameter. If this limit is exceeded, the result is `None`.
+    ///
     /// Generally, the method requires much less space and time than `binary_op`, but does not
     /// produce the actual BDD. As such, it is useful for operations where the result would be
     /// likely discarded anyway, like subset checks or size comparisons.
     ///
     /// Nevertheless, note that the number of low-level task is *not* the size of the resulting
     /// BDD (it is an upper bound on its size though).
-    pub fn check_binary_op<T>(left: &Bdd, right: &Bdd, op_function: T) -> (bool, u64)
+    pub fn check_binary_op<T>(
+        limit: usize,
+        left: &Bdd,
+        right: &Bdd,
+        op_function: T,
+    ) -> Option<(bool, usize)>
     where
         T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
-        estimated_apply_complexity(left, right, None, None, None, op_function)
+        estimated_apply_complexity(limit, left, right, None, None, None, op_function)
     }
 
     /// The same as `Bdd::check_binary_op`, but it takes into account variable flips.
     pub fn check_fused_binary_flip_op<T>(
+        limit: usize,
         left: (&Bdd, Option<BddVariable>),
         right: (&Bdd, Option<BddVariable>),
         flip_output: Option<BddVariable>,
         op_function: T,
-    ) -> (bool, u64)
+    ) -> Option<(bool, usize)>
     where
         T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
-        estimated_apply_complexity(left.0, right.0, left.1, right.1, flip_output, op_function)
+        estimated_apply_complexity(
+            limit,
+            left.0,
+            right.0,
+            left.1,
+            right.1,
+            flip_output,
+            op_function,
+        )
     }
 }
 
@@ -323,13 +340,14 @@ fn check_flip_bounds(num_vars: u16, var: Option<BddVariable>) {
 /// Compute the expected number of BDD operations that needs to be performed during a binary
 /// BDD operation. At the same time, we also check if the result is empty.
 fn estimated_apply_complexity<T>(
+    limit: usize,
     left: &Bdd,
     right: &Bdd,
     flip_left_if: Option<BddVariable>,
     flip_right_if: Option<BddVariable>,
     flip_out_if: Option<BddVariable>,
     terminal_lookup: T,
-) -> (bool, u64)
+) -> Option<(bool, usize)>
 where
     T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
 {
@@ -345,7 +363,6 @@ where
     check_flip_bounds(num_vars, flip_right_if);
     check_flip_bounds(num_vars, flip_out_if);
 
-    let mut task_count = 0;
     let mut is_not_empty = false;
 
     // Task is a pair of pointers into the `left` and `right` BDDs.
@@ -373,7 +390,9 @@ where
             // skip finished tasks
             continue;
         } else {
-            task_count += 1;
+            if finished.len() > limit {
+                return None;
+            }
 
             let (l, r) = (on_stack.left, on_stack.right);
 
@@ -442,5 +461,5 @@ where
         }
     }
 
-    (is_not_empty, task_count)
+    Some((is_not_empty, finished.len()))
 }
