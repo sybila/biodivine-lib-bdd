@@ -93,6 +93,40 @@ impl Bdd {
     {
         apply_with_flip(left.0, right.0, left.1, right.1, flip_output, op_function)
     }
+
+    /// Performs a "dry run" of the supplied operation. This computes two useful results:
+    ///
+    /// 1. A true/false value indicating whether the resulting BDD will be "empty" (i.e.
+    ///    a contradiction)
+    ///
+    /// 2. A number of low-level BDD tasks that need to be completed to resolve the
+    ///    operation.
+    ///
+    /// Generally, the method requires much less space and time than `binary_op`, but does not
+    /// produce the actual BDD. As such, it is useful for operations where the result would be
+    /// likely discarded anyway, like subset checks or size comparisons.
+    ///
+    /// Nevertheless, note that the number of low-level task is *not* the size of the resulting
+    /// BDD (it is an upper bound on its size though).
+    pub fn check_binary_op<T>(left: &Bdd, right: &Bdd, op_function: T) -> (bool, u64)
+    where
+        T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    {
+        estimated_apply_complexity(left, right, None, None, None, op_function)
+    }
+
+    /// The same as `Bdd::check_binary_op`, but it takes into account variable flips.
+    pub fn check_fused_binary_flip_op<T>(
+        left: (&Bdd, Option<BddVariable>),
+        right: (&Bdd, Option<BddVariable>),
+        flip_output: Option<BddVariable>,
+        op_function: T,
+    ) -> (bool, u64)
+    where
+        T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    {
+        estimated_apply_complexity(left.0, right.0, left.1, right.1, flip_output, op_function)
+    }
 }
 
 /// **(internal)** Shorthand for the more advanced apply which includes variable flipping
@@ -284,4 +318,129 @@ fn check_flip_bounds(num_vars: u16, var: Option<BddVariable>) {
             );
         }
     }
+}
+
+/// Compute the expected number of BDD operations that needs to be performed during a binary
+/// BDD operation. At the same time, we also check if the result is empty.
+fn estimated_apply_complexity<T>(
+    left: &Bdd,
+    right: &Bdd,
+    flip_left_if: Option<BddVariable>,
+    flip_right_if: Option<BddVariable>,
+    flip_out_if: Option<BddVariable>,
+    terminal_lookup: T,
+) -> (bool, u64)
+where
+    T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+{
+    let num_vars = left.num_vars();
+    if right.num_vars() != num_vars {
+        panic!(
+            "Var count mismatch: BDDs are not compatible. {} != {}",
+            num_vars,
+            right.num_vars()
+        );
+    }
+    check_flip_bounds(num_vars, flip_left_if);
+    check_flip_bounds(num_vars, flip_right_if);
+    check_flip_bounds(num_vars, flip_out_if);
+
+    let mut task_count = 0;
+    let mut is_not_empty = false;
+
+    // Task is a pair of pointers into the `left` and `right` BDDs.
+    #[derive(Eq, PartialEq, Hash, Copy, Clone)]
+    struct Task {
+        left: BddPointer,
+        right: BddPointer,
+    }
+
+    // `stack` is used to explore the two BDDs "side by side" in DFS-like manner. Each task
+    // on the stack is a pair of nodes that needs to be fully processed before we are finished.
+    let mut stack: Vec<Task> = Vec::with_capacity(max(left.size(), right.size()));
+    stack.push(Task {
+        left: left.root_pointer(),
+        right: right.root_pointer(),
+    });
+
+    // `finished` is a memoization cache of tasks which are already completed, since the same
+    // combination of nodes can be often explored multiple times.
+    let mut finished: HashSet<Task, FxBuildHasher> =
+        HashSet::with_capacity_and_hasher(max(left.size(), right.size()), FxBuildHasher::default());
+
+    while let Some(on_stack) = stack.pop() {
+        if finished.contains(&on_stack) {
+            // skip finished tasks
+            continue;
+        } else {
+            task_count += 1;
+
+            let (l, r) = (on_stack.left, on_stack.right);
+
+            // Determine which variable we are conditioning on, moving from smallest to largest.
+            let (l_v, r_v) = (left.var_of(l), right.var_of(r));
+            let decision_var = min(l_v, r_v);
+
+            // If the variable is the same as in the left/right decision node,
+            // advance the exploration there. Otherwise, keep the pointers the same.
+            let (l_low, l_high) = if l_v != decision_var {
+                (l, l)
+            } else if Some(l_v) == flip_left_if {
+                (left.high_link_of(l), left.low_link_of(l))
+            } else {
+                (left.low_link_of(l), left.high_link_of(l))
+            };
+            let (r_low, r_high) = if r_v != decision_var {
+                (r, r)
+            } else if Some(r_v) == flip_right_if {
+                (right.high_link_of(r), right.low_link_of(r))
+            } else {
+                (right.low_link_of(r), right.high_link_of(r))
+            };
+
+            // Two tasks which correspond to the two recursive sub-problems we need to solve.
+            let comp_low = Task {
+                left: l_low,
+                right: r_low,
+            };
+            let comp_high = Task {
+                left: l_high,
+                right: r_high,
+            };
+
+            // Try to solve the tasks using terminal lookup table.
+            let new_low =
+                terminal_lookup(l_low.as_bool(), r_low.as_bool()).map(BddPointer::from_bool);
+            let new_high =
+                terminal_lookup(l_high.as_bool(), r_high.as_bool()).map(BddPointer::from_bool);
+
+            // If both values are computed, we don't have to continue.
+            if let (Some(new_low), Some(new_high)) = (new_low, new_high) {
+                if new_low.is_one() || new_high.is_one() {
+                    is_not_empty = true
+                }
+                finished.insert(on_stack);
+            } else {
+                // Otherwise, if either value is unknown, push it to the stack.
+                if flip_out_if == Some(decision_var) {
+                    // If we are flipping output, we have to compute subtasks in the right order.
+                    if new_high.is_none() {
+                        stack.push(comp_high);
+                    }
+                    if new_low.is_none() {
+                        stack.push(comp_low);
+                    }
+                } else {
+                    if new_low.is_none() {
+                        stack.push(comp_low);
+                    }
+                    if new_high.is_none() {
+                        stack.push(comp_high);
+                    }
+                }
+            }
+        }
+    }
+
+    (is_not_empty, task_count)
 }
