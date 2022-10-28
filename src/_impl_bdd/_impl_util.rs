@@ -364,6 +364,17 @@ impl Bdd {
 
         counts
     }
+
+    /// Return the set of all variables that actually appear as decision variables in this BDD.
+    pub fn support_set(&self) -> HashSet<BddVariable> {
+        let mut result = HashSet::new();
+
+        for node in self.nodes().skip(2) {
+            result.insert(node.var);
+        }
+
+        result
+    }
 }
 
 #[cfg(test)]
