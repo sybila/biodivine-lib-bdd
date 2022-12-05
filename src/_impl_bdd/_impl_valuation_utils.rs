@@ -372,7 +372,7 @@ impl Bdd {
         Some(path)
     }
 
-    /// Compute the most restrictive conjunctive clause the covers all satisfying values
+    /// Compute the most restrictive conjunctive clause that covers all satisfying values
     /// in this BDD. In other words, if you compute the BDD corresponding to the resulting
     /// partial valuation, the new BDD will be a superset of this BDD, and it will be the smallest
     /// superset that can be described using a single clause.
