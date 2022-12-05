@@ -355,11 +355,18 @@ impl Bdd {
         true
     }
 
-    /// Compute the number of nodes that condition on individual variables.
-    pub fn size_per_variable(&self) -> Vec<usize> {
-        let mut counts = vec![0; usize::from(self.num_vars())];
+    /// Compute the number of BDD nodes that condition on individual variables. If the variable
+    /// does not appear in the BDD, it will not be contained in the result (i.e. keys of the
+    /// returned map are the support set of the BDD).
+    pub fn size_per_variable(&self) -> HashMap<BddVariable, usize> {
+        let mut counts = HashMap::new();
         for node in self.pointers().skip(2) {
-            counts[usize::from(self.var_of(node).0)] += 1;
+            let var = self.var_of(node);
+            if let Some(reference) = counts.get_mut(&var) {
+                *reference += 1;
+            } else {
+                counts.insert(var, 1);
+            }
         }
 
         counts
@@ -391,6 +398,14 @@ mod tests {
 
         assert_eq!(4, bdd.size());
         assert_eq!(5, bdd.num_vars());
+        assert_eq!(
+            HashSet::from([BddVariable(2), BddVariable(3)]),
+            bdd.support_set()
+        );
+        assert_eq!(
+            HashMap::from([(BddVariable(2), 1), (BddVariable(3), 1)]),
+            bdd.size_per_variable()
+        );
         assert_eq!(BddPointer::from_index(3), bdd.root_pointer());
         assert_eq!(
             BddPointer::one(),
