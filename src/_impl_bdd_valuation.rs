@@ -117,9 +117,9 @@ impl Display for BddValuation {
         if self.0.is_empty() {
             write!(f, "[]")?;
         } else {
-            write!(f, "[{}", if self.0[0] { 1 } else { 0 })?;
+            write!(f, "[{}", i32::from(self.0[0]))?;
             for i in 1..self.0.len() {
-                write!(f, ",{}", if self.0[i] { 1 } else { 0 })?
+                write!(f, ",{}", i32::from(self.0[i]))?
             }
             write!(f, "]")?;
         }
