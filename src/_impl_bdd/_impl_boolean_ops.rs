@@ -133,14 +133,16 @@ impl Bdd {
 
     /// Performs a "dry run" of the supplied operation. This computes two useful results:
     ///
-    /// 1. A true/false value indicating whether the resulting BDD will be "empty" (i.e.
-    ///    a contradiction)
+    /// 1. A true value indicating that the resulting BDD will *not* be "empty" (i.e.
+    ///    not a contradiction).
     ///
     /// 2. A number of low-level BDD tasks that need to be completed to resolve the
     ///    operation.
     ///
     /// You can also limit the enumeration up to a specific number of tasks using the `limit`
-    /// parameter. If this limit is exceeded, the result is `None`.
+    /// parameter. If this limit is exceeded, the result is `None`. Note that this `limit`
+    /// parameter does not correspond to the number of nodes in the (hypothetical)
+    /// resulting `Bdd`, but rather the number of steps needed to create it.
     ///
     /// Generally, the method requires much less space and time than `binary_op`, but does not
     /// produce the actual BDD. As such, it is useful for operations where the result would be
@@ -431,15 +433,16 @@ where
         } else if finished.contains(&on_stack) {
             // This task was already visited... continue.
             continue;
-        } else if finished.len() > limit {
-            // If limit is exceeded, return.
-            return None;
         } else {
             // Otherwise, add task to cache and expand it.
 
             // Mark the task as finished. We don't need to re-visit tasks in this method (as is
             // the case for normal binary operations).
             finished.insert(on_stack);
+            if finished.len() > limit {
+                // If limit is exceeded, return.
+                return None;
+            }
 
             let (l, r) = (on_stack.left, on_stack.right);
 
@@ -516,6 +519,12 @@ where
     check_flip_bounds(num_vars, flip_left_if);
     check_flip_bounds(num_vars, flip_right_if);
     check_flip_bounds(num_vars, flip_out_if);
+
+    // Nothing can be done with limit zero.
+    if limit == 0 {
+        return None;
+    }
+
     // Result holds the new BDD we are computing. Initially, `0` and `1` nodes are present. We
     // remember if the result is `false` or not (`is_not_empty`). If it is, we just provide
     // a `false` BDD instead of the result. This is easier than explicitly adding `1` later.
@@ -647,8 +656,16 @@ where
     }
 
     if is_not_empty {
-        Some(result)
+        if result.size() > limit {
+            // This resolves the edge case when limit is one, but the BDD has two nodes
+            // (this is not handled by the main loop, as there the condition is checked
+            // only when a new node is created, which won't happen for a `true` BDD)
+            None
+        } else {
+            Some(result)
+        }
     } else {
+        // Here, we know that limit >= 1, so this is ok.
         Some(Bdd::mk_false(num_vars))
     }
 }
