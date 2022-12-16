@@ -19,6 +19,31 @@ impl Bdd {
         self.0[0].var.0
     }
 
+    /// Change the number of variables tracked by this BDD.
+    ///
+    /// # Safety
+    ///
+    /// This operation is "unsafe", as it makes the BDD incompatible with the original
+    /// `BddVariableSet` and overall can break compatibility of BDD operations. However,
+    /// the operation will not allow you to create an invalid BDD. We still check that the
+    /// `new_value` covers at least the highest used variable in the BDD, and if the property is
+    /// broken, the operation panics.
+    pub unsafe fn set_num_vars(&mut self, new_value: u16) {
+        for node in self.nodes().skip(2) {
+            if node.var.0 >= new_value {
+                panic!(
+                    "BDD contains `{:?}`, which is invalid with variable count `{}`.",
+                    node.var, new_value
+                );
+            }
+        }
+        // If the check has passed, we can update the first two nodes.
+        self.0[0].var = BddVariable(new_value);
+        if self.0.len() > 1 {
+            self.0[1].var = BddVariable(new_value);
+        }
+    }
+
     /// True if this `Bdd` is exactly the `true` formula.
     pub fn is_true(&self) -> bool {
         self.0.len() == 2
@@ -495,5 +520,29 @@ mod tests {
         assert!(is_clause_1.is_clause());
         assert!(is_clause_2.is_clause());
         assert!(!is_not_clause.is_clause())
+    }
+
+    #[test]
+    fn bdd_variable_change() {
+        let mut bdd = mk_small_test_bdd();
+        assert_eq!(5, bdd.num_vars());
+        unsafe {
+            bdd.set_num_vars(6);
+        }
+        assert_eq!(6, bdd.num_vars());
+        // The BDD actually does not use all 5 variables.
+        unsafe {
+            bdd.set_num_vars(4);
+        }
+        assert_eq!(4, bdd.num_vars());
+    }
+
+    #[test]
+    #[should_panic]
+    fn bdd_variable_change_failling() {
+        let mut bdd = mk_small_test_bdd();
+        unsafe {
+            bdd.set_num_vars(3);
+        }
     }
 }
