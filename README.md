@@ -1,6 +1,6 @@
 [![Crates.io](https://img.shields.io/crates/v/biodivine-lib-bdd?style=flat-square)](https://crates.io/crates/biodivine-lib-bdd)
 [![Api Docs](https://img.shields.io/badge/docs-api-yellowgreen?style=flat-square)](https://docs.rs/biodivine-lib-bdd/)
-[![Continuous integration](https://img.shields.io/github/workflow/status/sybila/biodivine-lib-bdd/build?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/actions?query=workflow%3Abuild)
+[![Continuous integration](https://img.shields.io/github/actions/workflow/status/sybila/biodivine-lib-bdd/build.yml?branch=master&style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/actions?query=workflow%3Abuild)
 [![Codecov](https://img.shields.io/codecov/c/github/sybila/biodivine-lib-bdd?style=flat-square)](https://codecov.io/gh/sybila/biodivine-lib-bdd)
 [![GitHub issues](https://img.shields.io/github/issues/sybila/biodivine-lib-bdd?style=flat-square)](https://github.com/sybila/biodivine-lib-bdd/issues)
 [![Dev Docs](https://img.shields.io/badge/docs-dev-orange?style=flat-square)](https://biodivine.fi.muni.cz/docs/biodivine-lib-bdd/latest/)
