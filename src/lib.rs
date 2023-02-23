@@ -181,6 +181,7 @@ pub struct BddVariableSet {
 /// Note that some characters are not allowed in variable names (to allow safe serialisation,
 /// formula parsers and export as `.dot`, etc.).
 /// These characters are `!`, `&`, `|`, `^`, `=`, `<`, `>`, `(` and `)`.
+#[derive(Clone)]
 pub struct BddVariableSetBuilder {
     var_names: Vec<String>,
     var_names_set: HashSet<String>,
