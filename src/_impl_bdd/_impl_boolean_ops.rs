@@ -60,6 +60,28 @@ impl Bdd {
         apply(self, right, op_function::and_not)
     }
 
+    /// A standard "if-then-else" ternary operation. It is equivalent to
+    /// $(a \land b) \lor (\neg a \land c)$.
+    ///
+    /// Additional non-standard ternary operators are available through `Bdd::ternary_op`.
+    pub fn if_then_else(a: &Bdd, b: &Bdd, c: &Bdd) -> Bdd {
+        fn ite_function(a: Option<bool>, b: Option<bool>, c: Option<bool>) -> Option<bool> {
+            match (a, b, c) {
+                // If "a" is known, we can just "implement" ITE and return "b"/"c".
+                (Some(true), _, _) => b,
+                (Some(false), _, _) => c,
+                // The next two cases are not strictly necessary, but
+                // can cause the operation to finish sooner if the result
+                // is already determined, even when "a" is still unknown.
+                (None, Some(false), Some(false)) => Some(false),
+                (None, Some(true), Some(true)) => Some(true),
+                // Otherwise, we return None until "a" is known.
+                (None, _, _) => None,
+            }
+        }
+        Bdd::ternary_op(a, b, c, ite_function)
+    }
+
     /// Apply a general binary operation to two given `Bdd` objects.
     ///
     /// The `op_function` specifies the actual logical operation that will be performed. See

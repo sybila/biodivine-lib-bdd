@@ -206,6 +206,19 @@ fn bdd_mk_iff() {
 }
 
 #[test]
+fn bdd_if_then_else() {
+    let variables = mk_5_variable_set();
+    let v1 = variables.mk_var(v1());
+    let v2 = variables.mk_var(v2());
+    let v3 = variables.mk_var(v3());
+
+    assert_eq!(
+        bdd![(v1 & v2) | ((!v1) & v3)],
+        Bdd::if_then_else(&v1, &v2, &v3)
+    );
+}
+
+#[test]
 fn bdd_constants() {
     let variables = mk_5_variable_set();
     let tt = variables.mk_true();
