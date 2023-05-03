@@ -179,18 +179,14 @@ impl BddVariableSet {
     /// a conjunction of such clauses. Effectively, this constructs a formula based on its
     /// conjunctive normal form.
     pub fn mk_cnf(&self, cnf: &[BddPartialValuation]) -> Bdd {
-        cnf.iter()
-            .map(|it| self.mk_disjunctive_clause(it))
-            .fold(self.mk_true(), |a, b| a.and(&b))
+        Bdd::mk_cnf(self.num_vars, cnf)
     }
 
     /// Interpret each `BddPartialValuation` in `dnf` as a conjunctive clause, and produce
     /// a disjunction of such clauses. Effectively, this constructs a formula based on its
     /// disjunctive normal form.
     pub fn mk_dnf(&self, dnf: &[BddPartialValuation]) -> Bdd {
-        dnf.iter()
-            .map(|it| self.mk_conjunctive_clause(it))
-            .fold(self.mk_false(), |a, b| a.or(&b))
+        Bdd::mk_dnf(self.num_vars, dnf)
     }
 }
 
@@ -311,5 +307,11 @@ mod tests {
         let formula = &[c1, c2, c3];
         assert_eq!(cnf_expected, universe.mk_cnf(formula));
         assert_eq!(dnf_expected, universe.mk_dnf(formula));
+
+        // Test the backwards conversion by converting each formula to the inverse normal form.
+        let cnf_as_dnf = universe.mk_cnf(formula).to_dnf();
+        let dnf_as_cnf = universe.mk_dnf(formula).to_cnf();
+        assert_eq!(cnf_expected, universe.mk_dnf(&cnf_as_dnf));
+        assert_eq!(dnf_expected, universe.mk_cnf(&dnf_as_cnf));
     }
 }
