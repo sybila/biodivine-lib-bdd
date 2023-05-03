@@ -300,6 +300,20 @@ impl Bdd {
         }
     }
 
+    pub(crate) fn mk_partial_valuation(num_vars: u16, valuation: &BddPartialValuation) -> Bdd {
+        let mut bdd = Bdd::mk_true(num_vars);
+        for (var, value) in valuation.to_values().into_iter().rev() {
+            let node = if value {
+                BddNode::mk_node(var, BddPointer::zero(), bdd.root_pointer())
+            } else {
+                BddNode::mk_node(var, bdd.root_pointer(), BddPointer::zero())
+            };
+            bdd.push_node(node);
+        }
+
+        bdd
+    }
+
     /// **(internal)** Add a new node to an existing `Bdd`, making the new node the root of the `Bdd`.
     pub(crate) fn push_node(&mut self, node: BddNode) {
         self.0.push(node);

@@ -1,13 +1,20 @@
-use crate::{Bdd, BddNode, BddPointer, BddVariable};
+use crate::{Bdd, BddPartialValuation, BddVariable};
 use rand::Rng;
 
 /// Advanced relation-like operations for `Bdd`s.
 impl Bdd {
-    /// Eliminates one given variable from the `Bdd`.
+    /// This operation is deprecated in favour of `Bdd::var_exists` which provides the
+    /// same functionality but better naming.
+    #[deprecated]
+    pub fn var_project(&self, variable: BddVariable) -> Bdd {
+        self.var_exists(variable)
+    }
+
+    /// Eliminates one given variable from the `Bdd` using **existential projection**.
     ///
     /// If we see the Bdd as a set of bitvectors, this is essentially existential quantification:
     /// $\exists x_i : (x_1, ..., x_i, ..., x_n) \in BDD$.
-    pub fn var_project(&self, variable: BddVariable) -> Bdd {
+    pub fn var_exists(&self, variable: BddVariable) -> Bdd {
         Bdd::fused_binary_flip_op(
             (self, None),
             (self, Some(variable)),
@@ -16,18 +23,44 @@ impl Bdd {
         )
     }
 
-    /// Eliminate all given variables from the `Bdd`. This is a generalized variant
-    /// of `var_projection`.
+    /// Eliminates one given variable from the `Bdd` using **universal projection**.
     ///
-    /// This can be used to implement operations like `domain` and `range` of
-    /// a certain relation.
+    /// If we see the Bdd as a set of bitvectors, this is essentially universal quantification:
+    /// $\forall x_i : (x_1, ..., x_i, ..., x_n) \in BDD$.
+    pub fn var_for_all(&self, variable: BddVariable) -> Bdd {
+        Bdd::fused_binary_flip_op(
+            (self, None),
+            (self, Some(variable)),
+            None,
+            crate::op_function::and,
+        )
+    }
+
+    /// This method is deprecated in favour of `Bdd::exists` which provides the same functionality
+    /// but better naming.
+    #[deprecated]
     pub fn project(&self, variables: &[BddVariable]) -> Bdd {
-        // Starting from the last Bdd variables is more efficient, we therefore enforce it.
-        // (variables vector is always very small anyway)
-        sorted(variables)
-            .into_iter()
-            .rev()
-            .fold(self.clone(), |result, v| result.var_project(v))
+        self.exists(variables)
+    }
+
+    /// Eliminate all given `variables` from the `Bdd` using existential projection.
+    ///
+    /// This can be used to implement operations like `domain` and `range` for
+    /// a specific relation.
+    ///
+    /// Note that this method should be faster than repeated calls to `var_exists` once
+    /// the size of `variables` is non trivial, but it has a higher overhead. So for very small
+    /// instances the performance advantage may not be very high.
+    pub fn exists(&self, variables: &[BddVariable]) -> Bdd {
+        // x & x is simply identity
+        Bdd::apply_and_exists(self, self, crate::op_function::and, variables)
+    }
+
+    /// Eliminate all given `variables` from the `Bdd` using universal projection.
+    ///
+    /// Same performance characteristics as `Bdd::exists`.
+    pub fn for_all(&self, variables: &[BddVariable]) -> Bdd {
+        Bdd::apply_and_for_all(self, self, crate::op_function::and, variables)
     }
 
     /// Picks one valuation for the given `BddVariable`.
@@ -76,7 +109,7 @@ impl Bdd {
     pub fn pick(&self, variables: &[BddVariable]) -> Bdd {
         fn r_pick(set: &Bdd, variables: &[BddVariable]) -> Bdd {
             if let Some((last_var, rest)) = variables.split_last() {
-                let picked = r_pick(&set.var_project(*last_var), rest);
+                let picked = r_pick(&set.var_exists(*last_var), rest);
                 picked.and(&set.var_pick(*last_var))
             } else {
                 set.clone()
@@ -91,7 +124,7 @@ impl Bdd {
     pub fn pick_random<R: Rng>(&self, variables: &[BddVariable], rng: &mut R) -> Bdd {
         fn r_pick<R: Rng>(set: &Bdd, variables: &[BddVariable], rng: &mut R) -> Bdd {
             if let Some((last_var, rest)) = variables.split_last() {
-                let picked = r_pick(&set.var_project(*last_var), rest, rng);
+                let picked = r_pick(&set.var_exists(*last_var), rest, rng);
                 picked.and(&set.var_pick_random(*last_var, rng))
             } else {
                 set.clone()
@@ -111,34 +144,30 @@ impl Bdd {
     /// the given values. Similar to `BddValuation.into::<Bdd>()`, but here you don't have to
     /// specify all variables.
     pub fn select(&self, variables: &[(BddVariable, bool)]) -> Bdd {
-        let mut partial_valuation = variables.to_vec();
-        partial_valuation.sort_by_key(|(v, _)| *v);
-        let mut valuation_bdd = Bdd::mk_true(self.num_vars());
-        for (var, value) in partial_valuation.into_iter().rev() {
-            let node = if value {
-                BddNode::mk_node(var, BddPointer::zero(), valuation_bdd.root_pointer())
-            } else {
-                BddNode::mk_node(var, valuation_bdd.root_pointer(), BddPointer::zero())
-            };
-            valuation_bdd.push_node(node);
-        }
+        let valuation = BddPartialValuation::from_values(variables);
+        let valuation_bdd = Bdd::mk_partial_valuation(self.num_vars(), &valuation);
         self.and(&valuation_bdd)
     }
 
-    /// Fixes a `variable` to the given `value`, and then eliminates said variable using projection.
+    /// Fixes a `variable` to the given `value`, and then eliminates said variable using
+    /// existential projection.
     ///
     /// A valuation `v` satisfies the resulting formula `B'` if and only if `v[variable = value]`
     /// satisfied the original formula `B`.
     pub fn var_restrict(&self, variable: BddVariable, value: bool) -> Bdd {
-        // TODO: Provide a faster algorithm exactly for this operation.
-        self.var_select(variable, value).var_project(variable)
+        let value_literal = Bdd::mk_literal(self.num_vars(), variable, value);
+        // TODO:
+        //  We should test if this is actually faster than running self.var_select().exists().
+        Bdd::apply_and_exists(self, &value_literal, crate::op_function::and, &[variable])
     }
 
     /// Generalized operation to `var_restrict`. Allows fixing multiple Bdd variables and
     /// eliminating them at the same time.
     pub fn restrict(&self, variables: &[(BddVariable, bool)]) -> Bdd {
-        let vars = variables.iter().map(|(v, _)| *v).collect::<Vec<_>>();
-        self.select(variables).project(&vars)
+        let valuation = BddPartialValuation::from_values(variables);
+        let valuation_bdd = Bdd::mk_partial_valuation(self.num_vars(), &valuation);
+        let variables: Vec<BddVariable> = Vec::from_iter(variables.iter().map(|(x, _)| *x));
+        Bdd::apply_and_exists(self, &valuation_bdd, crate::op_function::and, &variables)
     }
 }
 
