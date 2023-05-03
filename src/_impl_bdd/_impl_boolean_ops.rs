@@ -1,7 +1,7 @@
+use crate::_impl_bdd::Task;
 use crate::*;
 use fxhash::FxBuildHasher;
 use std::cmp::{max, min};
-use crate::_impl_bdd::Task;
 
 /// Basic boolean logical operations for `Bdd`s:
 /// $\neg, \land, \lor, \Rightarrow, \Leftrightarrow, \oplus$.
