@@ -7,7 +7,7 @@ use std::collections::{HashMap, HashSet};
 impl Bdd {
     /// Performs a logical operation (`op`) on two BDDs while performing a **universal projection**
     /// on the given `variables` in the result BDD.
-    pub fn apply_and_for_all<F>(left: &Bdd, right: &Bdd, op: F, variables: &[BddVariable]) -> Bdd
+    pub fn apply_with_for_all<F>(left: &Bdd, right: &Bdd, op: F, variables: &[BddVariable]) -> Bdd
     where
         F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
@@ -20,7 +20,7 @@ impl Bdd {
 
     /// Performs a logical operation (`op`) on two BDDs while performing an
     /// **existential projection** on the given `variables` in the result BDD.
-    pub fn apply_and_exists<F>(left: &Bdd, right: &Bdd, op: F, variables: &[BddVariable]) -> Bdd
+    pub fn apply_with_exists<F>(left: &Bdd, right: &Bdd, op: F, variables: &[BddVariable]) -> Bdd
     where
         F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {

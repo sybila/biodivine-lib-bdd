@@ -45,13 +45,31 @@ fn bdd_restrict() {
 }
 
 #[test]
-fn bdd_var_projection() {
+fn bdd_var_exists() {
     let variables = mk_5_variable_set();
     let bdd = variables.eval_expression_string("(v1 => (v2 <=> v3)) & (!v1 => !(v2 <=> v5))");
     let v1 = BddVariable(0);
     assert_eq!(
         bdd.var_exists(v1),
         variables.eval_expression_string("(v2 <=> v3) | !(v2 <=> v5)")
+    );
+    #[allow(deprecated)]
+    {
+        assert_eq!(
+            bdd.var_project(v1),
+            variables.eval_expression_string("(v2 <=> v3) | !(v2 <=> v5)")
+        );
+    }
+}
+
+#[test]
+fn bdd_var_for_all() {
+    let variables = mk_5_variable_set();
+    let bdd = variables.eval_expression_string("(v1 => (v2 <=> v3)) & (!v1 => !(v2 <=> v5))");
+    let v1 = BddVariable(0);
+    assert_eq!(
+        bdd.var_for_all(v1),
+        variables.eval_expression_string("(v2 <=> v3) & !(v2 <=> v5)")
     );
 }
 
@@ -108,10 +126,14 @@ fn bdd_projection_trivial() {
     for k in 0..5 {
         assert_eq!(ff, ff.exists(&vars[0..k]));
         assert_eq!(tt, tt.exists(&vars[0..k]));
+        assert_eq!(ff, ff.for_all(&vars[0..k]));
+        assert_eq!(tt, tt.for_all(&vars[0..k]));
     }
 
     assert_eq!(bdd, bdd.exists(&[]));
+    assert_eq!(bdd, bdd.for_all(&[]));
     assert_eq!(tt, bdd.exists(&vars));
+    assert_eq!(ff, bdd.for_all(&vars));
 }
 
 #[test]
@@ -120,18 +142,38 @@ fn bdd_projection_simple() {
     let (_, v2, v3, v4, v5) = vars();
     {
         let bdd = variables.eval_expression_string("(v1 <=> v2) & (v4 <=> v5)");
-        let projected = variables.eval_expression_string("(v1 <=> v2)");
-        assert_eq!(projected, bdd.exists(&[v4, v5]));
+        let not_bdd = bdd.not();
+        let project_exists = variables.eval_expression_string("(v1 <=> v2)");
+        assert_eq!(project_exists, bdd.exists(&[v4, v5]));
         assert_eq!(bdd.exists(&[v3, v4, v5]), bdd.exists(&[v4, v5]));
+
+        #[allow(deprecated)]
+        {
+            // Test legacy implementation.
+            assert_eq!(project_exists, bdd.project(&[v4, v5]));
+            assert_eq!(bdd.project(&[v3, v4, v5]), bdd.project(&[v4, v5]));
+        }
+
+        // It holds that $(\exists x . \phi)$ is equivalent to $(\neg \for_all x . \neg \phi)$
+        assert_eq!(project_exists.not(), not_bdd.for_all(&[v4, v5]));
+        assert_eq!(not_bdd.for_all(&[v3, v4, v5]), not_bdd.for_all(&[v3, v4]));
     }
     {
         let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
+        let not_bdd = bdd.not();
         let projected_3 = variables.eval_expression_string("(v1 & v2) | (!v1 & v3)");
         let projected_2 = variables.eval_expression_string("(v1 & v2) | !v1");
         assert_eq!(bdd, bdd.exists(&[v5]));
+        assert_eq!(not_bdd, not_bdd.for_all(&[v5]));
+
         assert_eq!(projected_3, bdd.exists(&[v4]));
+        assert_eq!(projected_3.not(), not_bdd.for_all(&[v4]));
+
         assert_eq!(projected_2, bdd.exists(&[v3, v4]));
+        assert_eq!(projected_2.not(), not_bdd.for_all(&[v3, v4]));
+
         assert_eq!(variables.mk_true(), bdd.exists(&[v2, v3, v4]));
+        assert_eq!(variables.mk_false(), not_bdd.for_all(&[v2, v3, v4]));
     }
 }
 
