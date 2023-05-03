@@ -74,10 +74,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ env.RUST_VERSION }}
-      - name: Setup cargo-tarpaulin.
-        run: cargo install cargo-tarpaulin
-      - name: Run tarpaulin to compute coverage.
-        run: cargo tarpaulin --verbose --lib --examples --all-features --out Xml
+      # Install action using cargo-binstall, which is faster because we don't have to compile tarpaulin every time.
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-tarpaulin
+      - run: cargo tarpaulin --verbose --lib --examples --all-features --out Xml
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v3
         with:
