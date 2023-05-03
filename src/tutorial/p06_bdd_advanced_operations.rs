@@ -93,7 +93,7 @@
 //! let x_0_is_true = vars.mk_var(variables[0]);
 //!
 //! let two_operations = bdd.and(&x_0_is_true).exists(&[variables[1], variables[2]]);
-//! let one_operation = Bdd::apply_with_exists(
+//! let one_operation = Bdd::binary_op_with_exists(
 //!     &bdd,
 //!     &x_0_is_true,
 //!     biodivine_lib_bdd::op_function::and,

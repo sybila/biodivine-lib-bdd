@@ -53,14 +53,14 @@ impl Bdd {
     /// instances the performance advantage may not be very high.
     pub fn exists(&self, variables: &[BddVariable]) -> Bdd {
         // x & x is simply identity
-        Bdd::apply_with_exists(self, self, crate::op_function::and, variables)
+        Bdd::binary_op_with_exists(self, self, crate::op_function::and, variables)
     }
 
     /// Eliminate all given `variables` from the `Bdd` using universal projection.
     ///
     /// Same performance characteristics as `Bdd::exists`.
     pub fn for_all(&self, variables: &[BddVariable]) -> Bdd {
-        Bdd::apply_with_for_all(self, self, crate::op_function::and, variables)
+        Bdd::binary_op_with_for_all(self, self, crate::op_function::and, variables)
     }
 
     /// Picks one valuation for the given `BddVariable`.
@@ -158,7 +158,7 @@ impl Bdd {
         let value_literal = Bdd::mk_literal(self.num_vars(), variable, value);
         // TODO:
         //  We should test if this is actually faster than running self.var_select().exists().
-        Bdd::apply_with_exists(self, &value_literal, crate::op_function::and, &[variable])
+        Bdd::binary_op_with_exists(self, &value_literal, crate::op_function::and, &[variable])
     }
 
     /// Generalized operation to `var_restrict`. Allows fixing multiple Bdd variables and
@@ -167,7 +167,7 @@ impl Bdd {
         let valuation = BddPartialValuation::from_values(variables);
         let valuation_bdd = Bdd::mk_partial_valuation(self.num_vars(), &valuation);
         let variables: Vec<BddVariable> = Vec::from_iter(variables.iter().map(|(x, _)| *x));
-        Bdd::apply_with_exists(self, &valuation_bdd, crate::op_function::and, &variables)
+        Bdd::binary_op_with_exists(self, &valuation_bdd, crate::op_function::and, &variables)
     }
 }
 

@@ -7,7 +7,12 @@ use std::collections::{HashMap, HashSet};
 impl Bdd {
     /// Performs a logical operation (`op`) on two BDDs while performing a **universal projection**
     /// on the given `variables` in the result BDD.
-    pub fn apply_with_for_all<F>(left: &Bdd, right: &Bdd, op: F, variables: &[BddVariable]) -> Bdd
+    pub fn binary_op_with_for_all<F>(
+        left: &Bdd,
+        right: &Bdd,
+        op: F,
+        variables: &[BddVariable],
+    ) -> Bdd
     where
         F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
@@ -15,12 +20,17 @@ impl Bdd {
             HashSet::from_iter(variables.iter().cloned());
         let trigger = |var: BddVariable| set.contains(&var);
 
-        Bdd::nested_apply(left, right, trigger, op, crate::op_function::and)
+        Bdd::binary_op_nested(left, right, trigger, op, crate::op_function::and)
     }
 
     /// Performs a logical operation (`op`) on two BDDs while performing an
     /// **existential projection** on the given `variables` in the result BDD.
-    pub fn apply_with_exists<F>(left: &Bdd, right: &Bdd, op: F, variables: &[BddVariable]) -> Bdd
+    pub fn binary_op_with_exists<F>(
+        left: &Bdd,
+        right: &Bdd,
+        op: F,
+        variables: &[BddVariable],
+    ) -> Bdd
     where
         F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
@@ -28,7 +38,7 @@ impl Bdd {
             HashSet::from_iter(variables.iter().cloned());
         let trigger = |var: BddVariable| set.contains(&var);
 
-        Bdd::nested_apply(left, right, trigger, op, crate::op_function::or)
+        Bdd::binary_op_nested(left, right, trigger, op, crate::op_function::or)
     }
 
     /// A "nested" apply function performs two "nested" passes of the apply algorithm:
@@ -41,7 +51,7 @@ impl Bdd {
     /// Specifically, using `inner_op = or` implements existential projection and `inner_op = and`
     /// implements universal projection on the result of the "outer" operation. However, much
     /// "wilder" combinations are possible if you need them.
-    pub fn nested_apply<F1, F2, Trigger>(
+    pub fn binary_op_nested<F1, F2, Trigger>(
         left: &Bdd,
         right: &Bdd,
         trigger: Trigger,
