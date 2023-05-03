@@ -188,12 +188,75 @@ impl BddVariableSet {
     pub fn mk_dnf(&self, dnf: &[BddPartialValuation]) -> Bdd {
         Bdd::mk_dnf(self.num_vars, dnf)
     }
+
+    /// Build a BDD that is satisfied by all valuations where *up to* $k$ `variables` are `true`.
+    ///
+    /// Intuitively, this implements a "threshold function" $f(x) = (\sum_{i} x_i \leq k)$
+    /// over the given `variables`.
+    pub fn mk_sat_up_to_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
+        // This is the same as sat_exactly_k, we just carry the k-1 result over to the next round.
+        let mut valuation = BddPartialValuation::empty();
+        for var in variables {
+            valuation.set_value(*var, false);
+        }
+        let mut result = self.mk_conjunctive_clause(&valuation);
+        for _i in 0..k {
+            let mut result_plus_one = result.clone();
+            for var in variables {
+                let var_is_false = self.mk_not_var(*var);
+                // result = result | flip(var, k_minus_one and var_is_false)
+                let propagate = Bdd::fused_binary_flip_op(
+                    (&result, None),
+                    (&var_is_false, None),
+                    Some(*var),
+                    op_function::and,
+                );
+                result_plus_one = result_plus_one.or(&propagate);
+            }
+
+            result = result_plus_one
+        }
+
+        result
+    }
+
+    /// Build a BDD that is satisfied by all valuations where *exactly* $k$ `variables` are `true`.
+    ///
+    /// Intuitively, this implements a "equality function" $f(x) = (\sum_{i} x_i = k)$
+    /// over the given `variables`.
+    pub fn mk_sat_exactly_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
+        // This is based on the recursion SAT_k = \cup_{v} SAT_{k-1}[flip v].
+        let mut valuation = BddPartialValuation::empty();
+        for var in variables {
+            valuation.set_value(*var, false);
+        }
+        let mut result = self.mk_conjunctive_clause(&valuation);
+        for _i in 0..k {
+            let mut result_plus_one = self.mk_false();
+            for var in variables {
+                let var_is_false = self.mk_not_var(*var);
+                // result = result | flip(var, k_minus_one and var_is_false)
+                let propagate = Bdd::fused_binary_flip_op(
+                    (&result, None),
+                    (&var_is_false, None),
+                    Some(*var),
+                    op_function::and,
+                );
+                result_plus_one = result_plus_one.or(&propagate);
+            }
+
+            result = result_plus_one
+        }
+
+        result
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::_test_util::mk_5_variable_set;
     use super::*;
+    use num_bigint::BigInt;
 
     #[test]
     fn bdd_universe_anonymous() {
@@ -313,5 +376,40 @@ mod tests {
         let dnf_as_cnf = universe.mk_dnf(formula).to_cnf();
         assert_eq!(cnf_expected, universe.mk_dnf(&cnf_as_dnf));
         assert_eq!(dnf_expected, universe.mk_cnf(&dnf_as_cnf));
+    }
+
+    #[test]
+    fn bdd_mk_sat_k() {
+        fn factorial(x: usize) -> usize {
+            if x == 0 {
+                1
+            } else {
+                x * factorial(x - 1)
+            }
+        }
+
+        fn binomial(n: usize, k: usize) -> usize {
+            factorial(n) / (factorial(k) * factorial(n - k))
+        }
+
+        let vars = BddVariableSet::new_anonymous(5);
+        let variables = vars.variables();
+
+        assert_eq!(
+            vars.mk_sat_exactly_k(0, &variables).exact_cardinality(),
+            BigInt::from(1)
+        );
+        assert_eq!(
+            vars.mk_sat_exactly_k(1, &variables).exact_cardinality(),
+            BigInt::from(variables.len())
+        );
+
+        let bdd = vars.mk_sat_exactly_k(3, &vars.variables());
+        // The number of such valuations is exactly the binomial coefficient.
+        assert_eq!(bdd.exact_cardinality(), BigInt::from(binomial(5, 3)));
+
+        let bdd = vars.mk_sat_up_to_k(3, &vars.variables());
+        let expected = binomial(5, 3) + binomial(5, 2) + binomial(5, 1) + binomial(5, 0);
+        assert_eq!(bdd.exact_cardinality(), BigInt::from(expected));
     }
 }
