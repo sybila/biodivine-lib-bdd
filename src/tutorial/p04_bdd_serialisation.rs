@@ -25,7 +25,7 @@
 //! assert_eq!(bdd, Bdd::from_string(&bdd_string));
 //! ```
 //!
-//! Both serialisation and deserialisation methods have a "streaming" variant where
+//! Both serialisation and deserialization methods have a "streaming" variant where
 //! you can provide your own custom `Read`/`Write` implementations.
 //!
 //! ## `u8` serialisation

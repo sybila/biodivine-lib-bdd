@@ -75,7 +75,7 @@
 //! with highest amount of positive/negative literals.
 //!  - `Bdd.most_fixed_clause` and `Bdd.most_free_clause` wil give you satisfying paths with
 //! greatest and least amount of fixed variables respectively.
-//!  - `Bdd.random_valuation` and `Bdd.random_clause` allow selecting valaution/clause using
+//!  - `Bdd.random_valuation` and `Bdd.random_clause` allow selecting valuation/clause using
 //! a random number generator.
 //!
 //!

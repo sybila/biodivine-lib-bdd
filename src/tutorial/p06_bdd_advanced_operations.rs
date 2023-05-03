@@ -132,7 +132,7 @@
 //! Using `pick`, we can implement various interesting relational operations. For example, say that
 //! a BDD represents a relation where `i_1` and `i_2` are some "inputs" of the relation and `o_1, o_2`
 //! are some "outputs". Then we can use `pick(i_1, i_2)` to select one *unique* input for each output
-//! value in the relation. This effectively picks an injective relation which is a subset of the original
+//! value in the relation. This effectively picks an injection which is a subset of the original
 //! relation. Similarly, using `pick(o_1, o_2)`, we can get a sub-relation which is a valid
 //! partial function (each input valuation has at most one output).
 //!

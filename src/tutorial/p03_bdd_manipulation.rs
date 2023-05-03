@@ -93,7 +93,7 @@
 //! (CNF or DNF). To better support this type of format, you can rely on `BddPartialValuation`
 //! to create clauses (either disjunctive or conjunctive) and then full CNF/DNF formulas.
 //!
-//! One advantage of this approach is relative conciseness and machine-friendlines. Another reason
+//! One advantage of this approach is relative conciseness and machine-friendliness. Another reason
 //! why this API is available is that creating clauses explicitly (via `and`/`or` methods) can
 //! be resource intensive for formulas with a large amount of variables and clauses. In these cases,
 //! each literal in such a formula requires creation of a new `Bdd` object which is
