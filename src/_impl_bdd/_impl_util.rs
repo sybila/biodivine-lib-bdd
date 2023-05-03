@@ -2,6 +2,7 @@ use crate::boolean_expression::BooleanExpression;
 use crate::boolean_expression::BooleanExpression::Variable;
 use crate::*;
 use num_bigint::BigInt;
+use std::cmp::{max, min};
 use std::iter::Map;
 use std::ops::Range;
 use std::slice::Iter;
@@ -41,6 +42,49 @@ impl Bdd {
         self.0[0].var = BddVariable(new_value);
         if self.0.len() > 1 {
             self.0[1].var = BddVariable(new_value);
+        }
+    }
+
+    /// Change the provided variable ID to the new one. This change does not perform any
+    /// structural changes to the BDD itself. As such, it is only valid when the BDD does not
+    /// depend on any variables that are between `old_id` and `new_id`. Furthermore, `old_id`
+    /// and `new_id` must be admissible in this BDD. The method panics otherwise.
+    ///
+    /// # Safety
+    ///
+    /// This operation is "unsafe" because it can change the BDD in a "non-semantic" way. However,
+    /// as long as the operation does not panic, the result will be a valid BDD.
+    pub unsafe fn rename_variable(&mut self, old_id: BddVariable, new_id: BddVariable) {
+        assert!(old_id.0 < self.num_vars());
+        assert!(new_id.0 < self.num_vars());
+
+        if old_id == new_id {
+            return;
+        }
+
+        let support_set = self.support_set();
+        let low = min(old_id.0, new_id.0);
+        let high = max(old_id.0, new_id.0);
+        for i in (low + 1)..high {
+            if support_set.contains(&BddVariable(i)) {
+                panic!(
+                    "Cannot rename {} to {} due to the presence of {}.",
+                    old_id, new_id, i
+                );
+            }
+        }
+
+        if support_set.contains(&new_id) {
+            panic!(
+                "Cannot rename {} to {} due to the presence of {}.",
+                old_id, new_id, new_id
+            );
+        }
+
+        for node in &mut self.0 {
+            if node.var == old_id {
+                node.var = new_id;
+            }
         }
     }
 
@@ -553,10 +597,66 @@ mod tests {
 
     #[test]
     #[should_panic]
-    fn bdd_variable_change_failling() {
+    fn bdd_variable_change_failing() {
         let mut bdd = mk_small_test_bdd();
         unsafe {
             bdd.set_num_vars(3);
+        }
+    }
+
+    #[test]
+    fn test_variable_rename() {
+        let mut bdd = mk_small_test_bdd();
+        unsafe {
+            bdd.rename_variable(BddVariable(2), BddVariable(0));
+            bdd.rename_variable(BddVariable(3), BddVariable(4));
+        }
+        let expected = HashSet::from_iter(vec![BddVariable(0), BddVariable(4)].into_iter());
+        assert_eq!(expected, bdd.support_set());
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_variable_rename_fail_1() {
+        let mut bdd = mk_small_test_bdd();
+        unsafe {
+            bdd.rename_variable(BddVariable(2), BddVariable(6));
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_variable_rename_fail_2() {
+        let mut bdd = mk_small_test_bdd();
+        unsafe {
+            bdd.rename_variable(BddVariable(6), BddVariable(2));
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_variable_rename_fail_3() {
+        let mut bdd = mk_small_test_bdd();
+        unsafe {
+            bdd.rename_variable(BddVariable(2), BddVariable(6));
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_variable_rename_fail_4() {
+        let mut bdd = mk_small_test_bdd();
+        unsafe {
+            bdd.rename_variable(BddVariable(2), BddVariable(3));
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_variable_rename_fail_5() {
+        let mut bdd = mk_small_test_bdd();
+        unsafe {
+            bdd.rename_variable(BddVariable(2), BddVariable(4));
         }
     }
 }
