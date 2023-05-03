@@ -32,6 +32,12 @@ pub mod _impl_util;
 /// valuations and paths from a `Bdd`.
 pub mod _impl_valuation_utils;
 
+/// **(internal)** An optimized implementation for creating BDD from DNF.
+pub mod _impl_dnf;
+
+/// **(internal)** An optimized implementation for creating BDD from CNF.
+pub mod _impl_cnf;
+
 /// **(internal)** Task is a pair of BDD pointers. These are usually pointers from two distinct
 /// BDDs (standard apply algorithm), but it can also be two pointers from the same BDD ("inner"
 /// apply in nested apply algorithm).
