@@ -1,6 +1,7 @@
 use crate::*;
 use fxhash::FxBuildHasher;
 use std::cmp::{max, min};
+use crate::_impl_bdd::Task;
 
 /// Basic boolean logical operations for `Bdd`s:
 /// $\neg, \land, \lor, \Rightarrow, \Leftrightarrow, \oplus$.
@@ -264,13 +265,6 @@ where
     existing.insert(BddNode::mk_zero(num_vars), BddPointer::zero());
     existing.insert(BddNode::mk_one(num_vars), BddPointer::one());
 
-    // Task is a pair of pointers into the `left` and `right` BDDs.
-    #[derive(Eq, PartialEq, Hash, Copy, Clone)]
-    struct Task {
-        left: BddPointer,
-        right: BddPointer,
-    }
-
     // `stack` is used to explore the two BDDs "side by side" in DFS-like manner. Each task
     // on the stack is a pair of nodes that needs to be fully processed before we are finished.
     let mut stack: Vec<Task> = Vec::with_capacity(max(left.size(), right.size()));
@@ -426,13 +420,6 @@ where
 
     let mut is_not_empty = false;
 
-    // Task is a pair of pointers into the `left` and `right` BDDs.
-    #[derive(Eq, PartialEq, Hash, Copy, Clone)]
-    struct Task {
-        left: BddPointer,
-        right: BddPointer,
-    }
-
     // `stack` is used to explore the two BDDs "side by side" in DFS-like manner. Each task
     // on the stack is a pair of nodes that needs to be fully processed before we are finished.
     let mut stack: Vec<Task> = Vec::with_capacity(max(left.size(), right.size()));
@@ -558,13 +545,6 @@ where
         HashMap::with_capacity_and_hasher(max(left.size(), right.size()), FxBuildHasher::default());
     existing.insert(BddNode::mk_zero(num_vars), BddPointer::zero());
     existing.insert(BddNode::mk_one(num_vars), BddPointer::one());
-
-    // Task is a pair of pointers into the `left` and `right` BDDs.
-    #[derive(Eq, PartialEq, Hash, Copy, Clone)]
-    struct Task {
-        left: BddPointer,
-        right: BddPointer,
-    }
 
     // `stack` is used to explore the two BDDs "side by side" in DFS-like manner. Each task
     // on the stack is a pair of nodes that needs to be fully processed before we are finished.
