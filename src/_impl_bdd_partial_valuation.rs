@@ -53,7 +53,11 @@ impl BddPartialValuation {
     /// Get a value stored for the given variable id, if any.
     pub fn get_value(&self, id: BddVariable) -> Option<bool> {
         let index = usize::from(id.0);
-        self.0.get(index).cloned().flatten()
+        if index < self.0.len() {
+            self.0[index]
+        } else {
+            None
+        }
     }
 
     /// Returns `true` if this valuation has the value of `id` variable set.

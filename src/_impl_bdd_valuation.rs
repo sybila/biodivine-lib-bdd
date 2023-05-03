@@ -28,17 +28,17 @@ impl BddValuation {
 
     /// Set the value of the given `variable` to `false`.
     pub fn clear(&mut self, variable: BddVariable) {
-        self.0[(variable.0 as usize)] = false;
+        self.0[variable.0 as usize] = false;
     }
 
     /// Set the value of the given `variable` to `true`.
     pub fn set(&mut self, variable: BddVariable) {
-        self.0[(variable.0 as usize)] = true;
+        self.0[variable.0 as usize] = true;
     }
 
     /// Update `value` of the given `variable`.
     pub fn set_value(&mut self, variable: BddVariable, value: bool) {
-        self.0[(variable.0 as usize)] = value;
+        self.0[variable.0 as usize] = value;
     }
 
     /// Convert the valuation to its underlying vector.

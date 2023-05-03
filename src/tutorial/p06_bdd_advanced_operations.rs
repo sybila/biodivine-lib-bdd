@@ -41,20 +41,20 @@
 //! Projection is one of the most fundamental BDD operations. There are two "ways" of explaining
 //! projection -- depending on your background, one may seem more intuitive than the other.
 //!
-//! > For simplicity, we are going to project using only a single variable (`Bdd.var_project`),
+//! > For simplicity, we are going to project using only a single variable (`Bdd.var_exists`),
 //! > but as in the case of selection, there is also a multi-variable projection operation
-//! > available (`Bdd.project`).
+//! > available (`Bdd.exists`).
 //!
 //! First, a "logical" approach says that a projection of a BDD through variable `x` is equivalent
 //! to existential quantification in first order logic. So, if `B` is a BDD, and $\varphi$ is
-//! a formula that is represented by `B`, then `B' = B.var_project(x)` represents a formula
+//! a formula that is represented by `B`, then `B' = B.var_exists(x)` represents a formula
 //! $\varphi' = \exists x. \varphi$. Consequently `B'` does not depend on variable `x` in any
 //! way. Which leads us to the second explanation.
 //!
 //! A "relational" approach says that projection is elimination. If we see the BDD `B` as
 //! a collection of valuations that satisfy $\varphi$, then projection *eliminates* `x` from
 //! each valuation. For example, if `B` is satisfied for `(x=true, y=true, z=false)`, then
-//! `B.var_project(x)` is satisfied for `(y=true, z=false)`, regardless of `x`. However, since
+//! `B.var_exists(x)` is satisfied for `(y=true, z=false)`, regardless of `x`. However, since
 //! the variable is *not* removed from the overall `BddVariableSet`, the satisfying valuations
 //! will still contain `x`, the satisfiability of the `Bdd` will simply never depend on it.
 //! That is, if `(x=true, y=true, z=false)` is a satisfying valuation, then
@@ -66,12 +66,46 @@
 //! let variables = vars.variables();
 //! let bdd = vars.eval_expression_string("(x_0 & !x_1) | (!x_0 & x_3)");
 //!
-//! let projected = bdd.var_project(variables[0]);
+//! let projected = bdd.var_exists(variables[0]);
 //! assert_eq!(vars.eval_expression_string("!x_1 | x_3"), projected);
 //!
-//! let projected = bdd.project(&[variables[0], variables[1]]);
+//! let projected = bdd.exists(&[variables[0], variables[1]]);
 //! assert_eq!(vars.mk_true(), projected);
 //! ```
+//!
+//! Furthermore, for every *existential* projection, there is also a *universal* variant (i.e.
+//! `Bdd.var_for_all` and `Bdd.for_all`). With these, you can implement $\forall$ or universal
+//! variable elimination.
+//!
+//! ### Combining projection with logical operations
+//!
+//! In some applications (e.g. model checking), a combination of logical operation and projection
+//! is used to implement things like successor computation. In `lib-bdd`, we provide this
+//! functionality through `Bdd.apply_with_exists`, `Bdd.apply_with_for_all`, or `Bdd.nested_apply`
+//! in general (however, `nested_apply` is beyond the scope of this tutorial.
+//!
+//! ```rust
+//! use biodivine_lib_bdd::{Bdd, BddVariableSet};
+//! let vars = BddVariableSet::new_anonymous(5);
+//! let variables = vars.variables();
+//! let bdd = vars.eval_expression_string("(x_0 & !x_1) | (!x_0 & x_3)");
+//!
+//! let x_0_is_true = vars.mk_var(variables[0]);
+//!
+//! let two_operations = bdd.and(&x_0_is_true).exists(&[variables[1], variables[2]]);
+//! let one_operation = Bdd::apply_with_exists(
+//!     &bdd,
+//!     &x_0_is_true,
+//!     biodivine_lib_bdd::op_function::and,
+//!     &[variables[1], variables[2]],
+//! );
+//! assert_eq!(two_operations, one_operation);
+//! ```
+//!
+//! Right now, we don't have specialized variants for each logical operator (e.g. `or_with_exists`),
+//! mainly to keep the API reasonably concise (you can find functions for all common operators
+//! in the `op_function` module). However, a PR adding common operations is welcome
+//! as long as the author is willing to write the tests for these operations :)
 //!
 //! ## Pick
 //!
@@ -87,7 +121,7 @@
 //!
 //! However, for pick operation, there is an important distinction. Whereas
 //! `B.var_select(x, true).var_select(y, false) = B.select(&[(x, true), (y, false)])` and
-//! `B.var_project(x).var_project(y) = B.project(&[x,y])`, this **does not hold** for picking.
+//! `B.var_exists(x).var_exists(y) = B.exists(&[x,y])`, this **does not hold** for picking.
 //!
 //! If we call `B.var_pick(x).var_pick(y)`, we are saying that we pick one value of `x` for each
 //! valuation of remaining variables, and *then* similarly pick one value of `y`, meaning that picking

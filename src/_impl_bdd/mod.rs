@@ -1,3 +1,5 @@
+use crate::BddPointer;
+
 /// **(internal)** Implementation of basic logical operators for `Bdd`s using the `apply` function.
 pub mod _impl_boolean_ops;
 
@@ -5,6 +7,13 @@ pub mod _impl_boolean_ops;
 /// special cases, e.g. when the intermediate result is expected to be large, but the final
 /// result is typically small or empty.
 pub mod _impl_ternary_ops;
+
+/// **(internal)** Implementation of generic nested operations. These combine two logical
+/// operators: First operation is applied on the two BDD arguments, second operation is applied
+/// on BDD nodes of the resulting BDD based on used provided trigger function. This is mainly
+/// used to implement existential/universal projection, but who knows what else can be
+/// built with it.
+pub mod _impl_nested_ops;
 
 /// **(internal)** Implementation of extra operations which enable relation-like treatment of BDDs
 /// (quantification, selection, projection, partial element picking)
@@ -22,3 +31,14 @@ pub mod _impl_util;
 /// **(internal)** Implementation of some utility methods for extracting interesting
 /// valuations and paths from a `Bdd`.
 pub mod _impl_valuation_utils;
+
+/// **(internal)** Task is a pair of BDD pointers. These are usually pointers from two distinct
+/// BDDs (standard apply algorithm), but it can also be two pointers from the same BDD ("inner"
+/// apply in nested apply algorithm).
+///
+/// This is not public because it is just a utility structure for the apply algorithms.
+#[derive(Eq, PartialEq, Hash, Copy, Clone)]
+struct Task {
+    left: BddPointer,
+    right: BddPointer,
+}
