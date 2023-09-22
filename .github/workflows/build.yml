@@ -1,5 +1,16 @@
 name: build
-on: [push]
+
+# This should ensure that the workflow won't run on `dev-*` branches, but will
+# otherwise execute on any other branch and any pull request (including PRs
+# from dev branches).
+on:
+  push:
+    branches-ignore:
+      - 'dev-*'
+  pull_request:
+    branches:
+      - '*'
+
 env:
   # A fixed version used for testing, so that the builds don't
   # spontaneously break after a few years.
