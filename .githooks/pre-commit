@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# Runs automatic formatting and tests
-
-exec cargo fmt -- --check
-exec cargo build --all-features
-exec cargo test --all-features
