@@ -250,6 +250,77 @@ impl BddVariableSet {
 
         result
     }
+
+    /// This function takes a [Bdd] `bdd` together with its [BddVariableSet] `ctx` and attempts
+    /// to translate this `bdd` using the variables of *this* [BddVariableSet].
+    ///
+    /// In other words, the source and the output [Bdd] are logically equivalent, but each is
+    /// valid in its respective [BddVariableSet].
+    ///
+    /// ### Limitations
+    ///
+    /// Currently, this method is implemented through "unsafe" variable renaming. I.e. it will
+    /// not actually modify the structure of the [Bdd] in any way. As such, the method can fail
+    /// (return `None`) when:
+    ///   - The `bdd` contains variables that are not present in this [BddVariableSet] (matching
+    ///     is performed based on variable names and the support set of `bdd`).
+    ///   - The variables used in `bdd` are ordered in a way that is not compatible with this
+    ///     [BddVariableSet].
+    ///
+    pub fn transfer_from(&self, bdd: &Bdd, ctx: &BddVariableSet) -> Option<Bdd> {
+        // Its easier to handle constants explicitly.
+        if bdd.is_false() {
+            return Some(self.mk_false());
+        }
+
+        if bdd.is_true() {
+            return Some(self.mk_true());
+        }
+
+        // Sorted variable IDs that are used in the "old" context.
+        let mut old_support_set = bdd.support_set().into_iter().collect::<Vec<_>>();
+        old_support_set.sort();
+
+        // Equivalent variable IDs in the "new" context.
+        let mut new_support_set = Vec::new();
+        for var in &old_support_set {
+            let name = ctx.name_of(*var);
+            let Some(id) = self.var_by_name(name.as_str()) else {
+                // The variable does not exist in the new context.
+                return None;
+            };
+            new_support_set.push(id);
+        }
+
+        // Test for ordering validity.
+        for i in 1..new_support_set.len() {
+            // If x[i] <= x[i-1], then the new vector is not sorted, meaning
+            // the variables exist, but cannot be safely renamed in this order.
+            if new_support_set[i] <= new_support_set[i - 1] {
+                return None;
+            }
+        }
+
+        // Make a translation map from old to new IDs.
+        let map = old_support_set
+            .into_iter()
+            .zip(new_support_set)
+            .collect::<HashMap<_, _>>();
+
+        // Now go through all the non-terminal nodes and copy them to the new BDD
+        // using the translated IDs. We don't have to change the links because we are not
+        // changing the BDD structure.
+        let mut new_bdd = Bdd::mk_true(self.num_vars);
+        for node in bdd.nodes().skip(2) {
+            let Some(new_var) = map.get(&node.var) else {
+                unreachable!()
+            };
+            let new_node = BddNode::mk_node(*new_var, node.low_link, node.high_link);
+            new_bdd.push_node(new_node);
+        }
+
+        Some(new_bdd)
+    }
 }
 
 #[cfg(test)]
@@ -411,5 +482,36 @@ mod tests {
         let bdd = vars.mk_sat_up_to_k(3, &vars.variables());
         let expected = binomial(5, 3) + binomial(5, 2) + binomial(5, 1) + binomial(5, 0);
         assert_eq!(bdd.exact_cardinality(), BigInt::from(expected));
+    }
+
+    #[test]
+    fn bdd_transfer() {
+        let ctx_1 = BddVariableSet::new(&["a", "b", "x", "c", "y"]);
+        let ctx_2 = BddVariableSet::new(&["a", "x", "b", "z", "c"]);
+
+        // Constants.
+        assert_eq!(
+            ctx_1.mk_false(),
+            ctx_1.transfer_from(&ctx_2.mk_false(), &ctx_2).unwrap()
+        );
+        assert_eq!(
+            ctx_1.mk_true(),
+            ctx_1.transfer_from(&ctx_2.mk_true(), &ctx_2).unwrap()
+        );
+
+        // Valid translation.
+        let f1 = ctx_1.eval_expression_string("a & b | !c");
+        let f2 = ctx_2.eval_expression_string("a & b | !c");
+
+        assert_eq!(f1, ctx_1.transfer_from(&f2, &ctx_2).unwrap());
+        assert_eq!(f2, ctx_2.transfer_from(&f1, &ctx_1).unwrap());
+
+        // Invalid translation: bad variable ordering.
+        let f1 = ctx_1.eval_expression_string("a & !b & x | !c");
+        assert_eq!(None, ctx_2.transfer_from(&f1, &ctx_1));
+
+        // Invalid translation: missing variable.
+        let f1 = ctx_1.eval_expression_string("a & y | !c");
+        assert_eq!(None, ctx_2.transfer_from(&f1, &ctx_1));
     }
 }
