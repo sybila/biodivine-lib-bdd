@@ -1,5 +1,6 @@
-use crate::{BddPartialValuation, BddVariable};
+use crate::{BddPartialValuation, BddValuation, BddVariable};
 use std::convert::TryFrom;
+use std::ops::{Index, IndexMut};
 
 impl BddPartialValuation {
     /// Creates an empty valuation without any variables set.
@@ -110,9 +111,29 @@ impl Default for BddPartialValuation {
     }
 }
 
+impl From<BddValuation> for BddPartialValuation {
+    fn from(value: BddValuation) -> Self {
+        BddPartialValuation(value.0.into_iter().map(Some).collect::<Vec<_>>())
+    }
+}
+
+impl Index<BddVariable> for BddPartialValuation {
+    type Output = Option<bool>;
+
+    fn index(&self, index: BddVariable) -> &Self::Output {
+        &self.0[usize::from(index.0)]
+    }
+}
+
+impl IndexMut<BddVariable> for BddPartialValuation {
+    fn index_mut(&mut self, index: BddVariable) -> &mut Self::Output {
+        &mut self.0[usize::from(index.0)]
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::{BddPartialValuation, BddVariable};
+    use crate::{BddPartialValuation, BddValuation, BddVariable};
 
     #[test]
     fn basic_partial_valuation_properties() {
@@ -140,5 +161,23 @@ mod tests {
 
         assert_eq!(a, b);
         assert_eq!(a, BddPartialValuation::from_values(&a.to_values()));
+    }
+
+    #[test]
+    fn valuation_conversions() {
+        let mut val = BddValuation::all_false(24);
+        val[BddVariable(14)] = true;
+        val[BddVariable(21)] = true;
+
+        assert_eq!(
+            BddPartialValuation::from(val.clone()),
+            BddPartialValuation::from_values(&val.to_values())
+        );
+
+        let mut partial = BddPartialValuation::from(val.clone());
+        partial[BddVariable(13)] = Some(true);
+        val[BddVariable(13)] = true;
+
+        assert_eq!(val, BddValuation::try_from(partial).unwrap());
     }
 }

@@ -2,7 +2,7 @@ use super::{Bdd, BddValuation, BddVariable};
 use crate::{BddNode, BddPartialValuation, BddPointer, ValuationsOfClauseIterator};
 use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
-use std::ops::Index;
+use std::ops::{Index, IndexMut};
 
 impl BddValuation {
     /// Create a new valuation from a vector of variables.
@@ -44,6 +44,21 @@ impl BddValuation {
     /// Convert the valuation to its underlying vector.
     pub fn vector(self) -> Vec<bool> {
         self.0
+    }
+
+    /// Convert [BddValuation] to a vector of tagged values in the way that is compatible
+    /// with [BddPartialValuation] representation.
+    pub fn to_values(&self) -> Vec<(BddVariable, bool)> {
+        self.0
+            .iter()
+            .enumerate()
+            .map(|(i, v)| {
+                let Ok(i) = u16::try_from(i) else {
+                    unreachable!("BddValuation is limited to u16::MAX values.")
+                };
+                (BddVariable(i), *v)
+            })
+            .collect::<Vec<_>>()
     }
 
     /// Get a value of a specific BDD variable in this valuation.
@@ -133,6 +148,12 @@ impl Index<BddVariable> for BddValuation {
 
     fn index(&self, index: BddVariable) -> &Self::Output {
         &self.0[usize::from(index.0)]
+    }
+}
+
+impl IndexMut<BddVariable> for BddValuation {
+    fn index_mut(&mut self, index: BddVariable) -> &mut Self::Output {
+        &mut self.0[usize::from(index.0)]
     }
 }
 
