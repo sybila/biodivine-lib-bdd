@@ -39,6 +39,13 @@ fn write_bdd_as_dot(
     var_names: &[String],
     zero_pruned: bool,
 ) -> Result<(), std::io::Error> {
+    if var_names.len() != (bdd.num_vars() as usize) {
+        panic!(
+            "Bdd is incompatible with the variable set ({} vs. {} variables)",
+            bdd.num_vars(),
+            var_names.len()
+        );
+    }
     writeln!(output, "digraph G {{")?;
     writeln!(
         output,
