@@ -323,6 +323,28 @@ impl BddVariableSet {
     }
 }
 
+impl FromIterator<String> for BddVariableSet {
+    fn from_iter<T: IntoIterator<Item = String>>(iter: T) -> Self {
+        let mut builder = BddVariableSetBuilder::new();
+        for var_name in iter {
+            builder.make_variable(var_name.as_str());
+        }
+        builder.build()
+    }
+}
+
+impl From<Vec<String>> for BddVariableSet {
+    fn from(value: Vec<String>) -> Self {
+        BddVariableSet::from_iter(value)
+    }
+}
+
+impl From<Vec<&str>> for BddVariableSet {
+    fn from(value: Vec<&str>) -> Self {
+        BddVariableSet::from_iter(value.iter().map(|it| it.to_string()))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::_test_util::mk_5_variable_set;
