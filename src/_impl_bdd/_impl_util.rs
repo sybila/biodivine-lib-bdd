@@ -465,6 +465,19 @@ impl Bdd {
 
         result
     }
+
+    /// Return the BDD which represents a function where variable `var` was substituted for
+    /// `function` (represented as a BDD).
+    ///
+    /// This should be equivalent to the expression `exists var. (function <=> var) and self`.
+    ///
+    /// Also note that the output of the operation is not well defined when `function` depends
+    /// on `var` itself. However, the method will not fail.
+    pub fn substitute(&self, var: BddVariable, function: &Bdd) -> Bdd {
+        let var_bdd = Bdd::mk_literal(self.num_vars(), var, true);
+        let iff = var_bdd.iff(function);
+        Bdd::binary_op_with_exists(self, &iff, op_function::and, &[var])
+    }
 }
 
 #[cfg(test)]
@@ -658,5 +671,16 @@ mod tests {
         unsafe {
             bdd.rename_variable(BddVariable(2), BddVariable(4));
         }
+    }
+
+    #[test]
+    fn test_substitution() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let original = bdd!(vars, "x_0" & ("x_1" | "x_4"));
+        let to_swap = bdd!(vars, "x_3" & "x_2");
+        let expected = bdd!(vars, "x_0" & (("x_3" & "x_2") | "x_4"));
+        let x_1 = vars.var_by_name("x_1").unwrap();
+        let substituted = original.substitute(x_1, &to_swap);
+        assert!(expected.iff(&substituted).is_true());
     }
 }
