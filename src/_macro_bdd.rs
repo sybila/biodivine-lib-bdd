@@ -44,6 +44,12 @@ impl IntoBdd for Bdd {
     }
 }
 
+impl IntoBdd for &Bdd {
+    fn into_bdd(self, _variables: &BddVariableSet) -> Bdd {
+        self.clone()
+    }
+}
+
 impl IntoBdd for &str {
     fn into_bdd(self, variables: &BddVariableSet) -> Bdd {
         variables.mk_var_by_name(self)
