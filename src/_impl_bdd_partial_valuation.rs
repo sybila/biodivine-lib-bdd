@@ -121,13 +121,18 @@ impl Index<BddVariable> for BddPartialValuation {
     type Output = Option<bool>;
 
     fn index(&self, index: BddVariable) -> &Self::Output {
-        &self.0[usize::from(index.0)]
+        let index = usize::from(index.0);
+        if index < self.0.len() {
+            &self.0[index]
+        } else {
+            &None
+        }
     }
 }
 
 impl IndexMut<BddVariable> for BddPartialValuation {
     fn index_mut(&mut self, index: BddVariable) -> &mut Self::Output {
-        &mut self.0[usize::from(index.0)]
+        self.mut_cell(index)
     }
 }
 
