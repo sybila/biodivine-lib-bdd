@@ -291,26 +291,26 @@ impl Bdd {
         results.last().unwrap().clone()
     }
 
-    /// **(internal)** Pointer to the root of the decision diagram.
-    pub(crate) fn root_pointer(&self) -> BddPointer {
+    /// Pointer to the root of the decision diagram.
+    pub fn root_pointer(&self) -> BddPointer {
         BddPointer::from_index(self.0.len() - 1)
     }
 
-    /// **(internal)** Get the low link of the node at a specified location.
-    pub(crate) fn low_link_of(&self, node: BddPointer) -> BddPointer {
+    /// Get the low link of the node at a specified location.
+    pub fn low_link_of(&self, node: BddPointer) -> BddPointer {
         self.0[node.to_index()].low_link
     }
 
-    /// **(internal)** Get the high link of the node at a specified location.
-    pub(crate) fn high_link_of(&self, node: BddPointer) -> BddPointer {
+    /// Get the high link of the node at a specified location.
+    pub fn high_link_of(&self, node: BddPointer) -> BddPointer {
         self.0[node.to_index()].high_link
     }
 
-    /// **(internal)** Get the conditioning variable of the node at a specified location.
+    /// Get the conditioning variable of the node at a specified location.
     ///
     /// Note that this also technically works for terminals, but the returned `BddVariable` is
     /// not valid in this `Bdd`.
-    pub(crate) fn var_of(&self, node: BddPointer) -> BddVariable {
+    pub fn var_of(&self, node: BddPointer) -> BddVariable {
         self.0[node.to_index()].var
     }
 

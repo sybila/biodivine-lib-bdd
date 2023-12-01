@@ -187,7 +187,7 @@ pub struct BddVariableSetBuilder {
     var_names_set: HashSet<String>,
 }
 
-/// **(internal)** A type-safe index into the `Bdd` node array representation.
+/// A type-safe index into the `Bdd` node array representation.
 ///
 /// BDD pointers are an internal type-safe wrapper around indices into BDD arrays.
 /// Outside this crate, no one should know or care about their existence. Since
@@ -195,7 +195,7 @@ pub struct BddVariableSetBuilder {
 /// represented as `u32` instead of `usize`, because `usize` can be 64-bits and pointers
 /// represent most of the memory consumed by our BDDs.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-struct BddPointer(u32);
+pub struct BddPointer(u32);
 
 /// **(internal)** Representation of individual vertices of the `Bdd` directed acyclic graph.
 ///
