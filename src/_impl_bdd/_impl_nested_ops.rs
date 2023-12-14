@@ -194,6 +194,13 @@ fn fix_bdd_alignment(bdd: &Bdd, root: BddPointer) -> Bdd {
     stack.push(root);
 
     while let Some(top) = stack.last() {
+        if pointer_map[top.to_index()].is_some() {
+            // This node already has a known translation.
+            // This can happen if we rediscovered the node further down in the DFS stack and processed it,
+            // but it was already pushed on to the stack before by another parent higher in the BDD.
+            stack.pop();
+            continue;
+        }
         let old_low = bdd.low_link_of(*top);
         let old_high = bdd.high_link_of(*top);
 
@@ -402,6 +409,26 @@ mod tests {
         let expected_bdd = expected_bdd.and(&Bdd::mk_literal(3, v3, true));
 
         assert_eq!(bdd.0, expected_bdd.0);
+    }
+
+    #[test]
+    fn test_bdd_alignment_fix_2() {
+        // This reproduces a bug we had previously with bad DFS search routine in alignment fix.
+        let v1 = BddVariable(0);
+        let v2 = BddVariable(1);
+        let v3 = BddVariable(2);
+        let nodes = vec![
+            BddNode::mk_zero(3),
+            BddNode::mk_one(3),
+            BddNode::mk_node(v1, BddPointer(4), BddPointer(3)),
+            BddNode::mk_node(v2, BddPointer(4), BddPointer::one()),
+            BddNode::mk_node(v3, BddPointer::zero(), BddPointer::one()),
+        ];
+
+        let bdd = Bdd(nodes);
+        let bdd = fix_bdd_alignment(&bdd, BddPointer(2));
+
+        assert_eq!(bdd.0, bdd.and(&Bdd::mk_true(3)).0);
     }
 
     #[test]
