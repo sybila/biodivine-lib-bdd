@@ -127,7 +127,7 @@ pub struct BddValuation(Vec<bool>);
 /// A partial valuation can be used to quickly construct simple conjunctive/disjunctive clauses.
 /// It also exactly describes one path in a `Bdd` and hence can be used as an intermediate
 /// value when traversing the valuations of a `Bdd`.
-#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct BddPartialValuation(Vec<Option<bool>>);
 
 /// Exhaustively iterates over all valuations with a certain number of variables.

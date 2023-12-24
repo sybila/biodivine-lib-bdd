@@ -1,5 +1,7 @@
 use crate::{BddPartialValuation, BddValuation, BddVariable};
+use std::cmp::min;
 use std::convert::TryFrom;
+use std::hash::{Hash, Hasher};
 use std::ops::{Index, IndexMut};
 
 impl BddPartialValuation {
@@ -136,9 +138,46 @@ impl IndexMut<BddVariable> for BddPartialValuation {
     }
 }
 
+impl PartialEq for BddPartialValuation {
+    fn eq(&self, other: &Self) -> bool {
+        let min_len = min(self.0.len(), other.0.len());
+        for i in 0..min_len {
+            if self.0[i] != other.0[i] {
+                return false;
+            }
+        }
+        for j in min_len..self.0.len() {
+            if self.0[j].is_some() {
+                return false;
+            }
+        }
+        for j in min_len..other.0.len() {
+            if other.0[j].is_some() {
+                return false;
+            }
+        }
+        true
+    }
+}
+
+impl Eq for BddPartialValuation {}
+
+impl Hash for BddPartialValuation {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        for (var, value) in self.0.iter().enumerate() {
+            if let Some(value) = value {
+                state.write_usize(var);
+                state.write_u8(u8::from(*value))
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::{BddPartialValuation, BddValuation, BddVariable};
+    use std::collections::hash_map::DefaultHasher;
+    use std::hash::{Hash, Hasher};
 
     #[test]
     fn basic_partial_valuation_properties() {
@@ -166,6 +205,16 @@ mod tests {
 
         assert_eq!(a, b);
         assert_eq!(a, BddPartialValuation::from_values(&a.to_values()));
+
+        a.unset_value(v5);
+        let b = BddPartialValuation::from_values(&[(v1, false), (v2, false)]);
+        assert_eq!(a, b);
+
+        let mut hasher_a = DefaultHasher::new();
+        let mut hasher_b = DefaultHasher::new();
+        a.hash(&mut hasher_a);
+        b.hash(&mut hasher_b);
+        assert_eq!(hasher_a.finish(), hasher_b.finish());
     }
 
     #[test]
