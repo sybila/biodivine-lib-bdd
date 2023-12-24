@@ -1,6 +1,6 @@
 [package]
 name = "biodivine-lib-bdd"
-version = "0.5.8"
+version = "0.5.9"
 authors = ["Samuel Pastva <daemontus@gmail.com>"]
 edition = "2021"
 description = "A simple thread-safe implementation of basic binary decision diagrams."
