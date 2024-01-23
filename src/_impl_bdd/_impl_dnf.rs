@@ -10,7 +10,7 @@ impl Bdd {
     /// it definitely needs to be tested at some point.
     pub(crate) fn mk_dnf(num_vars: u16, dnf: &[BddPartialValuation]) -> Bdd {
         if dnf.is_empty() {
-            Bdd::mk_false(num_vars);
+            return Bdd::mk_false(num_vars);
         }
 
         // TODO:

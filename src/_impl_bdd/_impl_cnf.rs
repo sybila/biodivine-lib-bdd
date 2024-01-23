@@ -13,7 +13,7 @@ impl Bdd {
         // can be found there.
 
         if cnf.is_empty() {
-            Bdd::mk_true(num_vars);
+            return Bdd::mk_true(num_vars);
         }
 
         fn build_recursive(
@@ -79,9 +79,12 @@ impl Bdd {
         node_cache.insert(BddNode::mk_one(num_vars), BddPointer::one());
 
         let cnf = Vec::from_iter(cnf.iter());
-        build_recursive(num_vars, 0, &cnf, &mut result, &mut node_cache);
-
-        result
+        let result_pointer = build_recursive(num_vars, 0, &cnf, &mut result, &mut node_cache);
+        if result_pointer.is_zero() {
+            Bdd::mk_false(num_vars)
+        } else {
+            result
+        }
     }
 
     /// Construct a CNF representation of this BDD.

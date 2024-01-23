@@ -464,6 +464,35 @@ mod tests {
         assert_eq!(cnf_expected, universe.mk_cnf(formula));
         assert_eq!(dnf_expected, universe.mk_dnf(formula));
 
+        assert_eq!(universe.mk_false(), universe.mk_dnf(&[]));
+        assert_eq!(
+            universe.mk_true(),
+            universe.mk_dnf(&[BddPartialValuation::empty()])
+        );
+        assert_eq!(universe.mk_true(), universe.mk_cnf(&[]));
+        assert_eq!(
+            universe.mk_false(),
+            universe.mk_cnf(&[BddPartialValuation::empty()])
+        );
+
+        // x | !x = true
+        assert_eq!(
+            universe.mk_true(),
+            universe.mk_dnf(&[
+                BddPartialValuation::from_values(&[(variables[0], true)]),
+                BddPartialValuation::from_values(&[(variables[0], false)]),
+            ])
+        );
+
+        // x & !x = false
+        assert_eq!(
+            universe.mk_false(),
+            universe.mk_cnf(&[
+                BddPartialValuation::from_values(&[(variables[0], true)]),
+                BddPartialValuation::from_values(&[(variables[0], false)]),
+            ])
+        );
+
         // Test the backwards conversion by converting each formula to the inverse normal form.
         let cnf_as_dnf = universe.mk_cnf(formula).to_dnf();
         let dnf_as_cnf = universe.mk_dnf(formula).to_cnf();
