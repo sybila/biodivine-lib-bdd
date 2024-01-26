@@ -73,12 +73,24 @@ If you are using `lib-bdd` in academic research, we'd very much appreciate a cit
 
 ```
 @inproceedings{aeon,
-  title={AEON: attractor bifurcation analysis of parametrised boolean networks},
-  author={Bene{\v{s}}, Nikola and Brim, Lubo{\v{s}} and Kadlecaj, Jakub and Pastva, Samuel and {\v{S}}afr{\'a}nek, David},
-  booktitle={Computer Aided Verification: 32nd International Conference, CAV 2020, Los Angeles, CA, USA, July 21--24, 2020, Proceedings, Part I 32},
-  pages={569--581},
-  year={2020},
-  organization={Springer}
+  title     = {{AEON}: {A}ttractor {B}ifurcation {A}nalysis of {P}arametrised {B}oolean {N}etworks},
+  author    = {Bene{\v{s}}, Nikola
+           and Brim, Lubo{\v{s}}
+           and Kadlecaj, Jakub
+           and Pastva, Samuel
+           and {\v{S}}afr{\'a}nek, David},
+  year      = {2020},
+  month     = {07},
+  booktitle = {Computer Aided Verification},
+  editor    = {Lahiri, Shuvendu K.
+           and Wang, Chao},
+  pages     = {569 -- 581},
+  numPages  = {13},
+  publisher = {Springer},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {12224},
+  isbn      = {978-3-030-53288-8},
+  doi       = {10.1007/978-3-030-53288-8\_28}
 }
 ```
 
