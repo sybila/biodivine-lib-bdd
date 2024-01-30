@@ -90,46 +90,48 @@ impl Bdd {
     /// slightly faster for enumerating all results at the same time (the `sat_clauses` iterator
     /// is optimized for visiting the results one-by-one).
     pub fn to_dnf(&self) -> Vec<BddPartialValuation> {
-        fn build_recursive(
-            bdd: &Bdd,
-            path: &mut BddPartialValuation,
-            node: BddPointer,
-            results: &mut Vec<BddPartialValuation>,
-        ) {
-            if node.is_terminal() {
-                if node.is_one() {
-                    results.push(path.clone());
+        let mut results: Vec<BddPartialValuation> = Vec::new();
+        let mut path = BddPartialValuation::empty();
+
+        let mut stack: Vec<(BddPointer, Option<bool>)> = vec![(self.root_pointer(), Some(true))];
+        while let Some((node, go_low)) = stack.pop() {
+            if node.is_zero() {
+                // An unsatisfied clause.
+                continue;
+            }
+            if node.is_one() {
+                // A satisfied clause.
+                results.push(path.clone());
+                continue;
+            }
+
+            let node_var = self.var_of(node);
+
+            if let Some(go_low) = go_low {
+                if go_low {
+                    // First, we go into the low child. But even before that,
+                    // we add a new item that indicates we should go to the high child
+                    // once the low child is done.
+                    stack.push((node, Some(false)));
+
+                    // Update `path` to indicate that we are in the low child.
+                    path[node_var] = Some(false);
+                    stack.push((self.low_link_of(node), Some(true)));
+                } else {
+                    // Here, we visit the high child. But we still have to retain the current
+                    // node to remove it from the `path` once the subgraph is done.
+                    stack.push((node, None));
+
+                    path[node_var] = Some(true);
+                    stack.push((self.high_link_of(node), Some(true)));
                 }
-                return;
-            }
-
-            let var = bdd.var_of(node);
-            let low = bdd.low_link_of(node);
-            let high = bdd.high_link_of(node);
-
-            // The zero checks are just to avoid the extra recursion step if it is clear that
-            // the result is safe to discard. The algorithm is still correct without them.
-
-            if !low.is_zero() {
-                path.set_value(var, false);
-                build_recursive(bdd, path, low, results);
-                path.unset_value(var);
-            }
-
-            if !high.is_zero() {
-                path.set_value(var, true);
-                build_recursive(bdd, path, high, results);
-                path.unset_value(var);
+            } else {
+                // Finally, both children are processed. We can remove the variable
+                // from the current path.
+                path.unset_value(node_var);
             }
         }
 
-        let mut result = Vec::new();
-        build_recursive(
-            self,
-            &mut BddPartialValuation::empty(),
-            self.root_pointer(),
-            &mut result,
-        );
-        result
+        results
     }
 }
