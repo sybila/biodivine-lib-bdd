@@ -186,6 +186,45 @@ impl Bdd {
         }
     }
 
+    /// Computes the number of satisfying clauses that are represented within this BDD.
+    ///
+    /// The result should correspond to the number of items returned by the [Bdd::sat_clauses]
+    /// iterator.
+    pub fn exact_clause_cardinality(&self) -> BigInt {
+        let zero = BigInt::from(0);
+        let one = BigInt::from(1);
+        if self.is_false() {
+            return zero;
+        }
+        let mut cache = vec![None; self.0.len()];
+        cache[0] = Some(zero);
+        cache[1] = Some(one.clone());
+        let mut stack: Vec<BddPointer> = vec![self.root_pointer()];
+        while let Some(node) = stack.last() {
+            if cache[node.0 as usize].is_some() {
+                stack.pop();
+            } else {
+                let low = self.low_link_of(*node);
+                let high = self.high_link_of(*node);
+                let low = low.0 as usize;
+                let high = high.0 as usize;
+
+                if let (Some(cache_low), Some(cache_high)) = (&cache[low], &cache[high]) {
+                    cache[node.0 as usize] = Some(cache_low + cache_high);
+                    stack.pop();
+                } else {
+                    if cache[low].is_none() {
+                        stack.push(BddPointer(low as u32));
+                    }
+                    if cache[high].is_none() {
+                        stack.push(BddPointer(high as u32));
+                    }
+                }
+            }
+        }
+        cache.last().cloned().flatten().unwrap()
+    }
+
     /// If the `Bdd` is satisfiable, return some `BddValuation` that satisfies the `Bdd`.
     pub fn sat_witness(&self) -> Option<BddValuation> {
         if self.is_false() {
@@ -535,6 +574,19 @@ mod tests {
         // 5 variables, v3 & !v4
         let bdd = mk_small_test_bdd();
         assert_eq!(BigInt::from(8), bdd.exact_cardinality());
+    }
+
+    #[test]
+    fn bdd_exact_clause_cardinality() {
+        // 5 variables, v3 & !v4
+        let bdd = mk_small_test_bdd();
+        assert_eq!(BigInt::from(1), bdd.exact_clause_cardinality());
+        let vars = BddVariableSet::new_anonymous(5);
+        let bdd = vars.eval_expression_string("x_0 & (x_1 | x_2) & (x_0 => x_4)");
+        assert_eq!(
+            BigInt::from(bdd.sat_clauses().count()),
+            bdd.exact_clause_cardinality()
+        );
     }
 
     #[test]
