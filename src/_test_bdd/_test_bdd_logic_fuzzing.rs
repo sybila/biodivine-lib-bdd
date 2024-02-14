@@ -149,10 +149,14 @@ const FUZZ_SEEDS: [u64; 10] = [
     1, 12, 123, 1234, 12345, 123456, 1234567, 12345678, 123456789, 1234567890,
 ];
 
-fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) {
+fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) -> bool {
     let universe = BddVariableSet::new_anonymous(num_vars);
     let op_tree = BddOpTree::new_random(tree_height, num_vars, seed);
     let eval = op_tree.eval_in(&universe);
+
+    if eval.is_true() || eval.is_false() {
+        return false;
+    }
 
     for valuation in ValuationsOfClauseIterator::new_unconstrained(num_vars) {
         assert_eq!(
@@ -162,40 +166,92 @@ fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) {
             valuation
         );
     }
+
+    let dnf = eval.to_dnf();
+    let cnf = eval.to_cnf();
+    let dnf_o = eval.to_optimized_dnf();
+
+    assert!(dnf_o.len() <= dnf.len());
+
+    assert!(universe.mk_dnf(&dnf).iff(&eval).is_true());
+    assert!(universe.mk_dnf(&dnf_o).iff(&eval).is_true());
+    assert!(universe.mk_cnf(&cnf).iff(&eval).is_true());
+
+    true
 }
 
 #[test]
 fn fuzz_var_2() {
+    let mut non_trivial = 0;
+
     for height in 1..10 {
         for seed in FUZZ_SEEDS.iter() {
-            fuzz_test(2, height, *seed);
+            if fuzz_test(2, height, *seed) {
+                non_trivial += 1;
+            }
         }
     }
+
+    println!(
+        "Check {}/{} non-trivial BDDs.",
+        non_trivial,
+        9 * FUZZ_SEEDS.len()
+    );
 }
 
 #[test]
 fn fuzz_var_4() {
+    let mut non_trivial = 0;
+
     for height in 1..10 {
         for seed in FUZZ_SEEDS.iter() {
-            fuzz_test(4, height, *seed);
+            if fuzz_test(4, height, *seed) {
+                non_trivial += 1;
+            }
         }
     }
+
+    println!(
+        "Check {}/{} non-trivial BDDs.",
+        non_trivial,
+        9 * FUZZ_SEEDS.len()
+    );
 }
 
 #[test]
 fn fuzz_var_8() {
+    let mut non_trivial = 0;
+
     for height in 1..10 {
         for seed in FUZZ_SEEDS.iter() {
-            fuzz_test(8, height, *seed);
+            if fuzz_test(8, height, *seed) {
+                non_trivial += 1;
+            }
         }
     }
+
+    println!(
+        "Check {}/{} non-trivial BDDs.",
+        non_trivial,
+        9 * FUZZ_SEEDS.len()
+    );
 }
 
 #[test]
 fn fuzz_var_12() {
+    let mut non_trivial = 0;
+
     for height in 1..10 {
         for seed in FUZZ_SEEDS.iter() {
-            fuzz_test(12, height, *seed);
+            if fuzz_test(12, height, *seed) {
+                non_trivial += 1;
+            }
         }
     }
+
+    println!(
+        "Check {}/{} non-trivial BDDs.",
+        non_trivial,
+        9 * FUZZ_SEEDS.len()
+    );
 }

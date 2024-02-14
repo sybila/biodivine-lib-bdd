@@ -134,4 +134,80 @@ impl Bdd {
 
         results
     }
+
+    /// Similar to [Bdd::to_dnf], but uses a quadratic optimization algorithm to greedily
+    /// minimize the number of clauses in the final normal form.
+    ///
+    /// For very large BDDs, this can require a lot of computation time. However, in such cases,
+    /// [Bdd::to_dnf] is likely not going to yield good results either.
+    ///
+    /// Currently, there is no "iterator" variant of this algorithm that would generate the DNF
+    /// on-the-fly. But it should be relatively straightforward, so if you need it, please get
+    /// in touch.
+    pub fn to_optimized_dnf(&self) -> Vec<BddPartialValuation> {
+        self._to_optimized_dnf(&|| Ok::<(), ()>(())).unwrap()
+    }
+
+    /// A cancellable variant of [Bdd::to_optimized_dnf].
+    pub fn _to_optimized_dnf<E, I: Fn() -> Result<(), E>>(
+        &self,
+        interrupt: &I,
+    ) -> Result<Vec<BddPartialValuation>, E> {
+        if self.is_false() {
+            return Ok(Vec::new());
+        }
+        if self.is_true() {
+            return Ok(vec![BddPartialValuation::empty()]);
+        }
+
+        fn _rec<E, I: Fn() -> Result<(), E>>(
+            bdd: &Bdd,
+            clause: &mut BddPartialValuation,
+            results: &mut Vec<BddPartialValuation>,
+            interrupt: &I,
+        ) -> Result<(), E> {
+            if bdd.is_false() {
+                return Ok(());
+            }
+
+            if bdd.is_true() {
+                results.push(clause.clone());
+                return Ok(());
+            }
+
+            let mut support = Vec::from_iter(bdd.support_set());
+            support.sort();
+
+            assert!(!support.is_empty());
+
+            let mut best = (support[0], usize::MAX);
+
+            for var in support {
+                interrupt()?;
+
+                let bdd_t = bdd.var_restrict(var, true);
+                let bdd_f = bdd.var_restrict(var, false);
+                let size = bdd_t.size() + bdd_f.size();
+                if size < best.1 {
+                    best = (var, size);
+                }
+            }
+
+            let (var, _) = best;
+
+            clause[var] = Some(true);
+            _rec(&bdd.var_restrict(var, true), clause, results, interrupt)?;
+            clause[var] = Some(false);
+            _rec(&bdd.var_restrict(var, false), clause, results, interrupt)?;
+            clause[var] = None;
+
+            Ok(())
+        }
+
+        let mut buffer = BddPartialValuation::empty();
+        let mut results = Vec::new();
+        _rec(self, &mut buffer, &mut results, interrupt)?;
+
+        Ok(results)
+    }
 }
