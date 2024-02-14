@@ -6,7 +6,7 @@ use std::cmp::max;
 impl Bdd {
     /// Return the lexicographically first satisfying valuation of this `Bdd`.
     ///
-    /// (In this context, lexicographically means `0 < 1`, with greatest variable id
+    /// (In this context, lexicographically means `0 < 1`, with the greatest variable id
     /// being the most significant).
     pub fn first_valuation(&self) -> Option<BddValuation> {
         if self.is_false() {
@@ -29,7 +29,7 @@ impl Bdd {
 
     /// Return the lexicographically last satisfying valuation of this `Bdd`.
     ///
-    /// (In this context, lexicographically means `0 < 1`, with greatest variable id
+    /// (In this context, lexicographically means `0 < 1`, with the greatest variable id
     /// being the most significant).
     pub fn last_valuation(&self) -> Option<BddValuation> {
         if self.is_false() {
@@ -427,7 +427,7 @@ impl Bdd {
                     (var_id + 1)..high_link_var_id
                 } else {
                     seen_any[var_id] = true;
-                    (var_id)..max(high_link_var_id, low_link_var_id)
+                    var_id..max(high_link_var_id, low_link_var_id)
                 };
 
                 if range.contains(&var) {

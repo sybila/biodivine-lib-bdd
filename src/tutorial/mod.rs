@@ -1,4 +1,4 @@
-//! This is a documentation-only module with several sub-modules describing how to use
+//! This is a documentation-only module with several submodules describing how to use
 //! this crate.
 //!
 //! Table of contents:

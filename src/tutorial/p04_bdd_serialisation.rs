@@ -11,7 +11,7 @@
 //!
 //! ## `String` serialisation
 //!
-//! Given a `Bdd`, we can create a string where each node is serialized as three
+//! Given a `Bdd`, we can create a string where each node is serialised as three
 //! numbers, `variable,low_link,high_link` and nodes are written as present in the `Bdd`
 //! array, separated by `|`:
 //!

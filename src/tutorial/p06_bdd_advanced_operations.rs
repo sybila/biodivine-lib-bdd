@@ -27,12 +27,12 @@
 //! This is essentially the same as executing `Bdd.and` with an appropriate
 //! `BddVariableSet.mk_literal` as argument. However, aside from `Bdd.var_select`,
 //! there is also `Bdd.select` which accepts multiple variables and executes as a single
-//! symbolic operation. Hence it is more efficient than calling `Bdd.and` repeatedly
+//! symbolic operation. Hence, it is more efficient than calling `Bdd.and` repeatedly
 //! for multiple variables.
 //!
 //! Note that (contrary to how selection usually works in relational algebras), the selected
 //! variables remain in the `Bdd`. In a relational algebra, a selection on `x` typically results
-//! in a set of vectors that do not contain `x` any more (since the value is fixed). Here, the
+//! in a set of vectors that do not contain `x` anymore (since the value is fixed). Here, the
 //! resulting `Bdd` still conditions on variable `x`, but it always requires `x` to have
 //! the value specified during selection.
 //!
@@ -48,7 +48,7 @@
 //! First, a "logical" approach says that a projection of a BDD through variable `x` is equivalent
 //! to existential quantification in first order logic. So, if `B` is a BDD, and $\varphi$ is
 //! a formula that is represented by `B`, then `B' = B.var_exists(x)` represents a formula
-//! $\varphi' = \exists x. \varphi$. Consequently `B'` does not depend on variable `x` in any
+//! $\varphi' = \exists x. \varphi$. Consequently, `B'` does not depend on variable `x` in any
 //! way. Which leads us to the second explanation.
 //!
 //! A "relational" approach says that projection is elimination. If we see the BDD `B` as
@@ -81,8 +81,8 @@
 //!
 //! In some applications (e.g. model checking), a combination of logical operation and projection
 //! is used to implement things like successor computation. In `lib-bdd`, we provide this
-//! functionality through `Bdd.apply_with_exists`, `Bdd.apply_with_for_all`, or `Bdd.nested_apply`
-//! in general (however, `nested_apply` is beyond the scope of this tutorial.
+//! functionality through `Bdd.apply_with_exists`, `Bdd.apply_with_for_all`, or `Bdd.nested_apply`.
+//! However, `nested_apply` is beyond the scope of this tutorial.
 //!
 //! ```rust
 //! use biodivine_lib_bdd::{Bdd, BddVariableSet};
@@ -102,7 +102,7 @@
 //! assert_eq!(two_operations, one_operation);
 //! ```
 //!
-//! Right now, we don't have specialized variants for each logical operator (e.g. `or_with_exists`),
+//! Right now, we don't have specialised variants for each logical operator (e.g. `or_with_exists`),
 //! mainly to keep the API reasonably concise (you can find functions for all common operators
 //! in the `op_function` module). However, a PR adding common operations is welcome
 //! as long as the author is willing to write the tests for these operations :)
@@ -116,7 +116,7 @@
 //! Say that `V` and `V'` are both satisfying valuations of a BDD `B`, and they are equivalent
 //! except that `V(x) = true` and `V(x) = false`. Then, if `B' = B.var_pick(x)`, `V'` will be
 //! a satisfying valuation of `B'`, but not `V`. That is, `B'` just *picked* one of the two
-//! valuations. If only one of `V` and `V'` satisfies `B`, the operation will retain the one
+//! valuations. If only one of `V_1` and `V_2` satisfies `B`, the operation will retain the one
 //! satisfying valuation (i.e. again, *picks* the appropriate satisfying valuation out of the two).
 //!
 //! However, for pick operation, there is an important distinction. Whereas

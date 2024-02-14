@@ -39,7 +39,7 @@
 //! ## Encoding BDD in an array
 //!
 //! While BDD is a graph, it would be wasteful to store each node of the BDD as a separate memory
-//! object requiring allocations and book keeping. Instead, we sort nodes in each BDD in the
+//! object requiring allocations and bookkeeping. Instead, we sort nodes in each BDD in the
 //! DFS post-order (taking low edge first and high edge second, although this decision is arbitrary)
 //! of the graph and this way, we can easily save them as a sequence in an array. The only
 //! exception are the two terminal nodes which we always place on positions 0 and 1
@@ -57,5 +57,5 @@
 //!
 //! Notice that the edge pointers are now indices into the array itself instead of memory
 //! references. This also allows certain memory optimisations (for "small" BDDs, the pointers
-//! only need to be 32 bits even on 64 bit platforms, etc.). Also, such representation is trivial
+//! only need to be 32 bits even on 64-bit platforms, etc.). Also, such representation is trivial
 //! to serialize, deserialize or share, since we can just clone the whole array if needed.

@@ -51,16 +51,16 @@
 //! Notice that if something goes wrong, `eval_expression_string` panics. If you want to use
 //! the same expression repeatedly or allow the user to enter their own expressions, you can parse
 //! the expression safely using `BooleanExpression::try_from` and then use `safe_eval_expression`.
-//! This will give you a human readable error when the parsing fails or there are invalid variables
+//! This will give you a human-readable error when the parsing fails or there are invalid variables
 //! in the expression.
 //!
 //! ## `bdd` macro
 //!
 //! When using expressions, you can't reuse existing `Bdd`s - specifically, expressions are
-//! awesome when creating small, self contained examples but don't work very well if you need
+//! awesome when creating small, self-contained examples but don't work very well if you need
 //! to pass `Bdd`s around and manipulate them.
 //!
-//! For this, you can use the `bdd` macro. Unfortunately, rust macro system is a bit more strict,
+//! For this, you can use the `bdd` macro. Unfortunately, rust macro system is a bit stricter,
 //! hence macros are not as permissive as expressions, but they still allow a fair amount of
 //! succinctness.
 //!

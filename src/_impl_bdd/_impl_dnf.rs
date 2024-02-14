@@ -26,7 +26,7 @@ impl Bdd {
             // The loop will automatically skip variables that are not relevant for the validity
             // of the provided DNF. This should significantly decrease the risk of stack overflow,
             // since we only run recursion when it is reasonably likely that we actually need to
-            // condition on the specific variable. Otherwise the variable is just skipped, since
+            // condition on the specific variable. Otherwise, the variable is just skipped, since
             // we would get `low == high` anyway.
             loop {
                 if variable == num_vars {

@@ -4,12 +4,12 @@
 //! each leaf is a random BDD variable and each tree node represents one
 //! binary boolean operation, possibly negated.
 //!
-//! Hence each tree is just a Boolean formula. We can produce a BDD for this
+//! Hence, each tree is just a Boolean formula. We can produce a BDD for this
 //! formula and exhaustively check whether all valuations actually match the
 //! result expected by the op tree. To get predictable test cases, we use
 //! a predefined set of randomness seeds.
 //!
-//! Of course, this gets pretty slow pretty fast, so we usually test only up
+//! Of course, this gets pretty slow quite fast, so we usually test only up
 //! to 12 variables. However, the process can be easily configured for much
 //! larger universes if needed. It can be actually a good source for a benchmark.
 //! Although, for a benchmark, it might be better to generate the tree on the

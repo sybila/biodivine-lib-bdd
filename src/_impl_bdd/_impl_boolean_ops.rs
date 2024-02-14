@@ -116,7 +116,7 @@ impl Bdd {
     /// A flip exchanges the edges of all decision nodes with the specified variable `x`.
     /// As a result, the set of bitvectors represented by this Bdd has the value of `x` negated.
     ///
-    /// With this operation, you can apply such flip to both input operands as well as the output
+    /// With this operation, you can apply such flip to both input operands and the output
     /// Bdd. This can greatly simplify implementation of state space generators for asynchronous
     /// systems.
     pub fn fused_binary_flip_op<T>(

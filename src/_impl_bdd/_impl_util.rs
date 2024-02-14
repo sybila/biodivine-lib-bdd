@@ -510,7 +510,7 @@ impl Bdd {
     ///
     /// This should be equivalent to the expression `exists var. (function <=> var) and self`.
     ///
-    /// Also note that the output of the operation is not well defined when `function` depends
+    /// Also note that the output of the operation is not well-defined when `function` depends
     /// on `var` itself. However, the method will not fail.
     pub fn substitute(&self, var: BddVariable, function: &Bdd) -> Bdd {
         let var_bdd = Bdd::mk_literal(self.num_vars(), var, true);

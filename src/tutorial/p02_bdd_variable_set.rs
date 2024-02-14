@@ -30,7 +30,7 @@
 //!
 //! If you don't need the `BddVariable` objects right away and all variables are known beforehand
 //! (this may sound trivial, but sometimes different parts of your application can have different
-//! requirements regarding the variables and it is just simpler to let them manipulate the builder
+//! requirements regarding the variables, and it is just simpler to let them manipulate the builder
 //! directly instead of collecting all the variable names in one place),
 //! you can also skip the builder and just provide the names explicitly:
 //!

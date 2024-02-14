@@ -334,7 +334,7 @@ where
                     new_low
                 } else {
                     // There is a decision here. If the decision passes the `trigger`, we
-                    // should merge the results using an inner task. Otherwise create a normal node.
+                    // should merge the results using an inner task. Otherwise, create a normal node.
                     if trigger(decision_var) {
                         // Merge the two child nodes as an "inner task".
                         let inner_result = inner_apply(
@@ -455,7 +455,7 @@ mod tests {
             &mut task_cache,
             crate::op_function::or,
         );
-        // But we need to re-align the BDD afterwards.
+        // But we need to re-align the BDD afterward.
         let test_bdd = fix_bdd_alignment(&test_bdd, new_root);
 
         let expected_bdd = bdd.var_exists(BddVariable(0));

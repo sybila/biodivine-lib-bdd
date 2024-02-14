@@ -49,7 +49,7 @@ impl Bdd {
     /// a specific relation.
     ///
     /// Note that this method should be faster than repeated calls to `var_exists` once
-    /// the size of `variables` is non trivial, but it has a higher overhead. So for very small
+    /// the size of `variables` is non-trivial, but it has a higher overhead. So for very small
     /// instances the performance advantage may not be very high.
     pub fn exists(&self, variables: &[BddVariable]) -> Bdd {
         // x & x is simply identity
@@ -152,8 +152,8 @@ impl Bdd {
     /// Fixes a `variable` to the given `value`, and then eliminates said variable using
     /// existential projection.
     ///
-    /// A valuation `v` satisfies the resulting formula `B'` if and only if `v[variable = value]`
-    /// satisfied the original formula `B`.
+    /// A valuation `v` satisfies the resulting formula `B_2` if and only if `v[variable = value]`
+    /// satisfied the original formula `B_1`.
     pub fn var_restrict(&self, variable: BddVariable, value: bool) -> Bdd {
         let value_literal = Bdd::mk_literal(self.num_vars(), variable, value);
         // TODO:

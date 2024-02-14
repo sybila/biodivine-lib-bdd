@@ -222,7 +222,7 @@ impl BddVariableSet {
 
     /// Build a BDD that is satisfied by all valuations where *exactly* $k$ `variables` are `true`.
     ///
-    /// Intuitively, this implements a "equality function" $f(x) = (\sum_{i} x_i = k)$
+    /// Intuitively, this implements an "equality function" $f(x) = (\sum_{i} x_i = k)$
     /// over the given `variables`.
     pub fn mk_sat_exactly_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
         // This is based on the recursion SAT_k = \cup_{v} SAT_{k-1}[flip v].
@@ -268,7 +268,7 @@ impl BddVariableSet {
     ///     [BddVariableSet].
     ///
     pub fn transfer_from(&self, bdd: &Bdd, ctx: &BddVariableSet) -> Option<Bdd> {
-        // Its easier to handle constants explicitly.
+        // It's easier to handle constants explicitly.
         if bdd.is_false() {
             return Some(self.mk_false());
         }

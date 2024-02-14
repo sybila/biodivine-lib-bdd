@@ -6,7 +6,7 @@
 //! ## Iterators
 //!
 //! Most straightforward way is to list all valuations directly. Of course, this operation
-//! can be very time consuming for a large `Bdd`. But if `Bdd.cardinality()` is sufficiently small,
+//! can be very time-consuming for a large `Bdd`. But if `Bdd.cardinality()` is sufficiently small,
 //! it is possible to enumerate all valuations of a `Bdd`:
 //!
 //! ```rust
@@ -72,7 +72,7 @@
 //!  - Similarly, `Bdd.first_clause` and `Bdd.last_clause` will give you the first and last path
 //! satisfying path.
 //!  - `Bdd.most_positive_valuation` and `Bdd.most_negative_valuation` return the valuations
-//! with highest amount of positive/negative literals.
+//! with the highest amount of positive/negative literals.
 //!  - `Bdd.most_fixed_clause` and `Bdd.most_free_clause` wil give you satisfying paths with
 //! greatest and least amount of fixed variables respectively.
 //!  - `Bdd.random_valuation` and `Bdd.random_clause` allow selecting valuation/clause using

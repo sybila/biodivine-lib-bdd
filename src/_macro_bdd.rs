@@ -5,7 +5,7 @@ use crate::{Bdd, BddVariable, BddVariableSet, IntoBdd};
 /// Sadly, except for the very top expression, every level needs to be enclosed
 /// in parentheses since rust macros cannot parse complex expressions with
 /// potential ambiguities. You can't write `x & y & z`, you have to use `(x & y) & z`.
-/// Also `!x & z` is not permitted, you have to use `(!x) & z`.
+/// Also, `!x & z` is not permitted, you have to use `(!x) & z`.
 ///
 /// See tutorial for usage examples.
 #[macro_export]

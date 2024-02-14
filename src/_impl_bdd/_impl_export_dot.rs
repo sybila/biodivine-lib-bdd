@@ -54,7 +54,7 @@ fn write_bdd_as_dot(
     writeln!(output, "init__ -> {};", bdd.root_pointer())?;
 
     /*
-       Fortunately, it seem that .dot does not care about ordering of graph elements,
+       Fortunately, it seems that .dot does not care about ordering of graph elements,
        so we can just go through the BDD and print it as is.
 
        Note that for BDD slices, this can output unused nodes, but we don't support slices yet anyway.
