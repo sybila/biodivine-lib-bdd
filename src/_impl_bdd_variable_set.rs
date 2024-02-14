@@ -1,20 +1,17 @@
 use super::*;
-use std::convert::TryFrom;
+
+impl AsRef<BddVariableSet2<String>> for BddVariableSet {
+    fn as_ref(&self) -> &BddVariableSet2<String> {
+        &self.inner
+    }
+}
 
 impl BddVariableSet {
     /// Create a new `BddVariableSet` with anonymous variables $(x_0, \ldots, x_n)$ where $n$ is
     /// the `num_vars` parameter.
     pub fn new_anonymous(num_vars: u16) -> BddVariableSet {
-        if num_vars >= (u16::MAX - 1) {
-            panic!(
-                "Too many BDD variables. There can be at most {} variables.",
-                u16::MAX - 1
-            )
-        }
         BddVariableSet {
-            num_vars,
-            var_names: (0..num_vars).map(|i| format!("x_{}", i)).collect(),
-            var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect(),
+            inner: BddVariableSet2::<String>::new_anonymous(num_vars),
         }
     }
 
@@ -23,40 +20,42 @@ impl BddVariableSet {
     ///
     /// *Panics:* `vars` must contain unique names which are allowed as variable names.
     pub fn new(vars: &[&str]) -> BddVariableSet {
-        let mut builder = BddVariableSetBuilder::new();
-        builder.make_variables(vars);
-        builder.build()
+        BddVariableSet {
+            inner: BddVariableSet2::<String>::new(
+                &vars.iter().map(|it| it.to_string()).collect::<Vec<_>>(),
+            ),
+        }
     }
 
     /// Return the number of variables in this set.
     pub fn num_vars(&self) -> u16 {
-        self.num_vars
+        self.inner.num_vars()
     }
 
     /// Create a `BddVariable` based on a variable name. If the name does not appear
     /// in this set, return `None`.
     pub fn var_by_name(&self, name: &str) -> Option<BddVariable> {
-        self.var_index_mapping.get(name).cloned().map(BddVariable)
+        self.inner.find_variable(&name.to_string())
     }
 
     /// Provides a vector of all `BddVariable`s in this set.
     pub fn variables(&self) -> Vec<BddVariable> {
-        (0..self.num_vars).map(BddVariable).collect()
+        self.inner.variables()
     }
 
     /// Obtain the name of a specific `BddVariable`.
     pub fn name_of(&self, variable: BddVariable) -> String {
-        self.var_names[variable.0 as usize].clone()
+        self.inner.get_variable(variable).clone()
     }
 
     /// Create a `Bdd` corresponding to the `true` formula.
     pub fn mk_true(&self) -> Bdd {
-        Bdd::mk_true(self.num_vars)
+        self.inner.mk_true()
     }
 
     /// Create a `Bdd` corresponding to the `false` formula.
     pub fn mk_false(&self) -> Bdd {
-        Bdd::mk_false(self.num_vars)
+        self.inner.mk_false()
     }
 
     /// Create a `Bdd` corresponding to the $v$ formula where `v` is a specific variable in
@@ -64,8 +63,7 @@ impl BddVariableSet {
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_var(&self, var: BddVariable) -> Bdd {
-        debug_assert!(var.0 < self.num_vars, "Invalid variable id.");
-        Bdd::mk_var(self.num_vars, var)
+        self.inner.mk_var(var)
     }
 
     /// Create a BDD corresponding to the $\neg v$ formula where `v` is a specific variable in
@@ -73,34 +71,28 @@ impl BddVariableSet {
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_not_var(&self, var: BddVariable) -> Bdd {
-        debug_assert!(var.0 < self.num_vars, "Invalid variable id.");
-        Bdd::mk_not_var(self.num_vars, var)
+        self.inner.mk_not_var(var)
     }
 
     /// Create a BDD corresponding to the $v <=> \texttt{value}$ formula.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_literal(&self, var: BddVariable, value: bool) -> Bdd {
-        debug_assert!(var.0 < self.num_vars, "Invalid variable id.");
-        Bdd::mk_literal(self.num_vars, var, value)
+        self.inner.mk_literal(var, value)
     }
 
     /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_var_by_name(&self, var: &str) -> Bdd {
-        self.var_by_name(var)
-            .map(|var| self.mk_var(var))
-            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var))
+        self.inner.mk_var_by_ref(&var.to_string())
     }
 
     /// Create a BDD corresponding to the $\neg v$ formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
-        self.var_by_name(var)
-            .map(|var| self.mk_not_var(var))
-            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var))
+        self.inner.mk_not_var_by_ref(&var.to_string())
     }
 
     /// Create a `Bdd` corresponding to the conjunction of literals in the given
@@ -111,30 +103,7 @@ impl BddVariableSet {
     ///
     /// *Panics:* All variables in the partial valuation must belong into this set.
     pub fn mk_conjunctive_clause(&self, clause: &BddPartialValuation) -> Bdd {
-        let mut result = self.mk_true();
-        // It is important to iterate in this direction, otherwise we are going to mess with
-        // variable ordering.
-        for (index, value) in clause.0.iter().enumerate().rev() {
-            if let Some(value) = value {
-                assert!(index < self.num_vars as usize);
-                // This is safe because valuation cannot contain larger indices due to the way
-                // it is constructed.
-                debug_assert!(u16::try_from(index).is_ok());
-                let variable = BddVariable(index as u16);
-
-                let node = if *value {
-                    // Value is true, so high link "continues", and low link goes to zero.
-                    BddNode::mk_node(variable, BddPointer::zero(), result.root_pointer())
-                } else {
-                    // Value is false, so low link "continues", and high link goes to zero.
-                    BddNode::mk_node(variable, result.root_pointer(), BddPointer::zero())
-                };
-
-                result.push_node(node);
-            }
-        }
-
-        result
+        self.inner.mk_conjunctive_clause(clause)
     }
 
     /// Create a `Bdd` corresponding to the disjunction of literals in the given
@@ -145,48 +114,21 @@ impl BddVariableSet {
     ///
     /// *Panics:* All variables in the valuation must belong into this set.
     pub fn mk_disjunctive_clause(&self, clause: &BddPartialValuation) -> Bdd {
-        // See `mk_conjunctive_clause`, for details.
-        if clause.is_empty() {
-            return self.mk_false();
-        }
-
-        let mut result = self.mk_true();
-        // Problem with this algorithm is that in the first iteration, we want to consider
-        // zero as the root instead of one. So we use a variable which is pre-set in the
-        // first iteration but will evaluate to real root in later iterations.
-        let mut shadow_root = BddPointer::zero();
-        for (index, value) in clause.0.iter().enumerate().rev() {
-            if let Some(value) = value {
-                assert!(index < self.num_vars as usize);
-                debug_assert!(u16::try_from(index).is_ok());
-                let variable = BddVariable(index as u16);
-
-                let node = if *value {
-                    BddNode::mk_node(variable, shadow_root, BddPointer::one())
-                } else {
-                    BddNode::mk_node(variable, BddPointer::one(), shadow_root)
-                };
-
-                result.push_node(node);
-                shadow_root = result.root_pointer();
-            }
-        }
-
-        result
+        self.inner.mk_disjunctive_clause(clause)
     }
 
     /// Interpret each `BddPartialValuation` in `cnf` as a disjunctive clause, and produce
     /// a conjunction of such clauses. Effectively, this constructs a formula based on its
     /// conjunctive normal form.
     pub fn mk_cnf(&self, cnf: &[BddPartialValuation]) -> Bdd {
-        Bdd::mk_cnf(self.num_vars, cnf)
+        self.inner.mk_cnf(cnf)
     }
 
     /// Interpret each `BddPartialValuation` in `dnf` as a conjunctive clause, and produce
     /// a disjunction of such clauses. Effectively, this constructs a formula based on its
     /// disjunctive normal form.
     pub fn mk_dnf(&self, dnf: &[BddPartialValuation]) -> Bdd {
-        Bdd::mk_dnf(self.num_vars, dnf)
+        self.inner.mk_dnf(dnf)
     }
 
     /// Build a BDD that is satisfied by all valuations where *up to* $k$ `variables` are `true`.
@@ -194,30 +136,7 @@ impl BddVariableSet {
     /// Intuitively, this implements a "threshold function" $f(x) = (\sum_{i} x_i \leq k)$
     /// over the given `variables`.
     pub fn mk_sat_up_to_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
-        // This is the same as sat_exactly_k, we just carry the k-1 result over to the next round.
-        let mut valuation = BddPartialValuation::empty();
-        for var in variables {
-            valuation.set_value(*var, false);
-        }
-        let mut result = self.mk_conjunctive_clause(&valuation);
-        for _i in 0..k {
-            let mut result_plus_one = result.clone();
-            for var in variables {
-                let var_is_false = self.mk_not_var(*var);
-                // result = result | flip(var, k_minus_one and var_is_false)
-                let propagate = Bdd::fused_binary_flip_op(
-                    (&result, None),
-                    (&var_is_false, None),
-                    Some(*var),
-                    op_function::and,
-                );
-                result_plus_one = result_plus_one.or(&propagate);
-            }
-
-            result = result_plus_one
-        }
-
-        result
+        self.inner.mk_sat_up_to_k(k, variables)
     }
 
     /// Build a BDD that is satisfied by all valuations where *exactly* $k$ `variables` are `true`.
@@ -225,30 +144,7 @@ impl BddVariableSet {
     /// Intuitively, this implements an "equality function" $f(x) = (\sum_{i} x_i = k)$
     /// over the given `variables`.
     pub fn mk_sat_exactly_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
-        // This is based on the recursion SAT_k = \cup_{v} SAT_{k-1}[flip v].
-        let mut valuation = BddPartialValuation::empty();
-        for var in variables {
-            valuation.set_value(*var, false);
-        }
-        let mut result = self.mk_conjunctive_clause(&valuation);
-        for _i in 0..k {
-            let mut result_plus_one = self.mk_false();
-            for var in variables {
-                let var_is_false = self.mk_not_var(*var);
-                // result = result | flip(var, k_minus_one and var_is_false)
-                let propagate = Bdd::fused_binary_flip_op(
-                    (&result, None),
-                    (&var_is_false, None),
-                    Some(*var),
-                    op_function::and,
-                );
-                result_plus_one = result_plus_one.or(&propagate);
-            }
-
-            result = result_plus_one
-        }
-
-        result
+        self.inner.mk_sat_exactly_k(k, variables)
     }
 
     /// This function takes a [Bdd] `bdd` together with its [BddVariableSet] `ctx` and attempts
@@ -268,58 +164,7 @@ impl BddVariableSet {
     ///     [BddVariableSet].
     ///
     pub fn transfer_from(&self, bdd: &Bdd, ctx: &BddVariableSet) -> Option<Bdd> {
-        // It's easier to handle constants explicitly.
-        if bdd.is_false() {
-            return Some(self.mk_false());
-        }
-
-        if bdd.is_true() {
-            return Some(self.mk_true());
-        }
-
-        // Sorted variable IDs that are used in the "old" context.
-        let mut old_support_set = bdd.support_set().into_iter().collect::<Vec<_>>();
-        old_support_set.sort();
-
-        // Equivalent variable IDs in the "new" context.
-        let mut new_support_set = Vec::new();
-        for var in &old_support_set {
-            let name = ctx.name_of(*var);
-            let Some(id) = self.var_by_name(name.as_str()) else {
-                // The variable does not exist in the new context.
-                return None;
-            };
-            new_support_set.push(id);
-        }
-
-        // Test for ordering validity.
-        for i in 1..new_support_set.len() {
-            // If x[i] <= x[i-1], then the new vector is not sorted, meaning
-            // the variables exist, but cannot be safely renamed in this order.
-            if new_support_set[i] <= new_support_set[i - 1] {
-                return None;
-            }
-        }
-
-        // Make a translation map from old to new IDs.
-        let map = old_support_set
-            .into_iter()
-            .zip(new_support_set)
-            .collect::<HashMap<_, _>>();
-
-        // Now go through all the non-terminal nodes and copy them to the new BDD
-        // using the translated IDs. We don't have to change the links because we are not
-        // changing the BDD structure.
-        let mut new_bdd = Bdd::mk_true(self.num_vars);
-        for node in bdd.nodes().skip(2) {
-            let Some(new_var) = map.get(&node.var) else {
-                unreachable!()
-            };
-            let new_node = BddNode::mk_node(*new_var, node.low_link, node.high_link);
-            new_bdd.push_node(new_node);
-        }
-
-        Some(new_bdd)
+        self.inner.transfer_from(bdd, &ctx.inner)
     }
 }
 

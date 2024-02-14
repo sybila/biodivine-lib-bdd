@@ -270,7 +270,7 @@ impl Bdd {
         for node in 2..self.0.len() {
             // skip terminals
             let node_var = self.0[node].var;
-            let var_name = variables.var_names[node_var.0 as usize].clone();
+            let var_name = variables.inner.variables[node_var.0 as usize].clone();
 
             let low_link = self.0[node].low_link;
             let high_link = self.0[node].high_link;

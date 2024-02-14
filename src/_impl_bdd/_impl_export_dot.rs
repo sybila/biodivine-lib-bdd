@@ -15,7 +15,7 @@ impl Bdd {
         variables: &BddVariableSet,
         zero_pruned: bool,
     ) -> Result<(), std::io::Error> {
-        write_bdd_as_dot(output, self, &variables.var_names, zero_pruned)
+        write_bdd_as_dot(output, self, &variables.inner.variables, zero_pruned)
     }
 
     /// Convert this `Bdd` to a `.dot` string.
@@ -25,7 +25,7 @@ impl Bdd {
     /// If `zero_pruned` is true, edges leading to `zero` are not shown. This can greatly
     /// simplify the graph without losing information.
     pub fn to_dot_string(&self, variables: &BddVariableSet, zero_pruned: bool) -> String {
-        bdd_to_dot_string(self, &variables.var_names, zero_pruned)
+        bdd_to_dot_string(self, &variables.inner.variables, zero_pruned)
     }
 }
 

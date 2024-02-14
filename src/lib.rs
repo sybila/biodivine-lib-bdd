@@ -52,6 +52,8 @@
 //!
 
 use std::collections::{HashMap, HashSet};
+use std::fmt::Debug;
+use std::hash::Hash;
 
 pub mod boolean_expression;
 pub mod op_function;
@@ -84,6 +86,7 @@ mod _impl_bdd_variable;
 
 /// **(internal)** Implementation of the `BddVariableSet`.
 mod _impl_bdd_variable_set;
+mod _impl_bdd_variable_set_2;
 
 /// **(internal)** Implementation of the `BddVariableSetBuilder`.
 mod _impl_bdd_variable_set_builder;
@@ -171,9 +174,14 @@ pub struct ValuationsOfClauseIterator {
 /// Used to create new `Bdd`s for basic formulas.
 #[derive(Clone)]
 pub struct BddVariableSet {
+    inner: BddVariableSet2<String>,
+}
+
+#[derive(Clone, PartialEq, Eq)]
+pub struct BddVariableSet2<T: Clone + Eq + Hash + Debug> {
     num_vars: u16,
-    var_names: Vec<String>,
-    var_index_mapping: HashMap<String, u16>,
+    variables: Vec<T>,
+    var_index_mapping: HashMap<T, u16>,
 }
 
 /// Used to safely initialize `BddVariableSet`.

@@ -21,6 +21,10 @@ pub fn mk_5_variable_set() -> BddVariableSet {
     BddVariableSet::new(&["v1", "v2", "v3", "v4", "v5"])
 }
 
+pub fn mk_5_variable_set_2() -> BddVariableSet2<String> {
+    mk_5_variable_set().inner
+}
+
 pub fn load_expected_results(test_name: &str) -> String {
     return std::fs::read_to_string(format!("res/test_results/{}", test_name))
         .expect("Cannot open result file.");

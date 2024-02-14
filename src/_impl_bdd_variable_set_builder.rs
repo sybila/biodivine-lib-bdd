@@ -1,5 +1,4 @@
 use super::*;
-use std::collections::HashMap;
 use std::convert::TryInto;
 
 impl BddVariableSetBuilder {
@@ -53,16 +52,12 @@ impl BddVariableSetBuilder {
 
     /// Convert this builder to an actual variable set.
     pub fn build(self) -> BddVariableSet {
-        let mut mapping: HashMap<String, u16> = HashMap::new();
-        for name_index in 0..self.var_names.len() {
-            let name = self.var_names[name_index].clone();
-            mapping.insert(name, name_index as u16);
-        }
-        BddVariableSet {
-            num_vars: self.var_names.len() as u16,
-            var_names: self.var_names,
-            var_index_mapping: mapping,
-        }
+        let vars = self
+            .var_names
+            .iter()
+            .map(|it| it.as_str())
+            .collect::<Vec<_>>();
+        BddVariableSet::new(&vars)
     }
 }
 
