@@ -1,5 +1,7 @@
-use crate::{Bdd, BddPartialValuation, BddVariable};
+use crate::{Bdd, BddNode, BddPartialValuation, BddPointer, BddVariable};
+use fxhash::FxBuildHasher;
 use rand::Rng;
+use std::collections::HashMap;
 
 /// Advanced relation-like operations for `Bdd`s.
 impl Bdd {
@@ -155,19 +157,14 @@ impl Bdd {
     /// A valuation `v` satisfies the resulting formula `B_2` if and only if `v[variable = value]`
     /// satisfied the original formula `B_1`.
     pub fn var_restrict(&self, variable: BddVariable, value: bool) -> Bdd {
-        let value_literal = Bdd::mk_literal(self.num_vars(), variable, value);
-        // TODO:
-        //  We should test if this is actually faster than running self.var_select().exists().
-        Bdd::binary_op_with_exists(self, &value_literal, crate::op_function::and, &[variable])
+        self.restrict(&[(variable, value)])
     }
 
     /// Generalized operation to `var_restrict`. Allows fixing multiple Bdd variables and
     /// eliminating them at the same time.
     pub fn restrict(&self, variables: &[(BddVariable, bool)]) -> Bdd {
         let valuation = BddPartialValuation::from_values(variables);
-        let valuation_bdd = Bdd::mk_partial_valuation(self.num_vars(), &valuation);
-        let variables: Vec<BddVariable> = Vec::from_iter(variables.iter().map(|(x, _)| *x));
-        Bdd::binary_op_with_exists(self, &valuation_bdd, crate::op_function::and, &variables)
+        restriction(self, &valuation)
     }
 }
 
@@ -176,4 +173,93 @@ fn sorted(variables: &[BddVariable]) -> Vec<BddVariable> {
     let mut variables: Vec<BddVariable> = variables.to_vec();
     variables.sort();
     variables
+}
+
+// An internal function to perform a fast restriction operation. This relies on the fact
+// that subtrees of the eliminated variables do not have to be merged (like in a normal
+// existential projection), but a single subtree is kept instead.
+fn restriction(bdd: &Bdd, values: &BddPartialValuation) -> Bdd {
+    if bdd.is_true() || bdd.is_false() {
+        return bdd.clone();
+    }
+
+    let mut new_id: Vec<Option<BddPointer>> = vec![None; bdd.size()];
+    new_id[0] = Some(BddPointer::zero());
+    new_id[1] = Some(BddPointer::one());
+
+    let mut output = Bdd::mk_true(bdd.num_vars());
+
+    let mut node_cache: HashMap<BddNode, BddPointer, FxBuildHasher> =
+        HashMap::with_capacity_and_hasher(bdd.size(), FxBuildHasher::default());
+    node_cache.insert(BddNode::mk_zero(bdd.num_vars()), BddPointer::zero());
+    node_cache.insert(BddNode::mk_one(bdd.num_vars()), BddPointer::one());
+
+    let mut stack = vec![bdd.root_pointer()];
+    while let Some(top) = stack.pop() {
+        if new_id[top.to_index()].is_some() {
+            // Skip if already computed.
+            continue;
+        }
+
+        let top_var = bdd.var_of(top);
+        if let Some(value) = values[top_var] {
+            // The variable is restricted, hence only the relevant child is considered.
+            let link = if value {
+                bdd.high_link_of(top)
+            } else {
+                bdd.low_link_of(top)
+            };
+
+            let Some(new_link) = new_id[link.to_index()] else {
+                stack.push(top);
+                stack.push(link);
+                continue;
+            };
+
+            // Here, we do not have to create a node, because the variable is erased immediately.
+            new_id[top.to_index()] = Some(new_link);
+        } else {
+            // This variable is unrestricted. We just compute results for both children
+            // if they are unknown. Otherwise, we copy the node into the new BDD.
+            let low_link = bdd.low_link_of(top);
+            let high_link = bdd.high_link_of(top);
+
+            let Some(new_low_link) = new_id[low_link.to_index()] else {
+                stack.push(top);
+                stack.push(low_link);
+                continue;
+            };
+
+            let Some(new_high_link) = new_id[high_link.to_index()] else {
+                stack.push(top);
+                stack.push(high_link);
+                continue;
+            };
+
+            if new_high_link == new_low_link {
+                // If a redundant node is created, it is ignored.
+                new_id[top.to_index()] = Some(new_high_link);
+                continue;
+            }
+
+            let new_node = BddNode::mk_node(top_var, new_low_link, new_high_link);
+
+            if let Some(&node) = node_cache.get(&new_node) {
+                new_id[top.to_index()] = Some(node);
+            } else {
+                let node = BddPointer::from_index(output.size());
+                output.push_node(new_node);
+                node_cache.insert(new_node, node);
+                new_id[top.to_index()] = Some(node);
+            }
+        }
+    }
+
+    let new_root = new_id[bdd.root_pointer().to_index()].unwrap();
+    if new_root.is_zero() {
+        // This could happen if we do, for example, restrict(var, True) in a function `!var`.
+        return Bdd::mk_false(bdd.num_vars());
+    }
+
+    output
 }
