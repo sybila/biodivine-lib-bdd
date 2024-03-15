@@ -517,6 +517,62 @@ impl Bdd {
         let iff = var_bdd.iff(function);
         Bdd::binary_op_with_exists(self, &iff, op_function::and, &[var])
     }
+
+    /// Consume this [Bdd] and return a vector of BDD nodes that it represents.
+    pub fn to_nodes(self) -> Vec<BddNode> {
+        self.0
+    }
+
+    /// Create a [Bdd] from a "raw" list of nodes.
+    ///
+    /// The function does not require the input to be minimal/canonical, but the graph
+    /// must be a BDD: I.e. the terminal nodes must be correct, each non-terminal node
+    /// must reference existing nodes in the vector, and the edges must follow the variable
+    /// ordering.
+    pub fn from_nodes(data: &[BddNode]) -> Result<Bdd, String> {
+        if data.is_empty() {
+            return Err("No nodes".to_string());
+        }
+        if !data[0].is_zero() {
+            return Err("Node at position 0 must be the zero literal.".to_string());
+        }
+        if data.len() > 1 && !data[1].is_one() {
+            return Err("Node at position 1 must be the one literal".to_string());
+        }
+
+        let num_vars = data[0].var;
+        for node in data.iter().skip(2) {
+            if node.var >= num_vars {
+                return Err(format!("Invalid variable {:?} in {:?}.", node.var, node));
+            }
+            if node.low_link.to_index() >= data.len() {
+                return Err(format!(
+                    "Invalid low-link {:?} in {:?}.",
+                    node.low_link, node
+                ));
+            }
+            if node.high_link.to_index() >= data.len() {
+                return Err(format!(
+                    "Invalid high-link {:?} in {:?}.",
+                    node.high_link, node
+                ));
+            }
+            if data[node.low_link.to_index()].var < node.var {
+                return Err(format!(
+                    "Low link {:?} in {:?} breaks ordering.",
+                    node.low_link, node
+                ));
+            }
+            if data[node.high_link.to_index()].var < node.var {
+                return Err(format!(
+                    "Low link {:?} in {:?} breaks ordering.",
+                    node.high_link, node
+                ));
+            }
+        }
+
+        Ok(Bdd(data.to_vec()))
+    }
 }
 
 #[cfg(test)]
@@ -526,6 +582,47 @@ mod tests {
     use crate::*;
     use num_bigint::BigInt;
     use std::convert::TryFrom;
+
+    #[test]
+    fn node_conversion() {
+        let bdd = mk_small_test_bdd();
+
+        let nodes = bdd.clone().to_nodes();
+        assert_eq!(bdd, Bdd::from_nodes(&nodes).unwrap());
+
+        // Empty.
+        assert!(Bdd::from_nodes(&Vec::new()).is_err());
+        // Missing zero.
+        assert!(Bdd::from_nodes(&nodes[1..]).is_err());
+        // Missing one.
+        assert!(Bdd::from_nodes(&vec![nodes[0].clone(), nodes[2].clone()]).is_err());
+
+        let mut nodes = bdd.clone().to_nodes();
+        nodes[0].var = BddVariable(1);
+        nodes[1].var = BddVariable(1);
+        // Invalid variables.
+        assert!(Bdd::from_nodes(&nodes).is_err());
+
+        // Test with invalid high link.
+        let mut nodes = bdd.clone().to_nodes();
+        nodes[2].high_link = BddPointer::from_index(100);
+        assert!(Bdd::from_nodes(&nodes).is_err());
+
+        // Test with invalid low link.
+        let mut nodes = bdd.clone().to_nodes();
+        nodes[2].low_link = BddPointer::from_index(100);
+        assert!(Bdd::from_nodes(&nodes).is_err());
+
+        // Test broken ordering low link.
+        let mut nodes = bdd.clone().to_nodes();
+        nodes[2].low_link = BddPointer::from_index(3);
+        assert!(Bdd::from_nodes(&nodes).is_err());
+
+        // Test broken ordering high link.
+        let mut nodes = bdd.clone().to_nodes();
+        nodes[2].high_link = BddPointer::from_index(3);
+        assert!(Bdd::from_nodes(&nodes).is_err());
+    }
 
     #[test]
     fn bdd_impl() {

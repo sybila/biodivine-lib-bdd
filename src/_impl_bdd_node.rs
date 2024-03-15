@@ -33,31 +33,30 @@ impl BddNode {
     }
 }
 
+impl BddNode {
+    /// Check whether this node is *effectively* terminal.
+    ///
+    /// *Warning:* This does not mean the node is necessarily terminal, it might also just
+    /// point to a terminal node, effectively gaining its value. However, this should not
+    /// happen in minimized BDDs.
+    pub fn is_terminal(&self) -> bool {
+        self.low_link == self.high_link && (self.low_link.is_one() || self.low_link.is_zero())
+    }
+
+    /// Check whether this node is *effectively* one.
+    pub fn is_one(&self) -> bool {
+        self.is_terminal() && self.low_link.is_one()
+    }
+
+    /// Check whether this node is *effectively* zero.
+    pub fn is_zero(&self) -> bool {
+        self.is_terminal() && self.low_link.is_zero()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    /// Some basic methods used for testing.
-    impl BddNode {
-        /// Check whether this node is *effectively* terminal.
-        ///
-        /// *Warning:* This does not mean the node is necessarily terminal, it might also just
-        /// point to a terminal node, effectively gaining its value. However, this should not
-        /// happen in minimized BDDs.
-        pub fn is_terminal(&self) -> bool {
-            self.low_link == self.high_link && (self.low_link.is_one() || self.low_link.is_zero())
-        }
-
-        /// Check whether this node is *effectively* one.
-        pub fn is_one(&self) -> bool {
-            self.is_terminal() && self.low_link.is_one()
-        }
-
-        /// Check whether this node is *effectively* zero.
-        pub fn is_zero(&self) -> bool {
-            self.is_terminal() && self.low_link.is_zero()
-        }
-    }
 
     #[test]
     fn bdd_node_one() {
