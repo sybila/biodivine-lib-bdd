@@ -103,7 +103,7 @@ mod _test_util;
 
 /// **(internal)** Characters that cannot appear in the variable name
 /// (based on possible tokens in a boolean expression).
-const NOT_IN_VAR_NAME: [char; 9] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'];
+const NOT_IN_VAR_NAME: [char; 11] = ['!', '&', '|', '^', '=', '<', '>', '(', ')', '?', ':'];
 
 /// An array-based encoding of the binary decision diagram implementing basic logical operations.
 ///
