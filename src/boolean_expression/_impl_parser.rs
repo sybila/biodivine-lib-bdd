@@ -21,6 +21,8 @@ enum ExprToken {
     Xor,                    // '^'
     Imp,                    // '=>'
     Iff,                    // '<=>'
+    Colon,                  // ':'
+    QuestionMark,           // '?'
     Id(String),             // 'variable'
     Tokens(Vec<ExprToken>), // A block of tokens inside parentheses
 }
@@ -47,6 +49,8 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
             '&' => output.push(ExprToken::And),
             '|' => output.push(ExprToken::Or),
             '^' => output.push(ExprToken::Xor),
+            ':' => output.push(ExprToken::Colon),
+            '?' => output.push(ExprToken::QuestionMark),
             '=' => {
                 if Some('>') == data.next() {
                     output.push(ExprToken::Imp);
@@ -128,13 +132,40 @@ fn iff(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
 fn imp(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let imp_token = index_of_first(data, ExprToken::Imp);
     Ok(if let Some(imp_token) = imp_token {
-        Box::new(Imp(or(&data[..imp_token])?, imp(&data[(imp_token + 1)..])?))
+        Box::new(Imp(
+            cond(&data[..imp_token])?,
+            imp(&data[(imp_token + 1)..])?,
+        ))
     } else {
-        or(data)?
+        cond(data)?
     })
 }
 
-/// **(internal)** Recursive parsing step 3: extract `|` operators.
+/// **(internal)** Recursive parsing step 3: extract `cond ? then_expr : else_expr` operators.
+///
+/// + Vaild: `(cond1 ? then_expr1 : else_expr1) + (cond2 ? then_expr2 : else_expr2)`
+///
+/// + Vaild: `(cond1 ? then_expr1 : else_expr1) + cond2 ? then_expr2 : else_expr2`
+///
+/// + Vaild: `cond1 ? then_expr1 : else_expr1 + (cond2 ? then_expr2 : else_expr2)`
+///
+/// + Invalid: `cond1 ? then_expr1 : cond2 ? then_expr2 : else_expr2`
+fn cond(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
+    let question_token = index_of_first(data, ExprToken::QuestionMark);
+    let colon_token = index_of_first(data, ExprToken::Colon);
+    match (question_token, colon_token) {
+        (None, None) => or(data),
+        (Some(question_token), Some(colon_token)) => Ok(Box::new(Cond(
+            or(&data[..question_token])?,
+            or(&data[(question_token + 1)..colon_token])?,
+            or(&data[(colon_token + 1)..])?,
+        ))),
+        (None, Some(_)) => Err(format!("Expected `?` but only found `:`.")),
+        (Some(_), None) => Err(format!("Expected `:` but only found `?`.")),
+    }
+}
+
+/// **(internal)** Recursive parsing step 4: extract `|` operators.
 fn or(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let or_token = index_of_first(data, ExprToken::Or);
     Ok(if let Some(or_token) = or_token {
@@ -144,7 +175,7 @@ fn or(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     })
 }
 
-/// **(internal)** Recursive parsing step 4: extract `&` operators.
+/// **(internal)** Recursive parsing step 5: extract `&` operators.
 fn and(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let and_token = index_of_first(data, ExprToken::And);
     Ok(if let Some(and_token) = and_token {
@@ -157,7 +188,7 @@ fn and(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     })
 }
 
-/// **(internal)** Recursive parsing step 5: extract `^` operators.
+/// **(internal)** Recursive parsing step 6: extract `^` operators.
 fn xor(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let xor_token = index_of_first(data, ExprToken::Xor);
     Ok(if let Some(xor_token) = xor_token {
@@ -170,7 +201,7 @@ fn xor(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     })
 }
 
-/// **(internal)** Recursive parsing step 6: extract terminals and negations.
+/// **(internal)** Recursive parsing step 7: extract terminals and negations.
 fn terminal(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     if data.is_empty() {
         Err("Expected formula, found nothing :(".to_string())
@@ -207,15 +238,16 @@ mod tests {
     #[test]
     fn parse_boolean_formula_basic() {
         let inputs = vec![
-            "v_1+{14}",      // just a variable name with fancy symbols
-            "!v_1",          // negation
-            "true",          // true
-            "false",         // false
-            "(v_1 & v_2)",   // and
-            "(v_1 | v_2)",   // or
-            "(v_1 ^ v_2)",   // xor
-            "(v_1 => v_2)",  // imp
-            "(v_1 <=> v_2)", // iff
+            "v_1+{14}",                       // just a variable name with fancy symbols
+            "!v_1",                           // negation
+            "true",                           // true
+            "false",                          // false
+            "(v_1 & v_2)",                    // and
+            "(cond ? then_expr : else_expr)", // cond
+            "(v_1 | v_2)",                    // or
+            "(v_1 ^ v_2)",                    // xor
+            "(v_1 => v_2)",                   // imp
+            "(v_1 <=> v_2)",                  // iff
         ];
         for input in inputs {
             assert_eq!(
@@ -257,6 +289,20 @@ mod tests {
         assert_eq!(
             "(a <=> (b <=> c))",
             format!("{}", parse_boolean_expression("a <=> b <=> c").unwrap())
+        );
+        assert_eq!(
+            "((a ? b : c) ? d : e)",
+            format!(
+                "{}",
+                parse_boolean_expression("(a ? b : c) ? d : e").unwrap()
+            )
+        );
+        assert_eq!(
+            "(a ? b : (c ? d : e))",
+            format!(
+                "{}",
+                parse_boolean_expression("a ? b : (c ? d : e)").unwrap()
+            )
         );
     }
 
@@ -317,6 +363,12 @@ mod tests {
     #[should_panic]
     fn parse_boolean_formula_invalid_parentheses_4() {
         parse_boolean_expression("a & (b))").unwrap();
+    }
+
+    #[test]
+    #[should_panic]
+    fn parse_boolean_formula_invalid_parentheses_5() {
+        parse_boolean_expression("a ? b : c ? d : e").unwrap();
     }
 
     #[test]
