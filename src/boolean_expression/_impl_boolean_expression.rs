@@ -113,4 +113,15 @@ mod tests {
 
         assert_eq!(expected, evaluated);
     }
+
+    #[test]
+    fn bdd_universe_eval_boolean_formula_2() {
+        let variables = BddVariableSet::new_anonymous(5);
+        let formula = "x_0 ? true : false";
+        let x_0 = variables.mk_var_by_name("x_0");
+
+        let evaluated = variables.eval_expression_string(formula);
+
+        assert_eq!(x_0, evaluated);
+    }
 }

@@ -382,4 +382,16 @@ mod tests {
     fn parse_boolean_formula_invalid_formula_2() {
         parse_boolean_expression("a & c d & b").unwrap();
     }
+
+    #[test]
+    #[should_panic]
+    fn parse_boolean_formula_invalid_formula_3() {
+        parse_boolean_expression("a ? b").unwrap();
+    }
+
+    #[test]
+    #[should_panic]
+    fn parse_boolean_formula_invalid_formula_4() {
+        parse_boolean_expression("a : b").unwrap();
+    }
 }
