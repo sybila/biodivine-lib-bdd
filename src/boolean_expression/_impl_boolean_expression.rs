@@ -24,7 +24,9 @@ impl Display for BooleanExpression {
             Xor(l, r) => write!(f, "({} ^ {})", l, r),
             Imp(l, r) => write!(f, "({} => {})", l, r),
             Iff(l, r) => write!(f, "({} <=> {})", l, r),
-            Cond(cond, then_expr, else_expr) => write!(f, "({} ? {} : {})", cond, then_expr,else_expr),
+            Cond(cond, then_expr, else_expr) => {
+                write!(f, "({} ? {} : {})", cond, then_expr, else_expr)
+            }
         }
     }
 }
@@ -71,7 +73,7 @@ impl BddVariableSet {
                 let cond = self.safe_eval_expression(cond)?;
                 let then_expr = self.safe_eval_expression(then_expr)?;
                 let else_expr = self.safe_eval_expression(else_expr)?;
-                Some(Bdd::if_then_else(&cond,&then_expr,&else_expr))
+                Some(Bdd::if_then_else(&cond, &then_expr, &else_expr))
             }
         }
     }

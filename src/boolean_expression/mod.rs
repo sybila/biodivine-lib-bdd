@@ -27,5 +27,9 @@ pub enum BooleanExpression {
     Imp(Box<BooleanExpression>, Box<BooleanExpression>),
     Iff(Box<BooleanExpression>, Box<BooleanExpression>),
     /// cond ? then_expr : else_expr
-    Cond(Box<BooleanExpression>, Box<BooleanExpression>, Box<BooleanExpression>),
+    Cond(
+        Box<BooleanExpression>,
+        Box<BooleanExpression>,
+        Box<BooleanExpression>,
+    ),
 }
