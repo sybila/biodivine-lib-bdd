@@ -160,8 +160,8 @@ fn cond(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
             or(&data[(question_token + 1)..colon_token])?,
             or(&data[(colon_token + 1)..])?,
         ))),
-        (None, Some(_)) => Err(format!("Expected `?` but only found `:`.")),
-        (Some(_), None) => Err(format!("Expected `:` but only found `?`.")),
+        (None, Some(_)) => Err("Expected `?` but only found `:`.".to_string()),
+        (Some(_), None) => Err("Expected `:` but only found `?`.".to_string()),
     }
 }
 
