@@ -45,6 +45,38 @@ impl Bdd {
         }
     }
 
+    /// The same as [Bdd::rename_variable], but applies the renaming across several variables.
+    /// Each node is renamed at most one (i.e. if `v1` renames to `v2` and `v2` renames to `v3`,
+    /// a decision node based on `v1` only renames to `v2`).
+    ///
+    /// # Safety
+    ///
+    /// This operation is "unsafe" because it can change the BDD in a "non-semantic" way. However,
+    /// as long as the operation does not panic, the result will be a valid BDD.
+    pub unsafe fn rename_variables(&mut self, permutation: &HashMap<BddVariable, BddVariable>) {
+        let mut current_vars = Vec::from_iter(self.support_set());
+        current_vars.sort();
+        let vars_after_permutation = current_vars
+            .iter()
+            .map(|it| permutation.get(it).cloned().unwrap_or(*it))
+            .collect::<Vec<_>>();
+
+        // Safety check: Every new variable is valid, and the variables will be still
+        // sorted after the permutation.
+        assert!(vars_after_permutation
+            .iter()
+            .all(|it| it.0 < self.num_vars()));
+        for i in 0..(vars_after_permutation.len() - 1) {
+            assert!(vars_after_permutation[i] < vars_after_permutation[i + 1]);
+        }
+
+        for node in self.0.iter_mut() {
+            if let Some(new) = permutation.get(&node.var) {
+                node.var = *new;
+            }
+        }
+    }
+
     /// Change the provided variable ID to the new one. This change does not perform any
     /// structural changes to the BDD itself. As such, it is only valid when the BDD does not
     /// depend on any variables that are between `old_id` and `new_id`. Furthermore, `old_id`
@@ -763,6 +795,66 @@ mod tests {
         let mut bdd = mk_small_test_bdd();
         unsafe {
             bdd.set_num_vars(3);
+        }
+    }
+
+    #[test]
+    fn test_variables_rename() {
+        let set = BddVariableSet::new_anonymous(10);
+        let base = set.eval_expression_string("(!x_0 & x_1) | (!x_2 & x_3)");
+        let shift = set.eval_expression_string("(!x_1 & x_2) | (!x_3 & x_4)");
+        let spread = set.eval_expression_string("(!x_0 & x_2) | (!x_4 & x_6)");
+
+        let shift_permutation: HashMap<BddVariable, BddVariable> = HashMap::from_iter([
+            (BddVariable(0), BddVariable(1)),
+            (BddVariable(1), BddVariable(2)),
+            (BddVariable(2), BddVariable(3)),
+            (BddVariable(3), BddVariable(4)),
+            (BddVariable(4), BddVariable(5)),
+        ]);
+
+        let spread_permutation: HashMap<BddVariable, BddVariable> = HashMap::from_iter([
+            (BddVariable(0), BddVariable(0)),
+            (BddVariable(1), BddVariable(2)),
+            (BddVariable(2), BddVariable(4)),
+            (BddVariable(3), BddVariable(6)),
+            (BddVariable(4), BddVariable(8)),
+        ]);
+
+        unsafe {
+            let mut actual = base.clone();
+            actual.rename_variables(&shift_permutation);
+            assert_eq!(actual, shift);
+        }
+
+        unsafe {
+            let mut actual = base.clone();
+            actual.rename_variables(&spread_permutation);
+            assert_eq!(actual, spread);
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_variables_rename_invalid_var() {
+        let mut bdd = mk_small_test_bdd();
+        let permutation: HashMap<BddVariable, BddVariable> =
+            HashMap::from_iter([(BddVariable(3), BddVariable(10))]);
+        unsafe {
+            bdd.rename_variables(&permutation);
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_variables_rename_unordered() {
+        let mut bdd = mk_small_test_bdd();
+        let permutation: HashMap<BddVariable, BddVariable> = HashMap::from_iter([
+            (BddVariable(4), BddVariable(2)),
+            (BddVariable(3), BddVariable(1)),
+        ]);
+        unsafe {
+            bdd.rename_variables(&permutation);
         }
     }
 
