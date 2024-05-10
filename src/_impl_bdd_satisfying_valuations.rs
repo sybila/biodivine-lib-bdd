@@ -1,5 +1,6 @@
 use crate::{
-    Bdd, BddPathIterator, BddSatisfyingValuations, BddValuation, ValuationsOfClauseIterator,
+    Bdd, BddPathIterator, BddSatisfyingValuations, BddValuation, OwnedBddPathIterator,
+    OwnedBddSatisfyingValuations, ValuationsOfClauseIterator,
 };
 
 impl Bdd {
@@ -22,6 +23,25 @@ impl Bdd {
         }
     }
 
+    /// Same as [Bdd::sat_valuations], but the iterator takes ownership of the [Bdd].
+    ///
+    /// You can convert the iterator back into the underlying [Bdd] at any time using [Bdd::from].
+    pub fn into_sat_valuations(self) -> OwnedBddSatisfyingValuations {
+        let num_vars = self.num_vars();
+        let mut path_iter = OwnedBddPathIterator::new(self);
+        let val_iter = if let Some(first) = path_iter.next() {
+            ValuationsOfClauseIterator::new(first, num_vars)
+        } else {
+            // This is a special case for the `false` BDD.
+            ValuationsOfClauseIterator::empty()
+        };
+        OwnedBddSatisfyingValuations {
+            num_vars,
+            paths: path_iter,
+            valuations: val_iter,
+        }
+    }
+
     /// Create an iterator that goes through all paths of this `Bdd`. Each path is represented
     /// as a *conjunctive clause* in the form of `BddPartialValuation`.
     ///
@@ -29,6 +49,13 @@ impl Bdd {
     /// clauses/paths.
     pub fn sat_clauses(&self) -> BddPathIterator {
         BddPathIterator::new(self)
+    }
+
+    /// Same as [Bdd::sat_clauses], but the iterator takes ownership of the [Bdd].
+    ///
+    /// You can convert the iterator back into the underlying [Bdd] at any time using [Bdd::from].
+    pub fn into_sat_clauses(self) -> OwnedBddPathIterator {
+        OwnedBddPathIterator::from(self)
     }
 }
 
@@ -47,6 +74,37 @@ impl Iterator for BddSatisfyingValuations<'_> {
             // We are done.
             None
         }
+    }
+}
+
+/// Same as [BddSatisfyingValuations] with adjusted ownership/references.
+impl Iterator for OwnedBddSatisfyingValuations {
+    type Item = BddValuation;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let next_valuation = self.valuations.next();
+        if next_valuation.is_some() {
+            next_valuation
+        } else if let Some(next_path) = self.paths.next() {
+            self.valuations = ValuationsOfClauseIterator::new(next_path, self.num_vars);
+            // A new valuations iterator is never empty unless created using the `empty` constructor.
+            self.valuations.next()
+        } else {
+            // We are done.
+            None
+        }
+    }
+}
+
+impl From<OwnedBddSatisfyingValuations> for Bdd {
+    fn from(value: OwnedBddSatisfyingValuations) -> Self {
+        value.paths.into()
+    }
+}
+
+impl From<Bdd> for OwnedBddSatisfyingValuations {
+    fn from(value: Bdd) -> Self {
+        value.into_sat_valuations()
     }
 }
 
@@ -95,5 +153,19 @@ mod tests {
             .for_each(|(a, b)| {
                 assert_eq!(a, b);
             });
+    }
+
+    #[test]
+    fn bdd_owned_iterators() {
+        let variables = mk_5_variable_set();
+        let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
+
+        for (a, b) in bdd.sat_valuations().zip(bdd.clone().into_sat_valuations()) {
+            assert_eq!(a, b);
+        }
+
+        for (a, b) in bdd.sat_clauses().zip(bdd.clone().into_sat_clauses()) {
+            assert_eq!(a, b);
+        }
     }
 }

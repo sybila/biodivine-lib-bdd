@@ -148,11 +148,25 @@ pub struct BddSatisfyingValuations<'a> {
     valuations: ValuationsOfClauseIterator,
 }
 
+/// Same as [BddSatisfyingValuations], but owns the underlying [Bdd] and thus does not
+/// require a lifetime.
+pub struct OwnedBddSatisfyingValuations {
+    num_vars: u16,
+    paths: OwnedBddPathIterator,
+    valuations: ValuationsOfClauseIterator,
+}
+
 /// An iterator which goes through all paths in the `Bdd`, representing them as clauses using
 /// `BddPartialValuation`.
 pub struct BddPathIterator<'a> {
     bdd: &'a Bdd,
     // Stack keeps the last discovered path. If last path was consumed, the stack is empty.
+    stack: Vec<BddPointer>,
+}
+
+/// Same as [BddPathIterator], but owns the underlying [Bdd] and thus does not require a lifetime.
+pub struct OwnedBddPathIterator {
+    bdd: Bdd,
     stack: Vec<BddPointer>,
 }
 

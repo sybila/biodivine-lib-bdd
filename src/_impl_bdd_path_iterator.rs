@@ -1,4 +1,4 @@
-use crate::{Bdd, BddPartialValuation, BddPathIterator, BddPointer};
+use crate::{Bdd, BddPartialValuation, BddPathIterator, BddPointer, OwnedBddPathIterator};
 
 impl BddPathIterator<'_> {
     pub fn new(bdd: &Bdd) -> BddPathIterator {
@@ -12,6 +12,33 @@ impl BddPathIterator<'_> {
             continue_path(bdd, &mut stack); // Compute the first valid path.
             BddPathIterator { bdd, stack }
         }
+    }
+}
+
+impl OwnedBddPathIterator {
+    pub fn new(bdd: Bdd) -> OwnedBddPathIterator {
+        if bdd.is_false() {
+            OwnedBddPathIterator {
+                bdd,
+                stack: Vec::new(),
+            }
+        } else {
+            let mut stack = vec![bdd.root_pointer()];
+            continue_path(&bdd, &mut stack); // Compute the first valid path.
+            OwnedBddPathIterator { bdd, stack }
+        }
+    }
+}
+
+impl From<Bdd> for OwnedBddPathIterator {
+    fn from(value: Bdd) -> Self {
+        OwnedBddPathIterator::new(value)
+    }
+}
+
+impl From<OwnedBddPathIterator> for Bdd {
+    fn from(value: OwnedBddPathIterator) -> Self {
+        value.bdd
     }
 }
 
@@ -46,6 +73,59 @@ impl Iterator for BddPathIterator<'_> {
                         let new_entry = self.bdd.high_link_of(*top);
                         self.stack.push(new_entry);
                         continue_path(self.bdd, &mut self.stack);
+                        break;
+                    }
+                } else if self.bdd.high_link_of(*top) == last_child {
+                    // Both low and high links have been processed,
+                    // so we can only pop to the next node.
+                    last_child = *top;
+                    self.stack.pop();
+                } else {
+                    // Just a sanity check. This should be unreachable.
+                    unreachable!("Invalid path data in iterator.");
+                }
+            }
+
+            // Here, either a path was found and extended, or the stack is empty and this was
+            // the last item.
+
+            Some(item)
+        }
+    }
+}
+
+/// This is just a copy of [BddPathIterator] code with adjusted ownership/references.
+impl Iterator for OwnedBddPathIterator {
+    type Item = BddPartialValuation;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.stack.is_empty() {
+            None
+        } else {
+            let item = make_clause(&self.bdd, &self.stack);
+
+            // Now, we need to pop the path until we find a node with a valid successor,
+            // and then extend the path using `continue_path`.
+
+            let mut last_child = self.stack.pop().unwrap();
+
+            while let Some(top) = self.stack.last() {
+                if self.bdd.low_link_of(*top) == last_child {
+                    // Try to advance to the high link.
+                    if self.bdd.high_link_of(*top).is_zero() {
+                        // If high link is zero, we cannot advance and have to pop.
+                        last_child = *top;
+                        self.stack.pop();
+                    } else {
+                        // This is a sanity check which prevents the method from looping on
+                        // non-canonical BDDs.
+                        if self.bdd.low_link_of(*top) == self.bdd.high_link_of(*top) {
+                            panic!("The BDD is not canonical.");
+                        }
+
+                        let new_entry = self.bdd.high_link_of(*top);
+                        self.stack.push(new_entry);
+                        continue_path(&self.bdd, &mut self.stack);
                         break;
                     }
                 } else if self.bdd.high_link_of(*top) == last_child {
