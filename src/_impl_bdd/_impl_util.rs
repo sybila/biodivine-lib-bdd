@@ -55,6 +55,13 @@ impl Bdd {
     /// as long as the operation does not panic, the result will be a valid BDD.
     pub unsafe fn rename_variables(&mut self, permutation: &HashMap<BddVariable, BddVariable>) {
         let mut current_vars = Vec::from_iter(self.support_set());
+
+        if current_vars.is_empty() {
+            // This is a "trivial" BDD that does not depend on anything. We can rename this
+            // however we want because it's not going to change anything.
+            return;
+        }
+
         current_vars.sort();
         let vars_after_permutation = current_vars
             .iter()
