@@ -547,14 +547,92 @@ impl Bdd {
     /// Return the BDD which represents a function where variable `var` was substituted for
     /// `function` (represented as a BDD).
     ///
-    /// This should be equivalent to the expression `exists var. (function <=> var) and self`.
+    /// This should be equivalent to the expression `exists var. (function <=> var) and self`
+    /// (assuming `var` does not appear in `function`).
     ///
-    /// Also note that the output of the operation is not well-defined when `function` depends
-    /// on `var` itself. However, the method will not fail.
+    /// If `var` does appear in `function`, it is as if `var` in `function` and `var` in the rest
+    /// of the expression are different variables (which intuitively corresponds to how syntactic
+    /// substitution on expressions typically operates).
+    ///
+    /// Note that if you want to substitute multiple variables at the same time, there is
+    /// currently no method that can do that with the "syntactic substitution" semantics when the
+    /// variable names clash. However, if you need it, it should be possible to implement it
+    /// later on (please create an issue for this).
+    ///
+    /// Also note that because a proxy variable is necessary when `var` appears in `function`,
+    /// this operation will panic if the number of variables is `u16::MAX`, as no the proxy
+    /// variable cannot be created.
+    ///
     pub fn substitute(&self, var: BddVariable, function: &Bdd) -> Bdd {
-        let var_bdd = Bdd::mk_literal(self.num_vars(), var, true);
-        let iff = var_bdd.iff(function);
-        Bdd::binary_op_with_exists(self, &iff, op_function::and, &[var])
+        let input_set = self.support_set();
+        if !input_set.contains(&var) {
+            // The substituted variable does not appear in this function at all, so no actual
+            // change is necessary.
+            return self.clone();
+        }
+
+        let sub_inputs = function.support_set();
+        if !sub_inputs.contains(&var) {
+            // This is a "safe" substitution, because `var` does not appear in `function`
+            // and hence can be fully eliminated.
+            let var_bdd = Bdd::mk_literal(self.num_vars(), var, true);
+            let iff = var_bdd.iff(function);
+            Bdd::binary_op_with_exists(self, &iff, op_function::and, &[var])
+        } else {
+            // This is an "unsafe" substitution, because `var` must be eliminated from the BDD
+            // into which we are substituting, but will remain present in the BDD of the
+            // substituted function. To enable this, we rename `var` in the original BDD as a
+            // new variable that is then safe to eliminate. However, this means we have to mess
+            // with the variable ordering.
+
+            // First, shift all the variables `>=var` by one in the BDD in which we are
+            // substituting. This effectively creates a new `var_prime` at the same location
+            // in the variable ordering and renames `var` to `var_prime`.
+            let mut self_copy = self.clone();
+            let mut function_copy = function.clone();
+            let mut my_inputs = Vec::from_iter(input_set);
+            my_inputs.sort();
+            let mut permutation = HashMap::new();
+            for input in &my_inputs {
+                if *input >= var {
+                    let shifted = BddVariable::from_index(input.to_index() + 1);
+                    permutation.insert(*input, shifted);
+                }
+            }
+            unsafe {
+                self_copy.set_num_vars(self_copy.num_vars().checked_add(1).unwrap());
+                self_copy.rename_variables(&permutation);
+            }
+
+            // Now, do the same for the `function` BDD, except that `var` should keep its
+            // original position (hence `var` in `function` is different from `var` in `self`).
+            let var_prime = permutation.remove(&var).unwrap();
+            unsafe {
+                function_copy.set_num_vars(function_copy.num_vars().checked_add(1).unwrap());
+                function_copy.rename_variables(&permutation);
+            }
+
+            // Now, we can perform the substitution, getting rid of `var_prime` in the process
+            // and keeping only `var`.
+            let var_bdd = Bdd::mk_literal(self_copy.num_vars(), var_prime, true);
+            let iff = var_bdd.iff(&function_copy);
+            let mut substituted =
+                Bdd::binary_op_with_exists(&self_copy, &iff, op_function::and, &[var_prime]);
+
+            // Finally, we *reverse* the permutation and remove any evidence that `var_prime`
+            // ever existed.
+            let reverse_permutation = permutation
+                .into_iter()
+                .map(|(a, b)| (b, a))
+                .collect::<HashMap<_, _>>();
+
+            unsafe {
+                substituted.rename_variables(&reverse_permutation);
+                substituted.set_num_vars(substituted.num_vars() - 1);
+            }
+
+            substituted
+        }
     }
 
     /// Consume this [Bdd] and return a vector of BDD nodes that it represents.
@@ -839,6 +917,12 @@ mod tests {
             actual.rename_variables(&spread_permutation);
             assert_eq!(actual, spread);
         }
+
+        unsafe {
+            let mut trivial = set.mk_true();
+            trivial.rename_variables(&shift_permutation);
+            assert_eq!(set.mk_true(), trivial);
+        }
     }
 
     #[test]
@@ -930,5 +1014,16 @@ mod tests {
         let x_1 = vars.var_by_name("x_1").unwrap();
         let substituted = original.substitute(x_1, &to_swap);
         assert!(expected.iff(&substituted).is_true());
+    }
+
+    #[test]
+    fn test_substitution_with_clash() {
+        let vars = BddVariableSet::new_anonymous(5);
+        let original = bdd!(vars, "x_0" & ("x_1" | "x_4"));
+        let expected = bdd!(vars, ("x_0" | "x_3") & ("x_1" | "x_4"));
+        let to_swap = bdd!(vars, "x_0" | "x_3");
+        let x_0 = vars.var_by_name("x_0").unwrap();
+        let substituted = original.substitute(x_0, &to_swap);
+        assert!(substituted.iff(&expected).is_true());
     }
 }
