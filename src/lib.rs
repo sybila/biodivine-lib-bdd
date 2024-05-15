@@ -122,6 +122,7 @@ pub struct BddVariable(u16);
 /// It can be used as a witness of `Bdd` non-emptiness, since one can evaluate every `Bdd`
 /// in some corresponding valuation and get a `true/false` result.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BddValuation(Vec<bool>);
 
 /// Describes assignment of some arbitrary number of `Bdd` variables.
@@ -130,6 +131,7 @@ pub struct BddValuation(Vec<bool>);
 /// It also exactly describes one path in a `Bdd` and hence can be used as an intermediate
 /// value when traversing the valuations of a `Bdd`.
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BddPartialValuation(Vec<Option<bool>>);
 
 /// Exhaustively iterates over all valuations with a certain number of variables.
@@ -186,6 +188,7 @@ pub struct ValuationsOfClauseIterator {
 /// Maintains the set of variables that can appear in a `Bdd`.
 /// Used to create new `Bdd`s for basic formulas.
 #[derive(Clone)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BddVariableSet {
     num_vars: u16,
     var_names: Vec<String>,
