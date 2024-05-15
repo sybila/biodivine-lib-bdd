@@ -16,6 +16,7 @@ mod _impl_boolean_expression;
 mod _impl_parser;
 
 /// Recursive type for boolean expression tree.
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum BooleanExpression {
     Const(bool),
