@@ -109,10 +109,12 @@ const NOT_IN_VAR_NAME: [char; 11] = ['!', '&', '|', '^', '=', '<', '>', '(', ')'
 ///
 /// To create `Bdd`s for atomic formulas, use a `BddVariableSet`.
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Bdd(Vec<BddNode>);
 
 /// Identifies one of the variables that can appear as a decision condition in the `Bdd`.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BddVariable(u16);
 
 /// Exactly describes one assignment of boolean values to variables of a `Bdd`.
@@ -209,6 +211,7 @@ pub struct BddVariableSetBuilder {
 /// represented as `u32` instead of `usize`, because `usize` can be 64-bits and pointers
 /// represent most of the memory consumed by our BDDs.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BddPointer(u32);
 
 /// **(internal)** Representation of individual vertices of the `Bdd` directed acyclic graph.

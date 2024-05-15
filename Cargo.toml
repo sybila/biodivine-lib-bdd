@@ -20,7 +20,7 @@ maintenance = { status = "actively-developed" }
 fxhash = "0.2.1"
 rand = "0.8.5"
 num-bigint = "0.4.4"
-serde = { version = "1.0", optional = true, default-features = false }
+serde = { version = "1.0", optional = true, features = ["derive"] }
 
 # Enable rich docs for some online docs autogen services.
 [package.metadata.docs.rs]
