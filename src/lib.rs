@@ -231,6 +231,7 @@ pub struct BddPointer(u32);
 /// `BddVariableSet`. This is consistent with the fact that we first condition on smallest
 /// variable ids. It can be also used for consistency checks inside the library.
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BddNode {
     pub var: BddVariable,
     pub low_link: BddPointer,
