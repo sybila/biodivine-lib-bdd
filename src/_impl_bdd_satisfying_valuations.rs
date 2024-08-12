@@ -125,12 +125,9 @@ mod tests {
         expected.sort();
 
         assert_eq!(sat_valuations.len(), 16);
-        sat_valuations
-            .into_iter()
-            .zip(expected.into_iter())
-            .for_each(|(a, b)| {
-                assert_eq!(a, b);
-            });
+        sat_valuations.into_iter().zip(expected).for_each(|(a, b)| {
+            assert_eq!(a, b);
+        });
     }
 
     #[test]
@@ -147,12 +144,9 @@ mod tests {
         expected.sort();
 
         assert_eq!(sat_valuations.len(), expected.len());
-        sat_valuations
-            .into_iter()
-            .zip(expected.into_iter())
-            .for_each(|(a, b)| {
-                assert_eq!(a, b);
-            });
+        sat_valuations.into_iter().zip(expected).for_each(|(a, b)| {
+            assert_eq!(a, b);
+        });
     }
 
     #[test]

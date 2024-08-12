@@ -10,13 +10,13 @@ fn vars() -> (
     BddVariable,
     BddVariable,
 ) {
-    return (
+    (
         BddVariable(0),
         BddVariable(1),
         BddVariable(2),
         BddVariable(3),
         BddVariable(4),
-    );
+    )
 }
 
 #[test]

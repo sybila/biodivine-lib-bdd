@@ -712,7 +712,7 @@ mod tests {
         // Missing zero.
         assert!(Bdd::from_nodes(&nodes[1..]).is_err());
         // Missing one.
-        assert!(Bdd::from_nodes(&vec![nodes[0].clone(), nodes[2].clone()]).is_err());
+        assert!(Bdd::from_nodes(&[nodes[0], nodes[2]]).is_err());
 
         let mut nodes = bdd.clone().to_nodes();
         nodes[0].var = BddVariable(1);
@@ -956,7 +956,7 @@ mod tests {
             bdd.rename_variable(BddVariable(2), BddVariable(0));
             bdd.rename_variable(BddVariable(3), BddVariable(4));
         }
-        let expected = HashSet::from_iter(vec![BddVariable(0), BddVariable(4)].into_iter());
+        let expected = HashSet::from_iter(vec![BddVariable(0), BddVariable(4)]);
         assert_eq!(expected, bdd.support_set());
     }
 

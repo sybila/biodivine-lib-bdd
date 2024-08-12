@@ -13,7 +13,7 @@ pub fn mk_small_test_bdd() -> Bdd {
         BddPointer::zero(),
         bdd.root_pointer(),
     ));
-    return bdd;
+    bdd
 }
 
 /// Make a new `BddVariableSet` with variables $v_1, v_2, v_3, v_4, v_5$.
@@ -22,6 +22,6 @@ pub fn mk_5_variable_set() -> BddVariableSet {
 }
 
 pub fn load_expected_results(test_name: &str) -> String {
-    return std::fs::read_to_string(format!("res/test_results/{}", test_name))
-        .expect("Cannot open result file.");
+    std::fs::read_to_string(format!("res/test_results/{}", test_name))
+        .expect("Cannot open result file.")
 }

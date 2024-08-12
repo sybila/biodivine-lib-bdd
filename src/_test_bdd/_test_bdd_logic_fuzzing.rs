@@ -73,13 +73,13 @@ impl BddOpTree {
                 })
                 .collect();
             levels.push(level);
-            level_width = level_width / 2;
+            level_width /= 2;
         }
 
-        return BddOpTree {
+        BddOpTree {
             leaves,
             ops: levels,
-        };
+        }
     }
 
     /// Evaluate this op tree to `Bdd` using the given `BddVariableSet`.
@@ -94,11 +94,11 @@ impl BddOpTree {
                 let b = &formulas[i + 1];
                 let op = &level[i / 2];
                 let result = match op.op {
-                    BddOp::AND => a.and(&b),
-                    BddOp::OR => a.or(&b),
-                    BddOp::XOR => a.xor(&b),
-                    BddOp::IMP => a.imp(&b),
-                    BddOp::IFF => a.iff(&b),
+                    BddOp::AND => a.and(b),
+                    BddOp::OR => a.or(b),
+                    BddOp::XOR => a.xor(b),
+                    BddOp::IMP => a.imp(b),
+                    BddOp::IFF => a.iff(b),
                 };
                 if op.negate {
                     new_formulas.push(result.not())
@@ -110,7 +110,7 @@ impl BddOpTree {
             formulas = new_formulas;
         }
 
-        return formulas[0].clone();
+        formulas[0].clone()
     }
 
     /// Evaluate this op tree with the specified `BddValuation`.
@@ -141,7 +141,7 @@ impl BddOpTree {
             values = new_values;
         }
 
-        return values[0];
+        values[0]
     }
 }
 

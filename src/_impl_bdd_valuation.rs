@@ -253,10 +253,10 @@ mod tests {
         let v1 = universe.mk_var_by_name("x_0");
         let v2 = universe.mk_var_by_name("x_1");
         let bdd = bdd!(v1 & (!v2));
-        assert_eq!(true, bdd.eval_in(&BddValuation::new(vec![true, false])));
-        assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![true, true])));
-        assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
-        assert_eq!(false, bdd.eval_in(&BddValuation::new(vec![false, false])));
+        assert!(bdd.eval_in(&BddValuation::new(vec![true, false])));
+        assert!(!bdd.eval_in(&BddValuation::new(vec![true, true])));
+        assert!(!bdd.eval_in(&BddValuation::new(vec![false, false])));
+        assert!(!bdd.eval_in(&BddValuation::new(vec![false, false])));
     }
 
     #[test]

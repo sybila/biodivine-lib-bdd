@@ -2,16 +2,16 @@ use crate::_test_util::{mk_5_variable_set, mk_small_test_bdd};
 use crate::*;
 
 fn v1() -> BddVariable {
-    return BddVariable(0);
+    BddVariable(0)
 }
 fn v2() -> BddVariable {
-    return BddVariable(1);
+    BddVariable(1)
 }
 fn v3() -> BddVariable {
-    return BddVariable(2);
+    BddVariable(2)
 }
 fn v4() -> BddVariable {
-    return BddVariable(3);
+    BddVariable(3)
 }
 
 #[test]

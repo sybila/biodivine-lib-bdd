@@ -68,14 +68,14 @@
 //! some of the following methods to obtain some insight into the structure of the `Bdd`:
 //!
 //!  - `Bdd.first_valuation` and `Bdd.last_valuation` will give you the (lexicographically) first
-//! and last valuation.
+//!    and last valuation.
 //!  - Similarly, `Bdd.first_clause` and `Bdd.last_clause` will give you the first and last path
-//! satisfying path.
+//!    satisfying path.
 //!  - `Bdd.most_positive_valuation` and `Bdd.most_negative_valuation` return the valuations
-//! with the highest amount of positive/negative literals.
+//!    with the highest amount of positive/negative literals.
 //!  - `Bdd.most_fixed_clause` and `Bdd.most_free_clause` wil give you satisfying paths with
-//! greatest and least amount of fixed variables respectively.
+//!    greatest and least amount of fixed variables respectively.
 //!  - `Bdd.random_valuation` and `Bdd.random_clause` allow selecting valuation/clause using
-//! a random number generator.
+//!    a random number generator.
 //!
 //!

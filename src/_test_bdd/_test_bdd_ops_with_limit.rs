@@ -3,13 +3,13 @@ use crate::op_function::and;
 use crate::{bdd, Bdd, BddVariable};
 
 fn v1() -> BddVariable {
-    return BddVariable(0);
+    BddVariable(0)
 }
 fn v2() -> BddVariable {
-    return BddVariable(1);
+    BddVariable(1)
 }
 fn v3() -> BddVariable {
-    return BddVariable(2);
+    BddVariable(2)
 }
 
 #[test]
