@@ -38,6 +38,9 @@ pub mod _impl_dnf;
 /// **(internal)** An optimized implementation for creating BDD from CNF.
 pub mod _impl_cnf;
 
+/// **(internal)** Implements various sorting criteria for BDD objects.
+pub mod _impl_sort;
+
 /// **(internal)** Task is a pair of BDD pointers. These are usually pointers from two distinct
 /// BDDs (standard apply algorithm), but it can also be two pointers from the same BDD ("inner"
 /// apply in nested apply algorithm).
