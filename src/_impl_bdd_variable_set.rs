@@ -1,5 +1,8 @@
 use super::*;
-use std::{convert::TryFrom, fmt::{Display, Formatter}};
+use std::{
+    convert::TryFrom,
+    fmt::{Display, Formatter},
+};
 
 impl BddVariableSet {
     /// Create a new `BddVariableSet` with anonymous variables $(x_0, \ldots, x_n)$ where $n$ is
