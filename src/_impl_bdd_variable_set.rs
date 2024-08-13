@@ -1,5 +1,8 @@
 use super::*;
-use std::convert::TryFrom;
+use std::{
+    convert::TryFrom,
+    fmt::{Display, Formatter},
+};
 
 impl BddVariableSet {
     /// Create a new `BddVariableSet` with anonymous variables $(x_0, \ldots, x_n)$ where $n$ is
@@ -320,6 +323,21 @@ impl BddVariableSet {
         }
 
         Some(new_bdd)
+    }
+}
+
+impl Display for BddVariableSet {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        if self.var_names.is_empty() {
+            write!(f, "[]")?;
+        } else {
+            write!(f, "[{}", self.var_names[0])?;
+            for i in 1..self.var_names.len() {
+                write!(f, ",{}", self.var_names[i])?
+            }
+            write!(f, "]")?;
+        }
+        Ok(())
     }
 }
 
