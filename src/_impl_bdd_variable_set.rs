@@ -583,4 +583,12 @@ mod tests {
         let f1 = ctx_1.eval_expression_string("a & y | !c");
         assert_eq!(None, ctx_2.transfer_from(&f1, &ctx_1));
     }
+
+    #[test]
+    fn bdd_variable_set_print() {
+        let ctx = BddVariableSet::new(&["a", "b", "x", "c", "y"]);
+        assert_eq!("[a,b,x,c,y]", ctx.to_string());
+        let ctx = BddVariableSet::new(&[]);
+        assert_eq!("[]", ctx.to_string());
+    }
 }
