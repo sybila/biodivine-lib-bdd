@@ -1,0 +1,81 @@
+targets,factors
+v_ABA, v_ABA
+v_ABH1, v_ABH1
+v_ABI1, ((((!v_RCARs & !v_ROS) & !v_PA) & v_pHc) | ((((v_RCARs & v_ROP11) & !v_ROS) & !v_PA) & v_pHc))
+v_ABI2, ((!v_RCARs & !v_ROS) | ((v_RCARs & v_ROP11) & !v_ROS))
+v_ADPRc, v_nitrocGMP
+v_ARP_Complex, v_ARP_Complex
+v_Actin_Reorganization, (((((v_ARP_Complex & !v_PtdInsP3) & v_PtdInsP4) & v_SCAB1) & !v_AtRAC1) | (((v_ARP_Complex & v_PtdInsP3) & v_SCAB1) & !v_AtRAC1))
+v_AnionEM, (((!v_SLAC1 & v_QUAC1) & v_SLAH3) | v_SLAC1)
+v_AtRAC1, (!v_ABA | (v_ABA & v_ABI1))
+v_CIS, ((((!v_cADPR & !v_InsP3) & v_InsP6) | (!v_cADPR & v_InsP3)) | v_cADPR)
+v_CPK23, v_CPK23
+v_CPK321, ((!v_Ca2 & v_CPK321) | v_Ca2)
+v_CPK6, v_CPK6
+v_Ca2, (((!v_CIS & v_CaIM) & !v_Ca2_ATPase) | (v_CIS & !v_Ca2_ATPase))
+v_Ca2_ATPase, v_Ca2
+v_CaIM, (((((!v_ABH1 | (v_ABH1 & !v_ERA1)) | (((v_ABH1 & v_ERA1) & !v_MRP5) & v_Actin_Reorganization)) | ((((v_ABH1 & v_ERA1) & v_MRP5) & !v_NtSyp121) & v_Actin_Reorganization)) | (((((v_ABH1 & v_ERA1) & v_MRP5) & v_NtSyp121) & !v_GHR1) & v_Actin_Reorganization)) | ((((v_ABH1 & v_ERA1) & v_MRP5) & v_NtSyp121) & v_GHR1))
+v_Closure, (v_Microtubule_Depolymerization & v_H2O_Efflux)
+v_DAG, (v_PtdIns45P2 & v_PLC)
+v_DAGK, v_DAGK
+v_Depolarization, ((((((((!v_Ca2 & !v_H_ATPase) & !v_AnionEM) & v_KEV) | ((!v_Ca2 & !v_H_ATPase) & v_AnionEM)) | ((((!v_Ca2 & v_H_ATPase) & !v_AnionEM) & v_KEV) & !v_K_efflux)) | (((!v_Ca2 & v_H_ATPase) & v_AnionEM) & !v_K_efflux)) | (v_Ca2 & !v_H_ATPase)) | ((v_Ca2 & v_H_ATPase) & !v_K_efflux))
+v_ERA1, v_ERA1
+v_GAPC12, v_GAPC12
+v_GCR1, v_GCR1
+v_GEF, v_GEF
+v_GHR1, (!v_ABI2 & v_ROS)
+v_GPA1, (!v_GCR1 | (v_GCR1 & v_S1P))
+v_GTP, v_GTP
+v_H2O_Efflux, (((v_AnionEM & !v_Malate) & v_K_efflux) & v_PIP)
+v_HAB1, (!v_RCARs & !v_ROS)
+v_H_ATPase, ((!v_ROS & !v_Ca2) & !v_pHc)
+v_InsP3, (v_PtdIns45P2 & v_PLC)
+v_InsP6, v_InsP3
+v_KEV, ((!v_Ca2 & v_Vacuolar_Acidification) | v_Ca2)
+v_KOUT, (((!v_ROS & v_Depolarization) | ((v_ROS & !v_NO) & v_Depolarization)) | (((v_ROS & v_NO) & v_pHc) & v_Depolarization))
+v_K_efflux, (v_KEV & v_KOUT)
+v_MPK912, ((!v_Ca2 & v_MPK912) | v_Ca2)
+v_MRP5, v_MRP5
+v_Malate, ((!v_ABA & v_PEPC) & !v_AnionEM)
+v_Microtubule_Depolymerization, ((!v_TCTP & v_Microtubule_Depolymerization) | v_TCTP)
+v_NADPH, v_NADPH
+v_NIA12, v_ROS
+v_NO, ((v_NADPH & v_Nitrite) & v_NIA12)
+v_NOGC1, v_NO
+v_Nitrite, v_Nitrite
+v_NtSyp121, v_NtSyp121
+v_OST1, ((((((!v_ABI1 & !v_ABI2) | ((!v_ABI1 & v_ABI2) & !v_HAB1)) | (((!v_ABI1 & v_ABI2) & v_HAB1) & !v_PP2CA)) | ((v_ABI1 & !v_ABI2) & !v_HAB1)) | (((v_ABI1 & !v_ABI2) & v_HAB1) & !v_PP2CA)) | (((v_ABI1 & v_ABI2) & !v_HAB1) & !v_PP2CA))
+v_PA, ((((((((!v_DAGK & v_PC) & !v_PLDa) & v_PLDdel) | ((!v_DAGK & v_PC) & v_PLDa)) | ((v_DAGK & !v_PC) & v_DAG)) | ((((v_DAGK & v_PC) & !v_DAG) & !v_PLDa) & v_PLDdel)) | (((v_DAGK & v_PC) & !v_DAG) & v_PLDa)) | ((v_DAGK & v_PC) & v_DAG))
+v_PC, v_PC
+v_PEPC, !v_ABA
+v_PI3P5K, v_ABA
+v_PIP, v_OST1
+v_PLC, v_Ca2
+v_PLDa, (v_Ca2 & v_GPA1)
+v_PLDdel, (((!v_GAPC12 & v_NO) | ((v_GAPC12 & !v_ROS) & v_NO)) | (v_GAPC12 & v_ROS))
+v_PP2CA, (!v_RCARs & !v_ROS)
+v_PtdIns35P2, v_PI3P5K
+v_PtdIns45P2, v_PtdInsP4
+v_PtdInsP3, v_PtdInsP3
+v_PtdInsP4, v_PtdInsP4
+v_QUAC1, (v_OST1 & v_Ca2)
+v_RBOH, ((((((v_PtdInsP3 & v_RCN1) & !v_ABI1) & v_OST1) & v_PA) & v_GPA1) & v_pHc)
+v_RCARs, v_ABA
+v_RCN1, v_RCN1
+v_ROP11, v_GEF
+v_ROS, (v_NADPH & v_RBOH)
+v_S1P, ((!v_SPP1 & v_Sph) & v_SPHK12)
+v_SCAB1, v_SCAB1
+v_SLAC1, (((((((((((!v_CPK23 & !v_CPK6) & !v_ABI1) & !v_ABI2) & !v_PP2CA) & v_OST1) & v_GHR1) & v_CPK321) & v_MPK912) & v_pHc) | ((((((((!v_CPK23 & v_CPK6) & !v_ABI1) & !v_ABI2) & !v_PP2CA) & v_OST1) & v_GHR1) & v_MPK912) & v_pHc)) | (((((((v_CPK23 & !v_ABI1) & !v_ABI2) & !v_PP2CA) & v_OST1) & v_GHR1) & v_MPK912) & v_pHc))
+v_SLAH3, ((((!v_CPK23 & v_CPK6) & !v_ABI1) & v_CPK321) | ((v_CPK23 & !v_ABI1) & v_CPK321))
+v_SPHK12, ((!v_ABA & v_PA) | v_ABA)
+v_SPP1, v_SPP1
+v_Sph, v_Sph
+v_TCTP, v_Ca2
+v_VATPase, v_Ca2
+v_VPPase, v_PtdIns35P2
+v_Vacuolar_Acidification, ((((!v_VPPase & !v_VATPase) & v_Vacuolar_Acidification) | (!v_VPPase & v_VATPase)) | v_VPPase)
+v_cADPR, (v_NADPH & v_ADPRc)
+v_cGMP, (v_GTP & v_NOGC1)
+v_nitrocGMP, ((v_ROS & v_NO) & v_cGMP)
+v_pHc, (((((((!v_ABI1 & !v_ABI2) & !v_OST1) & v_Ca2) & v_Vacuolar_Acidification) | (((!v_ABI1 & !v_ABI2) & v_OST1) & v_Vacuolar_Acidification)) | (((!v_ABI1 & v_ABI2) & v_Ca2) & v_Vacuolar_Acidification)) | ((v_ABI1 & v_Ca2) & v_Vacuolar_Acidification))

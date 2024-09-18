@@ -1,0 +1,107 @@
+targets,factors
+v_AAPX1, v_AAPX1
+v_ACWN1, v_ACWN1
+v_ACWN2, v_ACWN2
+v_ADSL1, v_ADSL1
+v_AEGL20_b1, v_AEGL20_b1
+v_AEGL20_b2, v_AEGL20_b2
+v_ALAG2, v_ALAG2
+v_ALIN3_b1, v_ALIN3_b1
+v_ALIN3_b2, (v_ALIN3_b1 & v_ALIN3_b2)
+v_ALIN3_b3, ((v_ALIN3_b1 & v_ALIN3_b2) & v_ALIN3_b3)
+v_ALIN44, v_ALIN44
+v_AMOM2, v_AMOM2
+v_APH1, v_APH1
+v_APH2, v_APH1
+v_APR1, !v_MIG5
+v_APX1, v_MC
+v_ARK1, (v_SEM5_b1 & v_CSL)
+v_BAR1, !v_GSK3
+v_CAM1, (v_AEGL20_b1 & v_VANG1)
+v_CEH13, v_CEH13
+v_CEH20, v_CEH20
+v_CSL, ((((!v_RAL1 & v_LAG1) & v_SEL8) & v_LIN12_3) | v_RAL1)
+v_DPY23, v_CSL
+v_DSL1, v_MC
+v_EFF1, (((!v_EGL18 & !v_ELT6) & !v_REF2) & !v_CSL)
+v_EGL17, (v_LIN39a_b1 & v_LIN39a_b2)
+v_EGL18, (v_LIN39a_b1 & v_LIN39a_b2)
+v_ELT6, (v_LIN39a_b1 & v_LIN39a_b2)
+v_GSK3, (((!v_PRY1 & v_KIN19) & v_APR1) | (v_PRY1 & v_APR1))
+v_HCO, (((!v_MAB5 & !v_CEH13) & v_CEH20) & v_UNC62)
+v_KIN19, v_APR1
+v_KSR1, v_KSR1
+v_KSR2, v_KSR2
+v_LAG1, v_LAG1
+v_LAG2, ((!v_LIN39a_b1 & v_MC) | v_LIN39a_b1)
+v_LET23ML, ((v_LIN10 & v_LIN7) & v_LIN2)
+v_LET23_b1, (((((!v_ALIN3_b1 & v_LET23_b1) & v_LET23_b2) | ((v_ALIN3_b1 & !v_LET23_b1) & v_LET23ML)) | (((v_ALIN3_b1 & v_LET23_b1) & !v_LET23_b2) & v_LET23ML)) | ((v_ALIN3_b1 & v_LET23_b1) & v_LET23_b2))
+v_LET23_b2, ((((((((((!v_ALIN3_b1 & v_LET23_b1) & v_LET23_b2) & v_LET23_b3) | ((((v_ALIN3_b1 & !v_ALIN3_b2) & v_LET23_b1) & v_LET23_b2) & v_LET23_b3)) | ((((((v_ALIN3_b1 & v_ALIN3_b2) & !v_ALIN3_b3) & v_LET23_b1) & !v_LET23_b2) & v_LET23ML) & !v_ARK1)) | (((((((v_ALIN3_b1 & v_ALIN3_b2) & !v_ALIN3_b3) & v_LET23_b1) & v_LET23_b2) & !v_LET23_b3) & v_LET23ML) & !v_ARK1)) | (((((v_ALIN3_b1 & v_ALIN3_b2) & !v_ALIN3_b3) & v_LET23_b1) & v_LET23_b2) & v_LET23_b3)) | (((((v_ALIN3_b1 & v_ALIN3_b2) & v_ALIN3_b3) & v_LET23_b1) & !v_LET23_b2) & v_LET23ML)) | ((((((v_ALIN3_b1 & v_ALIN3_b2) & v_ALIN3_b3) & v_LET23_b1) & v_LET23_b2) & !v_LET23_b3) & v_LET23ML)) | (((((v_ALIN3_b1 & v_ALIN3_b2) & v_ALIN3_b3) & v_LET23_b1) & v_LET23_b2) & v_LET23_b3))
+v_LET23_b3, (((((v_ALIN3_b1 & v_ALIN3_b2) & v_ALIN3_b3) & v_LET23_b1) & v_LET23_b2) & v_LET23ML)
+v_LET60_b1, (((!v_LET60_b1 & v_SOS1_b1) | ((v_LET60_b1 & !v_LET60_b2) & v_SOS1_b1)) | (v_LET60_b1 & v_LET60_b2))
+v_LET60_b2, (((((v_LET60_b1 & !v_LET60_b2) & v_SOS1_b1) & v_SOS1_b2) | ((((v_LET60_b1 & v_LET60_b2) & !v_LET60_b3) & v_SOS1_b1) & v_SOS1_b2)) | ((v_LET60_b1 & v_LET60_b2) & v_LET60_b3))
+v_LET60_b3, ((((v_LET60_b1 & v_LET60_b2) & v_SOS1_b1) & v_SOS1_b2) & v_SOS1_b3)
+v_LIN1, v_LIN1
+v_LIN10, v_LIN10
+v_LIN11, v_CSL
+v_LIN12, ((!v_LIN39a_b1 & v_CSL) | v_LIN39a_b1)
+v_LIN12_1, (((!v_MC & !v_VAV1) & v_LIN12) & !v_LIN14)
+v_LIN12_2, ((v_LS & v_SUP17) & v_LIN12_1)
+v_LIN12_3, (v_SEL12 & v_LIN12_2)
+v_LIN14, !v_lin4
+v_LIN17, ((((!v_ACWN1 & !v_ACWN2) & v_ALIN44) | (!v_ACWN1 & v_ACWN2)) | v_ACWN1)
+v_LIN18, ((!v_ACWN2 & v_AMOM2) | v_ACWN2)
+v_LIN2, v_LIN2
+v_LIN25, (v_MPK1_b1 & v_MPK1_b2)
+v_LIN31, v_LIN31
+v_LIN39_b1, ((((((((((((((!v_LIN39a_b1 & !v_LIN39_b1) & !v_PJW5_b1) & v_POP1b) | ((!v_LIN39a_b1 & !v_LIN39_b1) & v_PJW5_b1)) | ((((!v_LIN39a_b1 & v_LIN39_b1) & !v_LIN39_b2) & !v_PJW5_b1) & v_POP1b)) | (((!v_LIN39a_b1 & v_LIN39_b1) & !v_LIN39_b2) & v_PJW5_b1)) | ((!v_LIN39a_b1 & v_LIN39_b1) & v_LIN39_b2)) | ((((v_LIN39a_b1 & !v_LIN39_b1) & !v_MC) & !v_PJW5_b1) & v_POP1b)) | (((v_LIN39a_b1 & !v_LIN39_b1) & !v_MC) & v_PJW5_b1)) | ((v_LIN39a_b1 & !v_LIN39_b1) & v_MC)) | (((((v_LIN39a_b1 & v_LIN39_b1) & !v_LIN39_b2) & !v_MC) & !v_PJW5_b1) & v_POP1b)) | ((((v_LIN39a_b1 & v_LIN39_b1) & !v_LIN39_b2) & !v_MC) & v_PJW5_b1)) | (((v_LIN39a_b1 & v_LIN39_b1) & !v_LIN39_b2) & v_MC)) | ((v_LIN39a_b1 & v_LIN39_b1) & v_LIN39_b2))
+v_LIN39_b2, (((((v_LIN39a_b1 & v_LIN39_b1) & v_MC) & v_PJW5_b1) & v_PJW5_b2) & v_POP1b)
+v_LIN39a_b1, (((((((!v_LIN39a_b1 & !v_HCO) & !v_LIN39_b1) & !v_MPK1_b1) | ((!v_LIN39a_b1 & v_HCO) & v_LIN39_b1)) | ((((v_LIN39a_b1 & !v_LIN39a_b2) & !v_HCO) & !v_LIN39_b1) & !v_MPK1_b1)) | (((v_LIN39a_b1 & !v_LIN39a_b2) & v_HCO) & v_LIN39_b1)) | (v_LIN39a_b1 & v_LIN39a_b2))
+v_LIN39a_b2, ((((v_LIN39a_b1 & v_HCO) & v_LIN39_b1) & v_LIN39_b2) & v_MPK1_b1)
+v_LIN45_b1, (((((((!v_LIN45_b1 & v_LET60_b1) & !v_LET60_b2) & !v_RAL1) | ((!v_LIN45_b1 & v_LET60_b1) & v_LET60_b2)) | ((((v_LIN45_b1 & !v_LIN45_b2) & v_LET60_b1) & !v_LET60_b2) & !v_RAL1)) | (((v_LIN45_b1 & !v_LIN45_b2) & v_LET60_b1) & v_LET60_b2)) | (v_LIN45_b1 & v_LIN45_b2))
+v_LIN45_b2, (((((((((v_LIN45_b1 & !v_LIN45_b2) & v_LET60_b1) & v_LET60_b2) & !v_LET60_b3) & !v_RAL1) | ((((v_LIN45_b1 & !v_LIN45_b2) & v_LET60_b1) & v_LET60_b2) & v_LET60_b3)) | ((((((v_LIN45_b1 & v_LIN45_b2) & !v_LIN45_b3) & v_LET60_b1) & v_LET60_b2) & !v_LET60_b3) & !v_RAL1)) | (((((v_LIN45_b1 & v_LIN45_b2) & !v_LIN45_b3) & v_LET60_b1) & v_LET60_b2) & v_LET60_b3)) | ((v_LIN45_b1 & v_LIN45_b2) & v_LIN45_b3))
+v_LIN45_b3, ((((v_LIN45_b1 & v_LIN45_b2) & v_LET60_b1) & v_LET60_b2) & v_LET60_b3)
+v_LIN7, v_LIN7
+v_LIP1, v_CSL
+v_LIT1, v_LIT1
+v_LS, ((((!v_ADSL1 & !v_AAPX1) & v_ALAG2) | (!v_ADSL1 & v_AAPX1)) | v_ADSL1)
+v_LST1, v_CSL
+v_LST2, v_CSL
+v_LST3, v_CSL
+v_LST4, v_CSL
+v_MAB5, (v_AEGL20_b1 & v_AEGL20_b2)
+v_MC, (v_LIN25 & v_SUR2)
+v_MEK2_b1, ((((((((((!v_MEK2_b1 & !v_KSR2) & !v_KSR1) & v_LIN45_b1) & v_LIN45_b2) | (((!v_MEK2_b1 & !v_KSR2) & v_KSR1) & v_LIN45_b1)) | ((!v_MEK2_b1 & v_KSR2) & v_LIN45_b1)) | (((((v_MEK2_b1 & !v_MEK2_b2) & !v_KSR2) & !v_KSR1) & v_LIN45_b1) & v_LIN45_b2)) | ((((v_MEK2_b1 & !v_MEK2_b2) & !v_KSR2) & v_KSR1) & v_LIN45_b1)) | (((v_MEK2_b1 & !v_MEK2_b2) & v_KSR2) & v_LIN45_b1)) | (v_MEK2_b1 & v_MEK2_b2))
+v_MEK2_b2, ((((((((((((v_MEK2_b1 & !v_MEK2_b2) & !v_KSR2) & !v_KSR1) & v_LIN45_b1) & v_LIN45_b2) & v_LIN45_b3) | (((((v_MEK2_b1 & !v_MEK2_b2) & !v_KSR2) & v_KSR1) & v_LIN45_b1) & v_LIN45_b2)) | ((((v_MEK2_b1 & !v_MEK2_b2) & v_KSR2) & v_LIN45_b1) & v_LIN45_b2)) | (((((((v_MEK2_b1 & v_MEK2_b2) & !v_MEK2_b3) & !v_KSR2) & !v_KSR1) & v_LIN45_b1) & v_LIN45_b2) & v_LIN45_b3)) | ((((((v_MEK2_b1 & v_MEK2_b2) & !v_MEK2_b3) & !v_KSR2) & v_KSR1) & v_LIN45_b1) & v_LIN45_b2)) | (((((v_MEK2_b1 & v_MEK2_b2) & !v_MEK2_b3) & v_KSR2) & v_LIN45_b1) & v_LIN45_b2)) | ((v_MEK2_b1 & v_MEK2_b2) & v_MEK2_b3))
+v_MEK2_b3, (((((((v_MEK2_b1 & v_MEK2_b2) & !v_KSR2) & v_KSR1) & v_LIN45_b1) & v_LIN45_b2) & v_LIN45_b3) | (((((v_MEK2_b1 & v_MEK2_b2) & v_KSR2) & v_LIN45_b1) & v_LIN45_b2) & v_LIN45_b3))
+v_MIG1, ((!v_ALIN44 & v_AMOM2) | v_ALIN44)
+v_MIG5, ((!v_LIN17 & v_MOM5) | v_LIN17)
+v_MOM5, ((!v_AEGL20_b1 & v_ACWN1) | v_AEGL20_b1)
+v_MPK1_b1, (((((((!v_MPK1_b1 & v_MEK2_b1) & !v_MEK2_b2) & !v_LIP1) | ((!v_MPK1_b1 & v_MEK2_b1) & v_MEK2_b2)) | ((((v_MPK1_b1 & !v_MPK1_b2) & v_MEK2_b1) & !v_MEK2_b2) & !v_LIP1)) | (((v_MPK1_b1 & !v_MPK1_b2) & v_MEK2_b1) & v_MEK2_b2)) | (v_MPK1_b1 & v_MPK1_b2))
+v_MPK1_b2, (((((v_MPK1_b1 & v_MEK2_b1) & v_MEK2_b2) & !v_MEK2_b3) & !v_LIP1) | (((v_MPK1_b1 & v_MEK2_b1) & v_MEK2_b2) & v_MEK2_b3))
+v_PEN2, v_PEN2
+v_PJW5_b1, (((((!v_PJW5_b1 & !v_LIN1) | ((!v_PJW5_b1 & v_LIN1) & v_MPK1_b1)) | ((v_PJW5_b1 & !v_PJW5_b2) & !v_LIN1)) | (((v_PJW5_b1 & !v_PJW5_b2) & v_LIN1) & v_MPK1_b1)) | (v_PJW5_b1 & v_PJW5_b2))
+v_PJW5_b2, (((((v_PJW5_b1 & !v_LIN31) & !v_LIN1) & !v_MPK1_b1) | (((v_PJW5_b1 & !v_LIN31) & v_LIN1) & v_MPK1_b1)) | (((v_PJW5_b1 & v_LIN31) & v_LIN1) & v_MPK1_b1))
+v_POP1, (v_WRM1 & v_LIT1)
+v_POP1b, (((!v_BAR1 & v_SYS1) & v_POP1) | (v_BAR1 & v_POP1))
+v_PRY1, v_APR1
+v_RAL1, v_RGL1
+v_REF2, v_LIN39_b1
+v_RGL1, v_LET60_b1
+v_SEL12, ((v_APH2 & v_PEN2) & v_APH1)
+v_SEL8, v_SEL8
+v_SEM5_b1, (((!v_SEM5_b1 & v_LET23_b1) | ((v_SEM5_b1 & !v_SEM5_b2) & v_LET23_b1)) | (v_SEM5_b1 & v_SEM5_b2))
+v_SEM5_b2, (((((v_SEM5_b1 & !v_SEM5_b2) & v_LET23_b1) & v_LET23_b2) | ((((v_SEM5_b1 & v_SEM5_b2) & !v_SEM5_b3) & v_LET23_b1) & v_LET23_b2)) | ((v_SEM5_b1 & v_SEM5_b2) & v_SEM5_b3))
+v_SEM5_b3, ((((v_SEM5_b1 & v_SEM5_b2) & v_LET23_b1) & v_LET23_b2) & v_LET23_b3)
+v_SOS1_b1, (((!v_SOS1_b1 & v_SEM5_b1) | ((v_SOS1_b1 & !v_SOS1_b2) & v_SEM5_b1)) | (v_SOS1_b1 & v_SOS1_b2))
+v_SOS1_b2, (((((v_SOS1_b1 & !v_SOS1_b2) & v_SEM5_b1) & v_SEM5_b2) | ((((v_SOS1_b1 & v_SOS1_b2) & !v_SOS1_b3) & v_SEM5_b1) & v_SEM5_b2)) | ((v_SOS1_b1 & v_SOS1_b2) & v_SOS1_b3))
+v_SOS1_b3, ((((v_SOS1_b1 & v_SOS1_b2) & v_SEM5_b1) & v_SEM5_b2) & v_SEM5_b3)
+v_SUP17, v_SUP17
+v_SUR2, (v_MPK1_b1 & v_MPK1_b2)
+v_SYS1, !v_GSK3
+v_UNC62, v_UNC62
+v_VANG1, v_VANG1
+v_VAV1, !v_mir61
+v_WRM1, (((((!v_GSK3 & !v_LIN18) & !v_LIN17) & v_CAM1) | ((!v_GSK3 & !v_LIN18) & v_LIN17)) | (!v_GSK3 & v_LIN18))
+v_lin4, v_lin4
+v_mir61, v_CSL

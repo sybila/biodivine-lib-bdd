@@ -1,0 +1,12 @@
+targets,factors
+v_Cactus, !(v_Pelle & v_Slmb)
+v_Dif, !v_Cactus
+v_Dorsal, !v_Cactus
+v_MyD88, v_Toll
+v_Nec, v_Nec
+v_Pelle, v_Tube
+v_Slmb, v_Slmb
+v_Spz, !v_Nec
+v_Targets, (v_Dorsal | v_Dif)
+v_Toll, v_Spz
+v_Tube, v_MyD88

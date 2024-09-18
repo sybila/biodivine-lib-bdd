@@ -1,0 +1,22 @@
+targets,factors
+v_ACVR1, v_ACVR1
+v_ACVR1B, v_ACVR1B
+v_BAMBI, v_BAMBI
+v_BMPR1_2_ACTR2_complex, v_BMPR1_2_ACTR2_complex
+v_E, v_E
+v_E3_ubiquitin_ligase_complex_complex, v_E3_ubiquitin_ligase_complex_complex
+v_LTBP1, v_LTBP1
+v_MAPK3, v_MAPK3
+v_Modulation_of_cell_cycle_phenotype, (v_SMAD1_5_8_complex | v_SMAD2_3_complex)
+v_Nsp7, v_Nsp7
+v_Nsp7b_cell, v_Nsp7b_cell
+v_Nsp7b_default_compartment, v_Nsp7b_default_compartment
+v_Orf3a, v_Orf3a
+v_Orf7a, v_Orf7a
+v_Orf8, v_Orf8
+v_PP2A_complex, (v_TGFB_TGFBR_complex | v_Orf7a)
+v_RHOA, (v_TGFB_TGFBR_complex | v_Nsp7)
+v_RPS6KB1_empty, v_PP2A_complex
+v_SMAD1_5_8_complex, (((((v_BMPR1_2_ACTR2_complex | v_Orf3a) | v_Nsp7b_cell) | v_E) & !v_BAMBI) & !v_MAPK3)
+v_SMAD2_3_complex, (((((((v_TGFB_TGFBR_complex | v_ACVR1) | v_ACVR1B) | v_Orf3a) | v_Nsp7b_default_compartment) & !v_BAMBI) & !v_E3_ubiquitin_ligase_complex_complex) & !v_MAPK3)
+v_TGFB_TGFBR_complex, ((v_Orf8 & !v_LTBP1) & !v_BAMBI)

@@ -1,0 +1,83 @@
+targets,factors
+v_AKT, (v_pdk1 | !v_pp2a)
+v_CREB, (v_msk12 | v_p90RSKn)
+v_GSK3, v_AKT
+v_HSP27, v_prak
+v_HistH3, v_msk12
+v_IFNg, v_IFNg
+v_IFNgr, v_IFNg
+v_IGF1, v_IGF1
+v_IKK, ((v_nik | v_map3k1) | v_cot)
+v_IL1a, v_IL1a
+v_IL6, v_IL6
+v_IL6r, v_IL6
+v_IRS1s, (v_erk12 | v_mTOR)
+v_Ikb, v_IKK
+v_JNK12, (v_mkk4 | v_mkk7)
+v_JNK12n, v_JNK12
+v_LPS, v_LPS
+v_MEK12, (v_raf1 | v_traf6)
+v_PI3K, (((v_irs1t | v_egfr) | v_ras) | v_tnfr)
+v_STAT1, v_jak1
+v_STAT11, v_STAT1
+v_STAT13, (v_STAT3 | v_STAT1)
+v_STAT1n, ((v_p38n | v_STAT11) | v_erk12n)
+v_STAT3, v_jak2
+v_STAT33, v_STAT3
+v_STAT3n, (v_STAT33 | v_erk12n)
+v_TGFa, v_TGFa
+v_TNFa, v_TNFa
+v_a20, v_a20
+v_ask1, v_traf2
+v_atf1, v_msk12
+v_atf2, (v_p38n | v_JNK12n)
+v_cJUN, (v_JNK12n | v_ck2)
+v_casp9, !v_AKT
+v_cfos, ((v_elk1 | v_p90RSKn) | v_cJUN)
+v_ck2, v_ck2
+v_cot, v_AKT
+v_egfr, v_TGFa
+v_elk1, ((v_p38n | v_JNK12n) | v_erk12n)
+v_erk12, v_MEK12
+v_erk12n, v_erk12
+v_grb2, (v_shc | v_egfr)
+v_igfr, v_IGF1
+v_il1r, v_IL1a
+v_irs1t, (v_igfr | !v_IRS1s)
+v_jak1, (v_IFNgr | v_egfr)
+v_jak2, v_IL6r
+v_mTOR, v_AKT
+v_map3k1, ((v_rac | v_sitpec) | v_ras)
+v_map3k7, (v_traf2 | v_traf6)
+v_mdm2, !v_AKT
+v_mkk3, v_map3k7
+v_mkk4, ((v_map3k1 | v_ask1) | v_map3k7)
+v_mkk6, v_map3k7
+v_mkk7, ((v_map3k1 | v_ask1) | v_map3k7)
+v_msk12, (v_p38n | v_erk12n)
+v_nfkb, v_Ikb
+v_nfkbn, v_nfkb
+v_nik, v_map3k7
+v_p38, ((v_mkk3 | v_mkk4) | v_mkk6)
+v_p38n, v_p38
+v_p53, (v_mdm2 | v_JNK12n)
+v_p70S6, ((v_erk12 | v_pdk1) | v_mTOR)
+v_p90RSK, v_MEK12
+v_p90RSKn, v_p90RSK
+v_pak, (v_rac | !v_AKT)
+v_pdk1, v_pip3
+v_pip2, v_pip2
+v_pip3, (v_pip2 | v_PI3K)
+v_pp2a, v_pp2a
+v_prak, ((v_erk12 | v_mkk3) | v_p38)
+v_rac, v_PI3K
+v_raf1, (v_pak | v_ras)
+v_ras, ((v_sos | !v_rasgap) | !v_AKT)
+v_rasgap, v_egfr
+v_shc, (v_igfr | v_egfr)
+v_sitpec, v_traf6
+v_sos, (!v_erk12 | v_grb2)
+v_tlr4, v_LPS
+v_tnfr, v_TNFa
+v_traf2, v_tnfr
+v_traf6, ((!v_a20 | v_il1r) | v_tlr4)

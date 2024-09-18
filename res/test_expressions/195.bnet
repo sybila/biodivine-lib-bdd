@@ -1,0 +1,217 @@
+targets,factors
+v_ABL1, (((!v_f_PRDX1 & !v_LCK_activity) & v_FYN) | (!v_f_PRDX1 & v_LCK_activity))
+v_AKT1, (((v_f_PRKDC & !v_PP2A) & v_PDPK1) & v_mTORC2)
+v_ARP2_3, ((((v_f_ACTR2 & v_f_ACTR3) & !v_WAS) & v_WAVE_cplx) | ((v_f_ACTR2 & v_f_ACTR3) & v_WAS))
+v_ATF2, (v_JNK & v_p38)
+v_Actin_contraction_migration, (v_Actin_polymerisation & !v_MLCP)
+v_Actin_polymerisation, ((v_ARP2_3 & !v_CFL1) | ((v_ARP2_3 & v_CFL1) & v_HCLS1))
+v_Adhesion_Integrin, v_FYB
+v_Anergy, (((v_NFAT_nuc & v_DGKA) & !v_FOS) & !v_JUN)
+v_Apoptosis, ((!v_TIM3 & v_Caspase9) | v_TIM3)
+v_BAD, (!v_AKT1 & !v_RPS6KA1)
+v_BCL10, (v_CARD11 & v_CAMK2G)
+v_BCL2L1, ((!v_f_BBC3 & v_NF_KB) & !v_BAD)
+v_BTLA, (v_i_TNFRSF14 & v_f_Th1)
+v_CAMK2G, ((!v_Calmodulin & v_CAMK2G) | v_Calmodulin)
+v_CAMK4, v_Calmodulin
+v_CARD11, ((((!v_CBLB & !v_MAP4K1) & v_PRKCQ) & v_FYB) | ((!v_CBLB & v_MAP4K1) & v_FYB))
+v_CBL, ((v_i_CD5 & v_FYN) & v_GRB2)
+v_CBLB, (!v_CD28 | (v_CD28 & v_i_CD5))
+v_CCND1, v_CTNNB1
+v_CD28, (((((((((!v_i_CD80 & !v_i_CD86) & !v_CTLA4) & v_i_ICOSLG) & v_LCK_activity) | (((((!v_i_CD80 & !v_i_CD86) & v_CTLA4) & v_i_ICOSLG) & v_LCK_activity) & !v_PP2A)) | (((!v_i_CD80 & v_i_CD86) & !v_CTLA4) & v_LCK_activity)) | ((((!v_i_CD80 & v_i_CD86) & v_CTLA4) & v_LCK_activity) & !v_PP2A)) | ((v_i_CD80 & !v_CTLA4) & v_LCK_activity)) | (((v_i_CD80 & v_CTLA4) & v_LCK_activity) & !v_PP2A))
+v_CD4, v_i_pMHCII_binding
+v_CD6, (v_i_ALCAM & v_ZAP70)
+v_CDC42, v_VAV1
+v_CDKN1A, (!v_AKT1 & v_TP53)
+v_CDKN1B, (((v_f_SMAD3 & !v_AKT1) & v_FOXO1) & !v_RPS6KA1)
+v_CFL1, !v_LIMK1
+v_CHUK, ((!v_MAP3K7 & v_MAP3K3) | v_MAP3K7)
+v_CREB1, ((((((!v_PKA & v_PRKCQ) & v_CAMK4) & !v_RPS6KA4) & v_RPS6KA5) | (((!v_PKA & v_PRKCQ) & v_CAMK4) & v_RPS6KA4)) | v_PKA)
+v_CREBBP, !v_NF_KB
+v_CSK, ((((!v_PKA & !v_PAG1) & v_LIME1) | (!v_PKA & v_PAG1)) | v_PKA)
+v_CTLA4, ((!v_i_CD80 & v_i_CD86) | v_i_CD80)
+v_CTLA4_output, v_FOXP3
+v_CTNNB1, (!v_f_Axin1 & !v_GSK3B)
+v_CYCS, v_VDAC1
+v_Calcineurin, ((!v_f_RCAN1 & !v_f_CABIN1) & v_Calmodulin)
+v_Calcium_ER, (((!v_IP3R1 & !v_Calcium_ER) & v_SERCA) | (!v_IP3R1 & v_Calcium_ER))
+v_Calcium_cyt_b1, (((((((((((((((!v_IP3R1 & !v_Calcium_cyt_b1) & !v_SERCA) & v_ORAI1) | ((((!v_IP3R1 & !v_Calcium_cyt_b1) & v_SERCA) & v_ORAI1) & !v_PMCA)) | (((((!v_IP3R1 & v_Calcium_cyt_b1) & !v_Calcium_cyt_b2) & !v_SERCA) & !v_ORAI1) & !v_PMCA)) | ((((!v_IP3R1 & v_Calcium_cyt_b1) & !v_Calcium_cyt_b2) & !v_SERCA) & v_ORAI1)) | (((((!v_IP3R1 & v_Calcium_cyt_b1) & !v_Calcium_cyt_b2) & v_SERCA) & v_ORAI1) & !v_PMCA)) | ((!v_IP3R1 & v_Calcium_cyt_b1) & v_Calcium_cyt_b2)) | ((((v_IP3R1 & !v_Calcium_cyt_b1) & !v_SERCA) & !v_ORAI1) & !v_PMCA)) | (((v_IP3R1 & !v_Calcium_cyt_b1) & !v_SERCA) & v_ORAI1)) | (((v_IP3R1 & !v_Calcium_cyt_b1) & v_SERCA) & !v_PMCA)) | (((((v_IP3R1 & v_Calcium_cyt_b1) & !v_Calcium_cyt_b2) & !v_SERCA) & !v_ORAI1) & !v_PMCA)) | ((((v_IP3R1 & v_Calcium_cyt_b1) & !v_Calcium_cyt_b2) & !v_SERCA) & v_ORAI1)) | ((((v_IP3R1 & v_Calcium_cyt_b1) & !v_Calcium_cyt_b2) & v_SERCA) & !v_PMCA)) | ((v_IP3R1 & v_Calcium_cyt_b1) & v_Calcium_cyt_b2))
+v_Calcium_cyt_b2, (((((((v_Calcium_cyt_b1 & !v_Calcium_cyt_b2) & !v_SERCA) & v_ORAI1) | ((((v_Calcium_cyt_b1 & !v_Calcium_cyt_b2) & v_SERCA) & v_ORAI1) & !v_PMCA)) | ((((v_Calcium_cyt_b1 & v_Calcium_cyt_b2) & !v_SERCA) & !v_ORAI1) & !v_PMCA)) | (((v_Calcium_cyt_b1 & v_Calcium_cyt_b2) & !v_SERCA) & v_ORAI1)) | (((v_Calcium_cyt_b1 & v_Calcium_cyt_b2) & v_SERCA) & !v_PMCA))
+v_Calmodulin, (v_Calcium_cyt_b1 & v_Calcium_cyt_b2)
+v_Caspase9, (v_f_APAF1 & v_CYCS)
+v_DAG, (((!v_PIP2 & v_DAG) | ((v_PIP2 & !v_DAG) & v_PLCG1)) | (v_PIP2 & v_DAG))
+v_DGKA, (v_FOXO1 & v_NFAT_nuc)
+v_DUSP1, (v_CREBBP & v_CREB1)
+v_DUSP5, v_DUSP5
+v_Differentiation, v_IL2
+v_ELK1, ((((((!v_MAPK3 & !v_MAPK1) & !v_JNK) & v_p38) | ((!v_MAPK3 & !v_MAPK1) & v_JNK)) | (!v_MAPK3 & v_MAPK1)) | v_MAPK3)
+v_FOS, (v_ELK1 & v_CREB1)
+v_FOXO1, (!v_f_14_3_3 & !v_AKT1)
+v_FOXP3, (((((v_f_SMAD3 & v_FOXO1) & v_NF_KB) & v_CREBBP) & v_NFAT_nuc) & v_CREB1)
+v_FYB, v_LCP2
+v_FYN, v_LCK_activity
+v_GAB2, (((v_ZAP70 & !v_GRB2) & v_GRAP2) | (v_ZAP70 & v_GRB2))
+v_GADD45A, v_TP53
+v_GRAP, v_LAT
+v_GRAP2, ((((!v_CD28 & v_LAT) & v_GRAP2) & v_PLCG1_binding) | v_CD28)
+v_GRB2, ((!v_CD28 & v_LAT) | v_CD28)
+v_GSK3A, !v_AKT1
+v_GSK3B, (!v_AKT1 & !v_RPS6KA1)
+v_GYS1, (!v_GSK3A & !v_GSK3B)
+v_Glycogenesis, (v_f_Glucose & v_GYS1)
+v_Growth, v_mTORC1
+v_HCLS1, (v_ABL1 & v_Actin_polymerisation)
+v_HRAS, (v_SOS & v_RASGRP1)
+v_ICOS, v_i_ICOSLG
+v_IDO_DC, v_CTLA4
+v_IKBKB, ((!v_MAP3K7 & v_MAP3K3) | v_MAP3K7)
+v_IKBKG, (v_CARD11 & v_MALT1)
+v_IL2, (((v_NF_KB & v_NFAT_nuc) & v_FOS) & v_JUN)
+v_INF2, ((!v_CDC42 & v_RAC1) | v_CDC42)
+v_INPP5D, v_INPP5D
+v_IP3, (((!v_PIP2 & v_IP3) | ((v_PIP2 & !v_IP3) & v_PLCG1)) | (v_PIP2 & v_IP3))
+v_IP3R1, v_IP3
+v_ITK, ((((!v_CD28 & v_LCK_activity) & v_LCP2) & v_PIP3) | ((v_CD28 & v_LCK_activity) & v_PIP3))
+v_JNK, ((((!v_f_DUSP2 & !v_MAP2K4) & v_MAP2K7) & !v_DUSP1) | ((!v_f_DUSP2 & v_MAP2K4) & !v_DUSP1))
+v_JUN, (!v_GSK3B & v_JNK)
+v_LAT, (((((((!v_f_PTPRJ & !v_LCK_activity) & !v_PTPN11) & !v_CBL) & !v_ZAP70) & v_ITK) | ((((!v_f_PTPRJ & !v_LCK_activity) & !v_PTPN11) & !v_CBL) & v_ZAP70)) | (((!v_f_PTPRJ & v_LCK_activity) & !v_PTPN11) & !v_CBL))
+v_LCK, (((!v_f_MAL & v_f_UNC119) & v_f_RAB11A) | v_f_MAL)
+v_LCK_activity, ((((((!v_CD28 & v_CD4) & !v_pY505LCK) & v_pY394LCK) | ((((!v_CD28 & v_CD4) & v_pY505LCK) & v_pY394LCK) & v_LIME1)) | ((v_CD28 & !v_pY505LCK) & v_pY394LCK)) | (((v_CD28 & v_pY505LCK) & v_pY394LCK) & v_LIME1))
+v_LCP2, (((((!v_CD6 & v_ZAP70) & !v_GRAP2) & v_PLCG1_binding) | ((!v_CD6 & v_ZAP70) & v_GRAP2)) | (v_CD6 & v_ZAP70))
+v_LIME1, v_CD4
+v_LIMK1, ((!v_PAK1 & v_ROCK1) | v_PAK1)
+v_MALT1, v_BCL10
+v_MAP2K1, v_RAF1
+v_MAP2K4, (((((!v_MAP3K7 & !v_MAP3K3) & v_PAK1) & v_MAP3K1) | ((!v_MAP3K7 & v_MAP3K3) & v_PAK1)) | (v_MAP3K7 & v_PAK1))
+v_MAP2K6, ((!v_MAP3K7 & v_MAP3K3) | v_MAP3K7)
+v_MAP2K7, (((((!v_MAP3K7 & !v_MAP3K3) & v_PAK1) & v_MAP3K1) | ((!v_MAP3K7 & v_MAP3K3) & v_PAK1)) | (v_MAP3K7 & v_PAK1))
+v_MAP3K1, (((((!v_MAP4K1 & !v_CDC42) & v_RAC1) & v_HRAS) | ((!v_MAP4K1 & v_CDC42) & v_HRAS)) | (v_MAP4K1 & v_HRAS))
+v_MAP3K11, v_MAP4K1
+v_MAP3K3, v_HRAS
+v_MAP3K7, v_PRKCQ
+v_MAP4K1, ((((!v_LCK_activity & !v_ZAP70) & v_LCP2) | (!v_LCK_activity & v_ZAP70)) | v_LCK_activity)
+v_MAP4K3, v_LCP2
+v_MAPK1, (((((!v_f_DUSP4 & !v_DUSP5) & !v_f_DUSP6) & !v_f_DUSP22) & v_MAP2K1) & !v_DUSP1)
+v_MAPK3, (((((!v_f_DUSP4 & !v_DUSP5) & !v_f_DUSP6) & !v_f_DUSP22) & v_MAP2K1) & !v_DUSP1)
+v_MLCP, !v_ROCK1
+v_MYC, (v_CTNNB1 & v_RPS6KA5)
+v_Mitochondria, (v_ZAP70 & v_Calcium_cyt_b1)
+v_NCK1, (v_LCP2 & v_VAV1)
+v_NFAT_nuc, (!v_GSK3B & v_Calcineurin)
+v_NFKBIA, ((!v_CHUK | (v_CHUK & !v_IKBKG)) | ((v_CHUK & v_IKBKG) & !v_IKBKB))
+v_NF_KB, !v_NFKBIA
+v_ORAI1, ((((((v_f_CRACR2A & !v_f_ROS) & v_WAVE_cplx) & !v_Calcium_cyt_b1) & v_STIM1) | (((((v_f_CRACR2A & !v_f_ROS) & v_WAVE_cplx) & v_Calcium_cyt_b1) & !v_Calcium_cyt_b2) & v_STIM1)) | ((((((v_f_CRACR2A & !v_f_ROS) & v_WAVE_cplx) & v_Calcium_cyt_b1) & v_Calcium_cyt_b2) & v_STIM1) & v_Mitochondria))
+v_OX40, v_i_OX40L
+v_PAG1, !v_TCRalphabeta
+v_PAK1, ((!v_CDC42 & v_RAC1) | v_CDC42)
+v_PCNA, !v_CDKN1A
+v_PDCD1, ((!v_i_CD274 & v_i_PDCD1LG2) | v_i_CD274)
+v_PDCD1_output, v_NFAT_nuc
+v_PDPK1, v_PIP3
+v_PI3K_b1, ((((((((!v_CBL & !v_CBLB) & !v_LCP2) & v_PI3K_b1) & v_PI3K_b2) | (((((!v_CBL & !v_CBLB) & v_LCP2) & !v_TXK) & v_PI3K_b1) & v_PI3K_b2)) | (((!v_CBL & !v_CBLB) & v_LCP2) & v_TXK)) | (((!v_CBL & v_CBLB) & v_PI3K_b1) & v_PI3K_b2)) | ((v_CBL & v_PI3K_b1) & v_PI3K_b2))
+v_PI3K_b2, (((((((((!v_CD28 & !v_CTLA4) & v_ICOS) & !v_CBL) & !v_CBLB) & v_LCP2) & v_TXK) & v_PI3K_b1) | ((((((!v_CD28 & v_CTLA4) & !v_CBL) & !v_CBLB) & v_LCP2) & v_TXK) & v_PI3K_b1)) | (((((v_CD28 & !v_CBL) & !v_CBLB) & v_LCP2) & v_TXK) & v_PI3K_b1))
+v_PIP2, ((((((((((((((!v_PTEN & !v_PI3K_b1) & v_PIP2) & !v_IP3) | ((((!v_PTEN & !v_PI3K_b1) & v_PIP2) & v_IP3) & !v_DAG)) | (((((!v_PTEN & !v_PI3K_b1) & v_PIP2) & v_IP3) & v_DAG) & !v_PLCG1)) | (((!v_PTEN & v_PI3K_b1) & v_PIP2) & !v_PIP3)) | ((((!v_PTEN & v_PI3K_b1) & v_PIP2) & v_PIP3) & v_PLCG1)) | (((v_PTEN & !v_PI3K_b1) & !v_PIP2) & v_PIP3)) | (((v_PTEN & !v_PI3K_b1) & v_PIP2) & !v_IP3)) | ((((v_PTEN & !v_PI3K_b1) & v_PIP2) & v_IP3) & !v_DAG)) | ((((((v_PTEN & !v_PI3K_b1) & v_PIP2) & v_IP3) & v_DAG) & !v_PIP3) & !v_PLCG1)) | (((((v_PTEN & !v_PI3K_b1) & v_PIP2) & v_IP3) & v_DAG) & v_PIP3)) | (((v_PTEN & v_PI3K_b1) & !v_PIP2) & v_PIP3)) | ((v_PTEN & v_PI3K_b1) & v_PIP2))
+v_PIP3, (((((((!v_INPP5D & !v_PTEN) & !v_PI3K_b1) & v_PIP3) | ((((!v_INPP5D & !v_PTEN) & v_PI3K_b1) & !v_PIP2) & v_PIP3)) | (((!v_INPP5D & !v_PTEN) & v_PI3K_b1) & v_PIP2)) | (((((!v_INPP5D & v_PTEN) & v_PI3K_b1) & v_PI3K_b2) & !v_PIP2) & v_PIP3)) | ((((!v_INPP5D & v_PTEN) & v_PI3K_b1) & v_PI3K_b2) & v_PIP2))
+v_PKA, v_i_cAMP
+v_PLCG1, (((((((!v_CBL & !v_CBLB) & !v_ZAP70) & !v_ITK) & v_TXK) & v_PLCG1_binding) | ((((!v_CBL & !v_CBLB) & !v_ZAP70) & v_ITK) & v_PLCG1_binding)) | (((!v_CBL & !v_CBLB) & v_ZAP70) & v_PLCG1_binding))
+v_PLCG1_binding, (v_GRAP2 & v_LCP2)
+v_PMCA, (v_Calcium_cyt_b1 & !v_Mitochondria)
+v_PP2A, (!v_CD28 | (v_CD28 & v_CTLA4))
+v_PRKCQ, ((((v_LCK_activity & !v_CBL) & v_MAP4K3) & v_DAG) & v_PDPK1)
+v_PTEN, (v_FOXO1 & v_CREBBP)
+v_PTPN11, ((((!v_CTLA4 & !v_PDCD1) & v_BTLA) | (!v_CTLA4 & v_PDCD1)) | v_CTLA4)
+v_PTPN22, (v_CSK & !v_LIME1)
+v_PTPN6, (((((!v_i_CD5 & !v_PDCD1) & v_BTLA) & v_LCK_activity) | ((!v_i_CD5 & v_PDCD1) & v_LCK_activity)) | (v_i_CD5 & v_LCK_activity))
+v_PTPRC, !v_TCRalphabeta
+v_Proliferation, (((v_PCNA & v_CCND1) & v_MYC) & v_IL2)
+v_Protein_synthesis, (v_f_Glucose & v_RPS6KB1)
+v_Quiescence, (((v_FOXO1 & !v_CDKN1A) & v_CDKN1B) | (v_FOXO1 & v_CDKN1A))
+v_RAC1, v_VAV1
+v_RAF1, (!v_CTLA4 & v_HRAS)
+v_RASGRP1, (v_DAG & v_Calcium_cyt_b1)
+v_RHEB, !v_TSC1_TSC2
+v_RHOA, v_VAV1
+v_ROCK1, v_RHOA
+v_RPS6KA1, (((v_PDPK1 & !v_MAPK3) & v_MAPK1) | (v_PDPK1 & v_MAPK3))
+v_RPS6KA4, ((((!v_MAPK3 & !v_MAPK1) & v_p38) | (!v_MAPK3 & v_MAPK1)) | v_MAPK3)
+v_RPS6KA5, ((((!v_MAPK3 & !v_MAPK1) & v_p38) | (!v_MAPK3 & v_MAPK1)) | v_MAPK3)
+v_RPS6KB1, v_mTORC1
+v_RPTOR, !v_RPS6KA1
+v_SERCA, (!v_Calcium_ER & v_Calcium_cyt_b1)
+v_SH3BP2, ((!v_PTPN6 & v_ZAP70) & v_LAT)
+v_SHB, v_LCP2
+v_SOS, v_GRB2
+v_STIM1, !v_Calcium_ER
+v_Survival, ((v_BCL2L1 & !v_Caspase9) & v_IL2)
+v_TCRalphabeta, (((((v_i_pMHCII_binding & v_i_pMHCII_agonist) & !v_i_pMHCII_dose) & v_i_pMHCII_affinity) & !v_PTPN11) | ((((v_i_pMHCII_binding & v_i_pMHCII_agonist) & v_i_pMHCII_dose) & !v_i_pMHCII_affinity) & !v_PTPN11))
+v_TIM3, ((v_i_LGALS9 & v_f_Th1) & !v_f_BAT3)
+v_TP53, (!v_f_MDM2 | (v_f_MDM2 & v_p38))
+v_TSC1_TSC2, (!v_AKT1 & !v_RPS6KA1)
+v_TXK, (v_FYN & v_LCP2)
+v_Treg, v_FOXP3
+v_Triglyceride_synthesis, v_f_Glucose
+v_VAV1, ((((((((((((((((!v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & !v_ZAP70) & !v_LCP2) & v_ITK) & v_PIP3) & !v_HCLS1) & v_SH3BP2) | ((((((((!v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & !v_ZAP70) & !v_LCP2) & v_ITK) & v_PIP3) & v_HCLS1)) | (((((((!v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & !v_ZAP70) & v_LCP2) & v_ITK) & v_PIP3)) | ((((((((!v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & v_ZAP70) & !v_LCP2) & v_PIP3) & !v_HCLS1) & v_SH3BP2)) | (((((((!v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & v_ZAP70) & !v_LCP2) & v_PIP3) & v_HCLS1)) | ((((((!v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & v_ZAP70) & v_LCP2) & v_PIP3)) | ((((((v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & !v_ZAP70) & v_ITK) & v_PIP3)) | (((((v_CD6 & !v_PTPN22) & !v_CBL) & !v_CBLB) & v_ZAP70) & v_PIP3))
+v_VDAC1, !v_BCL2L1
+v_WAS, ((v_PIP2 & v_NCK1) & v_CDC42)
+v_WAVE_cplx, (((((((((((((!v_f_NCKAP1L & v_f_NCKAP1) & v_f_BAIAP2) & v_f_CYFIP1) & v_f_BRK1) & v_f_WASF2) & !v_f_ABI1) & v_f_ABI2) & v_PIP3) & v_RAC1) & v_ABL1) | (((((((((!v_f_NCKAP1L & v_f_NCKAP1) & v_f_BAIAP2) & v_f_CYFIP1) & v_f_BRK1) & v_f_WASF2) & v_f_ABI1) & v_PIP3) & v_RAC1) & v_ABL1)) | (((((((((v_f_NCKAP1L & v_f_BAIAP2) & v_f_CYFIP1) & v_f_BRK1) & v_f_WASF2) & !v_f_ABI1) & v_f_ABI2) & v_PIP3) & v_RAC1) & v_ABL1)) | ((((((((v_f_NCKAP1L & v_f_BAIAP2) & v_f_CYFIP1) & v_f_BRK1) & v_f_WASF2) & v_f_ABI1) & v_PIP3) & v_RAC1) & v_ABL1))
+v_ZAP70, (((((((v_pTCR & v_LCK_activity) & !v_PTPN6) & !v_PTPN22) & !v_PTPN11) & !v_PP2A) & !v_CBL) & !v_INPP5D)
+v_f_14_3_3, v_f_14_3_3
+v_f_ABI1, v_f_ABI1
+v_f_ABI2, v_f_ABI2
+v_f_ACTR2, v_f_ACTR2
+v_f_ACTR3, v_f_ACTR3
+v_f_APAF1, v_f_APAF1
+v_f_Axin1, v_f_Axin1
+v_f_BAIAP2, v_f_BAIAP2
+v_f_BAT3, v_f_BAT3
+v_f_BBC3, v_f_BBC3
+v_f_BRK1, v_f_BRK1
+v_f_CABIN1, v_f_CABIN1
+v_f_CRACR2A, v_f_CRACR2A
+v_f_CYFIP1, v_f_CYFIP1
+v_f_DEPTOR, v_f_DEPTOR
+v_f_DUSP10, v_f_DUSP10
+v_f_DUSP2, v_f_DUSP2
+v_f_DUSP22, v_f_DUSP22
+v_f_DUSP4, v_f_DUSP4
+v_f_DUSP6, v_f_DUSP6
+v_f_Glucose, v_f_Glucose
+v_f_MAL, v_f_MAL
+v_f_MDM2, v_f_MDM2
+v_f_MLST8, v_f_MLST8
+v_f_MTOR, v_f_MTOR
+v_f_NCKAP1, v_f_NCKAP1
+v_f_NCKAP1L, v_f_NCKAP1L
+v_f_PRDX1, v_f_PRDX1
+v_f_PRKDC, v_f_PRKDC
+v_f_PTPRJ, v_f_PTPRJ
+v_f_RAB11A, v_f_RAB11A
+v_f_RCAN1, v_f_RCAN1
+v_f_RICTOR, v_f_RICTOR
+v_f_ROS, v_f_ROS
+v_f_SMAD3, v_f_SMAD3
+v_f_Th1, v_f_Th1
+v_f_UNC119, v_f_UNC119
+v_f_WASF2, v_f_WASF2
+v_i_ALCAM, v_i_ALCAM
+v_i_CD274, v_i_CD274
+v_i_CD5, v_i_CD5
+v_i_CD80, v_i_CD80
+v_i_CD86, v_i_CD86
+v_i_ICOSLG, v_i_ICOSLG
+v_i_LGALS9, v_i_LGALS9
+v_i_OX40L, v_i_OX40L
+v_i_PDCD1LG2, v_i_PDCD1LG2
+v_i_TNFRSF14, v_i_TNFRSF14
+v_i_cAMP, v_i_cAMP
+v_i_pMHCII_affinity, v_i_pMHCII_affinity
+v_i_pMHCII_agonist, v_i_pMHCII_agonist
+v_i_pMHCII_binding, v_i_pMHCII_binding
+v_i_pMHCII_dose, v_i_pMHCII_dose
+v_mTORC1, ((((!v_f_DEPTOR & v_f_MLST8) & v_f_MTOR) & v_RPTOR) & v_RHEB)
+v_mTORC2, ((((!v_f_DEPTOR & v_f_RICTOR) & v_f_MLST8) & v_f_MTOR) & !v_RPS6KB1)
+v_p38, (((((!v_MAP2K6 & !v_f_DUSP10) & v_ZAP70) & !v_GADD45A) & !v_DUSP1) | ((v_MAP2K6 & !v_f_DUSP10) & !v_DUSP1))
+v_pS59LCK, (((((v_LCK & !v_pS59LCK) & !v_MAPK3) & v_MAPK1) | ((v_LCK & !v_pS59LCK) & v_MAPK3)) | (v_LCK & v_pS59LCK))
+v_pTCR, ((((v_TCRalphabeta & !v_LCK_activity) & !v_PTPN22) & v_FYN) | ((v_TCRalphabeta & v_LCK_activity) & !v_PTPN22))
+v_pY394LCK, ((((((((v_LCK & !v_pS59LCK) & !v_LIME1) & !v_PTPN6) & !v_PTPN22) & !v_PTPRC) | ((((v_LCK & !v_pS59LCK) & v_LIME1) & !v_PTPN6) & !v_PTPN22)) | ((((v_LCK & v_pS59LCK) & !v_LIME1) & !v_PTPN22) & !v_PTPRC)) | (((v_LCK & v_pS59LCK) & v_LIME1) & !v_PTPN22))
+v_pY505LCK, (((((((v_LCK & !v_pY505LCK) & v_CSK) & !v_LIME1) & !v_PTPRC) | (((v_LCK & !v_pY505LCK) & v_CSK) & v_LIME1)) | (((v_LCK & v_pY505LCK) & !v_LIME1) & !v_PTPRC)) | ((v_LCK & v_pY505LCK) & v_LIME1))

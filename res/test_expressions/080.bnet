@@ -1,0 +1,111 @@
+targets,factors
+v_A20, v_P65_p50_dimer
+v_ABL, ((!v_LCK & v_FYN) | v_LCK)
+v_ADAPT78_or_calcipressin, v_ADAPT78_or_calcipressin
+v_AICytokines, ((v_cJUN_cFOS & v_NFAT1_NFAT2) & v_CREB1)
+v_ARP2_3_or_ACTR2_3, (((!v_WASF2 & v_WASp) & v_HS1) | (v_WASF2 & v_HS1))
+v_ASH, ((!v_CD28_with_phosphorylated_ITAMs & v_LAT) | v_CD28_with_phosphorylated_ITAMs)
+v_Activated_CCBL, (v_FYN & v_CBL)
+v_Akap79, v_Akap79
+v_Akt1_2, (((!v_PDK1 & v_Phosphatidylinositol_3_phosphate) & v_MTORC1_2_or_FRAP) | (v_PDK1 & v_Phosphatidylinositol_3_phosphate))
+v_Anergy, (!v_cJUN_cFOS & v_NFAT1_NFAT2)
+v_BCL2L1, (v_P65_p50_dimer & !v_BCL2L8)
+v_BCL2L8, !v_Akt1_2
+v_CAM_kinase_IV, v_Calmodulin_1
+v_CARD11a, ((v_Malt1 & v_CARMA1) & v_CIPER)
+v_CARMA1, v_PRKCQ
+v_CBL, v_CBL
+v_CBP, (!v_TCR_complex & v_FYN)
+v_CD28, v_CD28
+v_CD28_with_phosphorylated_ITAMs, (((v_CD28 & !v_LCK) & v_FYN) | (v_CD28 & v_LCK))
+v_CD4, v_CD4
+v_CD6, v_CD6
+v_CHUK_IKBKB, (((((((!v_PRKCQ & v_NEMO) & !v_A20) & !v_Camk2a_b_or_CAMKA_B) & v_MAP3K8) | (((!v_PRKCQ & v_NEMO) & !v_A20) & v_Camk2a_b_or_CAMKA_B)) | ((v_PRKCQ & v_NEMO) & !v_A20)) | ((((v_PRKCQ & v_NEMO) & v_A20) & v_Camk2a_b_or_CAMKA_B) & v_MAP3K8))
+v_CIPER, v_CIPER
+v_CRBM__3BP2, (v_STD & v_LAT)
+v_CREB1, ((((!v_Camk2a_b_or_CAMKA_B & !v_CAM_kinase_IV) & v_RSK1) | (!v_Camk2a_b_or_CAMKA_B & v_CAM_kinase_IV)) | v_Camk2a_b_or_CAMKA_B)
+v_CSK, (!v_SHP2 & v_CBP)
+v_Ca, v_IP3
+v_Cabin1, !v_CAM_kinase_IV
+v_Calmodulin_1, v_Ca
+v_Camk2a_b_or_CAMKA_B, v_Calmodulin_1
+v_Cell_Cycle_Progression, ((((((v_P65_p50_dimer & v_cJUN_cFOS) & v_NFAT1_NFAT2) & v_CREB1) & v_SRF) & !v_P27K) & !v_P21C)
+v_Cyc1, !v_GSK3b
+v_DAG, v_PLC_gamma_1
+v_DGKz_DGKa, v_RASGRP
+v_DUSP14__DUSP16, v_cJUN_cFOS
+v_ERK1_2_or_MAPK1_3, ((!v_MAP2K1_2_or_MEK1_2 & v_MAP3K8) | v_MAP2K1_2_or_MEK1_2)
+v_FKHR, !v_Akt1_2
+v_FYN, ((v_TCR_complex & v_LCK) & !v_Shp_1)
+v_G25K, v_VAV1
+v_GADD45A, v_GADD45A
+v_GADS, v_LAT
+v_GAP, v_GAP
+v_GSK3b, !v_Akt1_2
+v_Glk, (v_LCK & v_PDK1)
+v_HPK1, v_LAT
+v_HS1, (v_ABL & v_LYK)
+v_IP3, v_PLC_gamma_1
+v_IkBa, !v_CHUK_IKBKB
+v_JNK1_2_or_MAPK8_9, ((((!v_MEKK1 & v_JNKK1_or_MEK4_or_MKK4) & !v_DUSP14__DUSP16) | ((v_MEKK1 & !v_JNKK1_or_MEK4_or_MKK4) & !v_DUSP14__DUSP16)) | (v_MEKK1 & v_JNKK1_or_MEK4_or_MKK4))
+v_JNKK1_or_MEK4_or_MKK4, ((!v_MEKK1 & v_MEKK11_or_MLK3) | v_MEKK1)
+v_KIAA0571, (((v_STD & v_LAT) & v_GADS) & v_ASH)
+v_Kinases, v_Kinases
+v_LAT, ((!v_LCK & v_STD) | v_LCK)
+v_LCK, ((v_TCR_complex & v_CD4) & v_LCK_reservoir)
+v_LCK_reservoir, ((!v_PTPRC & v_LCK_reservoir) | v_PTPRC)
+v_LYK, (((v_LCK & v_STD) & v_SLP_76) & v_Phosphatidylinositol_3_phosphate)
+v_LYP_or_PEP, v_LYP_or_PEP
+v_MAP2K1_2_or_MEK1_2, ((((((!v_MEKK1 & !v_G25K) & !v_RAC1p2_Phosphorylated_RAC1) & v_RAF1) | ((!v_MEKK1 & !v_G25K) & v_RAC1p2_Phosphorylated_RAC1)) | (!v_MEKK1 & v_G25K)) | v_MEKK1)
+v_MAP3K8, v_Akt1_2
+v_MAPK14, ((((((!v_STD & !v_MEKK1) & v_RAC1p1_Phosphorylated_RAC1) | (!v_STD & v_MEKK1)) | (v_STD & !v_GADD45A)) | (((v_STD & v_GADD45A) & !v_MEKK1) & v_RAC1p1_Phosphorylated_RAC1)) | ((v_STD & v_GADD45A) & v_MEKK1))
+v_MEKK1, ((((!v_HPK1 & !v_G25K) & v_RAC1p2_Phosphorylated_RAC1) | (!v_HPK1 & v_G25K)) | v_HPK1)
+v_MEKK11_or_MLK3, ((!v_HPK1 & v_RAC1p1_Phosphorylated_RAC1) | v_HPK1)
+v_MTORC1_2_or_FRAP, v_MAPK14
+v_Malt1, v_Malt1
+v_NEMO, v_CARD11a
+v_NFAT1_NFAT2, (v_PPP3CA_B_or_CALNA & !v_Kinases)
+v_P21C, !v_Akt1_2
+v_P27K, v_FKHR
+v_P65_p50_dimer, ((((((!v_IkBa & !v_CHUK_IKBKB) & !v_Akt1_2) & v_CAM_kinase_IV) & !v_p105) | (((!v_IkBa & !v_CHUK_IKBKB) & v_Akt1_2) & !v_p105)) | ((!v_IkBa & v_CHUK_IKBKB) & !v_p105))
+v_PDK1, v_Phosphatidylinositol_3_phosphate
+v_PICytokines, ((v_P65_p50_dimer & v_cJUN_cFOS) & v_NFAT1_NFAT2)
+v_PIK3CD__P110d, v_p85a
+v_PLC_gamma_1, ((((((!v_STD & v_LAT) & v_SLP_76) & !v_LYK) & v_RLK) | (((!v_STD & v_LAT) & v_SLP_76) & v_LYK)) | ((v_STD & v_LAT) & v_SLP_76))
+v_PPP3CA_B_or_CALNA, (((!v_ADAPT78_or_calcipressin & v_Calmodulin_1) & !v_Akap79) & !v_Cabin1)
+v_PRKCQ, ((((((((!v_LCK & v_DAG) & !v_Glk) & v_VAV1) & !v_PDK1) & v_Akt1_2) | ((((!v_LCK & v_DAG) & !v_Glk) & v_VAV1) & v_PDK1)) | (((!v_LCK & v_DAG) & v_Glk) & v_VAV1)) | ((v_LCK & v_DAG) & v_VAV1))
+v_PTPRC, v_PTPRC
+v_Phosphatidylinositol_3_phosphate, ((!v_TEP1 & !v_SHIP1) & v_PIK3CD__P110d)
+v_RAC1p1_Phosphorylated_RAC1, (v_VAV1 & v_p21_RAC1_or_TC25)
+v_RAC1p2_Phosphorylated_RAC1, (v_VAV2 & v_p21_RAC1_or_TC25)
+v_RAF1, v_p21Ras
+v_RASGRP, ((v_DAG & v_PRKCQ) & v_Ca)
+v_RLK, v_LCK
+v_RNF56, (!v_LCK & !v_PRKCQ)
+v_RSK1, v_ERK1_2_or_MAPK1_3
+v_Remodeling_of_actin_cytoskeleton_, v_ARP2_3_or_ACTR2_3
+v_Rheb2, ((!v_PDK1 & v_Akt1_2) | v_PDK1)
+v_SHIP1, !v_LCK
+v_SHP2, v_KIAA0571
+v_SLP_76, (((((((((!v_Tp120 & v_STD) & v_LAT) & !v_GADS) & !v_Shp_1) | (((((!v_Tp120 & v_STD) & v_LAT) & v_GADS) & !v_VAV1) & !v_Shp_1)) | ((((!v_Tp120 & v_STD) & v_LAT) & v_GADS) & v_VAV1)) | (((v_Tp120 & v_STD) & !v_GADS) & !v_Shp_1)) | ((((v_Tp120 & v_STD) & v_GADS) & !v_VAV1) & !v_Shp_1)) | (((v_Tp120 & v_STD) & v_GADS) & v_VAV1))
+v_SOS1, v_ASH
+v_SRF, ((((!v_ERK1_2_or_MAPK1_3 & !v_G25K) & v_RAC1p2_Phosphorylated_RAC1) | (!v_ERK1_2_or_MAPK1_3 & v_G25K)) | v_ERK1_2_or_MAPK1_3)
+v_STD, (((((v_TCR_with_phosphorylated_ITAMs & !v_LCK) & !v_FYN) & v_ABL) | ((v_TCR_with_phosphorylated_ITAMs & !v_LCK) & v_FYN)) | (v_TCR_with_phosphorylated_ITAMs & v_LCK))
+v_Shp_1, (((!v_LCK & v_FYN) & !v_ERK1_2_or_MAPK1_3) | (v_LCK & !v_ERK1_2_or_MAPK1_3))
+v_Survival, (((((v_P65_p50_dimer & v_cJUN_cFOS) & v_NFAT1_NFAT2) & v_CREB1) & !v_FKHR) & v_BCL2L1)
+v_TCR_complex, v_TCR_complex
+v_TCR_with_phosphorylated_ITAMs, ((((((v_TCR_complex & !v_LCK) & v_FYN) & !v_Activated_CCBL) & !v_LYP_or_PEP) | ((((v_TCR_complex & v_LCK) & !v_FYN) & !v_Activated_CCBL) & !v_LYP_or_PEP)) | ((v_TCR_complex & v_LCK) & v_FYN))
+v_TEP1, (!v_LCK & v_FKHR)
+v_Tp120, (v_CD6 & v_STD)
+v_VAV1, ((v_STD & v_Phosphatidylinositol_3_phosphate) & v_CRBM__3BP2)
+v_VAV2, (v_Phosphatidylinositol_3_phosphate & v_CRBM__3BP2)
+v_WASF2, (v_ABL & v_RAC1p1_Phosphorylated_RAC1)
+v_WASp, v_G25K
+v_beta_catenin, !v_GSK3b
+v_cJUN_cFOS, (v_c_FOS & v_c_JUN)
+v_c_FOS, (v_ERK1_2_or_MAPK1_3 & v_SRF)
+v_c_JUN, (v_JNK1_2_or_MAPK8_9 & !v_GSK3b)
+v_p105, !v_MAP3K8
+v_p21Ras, ((((!v_GAP & !v_SOS1) & v_RASGRP) | (!v_GAP & v_SOS1)) | ((v_GAP & v_SOS1) & v_RASGRP))
+v_p21_RAC1_or_TC25, v_p21_RAC1_or_TC25
+v_p85a, (v_CD28_with_phosphorylated_ITAMs & v_SLP_76)

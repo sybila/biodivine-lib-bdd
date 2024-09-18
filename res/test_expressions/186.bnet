@@ -1,0 +1,11 @@
+targets,factors
+v_AROMATASE, ((!v_FOXL2 & v_OESTROGEN) | v_FOXL2)
+v_DMRT1_b1, (((((((((((((((((((((!v_Z1 & !v_DMRT1_b1) & !v_HEMGN) & v_SOX9) & !v_FOXL2) | (((!v_Z1 & !v_DMRT1_b1) & v_HEMGN) & !v_FOXL2)) | (((((!v_Z1 & v_DMRT1_b1) & !v_DMRT1_b2) & !v_HEMGN) & v_SOX9) & !v_FOXL2)) | ((((!v_Z1 & v_DMRT1_b1) & !v_DMRT1_b2) & v_HEMGN) & !v_FOXL2)) | ((!v_Z1 & v_DMRT1_b1) & v_DMRT1_b2)) | (((((v_Z1 & !v_Z2) & !v_DMRT1_b1) & !v_HEMGN) & v_SOX9) & !v_FOXL2)) | ((((v_Z1 & !v_Z2) & !v_DMRT1_b1) & v_HEMGN) & !v_FOXL2)) | ((((((v_Z1 & !v_Z2) & v_DMRT1_b1) & !v_DMRT1_b2) & !v_HEMGN) & v_SOX9) & !v_FOXL2)) | (((((v_Z1 & !v_Z2) & v_DMRT1_b1) & !v_DMRT1_b2) & v_HEMGN) & !v_FOXL2)) | (((v_Z1 & !v_Z2) & v_DMRT1_b1) & v_DMRT1_b2)) | ((((v_Z1 & v_Z2) & !v_W) & !v_DMRT1_b1) & !v_FOXL2)) | (((((v_Z1 & v_Z2) & !v_W) & v_DMRT1_b1) & !v_DMRT1_b2) & !v_FOXL2)) | ((((v_Z1 & v_Z2) & !v_W) & v_DMRT1_b1) & v_DMRT1_b2)) | ((((((v_Z1 & v_Z2) & v_W) & !v_DMRT1_b1) & !v_HEMGN) & v_SOX9) & !v_FOXL2)) | (((((v_Z1 & v_Z2) & v_W) & !v_DMRT1_b1) & v_HEMGN) & !v_FOXL2)) | (((((((v_Z1 & v_Z2) & v_W) & v_DMRT1_b1) & !v_DMRT1_b2) & !v_HEMGN) & v_SOX9) & !v_FOXL2)) | ((((((v_Z1 & v_Z2) & v_W) & v_DMRT1_b1) & !v_DMRT1_b2) & v_HEMGN) & !v_FOXL2)) | ((((v_Z1 & v_Z2) & v_W) & v_DMRT1_b1) & v_DMRT1_b2))
+v_DMRT1_b2, ((((v_DMRT1_b1 & !v_HEMGN) & v_SOX9) & !v_FOXL2) | ((v_DMRT1_b1 & v_HEMGN) & !v_FOXL2))
+v_FOXL2, ((((!v_DMRT1_b1 & !v_SOX9) | ((!v_DMRT1_b1 & v_SOX9) & v_OESTROGEN)) | ((v_DMRT1_b1 & !v_DMRT1_b2) & !v_SOX9)) | (((v_DMRT1_b1 & !v_DMRT1_b2) & v_SOX9) & v_OESTROGEN))
+v_HEMGN, (v_DMRT1_b1 & !v_SOX9)
+v_OESTROGEN, v_AROMATASE
+v_SOX9, ((((!v_DMRT1_b1 & v_SOX9) & !v_FOXL2) | (((v_DMRT1_b1 & !v_DMRT1_b2) & v_SOX9) & !v_FOXL2)) | ((v_DMRT1_b1 & v_DMRT1_b2) & !v_FOXL2))
+v_W, v_W
+v_Z1, v_Z1
+v_Z2, v_Z2

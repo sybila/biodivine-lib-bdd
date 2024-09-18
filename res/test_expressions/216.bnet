@@ -1,0 +1,70 @@
+targets,factors
+v_ATP5F1B_rna, v_TF_space_NRF2_complex
+v_ATP5F1C_rna, v_TF_space_NRF1_complex
+v_ATP5MC1_rna, v_TF_space_YY1_complex
+v_CDK5, v_CDK5
+v_COX4I1_rna, (v_TF_space_NRF2_complex | v_TF_space_NRF1_complex)
+v_COX5A_rna, ((v_TF_space_NRF2_complex | v_TF_space_NRF1_complex) | v_TF_space_YY1_complex)
+v_COX5B_rna, (v_TF_space_NRF1_complex | v_TF_space_NRF2_complex)
+v_COX6A1_rna, (v_TF_space_NRF1_complex | v_TF_space_NRF2_complex)
+v_COX6B1_rna, (v_TF_space_NRF2_complex | v_TF_space_NRF1_complex)
+v_COX6C_rna, (v_TF_space_NRF2_complex | v_TF_space_NRF1_complex)
+v_COX7A2_rna, (v_TF_space_NRF1_complex | v_TF_space_NRF2_complex)
+v_COX7B_rna, (v_TF_space_NRF1_complex | v_TF_space_NRF2_complex)
+v_COX7C_rna, (v_TF_space_NRF2_complex | v_TF_space_NRF1_complex)
+v_COX8A_rna, (v_TF_space_NRF1_complex | v_TF_space_NRF2_complex)
+v_CYCS_rna, (v_TF_space_NRF1_complex | v_TF_space_YY1_complex)
+v_ESRRA, v_ESRRA
+v_GABPA, v_GABPA
+v_IDH3A_rna, v_TF_space_YY1_complex
+v_IDH3B_rna, v_TF_space_YY1_complex
+v_IDH3G_rna, v_TF_space_YY1_complex
+v_KAT2A, v_KAT2A
+v_MEF2D, v_autophagy_phenotype
+v_MEF2D_phosphorylated, (v_MEF2D & v_CDK5)
+v_NAD____simple_molecule, !v_NAD_space_depletion_phenotype
+v_NAD_space_depletion_phenotype, v_NAD_space_depletion_phenotype
+v_NDUFS8_rna, v_TF_space_YY1_complex
+v_NO_simple_molecule, v_NO_simple_molecule
+v_NRF1, v_NRF1
+v_POLRMT_rna, v_TF_space_NRF1_complex
+v_PPARA, v_PPARA
+v_PPARGC1A_acetylated_phosphorylated_phosphorylated, ((v_PPARGC1A_phosphorylated_phosphorylated & v_acetyl_CoA_simple_molecule) & v_KAT2A)
+v_PPARGC1A_phosphorylated_phosphorylated, (((v_PPARGC1A_acetylated_phosphorylated_phosphorylated & v_NAD____simple_molecule) & v_SIRT1) | !v_ESRRA)
+v_PPARGC1A_rna, v_TF_space_MEF2C_complex
+v_RNS_simple_molecule, v_RNS_simple_molecule
+v_ROS_simple_molecule, v_ROS_simple_molecule
+v_SDHB_rna, ((v_TF_space_NRF2_complex | v_TF_space_NRF2_complex) | v_TF_space_NRF1_complex)
+v_SDHC_rna, ((v_TF_space_NRF2_complex | v_TF_space_NRF2_complex) | v_TF_space_NRF1_complex)
+v_SDHD_rna, (v_TF_space_NRF1_complex | v_TF_space_NRF2_complex)
+v_SIRT1, v_SIRT1
+v_SIRT3_rna, v_TF_space_ERRa_complex
+v_SNCA, v_SNCA
+v_SURF1_rna, v_TF_space_NRF1_complex
+v_TFAM_rna, v_TF_space_NRF1_complex
+v_TFB1M_rna, v_TF_space_NRF1_complex
+v_TFB2M_rna, v_TF_space_NRF1_complex
+v_TF_space_ERRa_complex, (v_PPARGC1A_phosphorylated_phosphorylated & v_ESRRA)
+v_TF_space_MEF2C_complex, (v_PPARGC1A_phosphorylated_phosphorylated & v_sa5803_MEF2C_nucleus)
+v_TF_space_MEF2D_complex, (v_PPARGC1A_phosphorylated_phosphorylated & v_MEF2D)
+v_TF_space_NRF1_complex, (v_PPARGC1A_phosphorylated_phosphorylated & v_NRF1)
+v_TF_space_NRF2_complex, (v_PPARGC1A_phosphorylated_phosphorylated & v_GABPA)
+v_TF_space_PPARA_complex, (v_PPARGC1A_phosphorylated_phosphorylated & v_PPARA)
+v_TF_space_YY1_complex, ((v_PPARGC1A_phosphorylated_phosphorylated & v_YY1) & v_mTORC1_complex)
+v_TOMM20_rna, v_TF_space_NRF1_complex
+v_UCP2_rna, v_TF_space_YY1_complex
+v_VDAC1_rna, v_TF_space_NRF1_complex
+v_YY1, v_YY1
+v_acetyl_CoA_simple_molecule, v_acetyl_CoA_simple_molecule
+v_autophagy_phenotype, v_autophagy_phenotype
+v_complex_space_II_complex, ((v_SDHC_rna | v_SDHD_rna) | v_SDHB_rna)
+v_complex_space_IV_complex, ((((((((((v_COX6A1_rna | v_COX7A2_rna) | v_COX6B1_rna) | v_COX7B_rna) | v_COX6C_rna) | v_COX5A_rna) | v_COX7C_rna) | v_COX8A_rna) | v_COX5A_rna) | v_COX4I1_rna) | v_COX5B_rna)
+v_complex_space_V_complex, (v_ATP5F1B_rna | v_ATP5F1C_rna)
+v_fatty_space_acid_space_oxidation_phenotype, (v_TF_space_PPARA_complex | v_TF_space_ERRa_complex)
+v_mTORC1_complex, v_mTORC1_complex
+v_mitochondrial_space_biogenesis_phenotype, ((((((v_complex_space_V_complex | v_SIRT3_rna) | v_complex_space_II_complex) | v_CYCS_rna) | v_complex_space_IV_complex) | v_CYCS_rna) | v_PPARGC1A_phosphorylated_phosphorylated)
+v_mitochondrial_space_transcription_phenotype, (((v_TFB2M_rna | v_TFB1M_rna) | v_POLRMT_rna) | v_TFAM_rna)
+v_mitochondrial_space_transport_phenotype, ((v_VDAC1_rna | v_SURF1_rna) | v_TOMM20_rna)
+v_sa5803_MEF2C_nucleus, v_sa5803_MEF2C_nucleus
+v_sa9242_MEF2C_nucleus, ((v_SNCA | v_ROS_simple_molecule) & v_sa5803_MEF2C_nucleus)
+v_sa9243_MEF2C_nucleus, (((v_SNCA | v_RNS_simple_molecule) | v_NO_simple_molecule) & v_sa5803_MEF2C_nucleus)

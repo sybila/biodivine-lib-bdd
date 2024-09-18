@@ -1,0 +1,91 @@
+targets,factors
+v_ADP_simple_molecule, ((((v_L_Gln_simple_molecule & v_HCO3_simple_molecule) & v_H2O_simple_molecule) & v_ATP_simple_molecule) & v_CAD)
+v_ATP_simple_molecule, v_ATP_simple_molecule
+v_CAD, v_CAD
+v_CAP_simple_molecule, ((((v_L_Gln_simple_molecule & v_HCO3_simple_molecule) & v_H2O_simple_molecule) & v_ATP_simple_molecule) & v_CAD)
+v_CDA, v_CDA
+v_CDP_simple_molecule, (v_CMP_simple_molecule & v_CMPK)
+v_CMPK, v_CMPK
+v_CMP_simple_molecule, (v_cytidine_simple_molecule & v_UCK2)
+v_CO2_simple_molecule, (v_orotidine_space_5__monophosphate_simple_molecule & v_UMPS)
+v_CTPS1, v_CTPS1
+v_CTP_simple_molecule, ((v_UTP_simple_molecule & v_CTPS1) | (v_CDP_simple_molecule & v_NME1))
+v_CoQ_simple_molecule, v_CoQ_simple_molecule
+v_DCTD, v_DCTD
+v_DCTPP1, v_DCTPP1
+v_DNA_damage_phenotype, v_Teriflunomide_drug
+v_DNA_gene, (((v_dsDNA_simple_molecule & v_dTTP_simple_molecule) & v_DNA_space_biosynthesis_phenotype) & !v_virus_space_replication_phenotype)
+v_DNA_space_biosynthesis_phenotype, v_DNA_space_biosynthesis_phenotype
+v_DUT, v_DUT
+v_GTP_simple_molecule, v_GTP_simple_molecule
+v_H2O_simple_molecule, ((v_N_carbamoyl_L_aspartate_simple_molecule & v_H_simple_molecule) & v_CAD)
+v_HCO3_simple_molecule, v_HCO3_simple_molecule
+v_HCoVs_IFN_induction_WP4880_phenotype, (v_IFNA1_human_host | v_IFNB1_human_host)
+v_HCoVs_Type_I_Ifn_signalling_WP4868__phenotype, (v_IFNB1_human_host | v_IFNA1_human_host)
+v_HCoVs_autophagy__WP4863__phenotype, v_cGAMP_STING_LC3_complex
+v_H_simple_molecule, v_H_simple_molecule
+v_IFNA1_human_host, v_IFNA1_pulmonary_endothelial_cell
+v_IFNA1_pulmonary_endothelial_cell, v_IFNA1_rna
+v_IFNA1_rna, v_IFNB1_space_expression_space_complex_complex
+v_IFNB1_human_host, v_IFNB1_pulmonary_endothelial_cell
+v_IFNB1_pulmonary_endothelial_cell, v_IFNB1_rna
+v_IFNB1_rna, v_IFNB1_space_expression_space_complex_complex
+v_IFNB1_space_expression_space_complex_complex, (v_NF_kB_complex & v_IRF3_phosphorylated)
+v_IRF3_phosphorylated, v_STING_TBK1_complex_endolysosome
+v_Interferon_1_pathway_phenotype, (v_IFNB1_human_host | v_IFNA1_human_host)
+v_L_Asp_simple_molecule, v_L_Asp_simple_molecule
+v_L_Gln_simple_molecule, v_L_Gln_simple_molecule
+v_L_Glu_simple_molecule, ((((v_L_Gln_simple_molecule & v_HCO3_simple_molecule) & v_H2O_simple_molecule) & v_ATP_simple_molecule) & v_CAD)
+v_MRE11, v_MRE11
+v_MRE11_RAD50_DNA_complex_endoplasmic_reticulum, v_MRE11_RAD50_DNA_complex_pulmonary_endothelial_cell
+v_MRE11_RAD50_DNA_complex_pulmonary_endothelial_cell, (v_dsDNA_simple_molecule & v_MRE11)
+v_NF_kB_complex, v_NF_kB_complex
+v_NME1, v_NME1
+v_N_carbamoyl_L_aspartate_simple_molecule, ((v_CAP_simple_molecule & v_L_Asp_simple_molecule) & v_CAD)
+v_P1788_simple_molecule, v_P1788_simple_molecule
+v_PPi_simple_molecule, ((v_orotate_simple_molecule & v_PRPP_simple_molecule) & v_UMPS)
+v_PRPP_simple_molecule, v_PRPP_simple_molecule
+v_Pi_simple_molecule, (((((v_L_Gln_simple_molecule & v_HCO3_simple_molecule) & v_H2O_simple_molecule) & v_ATP_simple_molecule) & v_CAD) | ((v_CAP_simple_molecule & v_L_Asp_simple_molecule) & v_CAD))
+v_QH2_simple_molecule, ((((v__S__dihydroorotate_simple_molecule & v_CoQ_simple_molecule) & v_dihydroorotate_space_dehydrogenase_space_holoenzyme_simple_molecule) & !v_P1788_simple_molecule) & !v_Teriflunomide_drug)
+v_RNA_space_biosynthesis_phenotype, v_RTC_and_transcription_pw_phenotype
+v_RTC_and_transcription_pw_phenotype, v_CTP_simple_molecule
+v_SAR1A, v_SAR1A
+v_STING_Golgi_apparatus, (v_STING_endoplasmic_reticulum & v_MRE11_RAD50_DNA_complex_endoplasmic_reticulum)
+v_STING_TBK1_complex_Golgi_apparatus, ((v_TBK1 & v_cGAMP_STING_complex_Golgi_apparatus) | (v_TBK1 & v_STING_Golgi_apparatus))
+v_STING_TBK1_complex_endolysosome, v_STING_TBK1_complex_Golgi_apparatus
+v_STING_endoplasmic_reticulum, v_STING_endoplasmic_reticulum
+v_TBK1, v_TBK1
+v_TYMS, v_TYMS
+v_Teriflunomide_drug, v_Teriflunomide_drug
+v_UCK2, v_UCK2
+v_UDP_simple_molecule, (v_UMP_simple_molecule & v_CMPK)
+v_UMPS, v_UMPS
+v_UMP_simple_molecule, ((v_uridine_simple_molecule & v_UCK2) | (v_orotidine_space_5__monophosphate_simple_molecule & v_UMPS))
+v_UTP_simple_molecule, (v_UDP_simple_molecule & v_NME1)
+v_WIPI2, v_WIPI2
+v__S__dihydroorotate_simple_molecule, ((v_N_carbamoyl_L_aspartate_simple_molecule & v_H_simple_molecule) & v_CAD)
+v_cGAMP_STING_LC3_complex, (v_WIPI2 | v_cGAMP_STING_complex)
+v_cGAMP_STING_complex, (v_cGAMP_STING_complex_endoplasmic_reticulum & v_SAR1A)
+v_cGAMP_STING_complex_Golgi_apparatus, v_cGAMP_STING_complex_endoplasmic_reticulum
+v_cGAMP_STING_complex_endoplasmic_reticulum, (v_cGAMP_simple_molecule & v_STING_endoplasmic_reticulum)
+v_cGAMP_simple_molecule, ((v_ATP_simple_molecule & v_GTP_simple_molecule) & v_cGAS_dsDNA_complex)
+v_cGAS, v_cGAS
+v_cGAS_dsDNA_complex, (v_dsDNA_simple_molecule & v_cGAS)
+v_cytidine_simple_molecule, v_cytidine_simple_molecule
+v_dCDP_simple_molecule, (v_CDP_simple_molecule & v_ribonucleoside_diphosphate_reductase_complex)
+v_dCMP_simple_molecule, (v_dCTP_simple_molecule & v_DCTPP1)
+v_dCTP_simple_molecule, (v_dCDP_simple_molecule & v_NME1)
+v_dTDP_simple_molecule, (v_dTMP_simple_molecule & v_dTYMK)
+v_dTMP_simple_molecule, (v_dUMP_simple_molecule & v_TYMS)
+v_dTTP_simple_molecule, v_dTDP_simple_molecule
+v_dTYMK, v_dTYMK
+v_dUDP_simple_molecule, (v_UDP_simple_molecule & v_ribonucleoside_diphosphate_reductase_complex)
+v_dUMP_simple_molecule, ((v_dUTP_simple_molecule & v_DUT) | (v_dCMP_simple_molecule & v_DCTD))
+v_dUTP_simple_molecule, (v_dUDP_simple_molecule & v_NME1)
+v_dihydroorotate_space_dehydrogenase_space_holoenzyme_simple_molecule, v_dihydroorotate_space_dehydrogenase_space_holoenzyme_simple_molecule
+v_dsDNA_simple_molecule, v_DNA_damage_phenotype
+v_orotate_simple_molecule, ((((v__S__dihydroorotate_simple_molecule & v_CoQ_simple_molecule) & v_dihydroorotate_space_dehydrogenase_space_holoenzyme_simple_molecule) & !v_P1788_simple_molecule) & !v_Teriflunomide_drug)
+v_orotidine_space_5__monophosphate_simple_molecule, ((v_orotate_simple_molecule & v_PRPP_simple_molecule) & v_UMPS)
+v_ribonucleoside_diphosphate_reductase_complex, v_ribonucleoside_diphosphate_reductase_complex
+v_uridine_simple_molecule, (v_cytidine_simple_molecule & v_CDA)
+v_virus_space_replication_phenotype, v_virus_space_replication_phenotype

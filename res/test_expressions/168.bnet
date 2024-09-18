@@ -1,0 +1,14 @@
+targets,factors
+v_CtBP, v_CtBP
+v_Da, v_Da
+v_Delta, v_Delta
+v_E_Spl_b1, (((((((((!v_Nicd | ((((v_Nicd & !v_E_Spl_b1) & !v_H) & !v_Gro) & !v_CtBP)) | (((((v_Nicd & !v_E_Spl_b1) & !v_H) & !v_Gro) & v_CtBP) & !v_Mam)) | ((((v_Nicd & !v_E_Spl_b1) & !v_H) & v_Gro) & !v_Mam)) | (((v_Nicd & !v_E_Spl_b1) & v_H) & !v_Mam)) | (((((v_Nicd & v_E_Spl_b1) & !v_E_Spl_b2) & !v_H) & !v_Gro) & !v_CtBP)) | ((((((v_Nicd & v_E_Spl_b1) & !v_E_Spl_b2) & !v_H) & !v_Gro) & v_CtBP) & !v_Mam)) | (((((v_Nicd & v_E_Spl_b1) & !v_E_Spl_b2) & !v_H) & v_Gro) & !v_Mam)) | ((((v_Nicd & v_E_Spl_b1) & !v_E_Spl_b2) & v_H) & !v_Mam)) | ((v_Nicd & v_E_Spl_b1) & v_E_Spl_b2))
+v_E_Spl_b2, (((((v_Nicd & v_E_Spl_b1) & !v_H) & !v_Gro) & !v_CtBP) & v_Mam)
+v_Emc, v_Nicd
+v_Gro, v_Gro
+v_H, v_H
+v_Mam, v_Mam
+v_Nicd, v_Notch
+v_Notch, v_Delta
+v_Twi_b1, (((((((((!v_Emc & !v_Da) & v_Twi_b1) & v_Twi_b2) | (!v_Emc & v_Da)) | ((((v_Emc & !v_E_Spl_b1) & !v_Da) & v_Twi_b1) & v_Twi_b2)) | ((v_Emc & !v_E_Spl_b1) & v_Da)) | (((((v_Emc & v_E_Spl_b1) & !v_E_Spl_b2) & !v_Da) & v_Twi_b1) & v_Twi_b2)) | (((v_Emc & v_E_Spl_b1) & !v_E_Spl_b2) & v_Da)) | ((((v_Emc & v_E_Spl_b1) & v_E_Spl_b2) & v_Twi_b1) & v_Twi_b2))
+v_Twi_b2, (((!v_Emc & v_Da) & v_Twi_b1) | (((v_Emc & !v_E_Spl_b1) & v_Da) & v_Twi_b1))

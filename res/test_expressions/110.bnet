@@ -1,0 +1,10 @@
+targets,factors
+v_CckA, v_DivL
+v_ChpT, v_CckA
+v_ClpXP_RcdA, !v_CpdR
+v_CpdR, v_ChpT
+v_CtrAb, (v_ChpT & !v_ClpXP_RcdA)
+v_DivJ, (v_DivK & !v_PleC)
+v_DivK, (!v_PleC & v_DivJ)
+v_DivL, !v_DivK
+v_PleC, !v_DivK

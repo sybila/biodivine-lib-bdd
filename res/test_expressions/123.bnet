@@ -1,0 +1,61 @@
+targets,factors
+v_ATP6AP1, v_ATP6AP1
+v_ATP6AP1_Bafilomycin_A1_complex, (v_ATP6AP1 & v_Bafilomycin_A1_drug)
+v_Bafilomycin_A1_drug, v_Bafilomycin_A1_drug
+v_DNAJC11, v_DNAJC11
+v_F_ATPase_Nsp6_complex, (v_Nsp6 & v_F_ATPase_complex)
+v_F_ATPase_complex, v_F_ATPase_complex
+v_H__ion, v_V_type_space_proton_space_ATPase_complex
+v_IDE_human_host, v_sa8_IDE_cell
+v_Loratadine_drug, v_Loratadine_drug
+v_M, v_M
+v_NUP210_Selinexor_complex, (v_NUP210_endoplasmic_reticulum & v_Selinexor_drug)
+v_NUP210_endoplasmic_reticulum, v_NUP210_endoplasmic_reticulum
+v_NUP210_nucleus, v_NUP210_endoplasmic_reticulum
+v_Nsp3, v_sa160_Nsp3_____rna
+v_Nsp3_Nsp4_Nsp6_complex, ((v_Nsp3 & v_Nsp6) & v_Nsp4)
+v_Nsp4, v_sa3_Nsp4_____rna
+v_Nsp4_DNAJC11_complex, (v_Nsp4 & v_DNAJC11)
+v_Nsp4_IDE_complex, v_csa2_Nsp4_IDE_complex_cell
+v_Nsp4_NUP210_complex_endoplasmic_reticulum, (v_Nsp4 & v_NUP210_endoplasmic_reticulum)
+v_Nsp4_NUP210_complex_nucleus, v_Nsp4_NUP210_complex_endoplasmic_reticulum
+v_Nsp6, v_sa47_Nsp6_____rna
+v_Nsp6_SIGMAR1_complex_cell, v_Nsp6_SIGMAR1_complex_endoplasmic_reticulum
+v_Nsp6_SIGMAR1_complex_endoplasmic_reticulum, (v_Nsp6 & v_SIGMAR1_endoplasmic_reticulum)
+v_Nsp6_SIGMAR1_complex_nucleus, v_Nsp6_SIGMAR1_complex_endoplasmic_reticulum
+v_Orf9c, v_Orf9c
+v_P_ATPase_Nsp6_complex, (v_Nsp6 & v_P_ATPase_complex)
+v_P_ATPase_complex, v_P_ATPase_complex
+v_Plasma_membrane_organization_phenotype, v_Nsp3_Nsp4_Nsp6_complex
+v_SIGMAR1_Drugs_complex, (v_Several_drugs_drug & v_SIGMAR1_endoplasmic_reticulum)
+v_SIGMAR1_cell, v_SIGMAR1_endoplasmic_reticulum
+v_SIGMAR1_endoplasmic_reticulum, v_SIGMAR1_endoplasmic_reticulum
+v_SIGMAR1_nucleus, v_SIGMAR1_endoplasmic_reticulum
+v_SLC6A15, v_SLC6A15
+v_SLC6A15_Loratadine_complex, (v_SLC6A15 & v_Loratadine_drug)
+v_SLC6A15_M_complex, (v_SLC6A15 & v_M)
+v_SLC6A15_Nsp6_complex, (v_Nsp6 & v_SLC6A15)
+v_SLC6A15_Orf9c_complex, (v_SLC6A15 & v_Orf9c)
+v_Selinexor_drug, v_Selinexor_drug
+v_Several_drugs_drug, v_Several_drugs_drug
+v_TIM_complex_Nsp4_complex, (v_Nsp4 & v_TOM_complex_complex)
+v_TOM_complex_complex, v_TOM_complex_complex
+v_V_ATPase_Nsp6_complex_endoplasmic_reticulum, (v_Nsp6 & v_V_ATPase_complex_endoplasmic_reticulum)
+v_V_ATPase_Nsp6_complex_endosome, v_V_ATPase_Nsp6_complex_endoplasmic_reticulum
+v_V_ATPase_complex_endoplasmic_reticulum, (v_V_type_space_proton_space_ATPase_complex & v_ATP6AP1)
+v_V_ATPase_complex_endosome, v_V_ATPase_complex_endoplasmic_reticulum
+v_V_type_space_proton_space_ATPase_complex, v_V_type_space_proton_space_ATPase_complex
+v_csa15_Nsp4_ALG11_complex_endoplasmic_reticulum, (v_Nsp4 & v_sa14_ALG11_endoplasmic_reticulum)
+v_csa2_Nsp4_IDE_complex_cell, (v_Nsp4 & v_sa8_IDE_cell)
+v_csa4_Nsp4_IDE_complex_cell, v_csa2_Nsp4_IDE_complex_cell
+v_csa93_Nsp4_ALG11_complex_endoplasmic_reticulum, v_csa15_Nsp4_ALG11_complex_endoplasmic_reticulum
+v_sa14_ALG11_endoplasmic_reticulum, v_sa14_ALG11_endoplasmic_reticulum
+v_sa160_Nsp3_____rna, v_sa219_Nsp3_____rna
+v_sa218_Nsp6_____rna, v_sa47_Nsp6_____rna
+v_sa219_Nsp3_____rna, v_sa160_Nsp3_____rna
+v_sa220_Nsp4_____rna, v_sa3_Nsp4_____rna
+v_sa225_IDE_cell, v_sa8_IDE_cell
+v_sa230_ALG11_endoplasmic_reticulum, v_sa14_ALG11_endoplasmic_reticulum
+v_sa3_Nsp4_____rna, v_sa220_Nsp4_____rna
+v_sa47_Nsp6_____rna, v_sa218_Nsp6_____rna
+v_sa8_IDE_cell, v_sa8_IDE_cell

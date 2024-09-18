@@ -1,0 +1,15 @@
+targets,factors
+v_APC_C, (((v_MYB77 & !v_E2Fe) | (v_MYB3R1_4 & !v_E2Fe)) | (v_E2Fa & !(v_E2Fe | v_RBR)))
+v_CDKB1_1, ((v_MYB77 | ((v_E2Fb & (!v_RBR | (v_CYCD3_1 & !v_KRP1))) & !v_E2Fc)) | v_MYB3R1_4)
+v_CYCA2_3, ((v_MYB3R1_4 & !v_APC_C) | (v_MYB77 & !v_APC_C))
+v_CYCB1_1, (((v_MYB3R1_4 & !v_APC_C) | ((v_E2Fb & ((v_CYCD3_1 & !v_KRP1) | !v_RBR)) & !(v_APC_C | v_E2Fc))) | (v_MYB77 & !v_APC_C))
+v_CYCD3_1, !v_SCF
+v_E2Fa, ((((v_CDKB1_1 & ((!v_E2Fc & !v_CYCA2_3) & !v_E2Fa)) | (v_CYCA2_3 & ((!v_E2Fc & !v_CDKB1_1) & !v_E2Fa))) | (v_E2Fa & !(v_CDKB1_1 & v_CYCA2_3))) | !(((v_E2Fc | v_CDKB1_1) | v_CYCA2_3) | v_E2Fa))
+v_E2Fb, (v_E2Fa & !v_RBR)
+v_E2Fc, ((v_MYB3R1_4 & !((v_SCF & v_CYCD3_1) & !v_KRP1)) | (v_E2Fa & !(v_RBR | ((v_SCF & v_CYCD3_1) & !v_KRP1))))
+v_E2Fe, ((((((((((((((((((v_E2Fb & (!v_RBR | (!v_KRP1 & v_CYCD3_1))) | v_MYB77) | (v_CYCD3_1 & ((((!v_KRP1 & !v_MYB77) & !v_E2Fc) & !v_E2Fb) & !v_RBR))) | (v_RBR & ((((!v_KRP1 & !v_MYB77) & !v_E2Fc) & !v_CYCD3_1) & !v_E2Fb))) | ((v_CYCD3_1 & (v_E2Fb & v_RBR)) & ((!v_KRP1 & !v_MYB77) & !v_E2Fc))) | ((v_CYCD3_1 & (v_KRP1 & v_E2Fb)) & ((!v_MYB77 & !v_E2Fc) & !v_RBR))) | ((v_CYCD3_1 & v_KRP1) & (((!v_MYB77 & !v_E2Fc) & !v_E2Fb) & !v_RBR))) | (v_KRP1 & ((((!v_MYB77 & !v_E2Fc) & !v_CYCD3_1) & !v_E2Fb) & !v_RBR))) | ((v_RBR & v_KRP1) & (((!v_MYB77 & !v_E2Fc) & !v_CYCD3_1) & !v_E2Fb))) | ((v_CYCD3_1 & v_RBR) & (((!v_KRP1 & !v_MYB77) & !v_E2Fc) & !v_E2Fb))) | ((v_E2Fb & (v_KRP1 & v_RBR)) & ((!v_MYB77 & !v_E2Fc) & !v_CYCD3_1))) | ((v_E2Fb & (v_KRP1 & v_E2Fc)) & ((!v_MYB77 & !v_CYCD3_1) & !v_RBR))) | ((v_CYCD3_1 & ((v_KRP1 & v_E2Fb) & v_RBR)) & (!v_MYB77 & !v_E2Fc))) | ((v_E2Fb & v_KRP1) & (((!v_MYB77 & !v_E2Fc) & !v_CYCD3_1) & !v_RBR))) | (v_E2Fb & ((((!v_KRP1 & !v_MYB77) & !v_E2Fc) & !v_CYCD3_1) & !v_RBR))) | ((v_CYCD3_1 & (v_KRP1 & v_RBR)) & ((!v_MYB77 & !v_E2Fc) & !v_E2Fb))) | ((v_E2Fb & v_RBR) & (((!v_KRP1 & !v_MYB77) & !v_E2Fc) & !v_CYCD3_1))) | !(((((v_KRP1 | v_MYB77) | v_E2Fc) | v_CYCD3_1) | v_E2Fb) | v_RBR))
+v_KRP1, ((v_MYB77 & !(v_CDKB1_1 & (v_CYCA2_3 & v_SCF))) | (v_MYB3R1_4 & !(v_CDKB1_1 & (v_CYCA2_3 & v_SCF))))
+v_MYB3R1_4, (v_MYB77 | ((v_MYB3R1_4 & v_CYCB1_1) & !v_KRP1))
+v_MYB77, (v_E2Fb & ((v_CYCD3_1 & !v_KRP1) | !v_RBR))
+v_RBR, (((v_E2Fa & (v_KRP1 | !v_CYCD3_1)) & !(v_RBR & (v_KRP1 | !v_CYCD3_1))) | (v_MYB3R1_4 & (v_KRP1 | !v_CYCD3_1)))
+v_SCF, ((v_MYB3R1_4 & !v_APC_C) | ((v_E2Fb & (!v_RBR | (v_CYCD3_1 & !v_KRP1))) & !v_APC_C))

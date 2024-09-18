@@ -1,0 +1,57 @@
+targets,factors
+v_akt, (v_pdk1 & (!v_pp2a & !v_trb3))
+v_basal_act, v_basal_act
+v_basal_exp, v_basal_exp
+v_cbp, !v_pdk1
+v_cpkca, (v_ir & v_pdk1)
+v_creb, (v_ir | v_pka)
+v_erk12, v_irs1_py
+v_f26p2, v_f26p2
+v_fbp2, (v_pka & (!v_pp2a & v_pfk2_fbp2_g))
+v_g6p, v_g6p
+v_g6pc, ((v_creb & (v_cbp | v_torc2)) | (v_nchrebp & v_f26p2))
+v_gcg, v_gcg
+v_gcgr, v_gcg
+v_gluc_in, v_gluc_in
+v_gsk3, (!v_akt & (!v_pka & v_basal_act))
+v_gys2, (v_pp2a & (!v_gsk3 & (!v_pka & v_gys2_g)))
+v_gys2_g, (v_hnf4a | v_ppara)
+v_hnf4a, (!v_pka & v_basal_act)
+v_ins, v_ins
+v_insig2a, (!v_ir & (v_lxra | v_basal_exp))
+v_ir, v_ins
+v_irs1_pst, (v_cpkca | (v_erk12 | v_npkcd))
+v_irs1_py, (v_ir & !v_irs1_pst)
+v_lgk, (v_nsrebp1c | v_hnf4a)
+v_lpin1, (v_nsrebp1c | v_pgc1a)
+v_lpk, (!v_pka & v_lpk_g)
+v_lpk_g, (v_nchrebp & (v_hnf4a & v_cbp))
+v_lxra, (v_lxra_g & (v_gluc_in | v_g6p))
+v_lxra_g, (v_basal_exp | v_ppara)
+v_nchrebp, (v_pp2a & (!v_pka & v_pchrebp))
+v_npkcd, (v_ir & v_npkcd_g)
+v_npkcd_g, v_sp1
+v_nsrebp1c, (!v_gsk3 & (!v_insig2a & v_psrebp1c))
+v_pchrebp, (v_basal_exp | v_lxra)
+v_pdhc, (!v_pdhk2 & v_pdhp2)
+v_pdhk2, (!v_pyruvate & v_pdhk2_g)
+v_pdhk2_g, v_pgc1a
+v_pdhp2, v_npkcd
+v_pdk1, (v_ir & v_irs1_py)
+v_pepck_c, (v_creb & ((v_cbp | v_torc2) & !v_nsrebp1c))
+v_pfk2, (!v_pka & (v_pp2a & v_pfk2_fbp2_g))
+v_pfk2_fbp2_g, (v_lxra | v_nsrebp1c)
+v_pgc1a, (!v_akt & v_pgc1a_g)
+v_pgc1a_g, (v_creb & (v_cbp | v_torc2))
+v_pka, (v_gcgr & !v_akt)
+v_pp2a, v_x5p
+v_ppara, (v_erk12 & v_ppara_g)
+v_ppara_g, ((v_hnf4a | v_ppara) & (v_pgc1a & v_lpin1))
+v_psrebp1c, (((v_lxra & v_sp1) & !v_ppara) | v_nsrebp1c)
+v_pygl, (!v_pp2a & v_pka)
+v_pyruvate, v_pyruvate
+v_sik1, (v_creb & v_torc2)
+v_sp1, v_cpkca
+v_torc2, (v_gcgr & !v_sik1)
+v_trb3, (v_ppara & v_pgc1a)
+v_x5p, v_x5p

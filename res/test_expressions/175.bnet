@@ -1,0 +1,42 @@
+targets,factors
+v_Admp1, (v_Smad2_3_4_b1 & !v_Smad1_4_5_8_b1)
+v_Admp1_In, v_Admp1_In
+v_Admp2, (((!v_Smad1_4_5_8_b1 & v_Frz) | ((v_Smad1_4_5_8_b1 & !v_Smad1_4_5_8_b2) & v_Frz)) | (v_Smad1_4_5_8_b1 & v_Smad1_4_5_8_b2))
+v_Admp2_Trans, v_Admp2_Trans
+v_Alk1_2_3_6_b1, ((((((((((((((((((!v_Bmp2_4_In_b1 & !v_Chordin_In_b1) & !v_Admp2_Trans) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2) | ((!v_Bmp2_4_In_b1 & !v_Chordin_In_b1) & v_Admp2_Trans)) | (((((!v_Bmp2_4_In_b1 & v_Chordin_In_b1) & !v_Chordin_In_b2) & !v_Tolloid_In) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2)) | ((((((!v_Bmp2_4_In_b1 & v_Chordin_In_b1) & !v_Chordin_In_b2) & v_Tolloid_In) & !v_Admp2_Trans) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2)) | ((((!v_Bmp2_4_In_b1 & v_Chordin_In_b1) & !v_Chordin_In_b2) & v_Tolloid_In) & v_Admp2_Trans)) | ((((!v_Bmp2_4_In_b1 & v_Chordin_In_b1) & v_Chordin_In_b2) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2)) | ((((((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & !v_Chordin_In_b1) & !v_Admp1_In) & !v_Admp2_Trans) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2)) | ((((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & !v_Chordin_In_b1) & !v_Admp1_In) & v_Admp2_Trans)) | (((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & !v_Chordin_In_b1) & v_Admp1_In)) | ((((((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & v_Chordin_In_b1) & !v_Chordin_In_b2) & !v_Tolloid_In) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2)) | ((((((((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & v_Chordin_In_b1) & !v_Chordin_In_b2) & v_Tolloid_In) & !v_Admp1_In) & !v_Admp2_Trans) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2)) | ((((((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & v_Chordin_In_b1) & !v_Chordin_In_b2) & v_Tolloid_In) & !v_Admp1_In) & v_Admp2_Trans)) | (((((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & v_Chordin_In_b1) & !v_Chordin_In_b2) & v_Tolloid_In) & v_Admp1_In)) | (((((v_Bmp2_4_In_b1 & !v_Bmp2_4_In_b2) & v_Chordin_In_b1) & v_Chordin_In_b2) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2)) | (v_Bmp2_4_In_b1 & v_Bmp2_4_In_b2))
+v_Alk1_2_3_6_b2, ((v_Bmp2_4_In_b1 & v_Bmp2_4_In_b2) & v_Alk1_2_3_6_b1)
+v_Alk4_5_7_b1, ((((((((((((((!v_Nodal_In_b1 & v_Alk4_5_7_b1) & v_Alk4_5_7_b2) | (((((v_Nodal_In_b1 & !v_Nodal_In_b2) & !v_Lefty_In) & !v_Panda) & !v_Alk4_5_7_b1) & v_Univin)) | ((((((v_Nodal_In_b1 & !v_Nodal_In_b2) & !v_Lefty_In) & !v_Panda) & v_Alk4_5_7_b1) & !v_Alk4_5_7_b2) & v_Univin)) | (((((v_Nodal_In_b1 & !v_Nodal_In_b2) & !v_Lefty_In) & !v_Panda) & v_Alk4_5_7_b1) & v_Alk4_5_7_b2)) | (((((v_Nodal_In_b1 & !v_Nodal_In_b2) & !v_Lefty_In) & v_Panda) & v_Alk4_5_7_b1) & v_Alk4_5_7_b2)) | ((((v_Nodal_In_b1 & !v_Nodal_In_b2) & v_Lefty_In) & v_Alk4_5_7_b1) & v_Alk4_5_7_b2)) | (((((v_Nodal_In_b1 & v_Nodal_In_b2) & !v_Nodal_In_b3) & !v_Panda) & !v_Alk4_5_7_b1) & v_Univin)) | ((((((v_Nodal_In_b1 & v_Nodal_In_b2) & !v_Nodal_In_b3) & !v_Panda) & v_Alk4_5_7_b1) & !v_Alk4_5_7_b2) & v_Univin)) | (((((v_Nodal_In_b1 & v_Nodal_In_b2) & !v_Nodal_In_b3) & !v_Panda) & v_Alk4_5_7_b1) & v_Alk4_5_7_b2)) | (((((v_Nodal_In_b1 & v_Nodal_In_b2) & !v_Nodal_In_b3) & v_Panda) & v_Alk4_5_7_b1) & v_Alk4_5_7_b2)) | ((((v_Nodal_In_b1 & v_Nodal_In_b2) & v_Nodal_In_b3) & !v_Alk4_5_7_b1) & v_Univin)) | (((((v_Nodal_In_b1 & v_Nodal_In_b2) & v_Nodal_In_b3) & v_Alk4_5_7_b1) & !v_Alk4_5_7_b2) & v_Univin)) | ((((v_Nodal_In_b1 & v_Nodal_In_b2) & v_Nodal_In_b3) & v_Alk4_5_7_b1) & v_Alk4_5_7_b2))
+v_Alk4_5_7_b2, ((((v_Nodal_In_b1 & v_Nodal_In_b2) & v_Nodal_In_b3) & v_Alk4_5_7_b1) & v_Univin)
+v_Bmp2_4_In_b1, v_Bmp2_4_In_b1
+v_Bmp2_4_In_b2, (v_Bmp2_4_In_b1 & v_Bmp2_4_In_b2)
+v_Bmp2_4_b1, (((!v_Smad2_3_4_b1 & v_Bmp2_4_b1) & v_Bmp2_4_b2) | v_Smad2_3_4_b1)
+v_Bmp2_4_b2, ((v_Smad2_3_4_b1 & v_Smad2_3_4_b2) & v_Bmp2_4_b1)
+v_Brachyury, ((!v_FoxA & !v_Repressor_R1) | v_FoxA)
+v_Chordin_In_b1, v_Chordin_In_b1
+v_Chordin_In_b2, (v_Chordin_In_b1 & v_Chordin_In_b2)
+v_Chordin_b1, (((!v_Smad2_3_4_b1 & v_Chordin_b1) & v_Chordin_b2) | v_Smad2_3_4_b1)
+v_Chordin_b2, (v_Smad2_3_4_b1 & v_Chordin_b1)
+v_FGFA, ((!v_Smad2_3_4_b1 & !v_Smad1_4_5_8_b1) | ((!v_Smad2_3_4_b1 & v_Smad1_4_5_8_b1) & !v_Smad1_4_5_8_b2))
+v_FoxA, (((!v_FoxA & v_Brachyury) & !v_Repressor_R1) | (v_FoxA & !v_Repressor_R1))
+v_Frz, v_Wnt_In
+v_Glypican5, (v_Smad1_4_5_8_b1 & v_Smad1_4_5_8_b2)
+v_Goosecoid, v_Smad2_3_4_b1
+v_IrxA, v_Tbx2_3
+v_Lefty, v_Smad2_3_4_b1
+v_Lefty_In, v_Lefty_In
+v_Nodal_In_b1, v_Nodal_In_b1
+v_Nodal_In_b2, (v_Nodal_In_b1 & v_Nodal_In_b2)
+v_Nodal_In_b3, ((v_Nodal_In_b1 & v_Nodal_In_b2) & v_Nodal_In_b3)
+v_Nodal_b1, (((!v_Smad2_3_4_b1 & v_Nodal_b1) & v_Nodal_b2) | v_Smad2_3_4_b1)
+v_Nodal_b2, (v_Smad2_3_4_b1 & v_Nodal_b1)
+v_Onecut, ((!v_Smad2_3_4_b1 & !v_Goosecoid) & !v_IrxA)
+v_Panda, v_Panda
+v_Repressor_R1, !v_Goosecoid
+v_Smad1_4_5_8_b1, (((((((!v_Smad2_3_4_b1 & !v_Alk1_2_3_6_b1) & v_Smad1_4_5_8_b1) & v_Smad1_4_5_8_b2) | (!v_Smad2_3_4_b1 & v_Alk1_2_3_6_b1)) | (((v_Smad2_3_4_b1 & !v_Alk1_2_3_6_b1) & v_Smad1_4_5_8_b1) & v_Smad1_4_5_8_b2)) | ((((v_Smad2_3_4_b1 & v_Alk1_2_3_6_b1) & !v_Alk1_2_3_6_b2) & v_Smad1_4_5_8_b1) & v_Smad1_4_5_8_b2)) | ((v_Smad2_3_4_b1 & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2))
+v_Smad1_4_5_8_b2, (((!v_Smad2_3_4_b1 & v_Alk1_2_3_6_b1) & v_Smad1_4_5_8_b1) | ((((v_Smad2_3_4_b1 & !v_Smad2_3_4_b2) & v_Alk1_2_3_6_b1) & v_Alk1_2_3_6_b2) & v_Smad1_4_5_8_b1))
+v_Smad2_3_4_b1, ((((((!v_Alk4_5_7_b1 & v_Smad2_3_4_b1) & v_Smad2_3_4_b2) | (((v_Alk4_5_7_b1 & !v_Alk4_5_7_b2) & !v_Smad2_3_4_b1) & !v_Smad1_4_5_8_b1)) | ((((v_Alk4_5_7_b1 & !v_Alk4_5_7_b2) & v_Smad2_3_4_b1) & !v_Smad2_3_4_b2) & !v_Smad1_4_5_8_b1)) | (((v_Alk4_5_7_b1 & !v_Alk4_5_7_b2) & v_Smad2_3_4_b1) & v_Smad2_3_4_b2)) | (v_Alk4_5_7_b1 & v_Alk4_5_7_b2))
+v_Smad2_3_4_b2, ((v_Alk4_5_7_b1 & v_Alk4_5_7_b2) & v_Smad2_3_4_b1)
+v_Tbx2_3, (v_Smad1_4_5_8_b1 & v_Smad1_4_5_8_b2)
+v_Tolloid_In, v_Tolloid_In
+v_Univin, (!v_Smad1_4_5_8_b1 | (v_Smad1_4_5_8_b1 & !v_Smad1_4_5_8_b2))
+v_Wnt_In, v_Wnt_In

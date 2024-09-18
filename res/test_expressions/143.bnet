@@ -1,0 +1,98 @@
+targets,factors
+v_AKT, (((((((((!v_Ipatasertib & !v_PIP3) & v_PIP3_2) & !v_PDK1_pm) & v_mTORC2_pm) | (((!v_Ipatasertib & !v_PIP3) & v_PIP3_2) & v_PDK1_pm)) | (((!v_Ipatasertib & v_PIP3) & !v_PDK1_pm) & v_mTORC2_pm)) | ((!v_Ipatasertib & v_PIP3) & v_PDK1_pm)) | (((v_Ipatasertib & v_PIP3_2) & !v_PDK1_pm) & v_mTORC2_pm)) | ((v_Ipatasertib & v_PIP3_2) & v_PDK1_pm))
+v_Alpelisib, v_Alpelisib
+v_Apoptosis, (((!v_BIM & v_Apoptosis) | ((v_BIM & !v_BAD) & v_Apoptosis)) | (v_BIM & v_BAD))
+v_Apoptosis_2, (((((!v_MCL1 & !v_BCL2) & !v_BCLXL) | (((!v_MCL1 & !v_BCL2) & v_BCLXL) & v_Apoptosis_2)) | ((!v_MCL1 & v_BCL2) & v_Apoptosis_2)) | (v_MCL1 & v_Apoptosis_2))
+v_Apoptosis_3, (((((!v_BIM & v_Apoptosis_3) | (((v_BIM & !v_MCL1) & !v_BCL2) & !v_BCLXL)) | ((((v_BIM & !v_MCL1) & !v_BCL2) & v_BCLXL) & v_Apoptosis_3)) | (((v_BIM & !v_MCL1) & v_BCL2) & v_Apoptosis_3)) | ((v_BIM & v_MCL1) & v_Apoptosis_3))
+v_BAD, ((!v_PIM & !v_MAPK_2) & !v_AKT)
+v_BCL2, (!v_Navitoclax & v_BCL2_T)
+v_BCL2_T, v_BCL2_T
+v_BCLXL, (!v_Navitoclax & v_BCLXL_T)
+v_BCLXL_T, v_BCLXL_T
+v_BIM, ((((!v_MAPK_2 & !v_FOXO3) & v_BIM_T) | (!v_MAPK_2 & v_FOXO3)) | (v_MAPK_2 & v_BIM_T))
+v_BIM_T, v_BIM_T
+v_CDK46, !v_Palbociclib
+v_E2F, ((!v_pRb & v_E2F_2) | v_pRb)
+v_E2F_2, (v_pRb_2 & v_E2F)
+v_EIF4F, v_mTORC1
+v_ER, v_ER
+v_ER_microenvironment, v_ER_microenvironment
+v_ER_transcription, ((((!v_ESR1 & !v_ESR1_2) & v_ER_transcription_2) | (!v_ESR1 & v_ESR1_2)) | v_ESR1)
+v_ER_transcription_2, ((((v_KMT2D & v_ESR1_2) & v_FOXA1) & v_PBX1) & v_ER_transcription)
+v_ER_transcription_feedback_1, v_ER_transcription_2
+v_ER_transcription_feedback_2, ((!v_ER_transcription_feedback_1 & v_ER_transcription_feedback_2) | v_ER_transcription_feedback_1)
+v_ESR1, ((((((!v_Fulvestrant & !v_FOXO3) & !v_ER) & v_ESR1_2) | ((!v_Fulvestrant & !v_FOXO3) & v_ER)) | (!v_Fulvestrant & v_FOXO3)) | (v_Fulvestrant & v_ESR1_2))
+v_ESR1_2, ((((((!v_Fulvestrant & v_FOXO3) & v_ER) & v_ESR1) & !v_ER_microenvironment) & !v_ER_transcription_feedback_2) | ((((!v_Fulvestrant & v_FOXO3) & v_ER) & v_ESR1) & v_ER_microenvironment))
+v_Everolimus, v_Everolimus
+v_FOXA1, v_FOXA1
+v_FOXO3, (((!v_SGK1 & !v_PIM) & !v_AKT) & !v_FOXO3_Ub)
+v_FOXO3_Ub, v_MAPK_2
+v_Fulvestrant, v_Fulvestrant
+v_HER2, v_HER2
+v_HER2_3, ((((((!v_Neratinib & !v_HER2) & v_HER2_3_2) | ((((!v_Neratinib & v_HER2) & !v_HER3) & !v_HER3_2) & v_HER2_3_2)) | (((!v_Neratinib & v_HER2) & !v_HER3) & v_HER3_2)) | ((!v_Neratinib & v_HER2) & v_HER3)) | (v_Neratinib & v_HER2_3_2))
+v_HER2_3_2, (((((((!v_Neratinib & v_HER2) & !v_HER3) & v_HER3_2) & v_HER2_3) & v_HER3_microenvironment) | ((((((!v_Neratinib & v_HER2) & v_HER3) & !v_HER3_2) & v_HER2_3) & v_HER3_microenvironment) & !v_MAPK_2)) | (((((!v_Neratinib & v_HER2) & v_HER3) & v_HER3_2) & v_HER2_3) & v_HER3_microenvironment))
+v_HER3, ((((!v_HER3_T & !v_HER3_2) & v_FOXO3) | (!v_HER3_T & v_HER3_2)) | v_HER3_T)
+v_HER3_2, (v_HER3 & v_FOXO3)
+v_HER3_T, v_HER3_T
+v_HER3_microenvironment, v_HER3_microenvironment
+v_IGF1R, (((((!v_IGF1R_T & !v_IGF1R_2) & v_HER2) & v_FOXO3) | (!v_IGF1R_T & v_IGF1R_2)) | v_IGF1R_T)
+v_IGF1R_2, (((((!v_IGF1R_T_2 & v_IGF1R) & v_HER2) & v_FOXO3) & !v_S6K) | (v_IGF1R_T_2 & v_IGF1R))
+v_IGF1R_T, ((!v_IGF1R_T & v_IGF1R_T_2) | v_IGF1R_T)
+v_IGF1R_T_2, (v_IGF1R_T & v_IGF1R_T_2)
+v_Ipatasertib, v_Ipatasertib
+v_KMT2D, !v_AKT
+v_MAPK, (((((((((((((((((!v_Trametinib & !v_RAS) & !v_RAS_2) & !v_RAS_3) & v_MAPK_2) | ((((((!v_Trametinib & !v_RAS) & !v_RAS_2) & v_RAS_3) & !v_MAPK_2) & !v_PIP3) & v_PIP3_2)) | (((((!v_Trametinib & !v_RAS) & !v_RAS_2) & v_RAS_3) & !v_MAPK_2) & v_PIP3)) | ((((!v_Trametinib & !v_RAS) & !v_RAS_2) & v_RAS_3) & v_MAPK_2)) | (((((!v_Trametinib & !v_RAS) & v_RAS_2) & !v_MAPK_2) & !v_PIP3) & v_PIP3_2)) | ((((!v_Trametinib & !v_RAS) & v_RAS_2) & !v_MAPK_2) & v_PIP3)) | (((!v_Trametinib & !v_RAS) & v_RAS_2) & v_MAPK_2)) | ((((!v_Trametinib & v_RAS) & !v_MAPK_2) & !v_PIP3) & v_PIP3_2)) | (((!v_Trametinib & v_RAS) & !v_MAPK_2) & v_PIP3)) | ((!v_Trametinib & v_RAS) & v_MAPK_2)) | ((v_Trametinib & !v_RAS_3) & v_MAPK_2)) | ((((v_Trametinib & v_RAS_3) & !v_MAPK_2) & !v_PIP3) & v_PIP3_2)) | (((v_Trametinib & v_RAS_3) & !v_MAPK_2) & v_PIP3)) | ((v_Trametinib & v_RAS_3) & v_MAPK_2))
+v_MAPK_2, ((((((((((!v_Trametinib & !v_RAS_2) & v_RAS_3) & v_MAPK) & !v_PIP3) & v_PIP3_2) | ((((!v_Trametinib & !v_RAS_2) & v_RAS_3) & v_MAPK) & v_PIP3)) | ((((!v_Trametinib & v_RAS_2) & v_MAPK) & !v_PIP3) & v_PIP3_2)) | (((!v_Trametinib & v_RAS_2) & v_MAPK) & v_PIP3)) | ((((v_Trametinib & v_RAS_3) & v_MAPK) & !v_PIP3) & v_PIP3_2)) | (((v_Trametinib & v_RAS_3) & v_MAPK) & v_PIP3))
+v_MCL1, (!v_S63845 & v_MCL1_T)
+v_MCL1_T, v_MCL1_T
+v_MYC, ((!v_ER_transcription & v_MYC_2) | v_ER_transcription)
+v_MYC_2, (((!v_ER_transcription_2 & v_MYC_T) & v_MYC) | (v_ER_transcription_2 & v_MYC))
+v_MYC_T, v_MYC_T
+v_MYC_targets, ((((((!v_Translation & !v_MYC) & !v_MYC_2) & v_MYC_targets_2) | ((!v_Translation & !v_MYC) & v_MYC_2)) | (!v_Translation & v_MYC)) | v_Translation)
+v_MYC_targets_2, ((((!v_Translation & v_MYC_2) & v_MYC_targets) | (((v_Translation & !v_MYC) & v_MYC_2) & v_MYC_targets)) | ((v_Translation & v_MYC) & v_MYC_targets))
+v_Navitoclax, v_Navitoclax
+v_Neratinib, v_Neratinib
+v_PBX1, v_PBX1
+v_PDK1, v_PDK1
+v_PDK1_pm, ((!v_PIP3 & v_PIP3_2) | v_PIP3)
+v_PI3K, ((((((((((((((((((((!v_IGF1R & !v_IGF1R_2) & !v_Alpelisib) & !v_HER2_3) & !v_HER2_3_2) & !v_RAS) & !v_RAS_2) & !v_RAS_3) & v_PI3K_2) | (((((((!v_IGF1R & !v_IGF1R_2) & !v_Alpelisib) & !v_HER2_3) & !v_HER2_3_2) & !v_RAS) & !v_RAS_2) & v_RAS_3)) | ((((((!v_IGF1R & !v_IGF1R_2) & !v_Alpelisib) & !v_HER2_3) & !v_HER2_3_2) & !v_RAS) & v_RAS_2)) | (((((!v_IGF1R & !v_IGF1R_2) & !v_Alpelisib) & !v_HER2_3) & !v_HER2_3_2) & v_RAS)) | ((((!v_IGF1R & !v_IGF1R_2) & !v_Alpelisib) & !v_HER2_3) & v_HER2_3_2)) | (((!v_IGF1R & !v_IGF1R_2) & !v_Alpelisib) & v_HER2_3)) | ((((!v_IGF1R & !v_IGF1R_2) & v_Alpelisib) & !v_HER2_3_2) & v_PI3K_2)) | (((!v_IGF1R & !v_IGF1R_2) & v_Alpelisib) & v_HER2_3_2)) | (!v_IGF1R & v_IGF1R_2)) | ((v_IGF1R & !v_IGF1R_2) & !v_Alpelisib)) | ((((v_IGF1R & !v_IGF1R_2) & v_Alpelisib) & !v_HER2_3_2) & v_PI3K_2)) | (((v_IGF1R & !v_IGF1R_2) & v_Alpelisib) & v_HER2_3_2)) | (v_IGF1R & v_IGF1R_2))
+v_PI3K_2, ((!v_Alpelisib & v_HER2_3_2) & v_PI3K)
+v_PIM, v_PIM
+v_PIP3, (((((((((!v_PI3K & !v_PI3K_2) & !v_PTEN) | (((!v_PI3K & !v_PI3K_2) & v_PTEN) & v_PIP3_2)) | ((!v_PI3K & v_PI3K_2) & !v_PTEN)) | (((!v_PI3K & v_PI3K_2) & v_PTEN) & !v_PTEN_2)) | ((((!v_PI3K & v_PI3K_2) & v_PTEN) & v_PTEN_2) & v_PIP3_2)) | (v_PI3K & !v_PTEN)) | ((v_PI3K & v_PTEN) & !v_PTEN_2)) | (((v_PI3K & v_PTEN) & v_PTEN_2) & v_PIP3_2))
+v_PIP3_2, ((v_PI3K_2 & !v_PTEN_2) & v_PIP3)
+v_PRAS40, (!v_PIM & !v_AKT)
+v_PTEN, ((!v_PTEN_T & v_PTEN_2) | v_PTEN_T)
+v_PTEN_2, (v_PTEN_T_2 & v_PTEN)
+v_PTEN_T, ((!v_PTEN_T & v_PTEN_T_2) | v_PTEN_T)
+v_PTEN_T_2, (v_PTEN_T & v_PTEN_T_2)
+v_Palbociclib, v_Palbociclib
+v_Proliferation, ((!v_MYC_targets & v_E2F) | v_MYC_targets)
+v_Proliferation_2, v_E2F_2
+v_Proliferation_3, (((v_MYC_targets_2 & !v_E2F) & v_E2F_2) | (v_MYC_targets_2 & v_E2F))
+v_RAS, ((((((((((!v_IGF1R & !v_IGF1R_2) & !v_HER2_3) & !v_HER2_3_2) & !v_RAS_2) & v_RAS_3) | ((((!v_IGF1R & !v_IGF1R_2) & !v_HER2_3) & !v_HER2_3_2) & v_RAS_2)) | (((!v_IGF1R & !v_IGF1R_2) & !v_HER2_3) & v_HER2_3_2)) | ((!v_IGF1R & !v_IGF1R_2) & v_HER2_3)) | (!v_IGF1R & v_IGF1R_2)) | v_IGF1R)
+v_RAS_2, ((((((!v_HER2_3 & !v_HER2_3_2) & v_RAS_3) | (((!v_HER2_3 & v_HER2_3_2) & !v_RAS) & v_RAS_3)) | ((!v_HER2_3 & v_HER2_3_2) & v_RAS)) | ((v_HER2_3 & !v_RAS) & v_RAS_3)) | (v_HER2_3 & v_RAS))
+v_RAS_3, ((v_HER2_3_2 & v_RAS) & v_RAS_2)
+v_Rb_T, v_Rb_T
+v_S63845, v_S63845
+v_S6K, v_mTORC1
+v_SGK1, ((v_PDK1 & v_mTORC2) & v_SGK1_T)
+v_SGK1_T, v_SGK1_T
+v_TSC, ((!v_SGK1 & !v_MAPK_2) & !v_AKT)
+v_Trametinib, v_Trametinib
+v_Translation, (v_EIF4F & v_S6K)
+v_cycD_CDK46, ((((((!v_cyclinD & !v_cyclinD_2) & v_cycD_CDK46_2) | (((!v_cyclinD & v_cyclinD_2) & !v_CDK46) & v_cycD_CDK46_2)) | ((!v_cyclinD & v_cyclinD_2) & v_CDK46)) | ((v_cyclinD & !v_CDK46) & v_cycD_CDK46_2)) | (v_cyclinD & v_CDK46))
+v_cycD_CDK46_2, ((v_cyclinD_2 & v_CDK46) & v_cycD_CDK46)
+v_cycE_CDK2, (!v_p21_p27 & v_cycE_CDK2_T)
+v_cycE_CDK2_T, ((!v_E2F & v_E2F_2) | v_E2F)
+v_cyclinD, ((!v_MYC & v_cyclinD_2) | v_MYC)
+v_cyclinD_2, (v_MYC_2 & v_cyclinD)
+v_mTORC1, ((!v_Everolimus & !v_TSC) | ((!v_Everolimus & v_TSC) & !v_PRAS40))
+v_mTORC2, (!v_Everolimus & v_mTORC2)
+v_mTORC2_pm, (((!v_Everolimus & !v_PIP3) & v_PIP3_2) | (!v_Everolimus & v_PIP3))
+v_p21_T, ((!v_p21_T & v_p21_T_2) | v_p21_T)
+v_p21_T_2, (v_p21_T & v_p21_T_2)
+v_p21_p27, ((!v_PIM & !v_AKT) & v_p21_p27_T)
+v_p21_p27_T, ((((((((((!v_p27_T & !v_p21_T) & v_p21_T_2) & !v_FOXO3) & !v_MYC) & !v_MYC_2) | ((((!v_p27_T & !v_p21_T) & v_p21_T_2) & v_FOXO3) & !v_MYC_2)) | ((((!v_p27_T & v_p21_T) & !v_FOXO3) & !v_MYC) & !v_MYC_2)) | (((!v_p27_T & v_p21_T) & v_FOXO3) & !v_MYC_2)) | (((v_p27_T & !v_FOXO3) & !v_MYC) & !v_MYC_2)) | ((v_p27_T & v_FOXO3) & !v_MYC_2))
+v_p27_T, v_p27_T
+v_pRb, ((((((!v_cycD_CDK46 & !v_cycD_CDK46_2) & !v_pRb_2) & !v_Rb_T) | ((!v_cycD_CDK46 & !v_cycD_CDK46_2) & v_pRb_2)) | (!v_cycD_CDK46 & v_cycD_CDK46_2)) | v_cycD_CDK46)
+v_pRb_2, (((((((!v_cycE_CDK2 & !v_cycD_CDK46_2) & v_pRb) & !v_Rb_T) | ((!v_cycE_CDK2 & v_cycD_CDK46_2) & v_pRb)) | ((((v_cycE_CDK2 & !v_cycD_CDK46) & !v_cycD_CDK46_2) & v_pRb) & !v_Rb_T)) | (((v_cycE_CDK2 & !v_cycD_CDK46) & v_cycD_CDK46_2) & v_pRb)) | ((v_cycE_CDK2 & v_cycD_CDK46) & v_pRb))

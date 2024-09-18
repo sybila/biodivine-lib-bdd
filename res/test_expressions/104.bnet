@@ -1,0 +1,15 @@
+targets,factors
+v_Ago, v_Ago
+v_CycA, (((!v_Rb & v_E2F) & !v_Fzy) & !v_Fzr)
+v_CycB, (((!v_Fzy & !v_Fzr) & !v_Wee1) | (((!v_Fzy & !v_Fzr) & v_Wee1) & v_Stg))
+v_CycD, v_CycD
+v_CycE, (((!v_Rb & v_E2F) & !v_Dap) | (((!v_Rb & v_E2F) & v_Dap) & !v_Ago))
+v_Dap, ((!v_CycE & !v_Notch) | v_CycE)
+v_E2F, (((((!v_Rb & !v_CycA) & !v_Rux) & !v_CycB) | ((!v_Rb & !v_CycA) & v_Rux)) | ((!v_Rb & v_CycA) & v_Rux))
+v_Fzr, ((((((((!v_CycE & !v_CycA) & !v_Rux) & !v_CycB) | ((!v_CycE & !v_CycA) & v_Rux)) | ((!v_CycE & v_CycA) & v_Rux)) | ((((v_CycE & !v_CycA) & !v_Rux) & !v_CycB) & v_Notch)) | (((v_CycE & !v_CycA) & v_Rux) & v_Notch)) | (((v_CycE & v_CycA) & v_Rux) & v_Notch))
+v_Fzy, (!v_Rux & v_CycB)
+v_Notch, v_Notch
+v_Rb, ((((((!v_CycD & !v_CycE) & !v_CycA) & !v_Rux) & !v_CycB) | (((!v_CycD & !v_CycE) & !v_CycA) & v_Rux)) | (((!v_CycD & !v_CycE) & v_CycA) & v_Rux))
+v_Rux, ((((((((!v_CycD & !v_CycA) & !v_Rux) & !v_CycB) | ((!v_CycD & !v_CycA) & v_Rux)) | (((!v_CycD & v_CycA) & v_Rux) & !v_CycB)) | ((((v_CycD & !v_CycE) & !v_CycA) & !v_Rux) & !v_CycB)) | (((v_CycD & !v_CycE) & !v_CycA) & v_Rux)) | ((((v_CycD & !v_CycE) & v_CycA) & v_Rux) & !v_CycB))
+v_Stg, ((((((!v_Rb & !v_E2F) & !v_Rux) & v_CycB) & !v_Notch) | ((!v_Rb & v_E2F) & !v_Notch)) | (((v_Rb & !v_Rux) & v_CycB) & !v_Notch))
+v_Wee1, ((!v_Rux & !v_CycB) | v_Rux)

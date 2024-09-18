@@ -1,0 +1,35 @@
+targets,factors
+v_Cd19, v_Cd19_gene
+v_Cd19_gene, (!v_Cebpa & v_Pax5_prot_active)
+v_Cebpa, ((!v_Cebpa_gene & v_Cebpa_ER) | v_Cebpa_gene)
+v_Cebpa_ER, v_Cebpa_ER
+v_Cebpa_gene, ((v_Spi1_b1 & v_Runx1) & !v_Foxo1)
+v_Cebpb, ((((!v_Cebpb & v_Cebpa) & v_Spi1_b1) & v_Spi1_b2) | ((v_Cebpb & v_Spi1_b1) & v_Spi1_b2))
+v_Csf1, v_Csf1
+v_Csf1r, (v_Spi1_b1 & !v_Pax5_prot_active)
+v_Csf1r_act, (v_Csf1r & v_Csf1)
+v_E2a, v_E2a_gene
+v_E2a_gene, ((((!v_Spi1_b1 & v_Ikzf1) & v_Ebf1) & v_Pax5_prot_active) | (v_Spi1_b1 & v_Ikzf1))
+v_E2a_prot_Active, (!v_Id2 & v_E2a)
+v_Ebf1, v_Ebf1_gene
+v_Ebf1_gene, ((((((((((!v_Cebpb & !v_Cebpa) & !v_Spi1_b1) & v_Ets1) & v_E2a_prot_Active) & v_Foxo1) & v_Ebf1) & v_Pax5_prot_active) | ((((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & !v_Runx1) & v_Ets1) & v_E2a_prot_Active) & v_Foxo1) & v_Ebf1) & v_Pax5_prot_active)) | (((((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & v_Runx1) & v_Ets1) & !v_Il7r_act) & v_E2a_prot_Active) & v_Foxo1) & v_Ebf1) & v_Pax5_prot_active)) | (((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & v_Runx1) & v_Ets1) & v_Il7r_act) & v_E2a_prot_Active) & v_Foxo1))
+v_Egr2, ((((!v_Spi1_b1 & v_Pax5_prot_active) | ((v_Spi1_b1 & !v_Spi1_b2) & !v_Gfi1)) | (((v_Spi1_b1 & !v_Spi1_b2) & v_Gfi1) & v_Pax5_prot_active)) | (v_Spi1_b1 & v_Spi1_b2))
+v_Ets1, v_E2a_prot_Active
+v_Flt3, ((v_Spi1_b1 & v_Ikzf1) & !v_Pax5_prot_active)
+v_Foxo1, v_Foxo1_gene
+v_Foxo1_gene, ((!v_Cebpb & !v_Cebpa) & v_E2a_prot_Active)
+v_Gfi1, ((((((!v_Egr2 & !v_Cebpa) & !v_Ikzf1) & v_Pax5_prot_active) | ((!v_Egr2 & !v_Cebpa) & v_Ikzf1)) | (!v_Egr2 & v_Cebpa)) | (v_Egr2 & v_Pax5_prot_active))
+v_Id2, ((((v_Cebpb & v_Cebpa) & v_Spi1_b1) & !v_Gfi1) & !v_Ebf1)
+v_Ikzf1, ((!v_Mef2c & v_Pax5_prot_active) | v_Mef2c)
+v_Il7, v_Il7
+v_Il7r_act, (v_Il7ra & v_Il7)
+v_Il7ra, ((((((!v_Cebpb & !v_Cebpa) & !v_Spi1_b1) & v_Foxo1) & v_Ebf1) | (((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & !v_Mef2c) & v_Foxo1) & v_Ebf1)) | (((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & v_Mef2c))
+v_Mac1, v_Mac1_gene
+v_Mac1_gene, (v_Spi1_b1 & v_Spi1_b2)
+v_Mef2c, ((!v_Cebpb & !v_Cebpa) & v_Spi1_b1)
+v_Pax5, v_Pax5_gene
+v_Pax5_gene, ((!v_Cebpb & !v_Cebpa) & v_Ebf1)
+v_Pax5_prot_active, (!v_Id2 & v_Pax5)
+v_Runx1, v_Spi1_b1
+v_Spi1_b1, (((((((((((((((((((((((((((((!v_Cebpb & !v_Cebpa) & !v_Spi1_b1) & !v_Runx1) & v_Ikzf1) & v_Foxo1) & v_Ebf1) | ((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & !v_Gfi1) & !v_Ikzf1)) | (((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & !v_Gfi1) & v_Ikzf1) & !v_Foxo1)) | (((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & v_Gfi1) & !v_Ikzf1) & !v_Foxo1)) | ((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & v_Gfi1) & v_Ikzf1)) | (((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & v_Spi1_b2)) | (((((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & !v_Spi1_b1) & !v_Runx1) & v_Ikzf1) & v_Foxo1) & v_Ebf1)) | (((((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & !v_Gfi1) & !v_Ikzf1)) | ((((((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & !v_Gfi1) & v_Ikzf1) & !v_Foxo1)) | ((((((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & v_Gfi1) & !v_Ikzf1) & !v_Foxo1)) | (((((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & v_Gfi1) & v_Ikzf1)) | ((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & v_Spi1_b1) & v_Spi1_b2)) | (((((((!v_Cebpb & v_Cebpa) & v_Csf1r_act) & !v_Spi1_b1) & !v_Runx1) & v_Ikzf1) & v_Foxo1) & v_Ebf1)) | (((((!v_Cebpb & v_Cebpa) & v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1)) | ((((!v_Cebpb & v_Cebpa) & v_Csf1r_act) & v_Spi1_b1) & v_Spi1_b2)) | ((((((v_Cebpb & !v_Csf1r_act) & !v_Spi1_b1) & !v_Runx1) & v_Ikzf1) & v_Foxo1) & v_Ebf1)) | ((((((v_Cebpb & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & !v_Gfi1) & !v_Ikzf1)) | (((((((v_Cebpb & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & !v_Gfi1) & v_Ikzf1) & !v_Foxo1)) | (((((((v_Cebpb & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & v_Gfi1) & !v_Ikzf1) & !v_Foxo1)) | ((((((v_Cebpb & !v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1) & v_Gfi1) & v_Ikzf1)) | (((v_Cebpb & !v_Csf1r_act) & v_Spi1_b1) & v_Spi1_b2)) | ((((((v_Cebpb & v_Csf1r_act) & !v_Spi1_b1) & !v_Runx1) & v_Ikzf1) & v_Foxo1) & v_Ebf1)) | ((((v_Cebpb & v_Csf1r_act) & v_Spi1_b1) & !v_Spi1_b2) & v_Runx1)) | (((v_Cebpb & v_Csf1r_act) & v_Spi1_b1) & v_Spi1_b2))
+v_Spi1_b2, ((((((((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & v_Runx1) & !v_Gfi1) & !v_Ikzf1) | ((((((!v_Cebpb & !v_Cebpa) & v_Spi1_b1) & v_Runx1) & !v_Gfi1) & v_Ikzf1) & !v_Foxo1)) | ((((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & v_Spi1_b1) & v_Runx1) & !v_Gfi1) & !v_Ikzf1)) | (((((((!v_Cebpb & v_Cebpa) & !v_Csf1r_act) & v_Spi1_b1) & v_Runx1) & !v_Gfi1) & v_Ikzf1) & !v_Foxo1)) | ((((!v_Cebpb & v_Cebpa) & v_Csf1r_act) & v_Spi1_b1) & v_Runx1)) | (((((v_Cebpb & !v_Csf1r_act) & v_Spi1_b1) & v_Runx1) & !v_Gfi1) & !v_Ikzf1)) | ((((((v_Cebpb & !v_Csf1r_act) & v_Spi1_b1) & v_Runx1) & !v_Gfi1) & v_Ikzf1) & !v_Foxo1)) | (((v_Cebpb & v_Csf1r_act) & v_Spi1_b1) & v_Runx1))

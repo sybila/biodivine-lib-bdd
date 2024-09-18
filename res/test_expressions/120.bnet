@@ -1,0 +1,151 @@
+targets,factors
+v_2AMA_simple_molecule, (v_ACS_simple_molecule & v_ACMSD)
+v_2AM_simple_molecule, ((v_2AMA_simple_molecule & v_NAD__simple_molecule_cell) & v_H2O_simple_molecule_cell)
+v_3HAA_simple_molecule, ((v_3HKYN_simple_molecule & v_H2O_simple_molecule_cell) & v_KYNU)
+v_3HKYN_simple_molecule, ((((v_L_Kynurenine_simple_molecule & v_NADPH_simple_molecule_cell) & v_H__ion_cell) & v_O2_simple_molecule) & v_KMO)
+v_ACMSD, v_ACMSD
+v_ACS_simple_molecule, ((v_3HAA_simple_molecule & v_O2_simple_molecule) & v_HAAO)
+v_ADP_ribose_simple_molecule, (((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_BST1) | ((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_CD38))
+v_ADP_simple_molecule_cell, ((((((v_NR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK1) | ((v_NR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK2)) | ((v_NAR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK1)) | ((v_NAR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK2)) | ((v_NAD__simple_molecule_cell & v_ATP_simple_molecule_cell) & v_NADK_Zn2__tetramer_complex))
+v_ADP_simple_molecule_mitochondrial_matrix, (((v_S_NADPHX_simple_molecule & v_ATP_simple_molecule_mitochondrial_matrix) & v_CARKD) | ((v_NAD__simple_molecule_mitochondrial_matrix & v_ATP_simple_molecule_mitochondrial_matrix) & v_NADK2))
+v_AFMID, v_AFMID
+v_AHR, v_AHR
+v_AHR_L_KYN_complex, (v_L_Kynurenine_simple_molecule & v_AHR)
+v_AMP_simple_molecule_cell, ((((v_NAAD_simple_molecule_cell & v_ATP_simple_molecule_cell) & v_L_Gln_simple_molecule) & v_H2O_simple_molecule_cell) & v_NADSYN1_hexamer)
+v_AMP_simple_molecule_peroxisome, v_AMP_simple_molecule_peroxisome
+v_APOA1BP, v_APOA1BP
+v_AP_DOBu_simple_molecule, (((((v_L_Kynurenine_simple_molecule & v_PYR_simple_molecule) & v_PXLP_KYAT1_complex) & !v_I3PROPA) & !v_L_Phe_simple_molecule) & !v_I3LACT)
+v_ATP_simple_molecule_cell, v_ATP_simple_molecule_cell
+v_ATP_simple_molecule_mitochondrial_matrix, v_ATP_simple_molecule_mitochondrial_matrix
+v_ATP_simple_molecule_nucleus, v_ATP_simple_molecule_nucleus
+v_AdoHcy_simple_molecule, ((v_NAM_simple_molecule_cell & v_AdoMet_simple_molecule) & v_NNMT)
+v_AdoMet_simple_molecule, v_AdoMet_simple_molecule
+v_BST1, v_BST1
+v_Biliverdin_simple_molecule, (((v_Heme_simple_molecule & v_O2_simple_molecule) & v_NADPH_simple_molecule_cell) & v_sa352_HMOX1_cell)
+v_CARKD, v_CARKD
+v_CA_simple_molecule, v_3HAA_simple_molecule
+v_CCBL2, v_CCBL2
+v_CD38, v_CD38
+v_CO2_simple_molecule, ((v_ACS_simple_molecule & v_ACMSD) | (((v_QUIN_simple_molecule & v_PRPP_simple_molecule) & v_H__ion_cell) & v_QPRT))
+v_CO_simple_molecule, (((v_Heme_simple_molecule & v_O2_simple_molecule) & v_NADPH_simple_molecule_cell) & v_sa352_HMOX1_cell)
+v_Citrulline_simple_molecule, (((v_L_Arginine_simple_molecule & v_NADPH_simple_molecule_cell) & v_O2_simple_molecule) & v_iNOS)
+v_Dendritic_cell_maturation_phenotype, (v_3HKYN_simple_molecule & v_3HAA_simple_molecule)
+v_Effector_T_cell_apoptosis_phenotype, !v_L_Tryptophan_simple_molecule_human_host
+v_Epacadostat_drug, v_Epacadostat_drug
+v_Fe2__ion, (((v_Heme_simple_molecule & v_O2_simple_molecule) & v_NADPH_simple_molecule_cell) & v_sa352_HMOX1_cell)
+v_H2O2_simple_molecule, (((v_dh_beta_NAD_simple_molecule & v_O2_ion) & v_H__ion_human_host) & v_RNLS_FAD_complex)
+v_H2O_simple_molecule_cell, ((((((((v_L_Kynurenine_simple_molecule & v_NADPH_simple_molecule_cell) & v_H__ion_cell) & v_O2_simple_molecule) & v_KMO) | v_AP_DOBu_simple_molecule) | v_ACS_simple_molecule) | (((v_QUIN_simple_molecule & v_PRPP_simple_molecule) & v_H__ion_cell) & v_QPRT)) | (((v_Heme_simple_molecule & v_O2_simple_molecule) & v_NADPH_simple_molecule_cell) & v_sa352_HMOX1_cell))
+v_H2O_simple_molecule_endoplasmic_reticulum, (((((v_PTGS2 | v_MNA_simple_molecule) & v_PGG2_simple_molecule) & v_e__ion) & v_H__ion_endoplasmic_reticulum) & !v_PTCS2_celecoxib_complex)
+v_H2O_simple_molecule_human_host, v_H2O_simple_molecule_human_host
+v_H2O_simple_molecule_peroxisome, v_H2O_simple_molecule_peroxisome
+v_HAAO, v_HAAO
+v_HCOOH_simple_molecule, ((v_NFK_simple_molecule & v_H2O_simple_molecule_cell) & v_AFMID)
+v_HMOX1_rna, ((v_IFN_G | v_NO_simple_molecule) | v_3HAA_simple_molecule)
+v_H__ion_cell, (((((((v_2AMA_simple_molecule & v_NAD__simple_molecule_cell) & v_H2O_simple_molecule_cell) | ((v_NAR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK1)) | ((v_NAR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK2)) | ((v_NR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK1)) | ((v_NR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK2)) | (((v_L_Arginine_simple_molecule & v_NADPH_simple_molecule_cell) & v_O2_simple_molecule) & v_iNOS))
+v_H__ion_endoplasmic_reticulum, v_H__ion_endoplasmic_reticulum
+v_H__ion_human_host, (((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_BST1) | ((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_CD38))
+v_H__ion_mitochondrial_matrix, (((v_S_NADPHX_simple_molecule & v_ATP_simple_molecule_mitochondrial_matrix) & v_CARKD) | ((v_NAD__simple_molecule_mitochondrial_matrix & v_ATP_simple_molecule_mitochondrial_matrix) & v_NADK2))
+v_H__ion_peroxisome, (((v_NADH_simple_molecule_peroxisome & v_AMP_simple_molecule_peroxisome) & v_H2O_simple_molecule_peroxisome) & v_NUDT12)
+v_Heme_simple_molecule, v_Heme_simple_molecule
+v_I3LACT, v_I3LACT
+v_I3PROPA, v_I3PROPA
+v_IDO1_complex, (v_Heme_simple_molecule & v_apo_IDO1)
+v_IDO1_rna, (v_IFN_G & !v_NO_simple_molecule)
+v_IDO2, v_IDO2
+v_IFN_G, v_IFN_G
+v_KMO, v_KMO
+v_KYNA_simple_molecule, v_AP_DOBu_simple_molecule
+v_KYNU, v_KYNU
+v_L_Ala_simple_molecule, (((((((v_L_Kynurenine_simple_molecule & v_PYR_simple_molecule) & v_PXLP_KYAT1_complex) & !v_I3PROPA) & !v_L_Phe_simple_molecule) & !v_I3LACT) | ((v_L_Kynurenine_simple_molecule & v_PYR_simple_molecule) & v_CCBL2)) | ((v_3HKYN_simple_molecule & v_H2O_simple_molecule_cell) & v_KYNU))
+v_L_Arginine_simple_molecule, v_L_Arginine_simple_molecule
+v_L_Gln_simple_molecule, v_L_Gln_simple_molecule
+v_L_Glu_simple_molecule, ((((v_NAAD_simple_molecule_cell & v_ATP_simple_molecule_cell) & v_L_Gln_simple_molecule) & v_H2O_simple_molecule_cell) & v_NADSYN1_hexamer)
+v_L_Kynurenine_simple_molecule, ((v_NFK_simple_molecule & v_H2O_simple_molecule_cell) & v_AFMID)
+v_L_Phe_simple_molecule, v_L_Phe_simple_molecule
+v_L_Tryptophan_simple_molecule_cell, (v_L_Tryptophan_simple_molecule_human_host & v_SLC36A4)
+v_L_Tryptophan_simple_molecule_human_host, v_L_Tryptophan_simple_molecule_human_host
+v_MNA_simple_molecule, ((v_NAM_simple_molecule_cell & v_AdoMet_simple_molecule) & v_NNMT)
+v_Mg2__ion, v_Mg2__ion
+v_NAAD_simple_molecule_cell, (v_NAMN_simple_molecule_cell & v_NMNAT2_Mg2__complex)
+v_NAAD_simple_molecule_mitochondrial_matrix, ((v_NAMN_simple_molecule_mitochondrial_matrix & v_ATP_simple_molecule_mitochondrial_matrix) & v_NMNAT3_Mg2__complex)
+v_NAAD_simple_molecule_nucleus, ((v_NAMN_simple_molecule_nucleus & v_ATP_simple_molecule_nucleus) & v_NMNAT1_Zn2__complex)
+v_NADH_simple_molecule_cell, ((v_2AMA_simple_molecule & v_NAD__simple_molecule_cell) & v_H2O_simple_molecule_cell)
+v_NADH_simple_molecule_peroxisome, v_NADH_simple_molecule_peroxisome
+v_NADK2, v_NADK2
+v_NADK_Zn2__tetramer_complex, v_NADK_Zn2__tetramer_complex
+v_NADPH_simple_molecule_cell, v_NADPH_simple_molecule_cell
+v_NADPH_simple_molecule_mitochondrial_matrix, ((v_S_NADPHX_simple_molecule & v_ATP_simple_molecule_mitochondrial_matrix) & v_CARKD)
+v_NADP__simple_molecule_cell, (((((((v_L_Kynurenine_simple_molecule & v_NADPH_simple_molecule_cell) & v_H__ion_cell) & v_O2_simple_molecule) & v_KMO) | ((v_NAD__simple_molecule_cell & v_ATP_simple_molecule_cell) & v_NADK_Zn2__tetramer_complex)) | (((v_Heme_simple_molecule & v_O2_simple_molecule) & v_NADPH_simple_molecule_cell) & v_sa352_HMOX1_cell)) | (((v_L_Arginine_simple_molecule & v_NADPH_simple_molecule_cell) & v_O2_simple_molecule) & v_iNOS))
+v_NADP__simple_molecule_mitochondrial_matrix, ((v_NAD__simple_molecule_mitochondrial_matrix & v_ATP_simple_molecule_mitochondrial_matrix) & v_NADK2)
+v_NADSYN1_hexamer, v_NADSYN1_hexamer
+v_NAD__simple_molecule_cell, (((((v_NAAD_simple_molecule_cell & v_ATP_simple_molecule_cell) & v_L_Gln_simple_molecule) & v_H2O_simple_molecule_cell) & v_NADSYN1_hexamer) | ((v_NMN_simple_molecule_cell & v_ATP_simple_molecule_cell) & v_NMNAT2_Mg2__complex))
+v_NAD__simple_molecule_human_host, (((v_dh_beta_NAD_simple_molecule & v_O2_ion) & v_H__ion_human_host) & v_RNLS_FAD_complex)
+v_NAD__simple_molecule_mitochondrial_matrix, v_NAD__simple_molecule_mitochondrial_matrix
+v_NAMN_simple_molecule_cell, ((((((v_NAR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK1) | ((v_NAR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK2)) | ((((v_NAPRT1 | v_Mg2__ion) & v_NCA_simple_molecule) & v_PRPP_simple_molecule) & v_H__ion_cell)) | ((v_NAM_simple_molecule_cell & v_PRPP_simple_molecule) & v_NAMPT)) | (((v_QUIN_simple_molecule & v_PRPP_simple_molecule) & v_H__ion_cell) & v_QPRT))
+v_NAMN_simple_molecule_mitochondrial_matrix, v_NAMN_simple_molecule_mitochondrial_matrix
+v_NAMN_simple_molecule_nucleus, v_NAMN_simple_molecule_nucleus
+v_NAMPT, v_NAMPT
+v_NAM_simple_molecule_cell, ((v__ADP_D_ribosyl__n__acceptor_simple_molecule & v_NAD__simple_molecule_cell) & v_PARPs)
+v_NAM_simple_molecule_human_host, (((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_BST1) | ((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_CD38))
+v_NAPRT1, v_NAPRT1
+v_NAR_simple_molecule, v_NAR_simple_molecule
+v_NCA_simple_molecule, v_SLC22A13
+v_NFK_simple_molecule, (((v_L_Tryptophan_simple_molecule_cell & v_O2_simple_molecule) & v_IDO2) | (((v_L_Tryptophan_simple_molecule_cell & v_O2_simple_molecule) & v_IDO1_complex) & !v_Epacadostat_drug))
+v_NMNAT1_Zn2__complex, v_NMNAT1_Zn2__complex
+v_NMNAT2_Mg2__complex, v_NMNAT2_Mg2__complex
+v_NMNAT3_Mg2__complex, v_NMNAT3_Mg2__complex
+v_NMNH_simple_molecule, (((v_NADH_simple_molecule_peroxisome & v_AMP_simple_molecule_peroxisome) & v_H2O_simple_molecule_peroxisome) & v_NUDT12)
+v_NMN_simple_molecule_cell, (((v_NR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK1) | ((v_NR_simple_molecule & v_ATP_simple_molecule_cell) & v_NMRK2))
+v_NMN_simple_molecule_human_host, ((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_NT5E_Zn2__complex)
+v_NMRK1, v_NMRK1
+v_NMRK2, v_NMRK2
+v_NNMT, v_NNMT
+v_NO_simple_molecule, (((v_L_Arginine_simple_molecule & v_NADPH_simple_molecule_cell) & v_O2_simple_molecule) & v_iNOS)
+v_NRNAM_simple_molecule, ((v_NMN_simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_NT5E_Zn2__complex)
+v_NR_simple_molecule, v_NR_simple_molecule
+v_NT5E_Zn2__complex, v_NT5E_Zn2__complex
+v_NUDT12, v_NUDT12
+v_Na__ion_cell, ((v_monocarboxylates_transported_by_SLC5A8_simple_molecule_human_host & v_Na__ion_human_host) & v_SLC5A8)
+v_Na__ion_human_host, v_Na__ion_human_host
+v_Nf_KB_Complex_complex, !v_CO_simple_molecule
+v_O2_ion, v_O2_ion
+v_O2_simple_molecule, v_O2_simple_molecule
+v_Orf3a, v_Orf3a
+v_PARPs, v_PARPs
+v_PGG2_simple_molecule, v_PGG2_simple_molecule
+v_PGH2_simple_molecule, (((((v_PTGS2 | v_MNA_simple_molecule) & v_PGG2_simple_molecule) & v_e__ion) & v_H__ion_endoplasmic_reticulum) & !v_PTCS2_celecoxib_complex)
+v_PGI2_simple_molecule, (v_PGH2_simple_molecule & v_PTGIS)
+v_PPi_3___simple_molecule_cell, ((v_NAMN_simple_molecule_cell & v_NMNAT2_Mg2__complex) | ((v_NMN_simple_molecule_cell & v_ATP_simple_molecule_cell) & v_NMNAT2_Mg2__complex))
+v_PPi_3___simple_molecule_nucleus, ((v_NAMN_simple_molecule_nucleus & v_ATP_simple_molecule_nucleus) & v_NMNAT1_Zn2__complex)
+v_PPi__3___simple_molecule, ((v_NAMN_simple_molecule_mitochondrial_matrix & v_ATP_simple_molecule_mitochondrial_matrix) & v_NMNAT3_Mg2__complex)
+v_PPi_simple_molecule, ((((((v_NAPRT1 | v_Mg2__ion) & v_NCA_simple_molecule) & v_PRPP_simple_molecule) & v_H__ion_cell) | ((v_NAM_simple_molecule_cell & v_PRPP_simple_molecule) & v_NAMPT)) | ((((v_NAAD_simple_molecule_cell & v_ATP_simple_molecule_cell) & v_L_Gln_simple_molecule) & v_H2O_simple_molecule_cell) & v_NADSYN1_hexamer))
+v_PRPP_simple_molecule, v_PRPP_simple_molecule
+v_PTCS2_celecoxib_complex, v_PTCS2_celecoxib_complex
+v_PTGIS, v_PTGIS
+v_PTGS2, v_PTGS2
+v_PXLP_KYAT1_complex, v_PXLP_KYAT1_complex
+v_PYR_simple_molecule, v_PYR_simple_molecule
+v_Pi_ion, (((v_NAD__simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_NT5E_Zn2__complex) | ((v_NMN_simple_molecule_human_host & v_H2O_simple_molecule_human_host) & v_NT5E_Zn2__complex))
+v_Pi_simple_molecule, ((v_S_NADPHX_simple_molecule & v_ATP_simple_molecule_mitochondrial_matrix) & v_CARKD)
+v_QPRT, v_QPRT
+v_QUIN_simple_molecule, v_ACS_simple_molecule
+v_RNLS_FAD_complex, v_RNLS_FAD_complex
+v_R_NADPHX_simple_molecule, v_R_NADPHX_simple_molecule
+v_Regulatory_T_cell_generation_phenotype, (v_3HAA_simple_molecule | v_AHR_L_KYN_complex)
+v_SLC22A13, v_SLC22A13
+v_SLC36A4, v_SLC36A4
+v_SLC5A8, v_SLC5A8
+v_S_NADPHX_simple_molecule, (v_R_NADPHX_simple_molecule & v_APOA1BP)
+v_T_cell_apoptosis_phenotype, (((v_3HAA_simple_molecule & v_3HKYN_simple_molecule) & v_L_Kynurenine_simple_molecule) | v_CA_simple_molecule)
+v_Th1_cell_cytokine_production_phenotype, !v_3HAA_simple_molecule
+v__ADP_D_ribosyl__n_1__acceptor_simple_molecule, ((v__ADP_D_ribosyl__n__acceptor_simple_molecule & v_NAD__simple_molecule_cell) & v_PARPs)
+v__ADP_D_ribosyl__n__acceptor_simple_molecule, v__ADP_D_ribosyl__n__acceptor_simple_molecule
+v_apo_IDO1, v_IDO1_rna
+v_dh_beta_NAD_simple_molecule, v_dh_beta_NAD_simple_molecule
+v_e__ion, v_e__ion
+v_iNOS, v_iNOS_rna
+v_iNOS_rna, ((v_IFN_G | v_Nf_KB_Complex_complex) & !v_CO_simple_molecule)
+v_monocarboxylates_transported_by_SLC5A8_simple_molecule_cell, ((v_monocarboxylates_transported_by_SLC5A8_simple_molecule_human_host & v_Na__ion_human_host) & v_SLC5A8)
+v_monocarboxylates_transported_by_SLC5A8_simple_molecule_human_host, v_monocarboxylates_transported_by_SLC5A8_simple_molecule_human_host
+v_sa351_HMOX1_cell, v_HMOX1_rna
+v_sa352_HMOX1_cell, (v_sa351_HMOX1_cell & v_Orf3a)

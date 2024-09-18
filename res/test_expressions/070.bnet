@@ -1,0 +1,54 @@
+targets,factors
+v_AKT, (v_PDK1 & !v_PTEN)
+v_AP1, (v_JUN & (v_ATF2 | v_FOS))
+v_ATF2, (v_JNK | v_p38)
+v_ATM, v_DNA_damage
+v_Apoptosis, ((v_FOXO3 & v_p53) & !(v_BCL2 | v_ERK))
+v_BCL2, (v_CREB & v_AKT)
+v_CREB, v_MSK
+v_DNA_damage, v_DNA_damage
+v_DUSP1, v_CREB
+v_EGFR, ((v_EGFR_stimulus & !(v_PKC | v_GRB2)) | (v_SPRY & !(v_PKC | v_GRB2)))
+v_EGFR_stimulus, v_EGFR_stimulus
+v_ELK1, ((v_JNK | v_ERK) | v_p38)
+v_ERK, v_MEK1_2
+v_FGFR3, (v_FGFR3_stimulus & !(v_PKC | v_GRB2))
+v_FGFR3_stimulus, v_FGFR3_stimulus
+v_FOS, ((v_ERK & v_RSK) & (v_CREB | v_ELK1))
+v_FOXO3, (v_JNK & !v_AKT)
+v_FRS2, (v_FGFR3 & !(v_GRB2 | v_SPRY))
+v_GAB1, (v_PI3K | v_GRB2)
+v_GADD45, (v_p53 | v_SMAD)
+v_GRB2, ((v_EGFR | v_TGFBR) | v_FRS2)
+v_Growth_Arrest, v_p21
+v_JNK, ((((((((((v_TAOK & v_MAP3K1_3) | (v_TAK1 & !v_DUSP1)) | (v_MAP3K1_3 & v_MTK1)) | (v_TAK1 & v_MAP3K1_3)) | (v_MAP3K1_3 & !v_DUSP1)) | (v_TAK1 & v_MTK1)) | (v_TAK1 & v_TAOK)) | (v_TAOK & v_MTK1)) | (v_MTK1 & !v_DUSP1)) | (v_TAOK & !v_DUSP1))
+v_JUN, v_JNK
+v_MAP3K1_3, v_RAS
+v_MAX, v_p38
+v_MDM2, ((v_AKT & !v_p14) | (v_p53 & !v_p14))
+v_MEK1_2, ((v_RAF & !(v_PPP2CA | v_AP1)) | (v_MAP3K1_3 & !(v_PPP2CA | v_AP1)))
+v_MSK, (v_p38 | v_ERK)
+v_MTK1, v_GADD45
+v_MYC, ((v_MSK & v_AKT) | (v_MSK & v_MAX))
+v_PDK1, v_PI3K
+v_PI3K, (v_GAB1 | (v_RAS & v_SOS))
+v_PKC, v_PLCG
+v_PLCG, (v_EGFR | v_FGFR3)
+v_PPP2CA, v_p38
+v_PTEN, v_p53
+v_Proliferation, ((v_p70 & v_MYC) & !v_p21)
+v_RAF, ((v_PKC & !(v_ERK | v_AKT)) | (v_RAS & !(v_ERK | v_AKT)))
+v_RAS, (v_SOS | v_PLCG)
+v_RSK, v_ERK
+v_SMAD, v_TGFBR
+v_SOS, (v_GRB2 & !v_RSK)
+v_SPRY, v_ERK
+v_TAK1, v_TGFBR
+v_TAOK, v_ATM
+v_TGFBR, v_TGFBR_stimulus
+v_TGFBR_stimulus, v_TGFBR_stimulus
+v_p14, v_MYC
+v_p21, (v_p53 & !v_AKT)
+v_p38, ((((((((((v_MAP3K1_3 & v_MTK1) | (v_TAK1 & !v_DUSP1)) | (v_TAOK & v_MAP3K1_3)) | (v_MAP3K1_3 & !v_DUSP1)) | (v_TAK1 & v_MAP3K1_3)) | (v_TAOK & !v_DUSP1)) | (v_TAK1 & v_MTK1)) | (v_TAK1 & v_TAOK)) | (v_MTK1 & !v_DUSP1)) | (v_TAOK & v_MTK1))
+v_p53, (((v_p38 & !v_MDM2) | (v_ATM & !v_MDM2)) | (v_ATM & v_p38))
+v_p70, (v_PDK1 & v_ERK)

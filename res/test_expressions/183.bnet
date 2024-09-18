@@ -1,0 +1,36 @@
+targets,factors
+v_AKT, v_PI3K
+v_ATM_b1, (((!v_DNAdamage & v_ATM_b1) & v_ATM_b2) | v_DNAdamage)
+v_ATM_b2, ((v_DNAdamage & v_E2F1_b1) & v_ATM_b1)
+v_Apoptosis_b1, ((((((((!v_Apoptosis_b1 & !v_E2F1_b1) & v_TP53) | (((!v_Apoptosis_b1 & v_E2F1_b1) & !v_E2F1_b2) & v_TP53)) | ((!v_Apoptosis_b1 & v_E2F1_b1) & v_E2F1_b2)) | (((v_Apoptosis_b1 & !v_Apoptosis_b2) & !v_E2F1_b1) & v_TP53)) | ((((v_Apoptosis_b1 & !v_Apoptosis_b2) & v_E2F1_b1) & !v_E2F1_b2) & v_TP53)) | (((v_Apoptosis_b1 & !v_Apoptosis_b2) & v_E2F1_b1) & v_E2F1_b2)) | (v_Apoptosis_b1 & v_Apoptosis_b2))
+v_Apoptosis_b2, ((v_Apoptosis_b1 & v_E2F1_b1) & v_E2F1_b2)
+v_CDC25A, ((((!v_E2F1_b1 & v_E2F3_b1) & !v_RBL2) & !v_CHEK1_2_b1) | ((v_E2F1_b1 & !v_RBL2) & !v_CHEK1_2_b1))
+v_CHEK1_2_b1, (((!v_ATM_b1 & v_CHEK1_2_b1) & v_CHEK1_2_b2) | v_ATM_b1)
+v_CHEK1_2_b2, ((v_E2F1_b1 & v_ATM_b1) & v_CHEK1_2_b1)
+v_CyclinA, (((((!v_E2F1_b1 & v_E2F3_b1) & v_CDC25A) & !v_RBL2) & !v_p21CIP) | (((v_E2F1_b1 & v_CDC25A) & !v_RBL2) & !v_p21CIP))
+v_CyclinD1, ((((!v_RAS & !v_p16INK4a) & !v_p21CIP) & v_AKT) | ((v_RAS & !v_p16INK4a) & !v_p21CIP))
+v_CyclinE1, (((((!v_E2F1_b1 & v_E2F3_b1) & v_CDC25A) & !v_RBL2) & !v_p21CIP) | (((v_E2F1_b1 & v_CDC25A) & !v_RBL2) & !v_p21CIP))
+v_DNAdamage, v_DNAdamage
+v_E2F1_b1, (((((((((!v_RAS & !v_E2F1_b1) & v_E2F3_b1) & !v_RB1) & !v_RBL2) | (((((!v_RAS & v_E2F1_b1) & !v_E2F1_b2) & v_E2F3_b1) & !v_RB1) & !v_RBL2)) | ((!v_RAS & v_E2F1_b1) & v_E2F1_b2)) | (((v_RAS & !v_E2F1_b1) & !v_RB1) & !v_RBL2)) | ((((v_RAS & v_E2F1_b1) & !v_E2F1_b2) & !v_RB1) & !v_RBL2)) | ((v_RAS & v_E2F1_b1) & v_E2F1_b2))
+v_E2F1_b2, ((((((((((!v_RAS & v_E2F1_b1) & v_E2F3_b1) & v_E2F3_b2) & !v_RB1) & !v_RBL2) & v_ATM_b1) & v_ATM_b2) & v_CHEK1_2_b1) & v_CHEK1_2_b2) | (((((((v_RAS & v_E2F1_b1) & !v_RB1) & !v_RBL2) & v_ATM_b1) & v_ATM_b2) & v_CHEK1_2_b1) & v_CHEK1_2_b2))
+v_E2F3_b1, (((((!v_RAS & v_E2F3_b1) & v_E2F3_b2) | ((v_RAS & !v_E2F3_b1) & !v_RB1)) | (((v_RAS & v_E2F3_b1) & !v_E2F3_b2) & !v_RB1)) | ((v_RAS & v_E2F3_b1) & v_E2F3_b2))
+v_E2F3_b2, ((((v_RAS & v_E2F3_b1) & !v_RB1) & v_CHEK1_2_b1) & v_CHEK1_2_b2)
+v_EGFR, ((((!v_EGFR_stimulus & !v_FGFR3) & !v_GRB2) & v_SPRY) | ((v_EGFR_stimulus & !v_FGFR3) & !v_GRB2))
+v_EGFR_stimulus, v_EGFR_stimulus
+v_FGFR3, ((v_FGFR3_stimulus & !v_EGFR) & !v_GRB2)
+v_FGFR3_stimulus, v_FGFR3_stimulus
+v_GRB2, ((((!v_EGFR & v_FGFR3) & !v_GRB2) & !v_SPRY) | v_EGFR)
+v_GrowthInhibitors, v_GrowthInhibitors
+v_Growth_Arrest, ((((!v_RB1 & !v_RBL2) & v_p21CIP) | (!v_RB1 & v_RBL2)) | v_RB1)
+v_MDM2, (((((!v_RB1 & !v_ATM_b1) & !v_TP53) & !v_p14ARF) & v_AKT) | (((!v_RB1 & !v_ATM_b1) & v_TP53) & !v_p14ARF))
+v_PI3K, ((v_RAS & !v_PTEN) & v_GRB2)
+v_PTEN, v_TP53
+v_Proliferation, ((!v_CyclinE1 & v_CyclinA) | v_CyclinE1)
+v_RAS, ((((!v_EGFR & !v_FGFR3) & v_GRB2) | (!v_EGFR & v_FGFR3)) | v_EGFR)
+v_RB1, (((!v_CyclinD1 & !v_CyclinE1) & !v_CyclinA) & !v_p16INK4a)
+v_RBL2, (!v_CyclinD1 & !v_CyclinE1)
+v_SPRY, v_RAS
+v_TP53, (((((!v_E2F1_b1 & v_ATM_b1) & v_CHEK1_2_b1) & !v_MDM2) | ((((v_E2F1_b1 & !v_E2F1_b2) & v_ATM_b1) & v_CHEK1_2_b1) & !v_MDM2)) | ((v_E2F1_b1 & v_E2F1_b2) & !v_MDM2))
+v_p14ARF, v_E2F1_b1
+v_p16INK4a, (v_GrowthInhibitors & !v_RB1)
+v_p21CIP, ((((!v_GrowthInhibitors & !v_CyclinE1) & v_TP53) & !v_AKT) | ((v_GrowthInhibitors & !v_CyclinE1) & !v_AKT))

@@ -1,0 +1,34 @@
+targets,factors
+v_AKT, ((!v_DDR_Activation & !v_PTEN) | (v_mTORC2 | v_BMI1))
+v_AMPK, ((v_ATM | v_DDR_Activation) & !v_ULK1)
+v_APOPTOSIS, ((v_Caspase3 | v_DRAM1) & !v_ULK1)
+v_ATM, (v_DDR_Activation & !v_Wip1)
+v_AUTOPHAGY, v_ULK1
+v_BAX, (!v_BCL2 & (v_DRAM1 & !v_Wip1))
+v_BCL2, (!v_miR_16 & (!v_PUMA & !v_DRAM1))
+v_BMI1, (!v_miR_16 & (v_E2F1 | v_Myc))
+v_CDK2_CycE, (v_Cdc25A & (v_E2F1 & (!v_miR_16 & !v_p21)))
+v_CDK46_CycD, (v_Cdc25A & (!v_miR_16 & !v_p21))
+v_Caspase3, (v_BAX | (!v_p21 & !v_BCL2))
+v_Cdc25A, (!v_ATM & !v_miR_16)
+v_DDR_Activation, (v_Transfected_miRNA & !(v_Wip1 & (v_BMI1 & v_Cdc25A)))
+v_DRAM1, v_p53_K
+v_E2F1, ((!v_RB & ((v_Cdc25A & v_ATM) | !v_Sirt1)) | v_Myc)
+v_Mdm2, ((!v_Wip1 | v_p53_A) & (!v_ATM & v_AKT))
+v_Myc, ((v_E2F1 | v_AMPK) & (!v_RB & !v_p21))
+v_PROLIFERATION, v_E2F1
+v_PTEN, (v_p53_K & !v_BMI1)
+v_PUMA, v_p53_K
+v_RB, (!v_CDK46_CycD & !v_CDK2_CycE)
+v_SENESCENCE, (v_p21 | v_p53_A)
+v_Sirt1, v_E2F1
+v_Transfected_miRNA, v_Transfected_miRNA
+v_ULK1, ((v_DRAM1 | v_AMPK) & (!v_mTORC2 & !v_mTORC1))
+v_Wip1, (v_p53_A & !v_miR_16)
+v_mTORC1, (v_AKT & !((v_ULK1 & (v_DRAM1 & v_miR_16)) | v_AMPK))
+v_mTORC2, (!v_miR_16 | (v_AKT | !(v_DRAM1 | (v_mTORC1 | (v_Sirt1 | v_AMPK)))))
+v_miR_16, (v_ATM & v_Transfected_miRNA)
+v_p21, (v_p53_A | (!v_Myc & (!v_Caspase3 & (!v_BMI1 & !v_AKT))))
+v_p53INP1, (v_p53_K | v_p53_A)
+v_p53_A, (!v_Sirt1 & (!v_p53_K & (v_ATM | (!v_p53INP1 | (v_AMPK & !(v_Wip1 & v_Mdm2))))))
+v_p53_K, (!v_p53_A & ((!v_Sirt1 | !v_Wip1) & (v_ATM & !v_Mdm2)))

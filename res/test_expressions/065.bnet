@@ -1,0 +1,33 @@
+targets,factors
+v_AKT1, ((v_CTNNB1 & (((v_NICD | v_CDH2) | v_TGFbeta) | v_GF)) & !((v_miR34 | v_p53) | v_CDH1))
+v_AKT2, ((v_TWIST1 & ((v_TGFbeta | v_GF) | v_CDH2)) & ((!v_miR34 & !v_miR203) & !v_p53))
+v_Apoptosis, (((((v_miR200 & !((v_ZEB2 | v_AKT1) | v_ERK)) | (v_p53 & !((v_ZEB2 | v_AKT1) | v_ERK))) | (v_p73 & !((v_ZEB2 | v_AKT1) | v_ERK))) | (v_p63 & !((v_ZEB2 | v_AKT1) | v_ERK))) | (v_miR34 & !((v_ZEB2 | v_AKT1) | v_ERK)))
+v_CDH1, !(((((v_ZEB1 | v_AKT2) | v_TWIST1) | v_ZEB2) | v_SNAI2) | v_SNAI1)
+v_CDH2, v_TWIST1
+v_CTNNB1, !(((((((v_miR34 | v_DKK1) | v_miR200) | v_CDH1) | v_p53) | v_CDH2) | v_p63) | v_AKT1)
+v_CellCycleArrest, (((((v_miR34 & !v_AKT1) | (v_ZEB2 & !v_AKT1)) | (v_miR203 & !v_AKT1)) | (v_miR200 & !v_AKT1)) | (v_p21 & !v_AKT1))
+v_DKK1, (v_NICD | v_CTNNB1)
+v_DNAdamage, v_DNAdamage
+v_ECM, v_ECM
+v_EMT, (v_CDH2 & !v_CDH1)
+v_ERK, ((((v_GF & !v_AKT1) | (v_SMAD & !v_AKT1)) | (v_CDH2 & !v_AKT1)) | (v_NICD & !v_AKT1))
+v_GF, ((v_CDH2 & !v_CDH1) | (v_GF & !v_CDH1))
+v_Invasion, (v_CTNNB1 | (v_SMAD & v_CDH2))
+v_Metastasis, v_Migration
+v_Migration, ((v_VIM & (((v_Invasion & v_EMT) & v_ERK) & v_AKT2)) & !((v_miR200 | v_p63) | v_AKT1))
+v_NICD, (v_ECM & !((((v_miR200 | v_p73) | v_miR34) | v_p53) | v_p63))
+v_SMAD, (v_TGFbeta & !(v_miR200 | v_miR203))
+v_SNAI1, ((v_TWIST1 & !(((v_miR203 | v_miR34) | v_p53) | v_CTNNB1)) | (v_NICD & !(((v_miR203 | v_miR34) | v_p53) | v_CTNNB1)))
+v_SNAI2, (((v_CTNNB1 & !((v_miR200 | v_miR203) | v_p53)) | (v_NICD & !((v_miR200 | v_miR203) | v_p53))) | (v_TWIST1 & !((v_miR200 | v_miR203) | v_p53)))
+v_TGFbeta, ((v_NICD & !v_CTNNB1) | (v_ECM & !v_CTNNB1))
+v_TWIST1, ((v_NICD | v_CTNNB1) | v_SNAI1)
+v_VIM, (v_CTNNB1 | v_ZEB2)
+v_ZEB1, (((((v_TWIST1 & v_SNAI1) & !v_miR200) | (v_SNAI2 & !v_miR200)) | (v_CTNNB1 & !v_miR200)) | (v_NICD & !v_miR200))
+v_ZEB2, (((v_NICD & !(v_miR203 | v_miR200)) | ((v_SNAI2 & v_TWIST1) & !(v_miR203 | v_miR200))) | (v_SNAI1 & !(v_miR203 | v_miR200)))
+v_miR200, (((v_p53 & !((((v_SNAI1 | v_AKT2) | v_ZEB1) | v_SNAI2) | v_ZEB2)) | (v_p63 & !((((v_SNAI1 | v_AKT2) | v_ZEB1) | v_SNAI2) | v_ZEB2))) | (v_p73 & !((((v_SNAI1 | v_AKT2) | v_ZEB1) | v_SNAI2) | v_ZEB2)))
+v_miR203, (v_p53 & !((v_ZEB1 | v_SNAI1) | v_ZEB2))
+v_miR34, (((v_AKT2 & ((!v_SNAI1 & !v_ZEB2) & !v_ZEB1)) & (v_p73 | v_p53)) & !(v_p63 | v_AKT1))
+v_p21, (((((v_p63 & !(v_AKT1 | v_ERK)) | (v_p53 & !(v_AKT1 | v_ERK))) | (v_p73 & !(v_AKT1 | v_ERK))) | (v_AKT2 & !(v_AKT1 | v_ERK))) | ((v_SMAD & v_NICD) & !(v_AKT1 | v_ERK)))
+v_p53, ((((v_CTNNB1 & !(((v_AKT2 | v_AKT1) | v_p73) | v_SNAI2)) | (v_NICD & !(((v_AKT2 | v_AKT1) | v_p73) | v_SNAI2))) | (v_miR34 & !(((v_AKT2 | v_AKT1) | v_p73) | v_SNAI2))) | (v_DNAdamage & !(((v_AKT2 | v_AKT1) | v_p73) | v_SNAI2)))
+v_p63, (v_DNAdamage & !((((v_AKT1 | v_NICD) | v_AKT2) | v_miR203) | v_p53))
+v_p73, (v_DNAdamage & !(((v_AKT1 | v_AKT2) | v_ZEB1) | v_p53))

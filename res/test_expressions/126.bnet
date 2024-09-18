@@ -1,0 +1,43 @@
+targets,factors
+v_BTRC, (v_BTRC & !v_TRIM9)
+v_CACTIN, (v_CACTIN & v_TRIM39)
+v_CASP1, ((v_PYCARD_ubiquitinated_ubiquitinated_ubiquitinated & v_NLRP3) & v_CASP1)
+v_E, v_E
+v_Hops_Complex_complex, v_Orf3a
+v_IFNB1, (v_IFNB1 & v_SERPINF2)
+v_IKBKG_IKBKB_CHUK_complex, v_LPS_TNF___IL_1_complex
+v_IL1b, ((((v_CASP1 | v_P65_P015_complex) | v_E) & v_IL1b) | v_P65_P015_complex)
+v_IRF6, v_IRF6
+v_LPS_TLR4_MYD88_complex, ((v_TLR4 & v_IRF6) & v_MYD88)
+v_LPS_TNF___IL_1_complex, v_LPS_TNF___IL_1_complex
+v_MYD88, ((v_MYD88 & v_TLR7_8_9_complex) | (v_MYD88 & !v_TRIM59))
+v_NEMO_IKKA_IKKB_complex, ((((v_TAB2_TAB3_TAK1_complex | v_TRIM14_TRIM23_complex) & !v_TRIM22) & !v_TRIM29) & !v_TRIM27_TRIM21_complex)
+v_NFKB1, v_NFKB1
+v_NFKB1_NFKNIA_complex, ((v_NFKB1 & v_NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated) & !v_CACTIN)
+v_NFKBIA_phosphorylated_ubiquitinated_ubiquitinated_ubiquitinated, (v_BTRC | v_NEMO_IKKA_IKKB_complex)
+v_NLRP3, v_ORF8b
+v_ORF8b, v_ORF8b
+v_Orf3a, v_Orf3a
+v_P65_P015_complex, ((v_IKBKG_IKBKB_CHUK_complex & v_E) | ((v_TRAF3 | v_IKBKG_IKBKB_CHUK_complex) | v_Orf3a))
+v_PYCARD_ubiquitinated_ubiquitinated_ubiquitinated, (v_TRAF3 | v_Orf3a)
+v_S, v_Orf3a
+v_SERPINF2, v_TAB2_TAB3_TAK1_complex
+v_TAB2_TAB3_TAK1_complex, (v_TRAF6 & !v_TRIM30a_TRIM38_complex)
+v_TICAM1, ((v_TICAM1 & v_TLR3) & !v_TRIM38)
+v_TLR3, v_double_stranded_RNA_rna
+v_TLR4, v_TLR4
+v_TLR7_8_9_complex, v_ssRNA_rna
+v_TRAF3, (v_TRAF3 & v_TICAM1)
+v_TRAF6, ((((v_MYD88 | v_TRIM23) & v_TRAF6) & !v_TRIM38) | (v_TRAF6 & v_LPS_TLR4_MYD88_complex))
+v_TRIM14_TRIM23_complex, v_TRIM14_TRIM23_complex
+v_TRIM22, v_TRIM22
+v_TRIM23, v_TRIM23
+v_TRIM27_TRIM21_complex, v_TRIM27_TRIM21_complex
+v_TRIM29, v_TRIM29
+v_TRIM30a_TRIM38_complex, v_TRIM30a_TRIM38_complex
+v_TRIM38, v_TRIM38
+v_TRIM39, v_TRIM39
+v_TRIM59, (v_TRIM59 & v_Orf3a)
+v_TRIM9, v_TRIM9
+v_double_stranded_RNA_rna, v_double_stranded_RNA_rna
+v_ssRNA_rna, v_ssRNA_rna

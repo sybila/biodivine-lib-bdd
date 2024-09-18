@@ -1,0 +1,134 @@
+targets,factors
+v_AP1, ((v_c_JUN & v_ATF2) | v_p38)
+v_ATF2, v_JNK
+v_Akt1, (v_PDK1 & !v_PTEN)
+v_Akt2, (v_PDK1 & !v_PTEN)
+v_Arg1, v_Arg1mRNA
+v_Arg1mRNA, (v_IL10R | (v_Stat6 & v_CEBPb))
+v_CBP, v_CBP
+v_CD14, v_CD14
+v_CEBPb, !v_miR155
+v_CREB, (v_MSK1 & v_p90Rsk_lps)
+v_Ccl2_3_4_5_7, v_Ccl2_3_4_5_7mRNA
+v_Ccl2_3_4_5_7mRNA, v_NFkB
+v_Ccl2_7_Stat6, v_Ccl2_7mRNA_Stat6
+v_Ccl2_7mRNA_Stat6, v_Stat6
+v_Ccl5_Stat1, v_Ccl5mRNA_Stat1
+v_Ccl5mRNA_Stat1, v_Stat1
+v_Cxcl1_2_3mRNA, v_NFkB
+v_Cxcl_1_2_3, v_Cxcl1_2_3mRNA
+v_DUSP1_NFkB, v_DUSP1mRNA_NFkB
+v_DUSP1_Stat3, v_DUSP1mRNA_Stat3
+v_DUSP1mRNA_NFkB, v_NFkB
+v_DUSP1mRNA_Stat3, v_Stat3
+v_ERK, v_MKK1_2
+v_Fes, ((v_IL4Ra_IL2Ry & (v_Jak1 & !v_dum_Socs1_inh)) | (v_IL4Ra_IL2Ry & (v_Jak3 & !v_dum_Socs1_inh)))
+v_IFNAR, v_IFNb_medium
+v_IFNb_medium, ((v_hk_medium & v_LPS) | v_IFNb_syn)
+v_IFNb_syn, v_IFNbmRNA
+v_IFNbmRNA, (v_IRF3 & (v_NFkB & (v_p300 & v_CBP)))
+v_IKK, (v_TAK1 | (v_TRAF6 & (v_RIP1 & !v_RIP3)))
+v_IL10R, v_IL10_medium
+v_IL10_medium, ((v_hk_medium & v_LPS) | (v_IL10_syn_MK2 | v_IL10_syn_Stat3))
+v_IL10_syn_MK2, (!v_TTP & v_IL10mRNA_MK2)
+v_IL10_syn_Stat3, v_IL10_syn_Stat3
+v_IL10mRNA_MK2, v_MK2
+v_IL10mRNA_Stat3, v_Stat3
+v_IL10syn_Stat3, (!v_TTP & v_IL10mRNA_Stat3)
+v_IL13, v_IL13
+v_IL13Ra2, v_IL13
+v_IL1b_syn, v_IL1bmRNA
+v_IL1bmRNA, v_NFkB
+v_IL1rn_NFkB, v_IL1rnmRNA_NFkB
+v_IL1rn_Stat, v_IL1rnmRNA_Stat
+v_IL1rnmRNA_NFkB, (v_NFkB & v_MSK1)
+v_IL1rnmRNA_Stat, (v_Stat1 | v_Stat3)
+v_IL4, v_IL4
+v_IL4Ra_IL13Ra1, (v_IL13 | v_IL4)
+v_IL4Ra_IL2Ry, v_IL4
+v_IL6_syn, (v_IL6mRNA & !v_TTP)
+v_IL6mRNA, (v_NFkB & (v_CREB & v_AP1))
+v_IL_10R, v_IL_10R
+v_IRAK1, (v_IRAK4 & (!v_IRAKM & (!v_IRAK2c & !v_IRAK2d)))
+v_IRAK2c, v_IRAK2c
+v_IRAK2d, v_IRAK2d
+v_IRAK4, (v_TLR4RC & (v_Mal & (v_MyD88 & !v_MyD88s)))
+v_IRAKM, v_IRAKM
+v_IRF3, (v_TBK1 & !v_MK3)
+v_IRS1_2, v_Fes
+v_IkBa, v_IKK
+v_IkBa_syn, v_IkBamRNA
+v_IkBamRNA, v_NFkB
+v_JNK, (v_MKK4 | v_MKK7)
+v_Jak1, v_Jak1
+v_Jak2, v_Jak2
+v_Jak3, v_Jak3
+v_LBP, v_LBP
+v_LPS, v_LPS
+v_MD2, v_MD2
+v_MK2, v_p38
+v_MK3, !v_MK2
+v_MKK1_2, v_TPL2
+v_MKK3, v_TAK1
+v_MKK4, v_TAK1
+v_MKK6, v_TAK1
+v_MKK7, v_TAK1
+v_MSK1, (v_ERK | v_p38)
+v_MSK2, v_p38
+v_Mal, v_Mal
+v_Mrc1, v_Mrc1mRNA
+v_Mrc1mRNA, v_Stat6
+v_MyD88, v_MyD88
+v_MyD88s, v_MyD88s
+v_NFkB, (v_IkBa & (!v_dum_IkBa_inh & (!v_MK3 & v_miR155)))
+v_PDK1, v_PIP3
+v_PI3K, (v_IRS1_2 | v_TLR4RC)
+v_PIP3, v_PI3K
+v_PKC, v_PDK1
+v_PP2A, v_PP2A
+v_PTEN, v_PTEN
+v_RIP1, v_RIP1
+v_RIP3, v_RIP3
+v_SHP1, v_SHP1
+v_SIGIRR, v_SIGIRR
+v_ST2, v_ST2
+v_Socs1, v_Socs1mRNA
+v_Socs1mRNA, (v_Stat1 | (v_Stat3 | v_Stat6))
+v_Socs2, v_Socs2mRNA
+v_Socs2mRNA, v_Stat6
+v_Socs3_MK2, v_Socs3mRNA_MK2
+v_Socs3_Stat3, v_Socs3mRNA_Stat3
+v_Socs3mRNA_MK2, v_MK2
+v_Socs3mRNA_Stat3, (v_Stat3 & v_Src)
+v_Src, v_Src
+v_Stat1, ((v_IFNAR & (v_Jak1 & !v_dum_Socs1_inh)) | (v_IFNAR & (v_Tyk2 & !v_dum_Socs1_inh)))
+v_Stat3, ((v_IFNAR & (v_Jak1 & !v_dum_Socs3_inh)) | ((v_IFNAR & (v_Tyk2 & !v_dum_Socs3_inh)) | (v_Jak1 & v_IL_10R)))
+v_Stat6, ((v_IL4Ra_IL13Ra1 & (!v_PP2A & (!v_SHP1 & (v_Jak2 & !v_dum_Socs1_inh)))) | ((v_IL4Ra_IL13Ra1 & (v_Jak1 & (!v_PP2A & (!v_SHP1 & !v_dum_Socs1_inh)))) | ((v_IL4Ra_IL13Ra1 & (v_Tyk2 & (!v_PP2A & (!v_SHP1 & !v_dum_Socs1_inh)))) | ((v_IL4Ra_IL2Ry & (v_Jak1 & (!v_PP2A & (!v_SHP1 & !v_dum_Socs1_inh)))) | (v_IL4Ra_IL2Ry & (v_Jak3 & (!v_PP2A & (!v_SHP1 & !v_dum_Socs1_inh))))))))
+v_TAB, v_TRAF6
+v_TAK1, v_TAB
+v_TBK1, (v_TLR4RC & (v_TRAM & (v_TRIF & !v_TRIAD3A)))
+v_TLR4, v_TLR4
+v_TLR4RC, (v_LBP & (v_CD14 & (v_TLR4 & (v_MD2 & (!v_SIGIRR & (!v_ST2 & v_LPS))))))
+v_TNFa, (v_TNFamRNA & !v_TTP)
+v_TNFamRNA, v_NFkB
+v_TPL2, (v_TAK1 | v_TRAF6)
+v_TRAF6, (v_IRAK1 | (v_TLR4RC & (v_TRAM & (v_TRIF & !v_TRIAD3A))))
+v_TRAM, v_TRAM
+v_TRIAD3A, v_TRIAD3A
+v_TRIF, v_TRIF
+v_TTP, !v_MK2
+v_Tyk2, v_Tyk2
+v_c_JUN, v_JNK
+v_coSignal, v_TLR4RC
+v_dum_DUSP1_inh, (v_DUSP1_NFkB | (v_DUSP1_Stat3 | (v_hk_inh & v_LPS)))
+v_dum_IkBa_inh, ((v_hk_inh & v_LPS) | v_IkBa_syn)
+v_dum_Socs1_inh, ((v_hk_inh & v_IL4) | ((v_hk_inh & v_LPS) | v_Socs1))
+v_dum_Socs3_inh, ((v_hk_inh & v_LPS) | (v_Socs3_MK2 | v_Socs3_Stat3))
+v_hk_inh, v_hk_inh
+v_hk_medium, v_hk_medium
+v_miR155, (!v_Akt1 | (v_Akt2 & v_coSignal))
+v_p300, v_p300
+v_p38, ((v_MKK3 & !v_dum_DUSP1_inh) | ((v_MKK4 & !v_dum_DUSP1_inh) | (v_MKK6 & !v_dum_DUSP1_inh)))
+v_p70S6K, v_PDK1
+v_p90Rsk_il, v_PDK1
+v_p90Rsk_lps, v_ERK

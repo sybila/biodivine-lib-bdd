@@ -1,0 +1,203 @@
+targets,factors
+v_Acc1, v_Acc1
+v_Acc1__P_, (v_Snf1_P__Acc1 | v_Acc1__P_)
+v_CKII, v_CKII
+v_CKII_P__Gal83_CKIISite, (v_CKII & (v_Gal83 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_CSRE, v_CSRE
+v_CSRETranscription, (v_Sip4__CSRE & v_Cat8__CSRE)
+v_Cat8, v_Cat8
+v_Cat8_BIND_CSRE, (v_Cat8 & (v_CSRE & v_Cat8_S562__P_))
+v_Cat8_S562__P_, (v_Snf1_P__Cat8_S562 | v_Cat8_S562__P_)
+v_Cat8__CSRE, v_Cat8_BIND_CSRE
+v_Ctk1, v_Ctk1
+v_Ctk1__Snf1, v_Ctk1_ppi_Snf1
+v_Ctk1_ppi_Snf1, (v_Ctk1 & (v_Snf1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Cyc8, v_Cyc8
+v_Cyc8__Mig1, v_Cyc8_ppi_Mig1
+v_Cyc8_ppi_Mig1, (v_Cyc8 & (v_Mig1 & v_Mig1__Nucleus_))
+v_Elm1, v_Elm1
+v_Elm1_P__Snf1_T210, (v_Elm1 & (v_Snf1 & (!v_Snf1__SUMO_ & !v_UnknownRegulation)))
+v_GATASite, v_GATASite
+v_GATATranscription, v_Gln3__GATASite
+v_Gal83, v_Gal83
+v_Gal83_CKIISite__P_, (v_CKII_P__Gal83_CKIISite | v_Gal83_CKIISite__P_)
+v_Gal83_Snf1Site__P_, (v_Snf1_P__Gal83_Snf1Site | v_Gal83_Snf1Site__P_)
+v_Gal83__Sip4, v_Gal83_ppi_Sip4
+v_Gal83__Snf1, v_Gal83_ppi_Snf1
+v_Gal83_ppi_Sip4, (v_Gal83 & (v_Sip4 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Gal83_ppi_Snf1, (v_Gal83 & (v_Snf1 & (v_Snf1_ID__Snf4 & (!v_Sip1__Snf1 & !v_Sip2__Snf1))))
+v_Gcn5, v_Gcn5
+v_Gcn5_Ace__Histone3, (v_Gcn5 & (v_Histone3 & v_Gcn5__Snf1))
+v_Gcn5__Snf1, v_Gcn5_ppi_Snf1
+v_Gcn5_ppi_Snf1, (v_Gcn5 & (v_Snf1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Glc7, v_Glc7
+v_Glc7_P__Hxk2, (v_Glc7 & (v_Hxk2 & (v_Hxk2__P_ & v_Glc7__Shp1)))
+v_Glc7_P__Msn2_PKASite, (v_Glc7 & (v_Msn2 & (v_Msn2_PKASite__P_ & (v_Glc7__Reg1 | v_Glc7__Reg2))))
+v_Glc7_P__Rod1, (v_Glc7 & (v_Rod1 & (v_Rod1__P_ & (v_Glc7__Reg1 | v_Glc7__Reg2))))
+v_Glc7_P__Snf1_T210, (v_Glc7 & (v_Snf1 & (v_Snf1_T210__P_ & ((v_Glc7__Reg1 | v_Glc7__Reg2) & (v_Glc7__Shp1 & (!v_NaCl & (!v_alkalinepH & !v_NitrogenStress)))))))
+v_Glc7__Reg1, v_Glc7_ppi_Reg1
+v_Glc7__Reg2, v_Glc7_ppi_Reg2
+v_Glc7__Shp1, v_Glc7_ppi_Shp1
+v_Glc7_ppi_Reg1, (v_Glc7 & (v_Reg1 & !v_Glc7__Reg2))
+v_Glc7_ppi_Reg2, (v_Glc7 & (v_Reg2 & !v_Glc7__Reg1))
+v_Glc7_ppi_Shp1, (v_Glc7 & v_Shp1)
+v_Gln3, v_Gln3
+v_Gln3_BIND_GATASite, (v_Gln3 & (v_GATASite & v_Gln3__Nucleus_))
+v_Gln3__Cytoplasm_, (v_NPC_NEXP_Gln3 | (!v_NPC_NIMP_Gln3 & v_Gln3__Cytoplasm_))
+v_Gln3__GATASite, v_Gln3_BIND_GATASite
+v_Gln3__Nucleus_, (v_NPC_NIMP_Gln3 | (!v_NPC_NEXP_Gln3 & v_Gln3__Nucleus_))
+v_Gln3__P_, (v_Snf1_P__Gln3 | v_Gln3__P_)
+v_Gln3__Ure2, v_Gln3_ppi_Ure2
+v_Gln3_ppi_Ure2, (v_Gln3 & (v_Ure2 & !v_NitrogenStress))
+v_Glucose, v_Glucose
+v_Glucose__Cytoplasm_, (v_Hxt_FDExtCyt_Glucose | v_Glucose__Cytoplasm_)
+v_Glucose__Extracellular_, (!v_Hxt_FDExtCyt_Glucose & v_Glucose__Extracellular_)
+v_Glucose__P_, (v_Hxk2_P__Glucose | v_Glucose__P_)
+v_Hcm1, v_Hcm1
+v_Hcm1__P_, (v_Snf1_P__Hcm1 | v_Hcm1__P_)
+v_Histone3, v_Histone3
+v_Histone3__Ace_, (v_Gcn5_Ace__Histone3 | v_Histone3__Ace_)
+v_Histone3__P_, (v_Snf1_P__Histone3 | v_Histone3__P_)
+v_Hsf1, v_Hsf1
+v_Hsf1__P_, (v_Snf1_P__Hsf1 | v_Hsf1__P_)
+v_Hxk2, v_Hxk2
+v_Hxk2_P__Glucose, (v_Hxk2 & (v_Glucose & v_Glucose__Cytoplasm_))
+v_Hxk2_S14__P_, ((v_Snf1_P__Hxk2_S14 | v_Tda1_P__Hxk2_S14) | v_Hxk2_S14__P_)
+v_Hxk2__Cytoplasm_, (v_NPC_NEXP_Hxk2 | (!v_NPC_NIMP_Hxk2 & v_Hxk2__Cytoplasm_))
+v_Hxk2__Mig1_S311, v_Hxk2_ppi_Mig1_S311
+v_Hxk2__Nucleus_, (v_NPC_NIMP_Hxk2 | (!v_NPC_NEXP_Hxk2 & v_Hxk2__Nucleus_))
+v_Hxk2__P_, (!v_Glc7_P__Hxk2 & v_Hxk2__P_)
+v_Hxk2_ppi_Mig1_S311, (v_Hxk2 & (v_Mig1 & (v_Hxk2__Nucleus_ & v_Mig1__Nucleus_)))
+v_Hxt, v_Hxt
+v_Hxt_FDExtCyt_Glucose, (v_Hxt & (v_Glucose & v_Glucose__Extracellular_))
+v_Mig1, v_Mig1
+v_Mig1Site, v_Mig1Site
+v_Mig1Transcription, !(v_Cyc8__Mig1 & v_Mig1__Mig1Site)
+v_Mig1_BIND_Mig1Site, (v_Mig1 & (v_Mig1Site & v_Mig1__Nucleus_))
+v_Mig1__Cytoplasm_, (v_NPC_NEXP_Mig1 | (!v_NPC_NIMP_Mig1 & v_Mig1__Cytoplasm_))
+v_Mig1__Mig1Site, v_Mig1_BIND_Mig1Site
+v_Mig1__Nucleus_, (v_NPC_NIMP_Mig1 | (!v_NPC_NEXP_Mig1 & v_Mig1__Nucleus_))
+v_Mig1__P_, (v_Snf1_P__Mig1 | v_Mig1__P_)
+v_Mms21, v_Mms21
+v_Mms21_SUM__Snf1, (v_Mms21 & (v_Snf1 & v_UnknownRegulation))
+v_Msn2, v_Msn2
+v_Msn2_BIND_STRE, (v_Msn2 & (v_STRE & v_Msn2__Nucleus_))
+v_Msn2_PKASite__P_, (v_Tpk_P__Msn2_PKASite | (!v_Glc7_P__Msn2_PKASite & v_Msn2_PKASite__P_))
+v_Msn2_S582__P_, (v_Snf1_P__Msn2_S582 | v_Msn2_S582__P_)
+v_Msn2__Cytoplasm_, (v_NPC_NEXP_Msn2 | (!v_NPC_NIMP_Msn2 & v_Msn2__Cytoplasm_))
+v_Msn2__Nucleus_, (v_NPC_NIMP_Msn2 | (!v_NPC_NEXP_Msn2 & v_Msn2__Nucleus_))
+v_Msn2__STRE, v_Msn2_BIND_STRE
+v_NPC, v_NPC
+v_NPC_NEXP_Gln3, (v_NPC & (v_Gln3 & (v_Gln3__Nucleus_ & v_Gln3__P_)))
+v_NPC_NEXP_Hxk2, (v_NPC & (v_Hxk2 & (v_Hxk2__Nucleus_ & (v_Hxk2_S14__P_ & v_Hxk2_S14__P_))))
+v_NPC_NEXP_Mig1, (v_NPC & (v_Mig1 & (v_Mig1__Nucleus_ & v_Mig1__P_)))
+v_NPC_NEXP_Msn2, (v_NPC & (v_Msn2 & (v_Msn2__Nucleus_ & v_Msn2_PKASite__P_)))
+v_NPC_NEXP_Snf1, (v_NPC & (v_Snf1 & (v_Snf1__Nucleus_ & (!v_Gal83__Snf1 & !v_Snf1_T210__P_))))
+v_NPC_NIMP_Gln3, (v_NPC & (v_Gln3 & (v_Gln3__Cytoplasm_ & (!v_Gln3__P_ & !v_Gln3__Ure2))))
+v_NPC_NIMP_Hxk2, (v_NPC & (v_Hxk2 & (v_Hxk2__Cytoplasm_ & !v_Hxk2_S14__P_)))
+v_NPC_NIMP_Mig1, (v_NPC & (v_Mig1 & (v_Mig1__Cytoplasm_ & !v_Mig1__P_)))
+v_NPC_NIMP_Msn2, (v_NPC & (v_Msn2 & (v_Msn2__Cytoplasm_ & !v_Msn2_PKASite__P_)))
+v_NPC_NIMP_Snf1, (v_NPC & (v_Snf1 & (v_Snf1__Cytoplasm_ & (v_Gal83__Snf1 & !v_NaCl))))
+v_NaCl, v_NaCl
+v_NitrogenStress, v_NitrogenStress
+v_Nrg1, v_Nrg1
+v_Nrg1Site, v_Nrg1Site
+v_Nrg1Transcription, !v_Nrg1__Nrg1Site
+v_Nrg1_BIND_Nrg1Site, (v_Nrg1 & (v_Nrg1Site & !v_Nrg1__Snf1))
+v_Nrg1__Nrg1Site, v_Nrg1_BIND_Nrg1Site
+v_Nrg1__Snf1, v_Nrg1_ppi_Snf1
+v_Nrg1_ppi_Snf1, (v_Nrg1 & (v_Snf1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Nrg2, v_Nrg2
+v_Nrg2Site, v_Nrg2Site
+v_Nrg2Transcription, !v_Nrg2__Nrg2Site
+v_Nrg2_BIND_Nrg2Site, (v_Nrg2 & (v_Nrg2Site & !v_Nrg2__Snf1))
+v_Nrg2__Nrg2Site, v_Nrg2_BIND_Nrg2Site
+v_Nrg2__Snf1, v_Nrg2_ppi_Snf1
+v_Nrg2_ppi_Snf1, (v_Nrg2 & (v_Snf1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Pfk27, v_Pfk27
+v_Pfk27__P_, (v_Snf1_P__Pfk27 | v_Pfk27__P_)
+v_Psk1, v_Psk1
+v_Psk1__P_, (v_Snf1_P__Psk1 | v_Psk1__P_)
+v_Rds2, v_Rds2
+v_Rds2Site, v_Rds2Site
+v_Rds2Transcription, v_Rds2__Rds2Site
+v_Rds2_BIND_Rds2Site, (v_Rds2 & (v_Rds2Site & v_Rds2__P_))
+v_Rds2__P_, (v_Snf1_P__Rds2 | v_Rds2__P_)
+v_Rds2__Rds2Site, v_Rds2_BIND_Rds2Site
+v_Reg1, v_Reg1
+v_Reg1__P_, (v_Snf1_P__Reg1 | v_Reg1__P_)
+v_Reg2, v_Reg2
+v_Rod1, v_Rod1
+v_Rod1Degradation, v_Rod1_UbSite__Ub_
+v_Rod1_UbSite__Ub_, (v_Rsp5_Ub__Rod1_UbSite | (!v_UnknownProtease_Ub__Rod1_UbSite & v_Rod1_UbSite__Ub_))
+v_Rod1__P_, (v_Snf1_P__Rod1 | (!v_Glc7_P__Rod1 & v_Rod1__P_))
+v_Rsp5, v_Rsp5
+v_Rsp5_Ub__Rod1_UbSite, (v_Rsp5 & (v_Rod1 & !v_Rod1__P_))
+v_STRE, v_STRE
+v_STRETranscription, v_Msn2__STRE
+v_Sak1, v_Sak1
+v_Sak1_PD_P__Snf1_T210, (v_Sak1 & (v_Snf1 & (!v_Snf1__SUMO_ & !v_UnknownRegulation)))
+v_Shp1, v_Shp1
+v_Sip1, v_Sip1
+v_Sip1_Snf1Site__P_, (v_Snf1_P__Sip1_Snf1Site | v_Sip1_Snf1Site__P_)
+v_Sip1__Snf1, v_Sip1_ppi_Snf1
+v_Sip1_ppi_Snf1, (v_Sip1 & (v_Snf1 & (v_Snf1_ID__Snf4 & (!v_Sip2__Snf1 & !v_Gal83__Snf1))))
+v_Sip2, v_Sip2
+v_Sip2_Snf1Site__P_, (v_Snf1_P__Sip2_Snf1Site | v_Sip2_Snf1Site__P_)
+v_Sip2__Snf1, v_Sip2_ppi_Snf1
+v_Sip2_ppi_Snf1, (v_Sip2 & (v_Snf1 & (v_Snf1_ID__Snf4 & (!v_Sip1__Snf1 & !v_Gal83__Snf1))))
+v_Sip3, v_Sip3
+v_Sip3__Snf1, v_Sip3_ppi_Snf1
+v_Sip3_ppi_Snf1, (v_Sip3 & (v_Snf1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Sip4, v_Sip4
+v_Sip4_BIND_CSRE, (v_Sip4 & (v_CSRE & v_Sip4__P_))
+v_Sip4__CSRE, v_Sip4_BIND_CSRE
+v_Sip4__P_, (v_Snf1_P__Sip4 | v_Sip4__P_)
+v_Slx5, v_Slx5
+v_Slx5_Ub__Snf1_UbSite, (v_Slx5 & (v_Snf1 & v_Snf1__SUMO_))
+v_Snf1, v_Snf1
+v_Snf1Degradation, v_Snf1_UbSite__Ub_
+v_Snf1_ID__Snf4, v_Snf1_ID_ppi_Snf4
+v_Snf1_ID_ppi_Snf4, (v_Snf1 & (v_Snf4 & v_Snf1_T210__P_))
+v_Snf1_P__Acc1, (v_Snf1 & (v_Acc1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Cat8_S562, (v_Snf1 & (v_Cat8 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Snf1_P__Gal83_Snf1Site, (v_Snf1 & (v_Gal83 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Gln3, (v_Snf1 & (v_Gln3 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & ((v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1)) & v_Gln3__Ure2)))))
+v_Snf1_P__Hcm1, (v_Snf1 & (v_Hcm1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Snf1_P__Histone3, (v_Snf1 & (v_Histone3 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Snf1_P__Hsf1, (v_Snf1 & (v_Hsf1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Snf1_P__Hxk2_S14, (v_Snf1 & (v_Hxk2 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Mig1, (v_Snf1 & (v_Mig1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & (v_Gal83__Snf1 & !v_Hxk2__Mig1_S311))))))
+v_Snf1_P__Msn2_S582, (v_Snf1 & (v_Msn2 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Snf1_P__Pfk27, (v_Snf1 & (v_Pfk27 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Psk1, (v_Snf1 & (v_Psk1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Rds2, (v_Snf1 & (v_Rds2 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Snf1_P__Reg1, (v_Snf1 & (v_Reg1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Rod1, (v_Snf1 & (v_Rod1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Sip1_Snf1Site, (v_Snf1 & (v_Sip1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Sip2_Snf1Site, (v_Snf1 & (v_Sip2 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Snf1_P__Sip4, (v_Snf1 & (v_Sip4 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & (v_Gal83__Snf1 & v_Gal83__Sip4))))))
+v_Snf1_T210__P_, ((v_Sak1_PD_P__Snf1_T210 | (v_Elm1_P__Snf1_T210 | v_Tos3_P__Snf1_T210)) | (!v_Glc7_P__Snf1_T210 & v_Snf1_T210__P_))
+v_Snf1_UbSite__Ub_, (v_Slx5_Ub__Snf1_UbSite | (!v_Ubp8_Ub__Snf1_UbSite & v_Snf1_UbSite__Ub_))
+v_Snf1__Cytoplasm_, (v_NPC_NEXP_Snf1 | (!v_NPC_NIMP_Snf1 & v_Snf1__Cytoplasm_))
+v_Snf1__Nucleus_, (v_NPC_NIMP_Snf1 | (!v_NPC_NEXP_Snf1 & v_Snf1__Nucleus_))
+v_Snf1__SUMO_, (v_Mms21_SUM__Snf1 | (!v_Ulp1_SUM__Snf1 & v_Snf1__SUMO_))
+v_Snf1__Std1, v_Snf1_ppi_Std1
+v_Snf1_ppi_Std1, (v_Snf1 & (v_Std1 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Snf1__Nucleus_ & v_Gal83__Snf1)))))
+v_Snf4, v_Snf4
+v_Std1, v_Std1
+v_Tda1, v_Tda1
+v_Tda1_P__Hxk2_S14, (v_Tda1 & (v_Hxk2 & (v_Snf1_T210__P_ & (v_Snf1_ID__Snf4 & (v_Sip1__Snf1 | (v_Sip2__Snf1 | v_Gal83__Snf1))))))
+v_Tos3, v_Tos3
+v_Tos3_P__Snf1_T210, (v_Tos3 & (v_Snf1 & (!v_Snf1__SUMO_ & !v_UnknownRegulation)))
+v_Tpk, v_Tpk
+v_Tpk_P__Msn2_PKASite, (v_Tpk & (v_Msn2 & v_UnknownRegulation))
+v_Ubp8, v_Ubp8
+v_Ubp8_Ub__Snf1_UbSite, (v_Ubp8 & (v_Snf1 & v_Snf1_UbSite__Ub_))
+v_Ulp1, v_Ulp1
+v_Ulp1_SUM__Snf1, (v_Ulp1 & (v_Snf1 & v_Snf1__SUMO_))
+v_UnknownProtease, v_UnknownProtease
+v_UnknownProtease_Ub__Rod1_UbSite, (v_UnknownProtease & (v_Rod1 & v_Rod1_UbSite__Ub_))
+v_UnknownRegulation, (v_Glucose__Cytoplasm_ & (!v_alkalinepH & (!v_NaCl & !v_NitrogenStress)))
+v_Ure2, v_Ure2
+v_alkalinepH, v_alkalinepH

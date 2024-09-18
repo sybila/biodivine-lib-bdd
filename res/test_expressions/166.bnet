@@ -1,0 +1,20 @@
+targets,factors
+v_Brwd3, v_Brwd3
+v_Dome, ((((!v_OS & !v_Upd2) & v_Upd3) | (!v_OS & v_Upd2)) | v_OS)
+v_ET, v_ET
+v_Hop_b1, ((((((((!v_Dome & v_Hop_b1) & v_Hop_b2) | (((v_Dome & !v_ET) & !v_Hrs) & !v_Socs36E)) | (((((v_Dome & !v_ET) & !v_Hrs) & v_Socs36E) & v_Hop_b1) & v_Hop_b2)) | ((((v_Dome & !v_ET) & v_Hrs) & !v_Stam) & !v_Socs36E)) | ((((((v_Dome & !v_ET) & v_Hrs) & !v_Stam) & v_Socs36E) & v_Hop_b1) & v_Hop_b2)) | (((v_Dome & !v_ET) & v_Hrs) & v_Stam)) | (((v_Dome & v_ET) & v_Hop_b1) & v_Hop_b2))
+v_Hop_b2, (((((v_Dome & !v_ET) & v_Hrs) & v_Stam) & !v_Socs36E) & v_Hop_b1)
+v_Hrs, v_Hrs
+v_Ken, v_Ken
+v_NStat92E, v_NStat92E
+v_OS, v_OS
+v_Ptp61F, v_Ptp61F
+v_Socs36E, (v_Stat92E_b1 & v_Stat92E_b2)
+v_Socs44A, v_Socs44A
+v_Stam, v_Stam
+v_Stat92E_b1, ((((((((!v_Hop_b1 & v_Stat92E_b1) & v_Stat92E_b2) | (((((v_Hop_b1 & !v_Socs44A) & !v_Ptp61F) & !v_Brwd3) & !v_Ken) & !v_Su_var)) | (((((((v_Hop_b1 & !v_Socs44A) & !v_Ptp61F) & !v_Brwd3) & !v_Ken) & v_Su_var) & v_Stat92E_b1) & v_Stat92E_b2)) | ((((((v_Hop_b1 & !v_Socs44A) & !v_Ptp61F) & !v_Brwd3) & v_Ken) & v_Stat92E_b1) & v_Stat92E_b2)) | (((((v_Hop_b1 & !v_Socs44A) & !v_Ptp61F) & v_Brwd3) & v_Stat92E_b1) & v_Stat92E_b2)) | ((((v_Hop_b1 & !v_Socs44A) & v_Ptp61F) & v_Stat92E_b1) & v_Stat92E_b2)) | (((v_Hop_b1 & v_Socs44A) & v_Stat92E_b1) & v_Stat92E_b2))
+v_Stat92E_b2, (((((((v_Hop_b1 & v_Hop_b2) & !v_Socs44A) & !v_Ptp61F) & !v_Brwd3) & !v_Ken) & !v_Su_var) & v_Stat92E_b1)
+v_Su_var, v_Su_var
+v_Targets, (v_Stat92E_b1 & !v_NStat92E)
+v_Upd2, v_Upd2
+v_Upd3, v_Upd3

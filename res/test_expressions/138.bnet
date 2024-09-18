@@ -1,0 +1,32 @@
+targets,factors
+v_AKT1, !v_M
+v_APAF1, v_BAX
+v_Apoptosis_phenotype, ((!v_CASP3 & (!v_CASP7 & (!v_N & (!v_Orf3b & (!v_Orf6 & (!v_Orf8a & (!v_Orf9b & v_S))))))) | ((!v_CASP3 & (!v_CASP7 & (!v_N & (!v_Orf3b & (!v_Orf6 & (!v_Orf8a & v_Orf9b)))))) | ((!v_CASP3 & (!v_CASP7 & (!v_N & (!v_Orf3b & (!v_Orf6 & v_Orf8a))))) | ((!v_CASP3 & (!v_CASP7 & (!v_N & (!v_Orf3b & v_Orf6)))) | ((!v_CASP3 & (!v_CASP7 & (!v_N & v_Orf3b))) | ((!v_CASP3 & (!v_CASP7 & v_N)) | ((!v_CASP3 & v_CASP7) | v_CASP3)))))))
+v_Apoptosome_complex, (!v_AKT1 & (v_APAF1 & (v_CASP9_Cytoplasm_input & v_CYCS)))
+v_BAD, !v_AKT1
+v_BAD_BBC3_BCL2L11_complex, v_BCL2_MCL1_BCL2L1_complex
+v_BAX, ((!v_BAD_BBC3_BCL2L11_complex & (!v_BCL2_MCL1_BCL2L1_complex & v_BID)) | (v_BAD_BBC3_BCL2L11_complex & !v_BCL2_MCL1_BCL2L1_complex))
+v_BCL2_MCL1_BCL2L1_complex, ((!v_BAD & (!v_E & v_Orf7a)) | (!v_BAD & v_E))
+v_BID, v_CASP8
+v_CASP3, ((!v_CASP8 & v_CASP9_Cytoplasm) | v_CASP8)
+v_CASP7, ((!v_CASP8 & v_CASP9_Cytoplasm) | v_CASP8)
+v_CASP8, ((!v_FADD & v_TRADD_FADD_complex) | v_FADD)
+v_CASP9_Cytoplasm, (!v_AKT1 & v_Apoptosome_complex)
+v_CASP9_Cytoplasm_input, v_CASP9_Cytoplasm_input
+v_CYCS, v_MAPK14
+v_E, v_E
+v_FADD, v_FAS_FASL_complex
+v_FAS_FASL_complex, v_FAS_FASL_complex
+v_M, v_M
+v_MAPK14, v_Orf3a
+v_N, v_N
+v_Orf3a, v_Orf3a
+v_Orf3b, v_Orf3b
+v_Orf6, v_Orf6
+v_Orf7a, v_Orf7a
+v_Orf8a, v_Orf8a
+v_Orf9b, v_Orf9b
+v_S, v_S
+v_TNF_TNFRSF1A_complex, v_TNF_TNFRSF1A_complex
+v_TRADD, v_TRADD
+v_TRADD_FADD_complex, (v_FADD & (v_TNF_TNFRSF1A_complex & v_TRADD))

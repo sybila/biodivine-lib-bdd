@@ -1,0 +1,46 @@
+targets,factors
+v_akt1, v_e2f1
+v_axin2, (v_e2f1 | (v_e2f2 | (v_e2f3 | v_lef1)))
+v_bcl2, (!v_mir_200b_3p | (v_e2f1 | v_nfkb1))
+v_cdh1, (!v_snai1 | ((!v_src & (!v_snai2 & (!v_mir_25_3p & !v_mdm2))) | !v_twist1))
+v_cdkn2a, (!v_tp53 | (!v_twist1 | (!v_zeb1 | (v_e2f1 | (v_e2f2 | v_sp1)))))
+v_chuk, !v_nfkbia
+v_ctnnb1, ((!v_axin2 & !v_cdh1) | !v_cdh1)
+v_cxcr1, v_cxcr1
+v_e2f1, (!v_axin2 | (!v_cdkn2a | (!v_mir_205_5p | (!v_ppp2r1a | (!v_ppp2r1b | (!v_ppp2r2b | (!v_ppp2r2c | (!v_rb1 | (!v_sfn | (v_e2f3 | (v_foxa1 | (v_lef1 | (v_mdm2 | (v_myc | (v_nfkb1 | v_tp53)))))))))))))))
+v_e2f2, v_e2f1
+v_e2f3, (!v_mir_200_3p | !v_rb1)
+v_egfr, v_cdh1
+v_emt, ((!v_cdh1 & v_fgfr1) | ((!v_cdh1 & (v_fgfr1 & (v_zeb1 & (!v_mir_200b_3p & v_twist1)))) | ((!v_cdh1 & v_smad3) | ((!v_cdh1 & (v_zeb1 & (!v_mir_200b_3p & v_twist1))) | (v_cdh1 | (v_fgfr1 | ((v_fgfr1 & (v_snai1 & (v_smad4 & (v_smad3 & v_smad2)))) | ((v_fgfr1 & (v_zeb1 & (!v_mir_200b_3p & v_twist1))) | ((v_snai1 & (v_smad4 & (v_smad3 & v_smad2))) | ((v_zeb1 & v_twist1) | (v_zeb1 & (v_twist1 & (v_snai1 & (v_smad4 & (v_smad3 & v_smad2)))))))))))))))
+v_fgfr1, v_e2f1
+v_foxa1, !v_rara
+v_foxo3, (!v_chuk | v_e2f1)
+v_kiaa1524, v_e2f1
+v_lef1, v_ctnnb1
+v_mdm2, (!v_cdkn2a | (!v_e2f1 | (v_akt1 | v_tp53)))
+v_mir_200_3p, v_mir_200_3p
+v_mir_200b_3p, (v_smad3 | v_tp53)
+v_mir_205_5p, v_tp53
+v_mir_25_3p, v_e2f1
+v_myc, ((!v_smad2 & (v_smad3 & !v_smad4)) | (!v_smad3 | (!v_smad4 | (v_ctnnb1 | (v_e2f2 | (v_lef1 | v_nfkb1))))))
+v_nfkb1, (v_akt1 | (v_chuk | v_e2f1))
+v_nfkbia, v_nfkb1
+v_ppp2r1a, v_fgfr1
+v_ppp2r1b, (v_fgfr1 | (!v_kiaa1524 | v_fgfr1))
+v_ppp2r2b, v_ppp2r2b
+v_ppp2r2c, v_fgfr1
+v_rara, !v_e2f1
+v_rb1, v_e2f1
+v_sfn, v_tp53
+v_sirt1, v_e2f1
+v_smad2, v_tgfbr
+v_smad3, v_tgfbr
+v_smad4, v_tgfbr
+v_snai1, (v_ctnnb1 | (v_cxcr1 | (v_smad4 | v_tgfbr)))
+v_snai2, (!v_mdm2 | (!v_tp53 | (v_ctnnb1 | v_tgfbr)))
+v_sp1, (v_e2f1 | ((v_smad2 & (v_smad3 & v_smad4)) | (v_smad3 | v_smad4)))
+v_src, (v_egfr | v_fgfr1)
+v_tgfbr, v_tgfbr
+v_tp53, (!v_bcl2 | (!v_mdm2 | (!v_mir_25_3p | (!v_rb1 | (!v_sirt1 | (!v_twist1 | (v_e2f1 | (v_foxo3 | v_sp1))))))))
+v_twist1, (v_ctnnb1 | v_nfkb1)
+v_zeb1, (!v_mir_200b_3p | (!v_mir_205_5p | (v_cxcr1 | (v_e2f1 | v_snai1))))

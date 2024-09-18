@@ -1,0 +1,68 @@
+targets,factors
+v_AKT, v_PIP3
+v_ATM, (v_Cas3 | v_DNAdam)
+v_Apo, v_Cl_PARP
+v_BAD, !v_AKT
+v_BAX, ((v_p53 & !(v_Bclxl | v_BCL2)) | (v_BID & !(v_Bclxl | v_BCL2)))
+v_BCL2, ((v_pNFKB & !(v_BAD | v_p53)) | (v_pSTAT3 & !(v_BAD | v_p53)))
+v_BID, (((v_Fas & !(v_BCL2 | v_Bclxl)) | (v_Cas8 & !(v_BCL2 | v_Bclxl))) | (v_STRESS & !(v_BCL2 | v_Bclxl)))
+v_Bclxl, ((v_pNFKB & !((v_p53 | v_BAD) | v_BAX)) | (v_pSTAT3 & !((v_p53 | v_BAD) | v_BAX)))
+v_Bort, v_Bort
+v_CDK2, (v_CYCE & !v_p21)
+v_CDK4, (v_CYCD & !(v_p27 | v_p21))
+v_CDK6, v_CYCD
+v_CIAP, v_TNFAR
+v_CYCD, ((v_ERK | v_MYC) | v_AKT)
+v_CYCE, v_MYC
+v_Cas3, ((v_Cas9 & !v_XIAP) | (v_Cas8 & !v_XIAP))
+v_Cas8, ((v_Fas & v_FasL) & !v_FLIP)
+v_Cas9, (v_Cytc & !(v_XIAP | v_AKT))
+v_Cl_PARP, v_Cas3
+v_Cytc, v_MITO
+v_DNAPK, v_ATM
+v_DNAdam, (v_STRESS | v_Cas3)
+v_ERK, v_MAPK
+v_FLIP, v_pNFKB
+v_Fas, (v_p53 | v_FasL)
+v_FasL, (v_cJun | v_Fas)
+v_GROWTH, v_pRB
+v_IKK, ((v_RIP & v_NIK) | v_AKT)
+v_IL6, v_pNFKB
+v_JAK1, (v_gp130 & v_IL6)
+v_JAK2, ((v_IL6 & v_gp130) & !v_SHP1)
+v_JNK, (v_MKK4 & !v_Prot)
+v_MAPK, v_MEK1
+v_MDM, ((v_AKT & !v_ATM) | (v_p53 & !v_ATM))
+v_MEK1, v_RAF
+v_MEKK, v_MEK1
+v_MEKK2, v_RAC
+v_MITO, v_BAX
+v_MKK4, v_MEKK2
+v_MYC, ((v_MEKK | v_pSTAT3) | v_ERK)
+v_NIK, !v_TRAF3
+v_PI3K, (v_IL6 & v_gp130)
+v_PIP3, (v_PIP3 & !v_PTEN)
+v_PTEN, v_p53
+v_Prot, !v_Bort
+v_RAC, v_STRESS
+v_RAF, v_RAS
+v_RAS, (v_SHP1 | (v_IL6 & v_gp130))
+v_RIP, ((v_TNFAR & v_TNFA) | v_Bort)
+v_SHP1, v_SHP1
+v_STAT3, !v_Cas3
+v_STRESS, (v_DNAdam | !(v_DNAdam | v_Prot))
+v_Smac, v_MITO
+v_TNFA, v_TNFA
+v_TNFAR, v_TNFAR
+v_TRAF3, !v_CIAP
+v_X, v_X
+v_XIAP, ((v_pNFKB & !(v_Smac | v_p53)) | (v_pSTAT3 & !(v_Smac | v_p53)))
+v_cJun, v_JNK
+v_gp130, !v_Cas3
+v_p21, (v_p53 & !(((v_CDK4 | v_MYC) | v_MDM) | v_AKT))
+v_p27, (v_p53 & !((v_AKT | v_CDK4) | v_MYC))
+v_p53, ((v_DNAPK & !(v_MDM & v_Prot)) | (v_JNK & !(v_MDM & v_Prot)))
+v_pIKB, v_IKK
+v_pNFKB, ((((v_Prot & v_pIKB) | v_X) | v_pSTAT3) | v_pIKB)
+v_pRB, ((v_CDK2 & (v_CDK6 & v_CDK4)) | (v_CDK4 & v_CDK6))
+v_pSTAT3, ((v_JAK1 & (v_STAT3 & v_JAK2)) | (((v_JAK2 & (v_STAT3 & v_JAK1)) & !v_IKK) & !v_JNK))

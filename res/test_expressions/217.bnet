@@ -1,0 +1,57 @@
+targets,factors
+v_ATG13_phosphorylated, v_ATG13_phosphorylated
+v_ATXN3, v_ATXN3
+v_BAG2, v_BAG2
+v_BAG4, v_BAG4
+v_BAG5, v_BAG5
+v_BCL2L1_BAX_PARK7_complex, (v_BCL2L1_BAX_complex & v_PARK7_mitochondrion)
+v_BCL2L1_BAX_complex, v_BCL2L1_BAX_complex
+v_BNIP3L, v_BNIP3L
+v_CCCP_simple_molecule, v_CCCP_simple_molecule
+v_DNM1L, v_oxidized_space_PARK7_space_dimer_complex
+v_FBXO7, v_FBXO7
+v_FBXW7, v_FBXW7
+v_GABARAP, v_GABARAP
+v_GABARAPL1_mitochondrion, (v_GABARAPL1_neuron & v_BNIP3L)
+v_GABARAPL1_neuron, v_GABARAPL1_neuron
+v_HSP90, v_HSP90
+v_HSPA1L, v_HSPA1L
+v_HSPA9, v_HSPA9
+v_MAP1LC3A_mitochondrion, (v_MAP1LC3A_neuron & v_BNIP3L)
+v_MAP1LC3A_neuron, v_MAP1LC3A_neuron
+v_MARK2, v_MARK2
+v_NEDD8, v_NEDD8
+v_OPTN, v_OPTN
+v_PARK7_mitochondrion, (v_PARK7_neuron & v_HSPA9)
+v_PARK7_neuron, v_PARK7_neuron
+v_PARL, v_PARL
+v_PGAM5, v_PGAM5
+v_PGAM5_space__S_, ((v_PARL | v_mitochondrial_space_depolarization_phenotype) & v_PGAM5)
+v_PINK1_mitochondrion, (((((((v_PINK1_mitochondrion & v_TIM_space_Complex_complex) & !v_mitochondrial_space_depolarization_phenotype) | (v_PINK1_mitochondrion & v_PGAM5)) | v_MARK2) | v_TOM_space_complex_complex) | v_SREBF1) | ((v_TOM_space_complex_complex | v_HSP90) & v_PINK1_neuron))
+v_PINK1_neuron, (v_NEDD8 | ((v_PINK1_neuron & !v_BAG5) & !v_BAG2))
+v_PINK1_space__fragment_space_52kD_, ((((v_PARL | v_PMPCA) | v_PMPCB) & v_PINK1_mitochondrion) | v_HSP90)
+v_PMPCA, v_PMPCA
+v_PMPCB, v_PMPCB
+v_PRKN, v_PRKN
+v_PRKN_ubiquitinated, (((v_PINK1_neuron | v_ubiquitin_phosphorylated) & v_PRKN) | (v_PRKN & v_ATXN3))
+v_ROS_simple_molecule, v_ROS_simple_molecule
+v_SIAH3, v_SIAH3
+v_SNCA_mitochondrion, (v_path_0_sa4348_SNCA_neuron & v_TOM_space_complex_complex)
+v_SREBF1, v_FBXW7
+v_TIM_space_Complex_complex, v_TIM_space_Complex_complex
+v_TOMM20_ubiquitinated, (v_TOM_space_complex_complex & v_path_0_csa1419_PINK1_PRKN_complex_mitochondrion)
+v_TOMM40_ubiquitinated, (v_TOM_space_complex_complex & v_path_0_csa1419_PINK1_PRKN_complex_mitochondrion)
+v_TOMM70, (v_TOM_space_complex_complex & v_path_0_csa1419_PINK1_PRKN_complex_mitochondrion)
+v_TOM_space_complex_complex, v_TOM_space_complex_complex
+v_VPS13C, v_VPS13C
+v_cholesterol_simple_molecule, v_cholesterol_simple_molecule
+v_fatty_space_acid_simple_molecule, v_fatty_space_acid_simple_molecule
+v_mitochondrial_space_depolarization_phenotype, v_mitochondrial_space_depolarization_phenotype
+v_mitophagy_phenotype, ((((((((v_oxidized_space_PARK7_space_dimer_complex | v_MAP1LC3A_mitochondrion) | v_GABARAPL1_mitochondrion) | v_ATG13_phosphorylated) | v_DNM1L) | v_GABARAP) | v_PRKN_ubiquitinated) | v_path_0_csa279_PINK1_PRKN_complex_mitochondrion) | v_OPTN)
+v_neuron_space_death_phenotype, (v_mitophagy_phenotype & v_path_0_sa6466_SNCA_neuron)
+v_oxidized_space_PARK7_space_dimer_complex, v_PARK7_mitochondrion
+v_path_0_csa1419_PINK1_PRKN_complex_mitochondrion, (((((((((v_SREBF1 | v_FBXW7) | v_cholesterol_simple_molecule) | v_fatty_space_acid_simple_molecule) | v_HSPA1L) | v_FBXO7) & v_PRKN_ubiquitinated) & v_PINK1_mitochondrion) & !v_BAG4) & !v_SIAH3)
+v_path_0_csa279_PINK1_PRKN_complex_mitochondrion, (((((v_CCCP_simple_molecule | v_ROS_simple_molecule) & v_PINK1_mitochondrion) & v_PRKN_ubiquitinated) & !v_PINK1_space__fragment_space_52kD_) | !v_VPS13C)
+v_path_0_sa4348_SNCA_neuron, v_path_0_sa4348_SNCA_neuron
+v_path_0_sa6466_SNCA_neuron, v_path_0_sa6466_SNCA_neuron
+v_ubiquitin_phosphorylated, v_PINK1_neuron

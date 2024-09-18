@@ -1,0 +1,25 @@
+targets,factors
+v_DAP, v_GramN_Bact
+v_DV_patterning, v_DV_patterning
+v_Easter, (v_Snk & v_Pipe)
+v_Fungi, v_Fungi
+v_GNBP1, v_GramP_Bact
+v_GNBP3, v_Fungi
+v_Gd, v_Ndl
+v_GramN_Bact, v_GramN_Bact
+v_GramP_Bact, v_GramP_Bact
+v_Grass, v_ModSP
+v_ModSP, (((v_PGRP_SD | v_GNBP3) | v_GNBP1) | v_PGRP_SA)
+v_Ndl, v_DV_patterning
+v_Nec, v_Nec
+v_PGRP_SA, v_GramP_Bact
+v_PGRP_SD, v_DAP
+v_Pipe, v_Pipe
+v_Psh, (v_Viru_Fact & !v_Nec)
+v_SPE, ((((v_Spirit | v_Spd) | v_Sphinx) | v_Easter) | v_Psh)
+v_Snk, v_Gd
+v_Spd, v_Grass
+v_Sphinx, v_Grass
+v_Spirit, v_Grass
+v_Spz, v_SPE
+v_Viru_Fact, (v_Fungi | v_GramP_Bact)

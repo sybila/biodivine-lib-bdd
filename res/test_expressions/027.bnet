@@ -1,0 +1,27 @@
+targets,factors
+v_APC, !v_Dsh
+v_Arm, ((v_Hipk & v_CK1alpha) & !(v_Sgg & (((v_APC & v_Proteasome) & v_Axin) & v_Slmb)))
+v_Arr, v_Wg
+v_Axin, !v_Dsh
+v_Boca, v_Boca
+v_CK1alpha, v_CK1alpha
+v_Dally, (v_Ttv & !v_Wf)
+v_Dlp, (v_Ttv & !v_Wf)
+v_Dsh, ((v_Arr & !v_Nkd) | (v_Fz & !v_Nkd))
+v_Fz, (v_Wg & v_Boca)
+v_Gro, v_Gro
+v_Hipk, v_Hipk
+v_Hyx, v_Hyx
+v_Lgs, v_Lgs
+v_Nej, v_Nej
+v_Nemo, v_Pan
+v_Nkd, v_Nkd
+v_Pan, (v_Arm & !v_Nemo)
+v_Proteasome, v_Proteasome
+v_Pygo, v_Pygo
+v_Sgg, !v_Dsh
+v_Slmb, v_Slmb
+v_Targets, ((v_Pygo & (((v_Nej & v_Hyx) & v_Pan) & v_Lgs)) & !v_Gro)
+v_Ttv, v_Ttv
+v_Wf, v_Wf
+v_Wg, v_Wg

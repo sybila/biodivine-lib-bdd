@@ -1,0 +1,24 @@
+targets,factors
+v_AJUBA, v_AJUBA
+v_AURKAActive, (((v_TPX2 & v_AURKAPresent) & !(v_PP1 & v_AURKAActive)) | ((v_AJUBA & ((v_BORA & v_AURKAPresent) | (v_NEDD9 & v_AURKAPresent))) & !(v_PP1 & v_AURKAActive)))
+v_AURKAPresent, !v_PP2A
+v_BORA, (v_GSK3B & !(v_PLK1 & v_Cytokinesis))
+v_CDC25B, ((v_PLK1 & !v_Cytokinesis) | (v_AURKAActive & !v_Cytokinesis))
+v_CDK1CCNBComplex, (((v_hCPEB & !v_Cytokinesis) | (v_CDC25B & !v_Cytokinesis)) | !(((v_hCPEB | v_CDC25B) | v_Cytokinesis) | v_WEE1))
+v_CentrosomeMat, (v_CDK1CCNBComplex & !v_SpindleAssembly)
+v_Cytokinesis, (v_SpindleAssembly & !v_CentrosomeMat)
+v_ENSA, v_GWL_MASTL
+v_GSK3B, v_GSK3B
+v_GWL_MASTL, (v_CDK1CCNBComplex & !v_PP2A)
+v_MT, !v_STMN
+v_MTCanAct, v_MTCanAct
+v_NEDD9, v_AURKAActive
+v_PLK1, ((v_AURKAActive | (v_STMNCanAct & !v_STMN)) | (v_MT & v_MTCanAct))
+v_PP1, !((v_AURKAActive | v_CDK1CCNBComplex) | v_Cytokinesis)
+v_PP2A, (v_PP1 & !v_ENSA)
+v_STMN, !v_AURKAActive
+v_STMNCanAct, v_STMNCanAct
+v_SpindleAssembly, (v_CentrosomeMat & !v_Cytokinesis)
+v_TPX2, v_PLK1
+v_WEE1, !v_PLK1
+v_hCPEB, v_AURKAActive

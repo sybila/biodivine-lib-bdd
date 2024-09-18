@@ -1,0 +1,67 @@
+targets,factors
+v_AP1, v_MAPKs
+v_Antigen, v_Antigen
+v_CD226, (!v_TIGIT & v_TIGIT_L)
+v_CD28, ((!v_CTLA4 & !v_SHP) & v_CD80_86)
+v_CD4, (!v_LAG3 & v_MHCII)
+v_CD8, v_MHCI
+v_CD80_86, v_CD80_86
+v_CK2, !v_PD1
+v_CTLA4, (((((!v_Ca_NFAT & v_FOXP3) & !v_NFIL3) & v_CD80_86) & !v_anti_CTLA4) | (((v_Ca_NFAT & !v_NFIL3) & v_CD80_86) & !v_anti_CTLA4))
+v_Ca_NFAT, (((!v_PLCG & v_ICOS) & !v_LAG3) | (v_PLCG & !v_LAG3))
+v_FOXO1, !v_PI3K_AKT
+v_FOXP3, (((((((((((((((((!v_CTLA4 & !v_NFkB) & !v_MAPKs) & !v_Ca_NFAT) & !v_PI3K_AKT) & !v_FOXO1) & !v_AP1) & !v_STAT1) & v_SMAD2_3) & !v_STAT3) & !v_NFIL3) | (((((((((!v_CTLA4 & !v_NFkB) & !v_MAPKs) & !v_Ca_NFAT) & !v_PI3K_AKT) & !v_FOXO1) & !v_AP1) & v_STAT1) & !v_STAT3) & !v_NFIL3)) | ((((((((!v_CTLA4 & !v_NFkB) & !v_MAPKs) & !v_Ca_NFAT) & !v_PI3K_AKT) & !v_FOXO1) & v_AP1) & !v_STAT3) & !v_NFIL3)) | (((((((!v_CTLA4 & !v_NFkB) & !v_MAPKs) & !v_Ca_NFAT) & !v_PI3K_AKT) & v_FOXO1) & !v_STAT3) & !v_NFIL3)) | ((((((!v_CTLA4 & !v_NFkB) & !v_MAPKs) & v_Ca_NFAT) & !v_PI3K_AKT) & !v_STAT3) & !v_NFIL3)) | (((((!v_CTLA4 & !v_NFkB) & v_MAPKs) & !v_PI3K_AKT) & !v_STAT3) & !v_NFIL3)) | ((((!v_CTLA4 & v_NFkB) & !v_PI3K_AKT) & !v_STAT3) & !v_NFIL3)) | (((v_CTLA4 & !v_PI3K_AKT) & !v_STAT3) & !v_NFIL3))
+v_GRB2, v_CD28
+v_GSK3, !v_PI3K_AKT
+v_ICOS, ((((((((((!v_MAPKs & !v_Ca_NFAT) & !v_FOXP3) & !v_NFAT) & !v_NFIL3) & v_ICOS_L) & v_PRDM1) | (((((!v_MAPKs & !v_Ca_NFAT) & !v_FOXP3) & v_NFAT) & !v_NFIL3) & v_ICOS_L)) | ((((!v_MAPKs & !v_Ca_NFAT) & v_FOXP3) & !v_NFIL3) & v_ICOS_L)) | (((!v_MAPKs & v_Ca_NFAT) & !v_NFIL3) & v_ICOS_L)) | ((v_MAPKs & !v_NFIL3) & v_ICOS_L))
+v_ICOS_L, v_ICOS_L
+v_IFNG, v_IFNG
+v_IFNGR, v_IFNG
+v_IL12, v_IL12
+v_IL12R, v_IL12
+v_IL2, ((v_NFkB & v_AP1) & v_NFAT)
+v_IL27, v_IL27
+v_IL27R, v_IL27
+v_LAG3, ((((((((((!v_Tbet & !v_YY1) & !v_LAG3_L) & v_MHCII) & !v_PRDM1) & v_MAF) | ((((!v_Tbet & !v_YY1) & !v_LAG3_L) & v_MHCII) & v_PRDM1)) | ((((!v_Tbet & !v_YY1) & v_LAG3_L) & !v_PRDM1) & v_MAF)) | (((!v_Tbet & !v_YY1) & v_LAG3_L) & v_PRDM1)) | (((!v_Tbet & v_YY1) & !v_LAG3_L) & v_MHCII)) | ((!v_Tbet & v_YY1) & v_LAG3_L))
+v_LAG3_L, v_LAG3_L
+v_LAT_complex, v_TCR
+v_LCK_FYN, (((!v_CD4 & !v_TIM3) & v_CD8) | (v_CD4 & !v_TIM3))
+v_MAF, v_STAT3
+v_MAPKs, ((((!v_LAT_complex & !v_VAV) & v_ICOS) | (!v_LAT_complex & v_VAV)) | v_LAT_complex)
+v_MHCI, v_MHCI
+v_MHCII, v_MHCII
+v_NFAT, (v_Ca_NFAT & !v_GSK3)
+v_NFIL3, (!v_SMAD2_3 & v_STAT3)
+v_NFkB, ((((!v_LAT_complex & !v_PKC_teta) & v_TRAFs) | (!v_LAT_complex & v_PKC_teta)) | v_LAT_complex)
+v_PD1, ((((((((((((((!v_Ca_NFAT & !v_Tbet) & !v_FOXO1) & !v_AP1) & !v_YY1) & !v_NFAT) & v_PD1_L) & !v_PRDM1) & v_MAF) | (((((((!v_Ca_NFAT & !v_Tbet) & !v_FOXO1) & !v_AP1) & !v_YY1) & !v_NFAT) & v_PD1_L) & v_PRDM1)) | ((((((!v_Ca_NFAT & !v_Tbet) & !v_FOXO1) & !v_AP1) & !v_YY1) & v_NFAT) & v_PD1_L)) | (((((!v_Ca_NFAT & !v_Tbet) & !v_FOXO1) & !v_AP1) & v_YY1) & v_PD1_L)) | ((((!v_Ca_NFAT & !v_Tbet) & !v_FOXO1) & v_AP1) & v_PD1_L)) | (((!v_Ca_NFAT & !v_Tbet) & v_FOXO1) & v_PD1_L)) | ((v_Ca_NFAT & !v_Tbet) & v_PD1_L))
+v_PD1_L, v_PD1_L
+v_PI3K_AKT, (((((((((!v_CD28 & !v_LAT_complex) & !v_ICOS) & v_TRAFs) & !v_PTEN) & !v_PP2A) & !v_SHIP) | (((((!v_CD28 & !v_LAT_complex) & v_ICOS) & !v_PTEN) & !v_PP2A) & !v_SHIP)) | ((((!v_CD28 & v_LAT_complex) & !v_PTEN) & !v_PP2A) & !v_SHIP)) | (((v_CD28 & !v_PTEN) & !v_PP2A) & !v_SHIP))
+v_PKC_teta, v_VAV
+v_PLCG, v_LAT_complex
+v_PP2A, v_CTLA4
+v_PRDM1, v_STAT3
+v_PTEN, !v_CK2
+v_Proliferation_Survival, (v_PI3K_AKT & v_IL2)
+v_SHIP, v_TIGIT
+v_SHP, v_PD1
+v_SMAD2_3, (v_TGFbR & !v_SMAD7)
+v_SMAD7, !v_FOXP3
+v_STAT1, ((!v_IFNGR & v_IL27R) | v_IFNGR)
+v_STAT3, v_IL27R
+v_STAT4, v_IL12R
+v_TCR, ((!v_SHP & v_LCK_FYN) & v_Antigen)
+v_TGFb, v_TGFb
+v_TGFbR, v_TGFb
+v_TIGIT, (((((!v_FOXP3 & v_TIGIT_L) & !v_PRDM1) & v_MAF) | ((!v_FOXP3 & v_TIGIT_L) & v_PRDM1)) | (v_FOXP3 & v_TIGIT_L))
+v_TIGIT_L, v_TIGIT_L
+v_TIM3, (((((((!v_Tbet & !v_NFIL3) & v_TIM3_L) & !v_PRDM1) & v_MAF) | (((!v_Tbet & !v_NFIL3) & v_TIM3_L) & v_PRDM1)) | ((!v_Tbet & v_NFIL3) & v_TIM3_L)) | (v_Tbet & v_TIM3_L))
+v_TIM3_L, v_TIM3_L
+v_TNFRs, (((((((((!v_NFkB & !v_MAPKs) & !v_Ca_NFAT) & !v_FOXP3) & v_AP1) & !v_NFIL3) & v_TNFRs_L) | (((((!v_NFkB & !v_MAPKs) & !v_Ca_NFAT) & v_FOXP3) & !v_NFIL3) & v_TNFRs_L)) | ((((!v_NFkB & v_MAPKs) & !v_Ca_NFAT) & !v_NFIL3) & v_TNFRs_L)) | (((v_NFkB & !v_Ca_NFAT) & !v_NFIL3) & v_TNFRs_L))
+v_TNFRs_L, v_TNFRs_L
+v_TRAFs, v_TNFRs
+v_Tbet, (((!v_STAT1 & !v_GSK3) | ((!v_STAT1 & v_GSK3) & v_STAT4)) | v_STAT1)
+v_Th1_CTL, (v_Ca_NFAT & v_Tbet)
+v_Treg, v_FOXP3
+v_VAV, ((!v_GRB2 & v_CD226) | v_GRB2)
+v_YY1, v_MAPKs
+v_anti_CTLA4, v_anti_CTLA4

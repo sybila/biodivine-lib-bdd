@@ -1,0 +1,7 @@
+targets,factors
+v_Neural_Precursor, v_elavl3_HuC
+v_Progenitor, ((!v_her6 & v_zic5) | v_her6)
+v_elavl3_HuC, (!v_miR_9 & !v_Progenitor)
+v_her6, (!v_miR_9 & !v_Neural_Precursor)
+v_miR_9, (!v_her6 & !v_Neural_Precursor)
+v_zic5, (!v_miR_9 & !v_Neural_Precursor)

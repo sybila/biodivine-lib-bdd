@@ -1,0 +1,8 @@
+targets,factors
+v_CII, (((((((!v_CI_b1 & !v_Cro_b1) & v_N) | (((!v_CI_b1 & v_Cro_b1) & !v_Cro_b2) & v_N)) | ((((!v_CI_b1 & v_Cro_b1) & v_Cro_b2) & !v_Cro_b3) & v_N)) | (((v_CI_b1 & !v_CI_b2) & !v_Cro_b1) & v_N)) | ((((v_CI_b1 & !v_CI_b2) & v_Cro_b1) & !v_Cro_b2) & v_N)) | (((((v_CI_b1 & !v_CI_b2) & v_Cro_b1) & v_Cro_b2) & !v_Cro_b3) & v_N))
+v_CI_b1, (((((!v_CI_b1 & !v_Cro_b1) | ((!v_CI_b1 & v_Cro_b1) & v_CII)) | ((v_CI_b1 & !v_CI_b2) & !v_Cro_b1)) | (((v_CI_b1 & !v_CI_b2) & v_Cro_b1) & v_CII)) | (v_CI_b1 & v_CI_b2))
+v_CI_b2, ((v_CI_b1 & !v_Cro_b1) | ((v_CI_b1 & v_Cro_b1) & v_CII))
+v_Cro_b1, ((!v_CI_b1 | (v_CI_b1 & !v_CI_b2)) | (((v_CI_b1 & v_CI_b2) & v_Cro_b1) & v_Cro_b2))
+v_Cro_b2, (((!v_CI_b1 & v_Cro_b1) | ((v_CI_b1 & !v_CI_b2) & v_Cro_b1)) | ((((v_CI_b1 & v_CI_b2) & v_Cro_b1) & v_Cro_b2) & v_Cro_b3))
+v_Cro_b3, ((((!v_CI_b1 & v_Cro_b1) & v_Cro_b2) & !v_Cro_b3) | ((((v_CI_b1 & !v_CI_b2) & v_Cro_b1) & v_Cro_b2) & !v_Cro_b3))
+v_N, ((!v_CI_b1 & !v_Cro_b1) | ((!v_CI_b1 & v_Cro_b1) & !v_Cro_b2))

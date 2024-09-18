@@ -1,0 +1,87 @@
+targets,factors
+v_a2m_gfbg, (v_stat3_ta & !v_nfkb)
+v_akt, ((v_pdk1 & (v_pip3 & v_mtorc2)) & !(v_phlpp | v_ship))
+v_anti_apoptotic, (v_stat3_ta & !((v_casp9 | v_bad) | v_gsk3))
+v_bad, (!v_akt | !v_akt)
+v_ca, v_ip3
+v_cam_ca, v_ca
+v_camk24, v_cam_ca
+v_casp9, (!v_akt | !v_akt)
+v_cebpb, (v_stat3_ta | v_p38)
+v_cebpd, v_stat3_ta
+v_cfos, v_stat3_ta
+v_cmyc, v_stat3_ta
+v_crp, ((v_cfos & v_stat3_ta) & !v_nfkb)
+v_cyt_ptpe, v_cyt_ptpe
+v_dum_cebp_saa, (v_cebpd | v_cebpb)
+v_dum_gab1_kin_or_jak1_gab1_mem_p, (v_jak1 | v_gab1_kin)
+v_dum_gp80_a_il6rc, (v_gp80s_a | v_gp80m_a)
+v_dum_il6rc_p_or_grb2_vav, (v_grb2_sos | v_il6rc_p)
+v_dum_mtorc1_or_pkcd_stat3_ta, (v_mtorc1 | v_pkcd)
+v_dum_pkcd_camk24_stat1_ta, (v_camk24 | v_pkcd)
+v_erk12, v_mek1
+v_fkhr, (!v_akt | !v_akt)
+v_gab1_kin, v_gab1_kin
+v_gab1_mem, (v_grb2_sos | (v_erk12 & v_pip3))
+v_gab1_mem_p, (v_gab1_mem & v_dum_gab1_kin_or_jak1_gab1_mem_p)
+v_gp130m, v_gp130m
+v_gp130s, (!(v_camk24 | v_mk2) | !(v_mk2 | v_camk24))
+v_gp80m_a, v_il6
+v_gp80s_a, (v_il6 & !v_gp130s)
+v_grb2_sos, (v_il6rc_p | v_shp2)
+v_gsk3, (!v_akt | !v_akt)
+v_il6, v_il6
+v_il6rc, (v_gp130m & v_dum_gp80_a_il6rc)
+v_il6rc_p, ((v_il6rc & v_jak1) & !(v_shp2_a | v_shp2))
+v_ip3, v_plcg
+v_ir, (!(v_socs3 | v_socs1) | !(v_socs3 | v_socs1))
+v_irs1_ps, (v_erk12 | v_pkcd)
+v_irs1_py, (!((v_shp2 | v_shp2_a) | v_irs1_ps) | !((v_shp2 | v_irs1_ps) | v_shp2_a))
+v_jak1, (!(((v_shp2_a | v_socs1) | v_socs3) | v_shp2) | !(((v_socs3 | v_shp2) | v_shp2_a) | v_socs1))
+v_junb, v_stat3_ta
+v_mek1, v_raf1
+v_mek4, v_mekk1
+v_mek6, v_il6rc_p
+v_mekk1, v_rac1
+v_mk2, v_p38
+v_mtor, v_mtor
+v_mtorc1, v_mtor
+v_mtorc2, v_mtor
+v_nfkb, v_nfkb
+v_p38, v_mek6
+v_p70s6k, ((v_akt | v_erk12) | v_mtorc1)
+v_pdk1, v_pdk1
+v_phlpp, v_phlpp
+v_pi3k, (v_ras | (v_gab1_mem_p & !v_shp2_a))
+v_pias1, v_pias1
+v_pias3, v_pias3
+v_pip3, (v_pi3k & !v_pten)
+v_pkcd, v_mek4
+v_plcg, v_gab1_mem_p
+v_pro_hgf, (v_cebpb | v_cebpd)
+v_pro_proliferative, ((((v_erk12 | v_p70s6k) | v_camk24) | v_stat3_ta) | !(((((v_erk12 | v_p70s6k) | v_cebpb) | v_camk24) | v_stat3_ta) | v_fkhr))
+v_pten, v_pten
+v_rac1, v_vav
+v_raf1, v_ras
+v_ras, (v_grb2_sos & !v_ras_gap)
+v_ras_gap, (v_gab1_mem_p & !v_shp2_a)
+v_ros, v_ros
+v_saa, (v_dum_cebp_saa & (v_stat3_ta & v_nfkb))
+v_ship, v_ship
+v_shp2, ((v_il6rc_p & v_jak1) & !((v_socs3 | v_sirp1a) | v_ros))
+v_shp2_a, ((v_gab1_mem_p & v_shp2) & !(v_sirp1a | v_ros))
+v_sirp1a, v_sirp1a
+v_slim, v_slim
+v_socs1, v_stat3_ta
+v_socs3, (((v_erk12 | v_nfkb) | v_stat3_ta) | v_p38)
+v_stat1_py, ((v_il6rc_p & v_jak1) & !((v_shp2 | v_cyt_ptpe) | v_shp2_a))
+v_stat1_ta, ((v_dum_pkcd_camk24_stat1_ta & v_stat1_py) & !(v_slim | v_pias1))
+v_stat3_py, ((v_il6rc_p & v_jak1) & !((v_cyt_ptpe | v_shp2) | v_shp2_a))
+v_stat3_ta, ((v_dum_mtorc1_or_pkcd_stat3_ta & v_stat3_py) & !(v_slim | v_pias3))
+v_tdum_shp2_il6rc_p, (v_shp2_a | v_shp2)
+v_tdum_shp2_stat1_py, (v_shp2_a | v_shp2)
+v_tdum_shp2_stat3_py, (v_shp2_a | v_shp2)
+v_tdum_socs1_vav, v_socs1
+v_tdum_socs3_shp2, v_socs3
+v_var_app, (v_cebpd | v_cebpb)
+v_vav, (v_dum_il6rc_p_or_grb2_vav & !v_socs1)

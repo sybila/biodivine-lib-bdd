@@ -1,0 +1,10 @@
+targets,factors
+v_ACE2, v_SFF
+v_CLN3, ((v_SWI5 & v_ACE2) & !(v_YOX1 | v_YHP1))
+v_HCM1, (v_MBF & v_SBF)
+v_MBF, v_CLN3
+v_SBF, ((v_MBF & !(v_YHP1 | v_YOX1)) | (v_CLN3 & !(v_YHP1 | v_YOX1)))
+v_SFF, (v_SBF & v_HCM1)
+v_SWI5, v_SFF
+v_YHP1, (v_SBF | v_MBF)
+v_YOX1, (v_MBF & v_SBF)

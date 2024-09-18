@@ -1,0 +1,52 @@
+targets,factors
+v_AMP_simple_molecule, ((v_E1 & v_Ub_simple_molecule) & v_ATP_simple_molecule)
+v_ATP_simple_molecule, v_ATP_simple_molecule
+v_CSN5_complex, v_CSN5_complex
+v_CUL2_rna, v_CUL2_rna
+v_Cul2_ubiquitin_ligase_N8_E2_Ub_substrate_complex, (v_csa15_Cul2_ubiquitin_ligase_substrate_complex_cell & v_E2_ubiquitinated)
+v_Cul2_ubiquitin_ligase_N8_E2_substrate_Ub_complex, v_Cul2_ubiquitin_ligase_N8_E2_Ub_substrate_complex
+v_Cul2_ubiquitin_ligase_N8_E2_substrate_complex, (v_csa15_Cul2_ubiquitin_ligase_substrate_complex_cell & v_E2)
+v_Cul2_ubiquitin_ligase_N8_Orf10_0E2_substrate_complex, (v_Cul2_ubiquitin_ligase_N8_Orf10_substrate_complex & v_E2)
+v_Cul2_ubiquitin_ligase_N8_Orf10_E2_Ub_substrate_complex, (v_Cul2_ubiquitin_ligase_N8_Orf10_substrate_complex & v_E2_ubiquitinated)
+v_Cul2_ubiquitin_ligase_N8_Orf10_E2_substrate_Ub_complex, v_Cul2_ubiquitin_ligase_N8_Orf10_E2_Ub_substrate_complex
+v_Cul2_ubiquitin_ligase_N8_Orf10_complex, v_Cul2_ubiquitin_ligase_N8_Orf10_substrate_Ub_complex
+v_Cul2_ubiquitin_ligase_N8_Orf10_substrate_Ub_complex, v_Cul2_ubiquitin_ligase_N8_Orf10_substrate_Ub_complex
+v_Cul2_ubiquitin_ligase_N8_Orf10_substrate_complex, ((v_Cul2_ubiquitin_ligase_N8_Orf10_0E2_substrate_complex | v_Cul2_ubiquitin_ligase_N8_Orf10_E2_Ub_substrate_complex) | (v_Cul2_ubiquitin_ligase_Orf10_substrate_complex & v_UBE2M_NEDD8_complex))
+v_Cul2_ubiquitin_ligase_N8_complex, v_Cul2_ubiquitin_ligase_N8_substrate_Ub_complex
+v_Cul2_ubiquitin_ligase_N8_substrate_Ub_complex, v_Cul2_ubiquitin_ligase_N8_E2_substrate_Ub_complex
+v_Cul2_ubiquitin_ligase_Orf10_complex, ((v_Cul2_ubiquitin_ligase_Orf10_substrate_complex | (v_Cul2_ubiquitin_ligase_N8_Orf10_complex & v_CSN5_complex)) | (v_Cul2_ubiquitin_ligase_complex & v_Orf10))
+v_Cul2_ubiquitin_ligase_Orf10_substrate_complex, (v_Cul2_ubiquitin_ligase_Orf10_complex & v_ubit_traget)
+v_Cul2_ubiquitin_ligase_complex, (((v_csa4_Cul2_ubiquitin_ligase_substrate_complex_cell | v_Cul2_ubiquitin_ligase_Orf10_complex) | (v_Cul2_ubiquitin_ligase_N8_complex & v_CSN5_complex)) | (v_Zyg11B_EloBC_complex & v_Rbx1_Cul2_complex))
+v_DUB, v_DUB_rna
+v_DUB_rna, v_DUB_rna
+v_E1, ((v_E2 & v_E1_ubiquitinated) | v_E1_rna)
+v_E1_rna, v_E1_rna
+v_E1_ubiquitinated, ((v_E1 & v_Ub_simple_molecule) & v_ATP_simple_molecule)
+v_E2, (((v_E2_rna | v_Cul2_ubiquitin_ligase_N8_E2_substrate_Ub_complex) | v_Cul2_ubiquitin_ligase_N8_E2_substrate_complex) | v_Cul2_ubiquitin_ligase_N8_Orf10_0E2_substrate_complex)
+v_E2_rna, v_E2_rna
+v_E2_ubiquitinated, (((v_E2 & v_E1_ubiquitinated) | v_Cul2_ubiquitin_ligase_N8_E2_Ub_substrate_complex) | v_Cul2_ubiquitin_ligase_N8_Orf10_E2_Ub_substrate_complex)
+v_ELOB_ELOC_complex, ((((v_Zyg11B_EloBC_complex | v_ELOB_rna) | v_ELOB_ELOC_complex) | v_ELOC_rna) | v_ELOB_ELOC_complex)
+v_ELOB_rna, v_ELOB_rna
+v_ELOC_rna, v_ELOC_rna
+v_NAE1_rna, v_NAE1_rna
+v_NAE_Pevonedistat_complex, (v_NAE_complex & v_Pevonedistat_drug)
+v_NAE_complex, ((((v_NAE_Pevonedistat_complex | v_NAE1_rna) | v_NAE_complex) | v_UBA3_rna) | v_NAE_complex)
+v_NEDD8, v_NEDD8_rna
+v_NEDD8_rna, v_NEDD8_rna
+v_Orf10, (v_Orf10____ss_sgmRNA_rna | v_Cul2_ubiquitin_ligase_Orf10_complex)
+v_Orf10____ss_sgmRNA_rna, v_Orf10____ss_sgmRNA_rna
+v_PPi_simple_molecule, ((v_E1 & v_Ub_simple_molecule) & v_ATP_simple_molecule)
+v_Pevonedistat_drug, v_NAE_Pevonedistat_complex
+v_RBX1_rna, v_RBX1_rna
+v_Rbx1_Cul2_complex, ((((v_Cul2_ubiquitin_ligase_complex | v_RBX1_rna) | v_Rbx1_Cul2_complex) | v_CUL2_rna) | v_Rbx1_Cul2_complex)
+v_UBA3_rna, v_UBA3_rna
+v_UBE2M_NEDD8_complex, ((((v_NEDD8 & v_NAE_complex) | v_UBE2M_rna) | (v_UBE2M_NEDD8_complex & v_csa4_Cul2_ubiquitin_ligase_substrate_complex_cell)) | (v_Cul2_ubiquitin_ligase_Orf10_substrate_complex & v_UBE2M_NEDD8_complex))
+v_UBE2M_rna, v_UBE2M_rna
+v_Ub_simple_molecule, v_Ub_simple_molecule
+v_ZYG11B, (v_ZYG11B_rna | v_Zyg11B_EloBC_complex)
+v_ZYG11B_rna, v_ZYG11B_rna
+v_Zyg11B_EloBC_complex, (v_Cul2_ubiquitin_ligase_complex | (v_ELOB_ELOC_complex & v_ZYG11B))
+v_csa15_Cul2_ubiquitin_ligase_substrate_complex_cell, ((v_Cul2_ubiquitin_ligase_N8_E2_substrate_complex | v_Cul2_ubiquitin_ligase_N8_E2_Ub_substrate_complex) | (v_UBE2M_NEDD8_complex & v_csa4_Cul2_ubiquitin_ligase_substrate_complex_cell))
+v_csa4_Cul2_ubiquitin_ligase_substrate_complex_cell, (v_ubit_traget & v_Cul2_ubiquitin_ligase_complex)
+v_ubit_traget, ((v_csa4_Cul2_ubiquitin_ligase_substrate_complex_cell | v_Cul2_ubiquitin_ligase_Orf10_substrate_complex) | (v_ubit_traget_ubiquitinated & v_DUB))
+v_ubit_traget_ubiquitinated, (v_Cul2_ubiquitin_ligase_N8_substrate_Ub_complex | v_Cul2_ubiquitin_ligase_N8_Orf10_substrate_Ub_complex)

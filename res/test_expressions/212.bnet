@@ -1,0 +1,17 @@
+targets,factors
+v_A, (v_M_2 & !v_gamma)
+v_B, v_M_2
+v_C, !v_gamma
+v_E, (v_M_1 & !v_L)
+v_E_m, (v_M_1 | v_E)
+v_L, (v_M_1 & v_T)
+v_M_1, !v_R
+v_M_2, (v_C & !v_P)
+v_P, (!v_W & !v_W_m)
+v_R, v_W
+v_T, v_W_m
+v_W, ((v_M_1 & (!v_L & !v_A)) | (v_omega_e & v_B))
+v_W_m, (v_M_1 | (v_W | (v_omega_e | (v_omega_em & v_B))))
+v_gamma, v_gamma
+v_omega_e, v_omega_e
+v_omega_em, v_omega_em

@@ -1,0 +1,11 @@
+targets,factors
+v_Ap, v_Ap
+v_Ap2, v_Ap2
+v_Dl, (!v_Ap & v_N)
+v_Dl2, (!v_Ap2 & v_N2)
+v_Fng, v_Ap
+v_Fng2, v_Ap2
+v_N, ((!v_Fng & v_Ser2) | (v_Fng & v_Dl2))
+v_N2, ((((!v_Dl & v_Ser) & !v_Fng2) | ((v_Dl & !v_Ser) & v_Fng2)) | (v_Dl & v_Ser))
+v_Ser, v_Ap
+v_Ser2, v_Ap2

@@ -1,0 +1,63 @@
+targets,factors
+v_AC, v_MC1R
+v_ASK1, (v_UVB & (!v_Akt & !v_Melanin))
+v_ASK1_m, !v_Akt_m
+v_Akt, v_PDK1
+v_Akt_m, v_PDK1_m
+v_Bcl_2, ((v_Akt | (v_ERK | (v_RSK | (v_b_catenin | v_GSK3b)))) & !(v_P53 | (v_JNK | v_p38)))
+v_Bcl_2_m, ((v_MITFprotein | v_CREB) & ((v_Akt_m | (v_ERK_m | (v_RSK_m | (v_b_catenin_m | v_GSK3b_m)))) & !(v_p53_m | (v_JNK_m | v_p38_m))))
+v_COX_2, (!v_GSK3b & (v_b_catenin | (v_NFAT | v_p38)))
+v_CREB, (v_PKA | (v_Akt_m | v_MSK))
+v_EGFR, (v_UVB & !v_Melanin)
+v_EP4, v_PGE2
+v_ERK, (v_MEK & !v_p38)
+v_ERK_m, (v_MEK_m & !v_p38_m)
+v_ETR, v_ET_1
+v_ET_1, (v_IL_1 | v_P53)
+v_GSK3b, !v_Akt
+v_GSK3b_m, !v_Akt_m
+v_IL_1, (v_UVB & !v_Melanin)
+v_JNK, v_MKK4
+v_JNK_m, v_MKK4_m
+v_MC1R, v_a_MSH
+v_MDM2, v_Akt
+v_MDM2_m, v_Akt_m
+v_MEK, v_Raf
+v_MEK_m, v_Raf_m
+v_MITFmRNA, (v_b_catenin_m & v_CREB)
+v_MITFprotein, (v_ERK_m & v_MITFmRNA)
+v_MKK4, (v_ASK1 & !v_Akt)
+v_MKK4_m, (v_ASK1_m & !v_Akt_m)
+v_MKK6, v_ASK1
+v_MKK6_m, v_ASK1_m
+v_MSK, (v_p38_m | v_ERK_m)
+v_Melanin, v_MITFprotein
+v_NFAT, !v_GSK3b
+v_P53, (!v_MDM2 & (v_ERK | v_p38))
+v_PDE, v_PKA
+v_PDK1, (v_PI3K & !v_PTEN)
+v_PDK1_m, v_PI3K_m
+v_PGE2, (v_COX_2 | v_IL_1)
+v_PI3K, v_EGFR
+v_PI3K_m, ((v_PKC | v_Ras_m) & !v_cAMP)
+v_PKA, v_cAMP
+v_PKC, v_ETR
+v_PTEN, ((v_Melanin & (!v_Akt & !v_ERK)) | (!v_Melanin & (!v_UVB & (!v_Akt & !v_ERK))))
+v_RSK, v_ERK
+v_RSK_m, v_ERK_m
+v_Raf, (v_Ras & !v_Akt)
+v_Raf_m, (v_PKC | v_Ras_m)
+v_Ras, v_SG
+v_Ras_m, (v_SG_m | v_cAMP)
+v_SCF, (v_IL_1 | v_P53)
+v_SG, (v_EGFR & !v_ERK)
+v_SG_m, (v_c_Kit & !v_ERK_m)
+v_UVB, v_UVB
+v_a_MSH, v_P53
+v_b_catenin, !v_GSK3b
+v_b_catenin_m, !v_GSK3b_m
+v_cAMP, (!v_PDE & (v_EP4 | v_AC))
+v_c_Kit, v_SCF
+v_p38, v_MKK6
+v_p38_m, v_MKK6_m
+v_p53_m, (v_p38_m & !(v_MDM2_m | v_MITFprotein))

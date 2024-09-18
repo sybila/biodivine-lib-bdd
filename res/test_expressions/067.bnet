@@ -1,0 +1,14 @@
+targets,factors
+v_A, (v_Ae & v_T)
+v_Ae, v_Ae
+v_Aem, v_Aem
+v_Am, ((v_Aem & v_T) | v_Ae)
+v_C, !v_Ge
+v_E, v_MS
+v_Ge, v_Ge
+v_L, (v_S_2_Ara_ & !v_S_7_Ara_)
+v_MS, (v_S_7_Ara_ & v_C)
+v_MT, (v_S_7_Ara_ & v_C)
+v_S_2_Ara_, v_S_2_Ara_
+v_S_7_Ara_, (v_S_2_Ara_ & (v_A | v_Am))
+v_T, v_MT

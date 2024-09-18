@@ -1,0 +1,35 @@
+targets,factors
+v_Aop, !v_Rl_b1
+v_Aos, v_Aos
+v_Cbl, v_Cbl
+v_Cic, !v_Rl_b1
+v_Cnk, v_Cnk
+v_Der_b1, (((((((((((((((!v_Spi_b1 & !v_Vein) & v_Der_b1) & v_Der_b2) | ((((!v_Spi_b1 & v_Vein) & !v_Shc) & v_Der_b1) & v_Der_b2)) | (((((!v_Spi_b1 & v_Vein) & v_Shc) & !v_Aos) & !v_Cbl) & !v_Kek)) | (((((((!v_Spi_b1 & v_Vein) & v_Shc) & !v_Aos) & !v_Cbl) & v_Kek) & v_Der_b1) & v_Der_b2)) | ((((((!v_Spi_b1 & v_Vein) & v_Shc) & !v_Aos) & v_Cbl) & v_Der_b1) & v_Der_b2)) | (((((!v_Spi_b1 & v_Vein) & v_Shc) & v_Aos) & v_Der_b1) & v_Der_b2)) | ((((v_Spi_b1 & !v_Spi_b2) & !v_Shc) & v_Der_b1) & v_Der_b2)) | (((((v_Spi_b1 & !v_Spi_b2) & v_Shc) & !v_Aos) & !v_Cbl) & !v_Kek)) | (((((((v_Spi_b1 & !v_Spi_b2) & v_Shc) & !v_Aos) & !v_Cbl) & v_Kek) & v_Der_b1) & v_Der_b2)) | ((((((v_Spi_b1 & !v_Spi_b2) & v_Shc) & !v_Aos) & v_Cbl) & v_Der_b1) & v_Der_b2)) | (((((v_Spi_b1 & !v_Spi_b2) & v_Shc) & v_Aos) & v_Der_b1) & v_Der_b2)) | ((((v_Spi_b1 & v_Spi_b2) & !v_Shc) & v_Der_b1) & v_Der_b2)) | ((v_Spi_b1 & v_Spi_b2) & v_Shc))
+v_Der_b2, ((((((v_Spi_b1 & v_Spi_b2) & v_Shc) & !v_Aos) & !v_Cbl) & !v_Kek) & v_Der_b1)
+v_Drk_b1, (((!v_Der_b1 & v_Drk_b1) & v_Drk_b2) | v_Der_b1)
+v_Drk_b2, ((v_Der_b1 & v_Der_b2) & v_Drk_b1)
+v_Dsor1_b1, (((!v_Raf_b1 & v_Dsor1_b1) & v_Dsor1_b2) | v_Raf_b1)
+v_Dsor1_b2, ((v_Raf_b1 & v_Raf_b2) & v_Dsor1_b1)
+v_Gap1, v_PLCg
+v_Gro, !v_Rl_b1
+v_Kek, v_Kek
+v_Ksr, v_Ksr
+v_Msk, v_Msk
+v_PLCg, v_Der_b1
+v_Pnt_b1, (((!v_Rl_b1 & v_Pnt_b1) & v_Pnt_b2) | v_Rl_b1)
+v_Pnt_b2, ((v_Rl_b1 & v_Rl_b2) & v_Pnt_b1)
+v_Raf_b1, (((((!v_Ras_b1 & v_Raf_b1) & v_Raf_b2) | ((((v_Ras_b1 & !v_Raf_b1) & v_Cnk) & v_Src42) & v_Ksr)) | (((((v_Ras_b1 & v_Raf_b1) & !v_Raf_b2) & v_Cnk) & v_Src42) & v_Ksr)) | ((v_Ras_b1 & v_Raf_b1) & v_Raf_b2))
+v_Raf_b2, (((((v_Ras_b1 & v_Ras_b2) & v_Raf_b1) & v_Cnk) & v_Src42) & v_Ksr)
+v_Ras_b1, ((((((((!v_Sos_b1 & v_Ras_b1) & v_Ras_b2) | (((v_Sos_b1 & !v_Sos_b2) & !v_Ras_b1) & !v_Gap1)) | ((((v_Sos_b1 & !v_Sos_b2) & !v_Ras_b1) & v_Gap1) & !v_Sty)) | ((((v_Sos_b1 & !v_Sos_b2) & v_Ras_b1) & !v_Ras_b2) & !v_Gap1)) | (((((v_Sos_b1 & !v_Sos_b2) & v_Ras_b1) & !v_Ras_b2) & v_Gap1) & !v_Sty)) | (((v_Sos_b1 & !v_Sos_b2) & v_Ras_b1) & v_Ras_b2)) | (v_Sos_b1 & v_Sos_b2))
+v_Ras_b2, ((((v_Sos_b1 & v_Sos_b2) & v_Ras_b1) & !v_Gap1) | ((((v_Sos_b1 & v_Sos_b2) & v_Ras_b1) & v_Gap1) & !v_Sty))
+v_Rl_b1, (((((!v_Dsor1_b1 & v_Rl_b1) & v_Rl_b2) | ((v_Dsor1_b1 & !v_Rl_b1) & v_Msk)) | (((v_Dsor1_b1 & v_Rl_b1) & !v_Rl_b2) & v_Msk)) | ((v_Dsor1_b1 & v_Rl_b1) & v_Rl_b2))
+v_Rl_b2, (((v_Dsor1_b1 & v_Dsor1_b2) & v_Rl_b1) & v_Msk)
+v_Shc, v_Shc
+v_Sos_b1, (((!v_Drk_b1 & v_Sos_b1) & v_Sos_b2) | v_Drk_b1)
+v_Sos_b2, ((v_Drk_b1 & v_Drk_b2) & v_Sos_b1)
+v_Spi_b1, v_Spi_b1
+v_Spi_b2, (v_Spi_b1 & v_Spi_b2)
+v_Src42, v_Src42
+v_Sty, v_Sty
+v_Targets, (((v_Pnt_b1 & !v_Aop) & !v_Cic) | (((v_Pnt_b1 & !v_Aop) & v_Cic) & !v_Gro))
+v_Vein, (v_Spi_b1 & v_Der_b1)

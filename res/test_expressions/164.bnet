@@ -1,0 +1,25 @@
+targets,factors
+v_A, (((v_Aos_ext_b1 & !v_Aos_ext_b2) & v_Aos) | (v_Aos_ext_b1 & v_Aos_ext_b2))
+v_Aos, ((v_dpERK_b1 & v_Pnt) & !v_Mid)
+v_Aos_ext_b1, v_Aos_ext_b1
+v_Aos_ext_b2, (v_Aos_ext_b1 & v_Aos_ext_b2)
+v_Br, ((((!v_Dpp & !v_Mirr) & !v_Pnt) & v_Br) | ((!v_Dpp & v_Mirr) & !v_Pnt))
+v_Br_adj, v_Br_adj
+v_Dpp, v_Dpp
+v_Grk_b1, v_Grk_b1
+v_Grk_b2, (v_Grk_b1 & v_Grk_b2)
+v_Grk_b3, ((v_Grk_b1 & v_Grk_b2) & v_Grk_b3)
+v_Mid, (((!v_earlyGrk & v_Mid) | ((v_earlyGrk & !v_Mid) & !v_earlyDpp)) | (v_earlyGrk & v_Mid))
+v_Mirr, (v_dpERK_b1 & !v_Mid)
+v_Pnt, (v_dpERK_b1 & v_dpERK_b2)
+v_Rho_b1, ((((((!v_dpERK_b1 & v_Rho_b1) & v_Rho_b2) | (((v_dpERK_b1 & !v_Mirr) & v_Rho_b1) & v_Rho_b2)) | (((v_dpERK_b1 & v_Mirr) & !v_Rho_b1) & !v_Br)) | ((((v_dpERK_b1 & v_Mirr) & v_Rho_b1) & !v_Rho_b2) & !v_Br)) | (((v_dpERK_b1 & v_Mirr) & v_Rho_b1) & v_Rho_b2))
+v_Rho_b2, ((((v_dpERK_b1 & v_dpERK_b2) & v_Mirr) & v_Rho_b1) & !v_Br)
+v_Rho_ext_b1, v_Rho_ext_b1
+v_Rho_ext_b2, (v_Rho_ext_b1 & v_Rho_ext_b2)
+v_S_b1, (((((!v_Rho_ext_b1 & !v_Rho_b1) & v_S_b1) & v_S_b2) | (!v_Rho_ext_b1 & v_Rho_b1)) | v_Rho_ext_b1)
+v_S_b2, (((((!v_Rho_ext_b1 & v_Rho_b1) & v_Rho_b2) & v_S_b1) | ((((v_Rho_ext_b1 & !v_Rho_ext_b2) & v_Rho_b1) & v_Rho_b2) & v_S_b1)) | ((v_Rho_ext_b1 & v_Rho_ext_b2) & v_S_b1))
+v_X, (v_Br_adj & !v_Br)
+v_dpERK_b1, ((((((((((((((!v_Grk_b1 & !v_dpERK_b1) & v_S_b1) & !v_X) & !v_A) | (((!v_Grk_b1 & !v_dpERK_b1) & v_S_b1) & v_X)) | (((((!v_Grk_b1 & v_dpERK_b1) & !v_dpERK_b2) & v_S_b1) & !v_X) & !v_A)) | ((((!v_Grk_b1 & v_dpERK_b1) & !v_dpERK_b2) & v_S_b1) & v_X)) | ((!v_Grk_b1 & v_dpERK_b1) & v_dpERK_b2)) | ((((v_Grk_b1 & !v_Grk_b2) & !v_dpERK_b1) & !v_S_b1) & v_X)) | (((v_Grk_b1 & !v_Grk_b2) & !v_dpERK_b1) & v_S_b1)) | (((((v_Grk_b1 & !v_Grk_b2) & v_dpERK_b1) & !v_dpERK_b2) & !v_S_b1) & v_X)) | ((((v_Grk_b1 & !v_Grk_b2) & v_dpERK_b1) & !v_dpERK_b2) & v_S_b1)) | (((v_Grk_b1 & !v_Grk_b2) & v_dpERK_b1) & v_dpERK_b2)) | (v_Grk_b1 & v_Grk_b2))
+v_dpERK_b2, ((((((((((((((!v_Grk_b1 & v_dpERK_b1) & v_S_b1) & v_S_b2) & !v_X) & !v_A) | ((((!v_Grk_b1 & v_dpERK_b1) & v_S_b1) & v_S_b2) & v_X)) | (((((v_Grk_b1 & !v_Grk_b2) & v_dpERK_b1) & v_S_b1) & !v_S_b2) & v_X)) | ((((((v_Grk_b1 & !v_Grk_b2) & v_dpERK_b1) & v_S_b1) & v_S_b2) & !v_X) & !v_A)) | (((((v_Grk_b1 & !v_Grk_b2) & v_dpERK_b1) & v_S_b1) & v_S_b2) & v_X)) | (((((v_Grk_b1 & v_Grk_b2) & !v_Grk_b3) & v_dpERK_b1) & !v_S_b1) & v_X)) | ((((((v_Grk_b1 & v_Grk_b2) & !v_Grk_b3) & v_dpERK_b1) & v_S_b1) & !v_S_b2) & v_X)) | (((((((v_Grk_b1 & v_Grk_b2) & !v_Grk_b3) & v_dpERK_b1) & v_S_b1) & v_S_b2) & !v_X) & !v_A)) | ((((((v_Grk_b1 & v_Grk_b2) & !v_Grk_b3) & v_dpERK_b1) & v_S_b1) & v_S_b2) & v_X)) | (((v_Grk_b1 & v_Grk_b2) & v_Grk_b3) & v_dpERK_b1))
+v_earlyDpp, v_earlyDpp
+v_earlyGrk, v_earlyGrk

@@ -1,0 +1,142 @@
+targets,factors
+v_ACVR2A, v_ACVR2A
+v_ADAM10, v_ADAM10
+v_AKT, v_PIP3
+v_ALK1, ((v_TGFB1 | (v_BMP9 | v_BMP10)) & (v_ACVR2A | (v_BMPRII | v_TGFBRII)))
+v_ALK5, (v_BMP9 & v_TGFBRII)
+v_AMPATP, v_AMPATP
+v_AMPK, ((v_AMPATP | !v_Oxygen) & !v_AKT)
+v_ANG1, v_ANG1
+v_ANG2, (!v_KLF2 & (v_HIF1 | (v_AP1 | (v_ETS | v_FOXO1))))
+v_AP1, v_JNK
+v_ART1, !v_NAD
+v_ASFSF2, v_PKC
+v_AXL, v_SRC
+v_Actin, v_ShearStress
+v_Axin2, v_LEF1
+v_BG, v_BMP9
+v_BMP10, v_BMP10
+v_BMP9, v_BMP9
+v_BMPRII, v_BMPRII
+v_BTrCP, v_BTrCP
+v_Bcatenin, (!v_GSK3B & !v_BTrCP)
+v_CDC42, v_DAAM1
+v_CLK1, v_p38MAPK
+v_CLK4, v_p38MAPK
+v_CSL, v_NICD
+v_Calcineurin, v_Calmodulin
+v_Calcium, (v_IP3 | (v_TRPV4 | v_PIEZO1))
+v_Calmodulin, v_Calcium
+v_CyclinD1, (v_Bcatenin & v_LEF1)
+v_DAAM1, (v_FZD6 | v_DSH)
+v_DAG, v_PLCg
+v_DKK1, v_DKK1
+v_DLL4a, (v_ETS | v_CSL)
+v_DLL4p, v_DLL4p
+v_DSH, ((v_FZD45 & v_ROR) | (v_FZD6 | (v_FZD47 & v_LRP56)))
+v_ENG, (v_TGFB1 | (v_BMP9 | v_BMP10))
+v_ERK, (v_MEK | v_VEGFR33)
+v_ETS, v_ERK
+v_FAK, (v_SRC | v_Integrin)
+v_FGF, v_FGF
+v_FGFR2, v_FGF
+v_FOXO1, (v_SIRT1 & !v_AKT)
+v_FRS2a, v_FGFR2
+v_FYN, v_TSAd
+v_FZD45, v_WNT5a
+v_FZD47, v_WNT7a
+v_FZD6, (v_WNT11 | v_WNT5a)
+v_GROUCHO, !v_Bcatenin
+v_GSK3B, (!v_DSH & !v_LRP56)
+v_GqG11, v_ShearStress
+v_HEY1, (v_CSL | ((v_SMAD1 | v_SMAD2) & (!v_SIRT1 & !v_LSD1)))
+v_HIF1, (v_mTOR & (!v_PHDs & v_SIRT1))
+v_HIF2a, (v_SIRT1 | !v_Oxygen)
+v_IGF, v_IGF
+v_IP3, v_PLCg
+v_Integrin, ((v_ShearStress | v_TIE2) & v_ETS)
+v_JAGa, (v_SMAD1 | v_Bcatenin)
+v_JAGp, v_JAGp
+v_JNK, ((v_ROR | v_RAC1) & v_DSH)
+v_KLF2, v_ShearStress
+v_LEF1, ((v_Bcatenin & !v_GROUCHO) & (v_NRARP | v_LEF1))
+v_LRP56, (v_WNT7a & !v_DKK1)
+v_LSD1, (v_SIRT1 & !v_NICD)
+v_Lactate, !v_Oxygen
+v_MEK, (v_RAF1 | v_FRS2a)
+v_NAD, v_AMPK
+v_NF1, v_SPRED1
+v_NFAT, v_Calcineurin
+v_NICD, (v_NOTCH & !v_NRARP)
+v_NO, (v_eNOS | v_Calmodulin)
+v_NOTCH, (v_Notch4 & (v_gSecretase & (v_ADAM10 & (v_DLL4p & !v_JAGp))))
+v_NRARP, v_CSL
+v_NRP1, ((v_VEGFAxxx | v_VEGFCDp) & (!v_CSL | v_ETS))
+v_Notch4, v_ETS
+v_Oxygen, v_Oxygen
+v_PDGFB, (v_FOXO1 | v_SMAD2)
+v_PECAM1, (v_FYN | (v_Actin | v_V_Ecadherin))
+v_PHDs, (v_Oxygen & !v_Lactate)
+v_PI3K, (v_AXL | (!v_PI3KR2 | (v_V_Ecadherin | v_TIE2)))
+v_PI3KR2, !v_mir126
+v_PIEZO1, v_ShearStress
+v_PIP3, (v_PI3K & !v_PTEN)
+v_PKC, v_IGF
+v_PKCB2, (v_DAG & v_Calcium)
+v_PLCg, (v_VEGFR22 | (v_VEGFR33 | (v_DSH | v_FZD45)))
+v_PTEN, (v_CSL | v_RHO)
+v_PlGF, v_PlGF
+v_RAC1, (v_FZD6 & v_DSH)
+v_RAF1, ((v_PKCB2 | v_RAS) & !v_AKT)
+v_RAS, (v_SHP2 | (v_ALK1 | !v_NF1))
+v_RHEB2, !v_TSC
+v_RHO, (v_DAAM1 | v_NRP1)
+v_ROR, v_WNT5a
+v_SHP2, v_PECAM1
+v_SIRT1, ((v_HIF2a | (v_HIF1 | v_FOXO1)) & v_NAD)
+v_SMAD1, (!v_SMAD6 & (!v_NRP1 & (v_ALK1 & (v_ENG & v_SMAD4))))
+v_SMAD2, (!v_SMAD6 & (!v_NRP1 & (v_ALK5 & (v_BG & v_SMAD4))))
+v_SMAD4, v_SMAD4
+v_SMAD6, v_CSL
+v_SPRED1, !v_mir126
+v_SRC, (v_FAK | (v_TSAd | v_GqG11))
+v_SRP55, (v_CLK4 | v_CLK1)
+v_STAT3, v_VEGFR22
+v_ShearStress, v_ShearStress
+v_TAK1, v_TRAF6
+v_TGFB1, v_TGFB1
+v_TGFBRII, v_TGFBRII
+v_TIE1, (v_Integrin | (v_ANG1 | v_ANG2))
+v_TIE2, (v_TIE1 & (v_ANG1 & (!v_ANG2 & (!v_VEPTP | (v_KLF2 | v_ETS)))))
+v_TRAF6, v_ALK1
+v_TRPV4, (v_ShearStress & !v_cGMP)
+v_TSAd, (v_VEGFR22 | v_VEGFR23)
+v_TSC, (v_AMPK & !v_AKT)
+v_VEGFAxxx, ((!(v_VEGFR1s | (v_VEGFR12 | v_VEGFR11)) & (v_VegfA & (v_ART1 & v_ASFSF2))) | v_VEGFAxxxP)
+v_VEGFAxxxP, v_VEGFAxxxP
+v_VEGFAxxxd, (v_VegfA & v_SRP55)
+v_VEGFCD, v_VEGFCD
+v_VEGFCDp, v_VEGFCDp
+v_VEGFR11, v_Vegfr1
+v_VEGFR12, (v_Vegfr1 & v_Vegfr2)
+v_VEGFR1s, (v_PlGF & v_Vegfr1)
+v_VEGFR22, (v_Vegfr2 & (v_PECAM1 | ((v_VEGFCDp | v_VEGFAxxx) & !(v_VEGFAxxxd | v_VEPTP))))
+v_VEGFR23, (v_Vegfr2 & (v_VEGFR3 & (v_PECAM1 | (v_VEGFAxxx | v_VEGFCDp))))
+v_VEGFR3, v_CSL
+v_VEGFR33, (v_VEGFR3 & (v_PECAM1 | (v_VEGFCDp | v_VEGFCD)))
+v_VEPTP, v_HIF2a
+v_V_Ecadherin, (v_ETS & (v_SRC | (v_FAK | (v_Actin | v_VEPTP))))
+v_VegfA, (v_STAT3 | (v_NFAT | (v_HIF1 | (v_Lactate | (v_FOXO1 | v_KLF2)))))
+v_Vegfr1, (v_CSL | ((v_HIF1 | v_ETS) & !v_NFAT))
+v_Vegfr2, ((v_ETS & !v_HEY1) | v_Lactate)
+v_WNT11, v_WNT11
+v_WNT5a, v_WNT5a
+v_WNT7a, (v_WNT7a & !v_sFRP1)
+v_cGMP, (v_NO & v_sGC)
+v_eNOS, (v_AKT | v_SIRT1)
+v_gSecretase, v_gSecretase
+v_mTOR, (v_AMPK | v_RHEB2)
+v_mir126, v_KLF2
+v_p38MAPK, (v_TAK1 | (v_SRC | v_DAG))
+v_sFRP1, v_sFRP1
+v_sGC, v_sGC

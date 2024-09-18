@@ -1,0 +1,34 @@
+targets,factors
+v_AP, ((v_IgG & ((v_C & v_Bb) & (v_MPI & v_Th1I))) | (v_AgAb & ((v_MPI & v_Th1I) & v_Bb)))
+v_AgAb, ((v_IgA & v_Bb) | (v_IgG & v_Bb))
+v_BC, (v_T0 | v_BC)
+v_Bb, (v_Bb & !v_PH)
+v_C, ((v_Bb & !v_Oag) | (v_IgG & v_AgAb))
+v_DCI, ((v_IFNgI & v_Bb) | (v_PIC & v_Bb))
+v_DCII, v_DCI
+v_DP, (v_NE & v_TTSSI)
+v_EC, v_Bb
+v_IFNgI, (((v_DCI & !v_IL4I) | (v_MPI & !v_IL4I)) | (v_Th1I & !(v_IL10I | v_IL4I)))
+v_IFNgII, v_IFNgI
+v_IL10I, (((v_Th2I & v_TTSSI) | v_TrI) | v_MPI)
+v_IL10II, v_IL10I
+v_IL12I, ((v_DCII & v_T0) & !v_IL4II)
+v_IL12II, ((v_DCII & v_T0) & !v_IL4II)
+v_IL4I, v_IL4II
+v_IL4II, ((v_Th2II & !(v_IL12II | v_IFNgII)) | ((v_DCII & v_T0) & !(v_IL12II | v_IFNgII)))
+v_IgA, ((v_IgA & v_Bb) | (v_BC & v_Bb))
+v_IgG, (v_IgG | v_BC)
+v_MPI, ((v_IFNgI & v_Bb) | (v_PIC & v_Bb))
+v_NE, v_PIC
+v_Oag, v_Bb
+v_PH, (v_AP & v_Bb)
+v_PIC, (((v_DP & !v_IL10I) | (v_EC & !v_IL10I)) | (v_AP & !v_IL10I))
+v_T0, v_DCII
+v_TTSSI, (v_Bb & !(v_IgA | v_IgG))
+v_TTSSII, v_TTSSI
+v_Th1I, v_Th1II
+v_Th1II, (v_DCII & (v_IL12II & v_T0))
+v_Th2I, v_Th2II
+v_Th2II, ((v_DCII & v_T0) & !v_IL12II)
+v_TrI, v_TrII
+v_TrII, (v_DCII & v_T0)

@@ -1,0 +1,71 @@
+targets,factors
+v_AKT, (v_PI3K & !(v_CASP3 | v_PP2A))
+v_APC, v_APC
+v_ASK1, (v_ROS & !v_P21)
+v_ATM, v_ROS
+v_Apoptosis, v_CASP3
+v_BAX, (((v_TBID & v_PP2A) & !v_AKT) | ((v_P53 & v_PP2A) & !v_AKT))
+v_BCATENIN, !(v_APC & v_GSK3B)
+v_BCL2, ((v_STAT3 & !(v_PP2A | v_P53)) | (v_NFKB & !(v_PP2A | v_P53)))
+v_CASP3, ((v_CASP8 & !v_IAP) | (v_CASP9 & !v_IAP))
+v_CASP8, (v_FADD_ & !(v_CFLIP | v_P21))
+v_CASP9, (v_CYTC & !(v_IAP | v_P21))
+v_CCL2, v_NFKB
+v_CERAMIDE, (v_SMASE & !v_SPHK1)
+v_CFLIP, v_NFKB
+v_COX2, (v_TNFR & v_S1P)
+v_CTL, (v_IFNG & !v_TGFB)
+v_CYCLIND1, (((v_BCATENIN & !v_GSK3B) | (v_STAT3 & !v_GSK3B)) | (v_JUN & !v_GSK3B))
+v_CYTC, v_MOMP
+v_DC, ((v_CCL2 & !v_IL10) | (v_TNFA & !v_IL10))
+v_EP2, v_PGE2
+v_ERK, v_MEK
+v_FADD_, (v_FAS | v_TNFR)
+v_FAS, v_CTL
+v_FOS, v_ERK
+v_GP130, v_IL6
+v_GSK3B, !(v_AKT | v_EP2)
+v_IAP, ((v_NFKB & !v_SMAC) | (v_STAT3 & !v_SMAC))
+v_IFNG, (v_CTL | v_TH1)
+v_IKB, !v_IKK
+v_IKK, (v_AKT | (v_TNFR & v_S1P))
+v_IL10, (v_TREG | v_TH2)
+v_IL12, (v_DC | v_MAC)
+v_IL4, (v_DC | v_TH2)
+v_IL6, ((v_MAC | v_DC) | v_NFKB)
+v_JAK, (v_GP130 & !v_SOCS)
+v_JNK, (v_MEKK1 | v_ASK1)
+v_JUN, (((v_BCATENIN & v_JNK) & !v_GSK3B) | ((v_ERK & v_JNK) & !v_GSK3B))
+v_MAC, ((v_CCL2 & !v_IL10) | (v_IFNG & !v_IL10))
+v_MDM2, ((v_P53 & v_AKT) & !(v_ATM | v_GSK3B))
+v_MEK, (v_RAF | v_ROS)
+v_MEKK1, ((v_TNFR | v_TGFR) | v_CERAMIDE)
+v_MOMP, (((v_TBID & !v_BCL2) | (v_BAX & !v_BCL2)) | (v_CERAMIDE & !v_BCL2))
+v_NFKB, !v_IKB
+v_P21, ((v_SMAD & !(v_GSK3B | v_CASP3)) | (v_P53 & !(v_GSK3B | v_CASP3)))
+v_P53, (((v_ATM & !v_MDM2) | (v_JNK & !v_MDM2)) | (v_PTEN & !v_MDM2))
+v_PGE2, v_COX2
+v_PI3K, ((v_EP2 & !v_PTEN) | (v_RAS & !v_PTEN))
+v_PP2A, (v_CERAMIDE & !v_AKT)
+v_PTEN, (v_P53 & !(v_NFKB | v_JUN))
+v_Proliferation, ((v_CYCLIND1 & v_FOS) & !(v_P21 | v_CASP3))
+v_RAF, (v_CERAMIDE | v_RAS)
+v_RAS, (v_EP2 | v_GP130)
+v_ROS, (v_TNFR & !v_SOD)
+v_S1P, v_SPHK1
+v_SMAC, v_MOMP
+v_SMAD, (v_TGFR & !v_JUN)
+v_SMAD7, (v_NFKB | v_SMAD)
+v_SMASE, (v_FADD_ | v_P53)
+v_SOCS, v_STAT3
+v_SOD, (v_NFKB | v_STAT3)
+v_SPHK1, (v_ERK | v_TNFR)
+v_STAT3, v_JAK
+v_TBID, (v_CASP8 & !v_BCL2)
+v_TGFB, v_TREG
+v_TGFR, (v_TGFB & !v_SMAD7)
+v_TH1, ((v_IFNG & !((v_TGFB | v_IL4) | v_IL10)) | (v_IL12 & !((v_TGFB | v_IL4) | v_IL10)))
+v_TH2, (v_IL4 & !(v_IFNG | v_TGFB))
+v_TNFA, v_MAC
+v_TNFR, v_TNFA
+v_TREG, ((v_DC & !v_IL6) | (v_IL10 & !v_IL6))

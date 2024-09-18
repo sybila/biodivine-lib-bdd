@@ -1,0 +1,21 @@
+targets,factors
+v_AKT1, ((((((((!v_IGF1R & !v_ERBB1) & !v_ERBB2_3) & !v_ERBB1_2) & v_ERBB1_3) | (((!v_IGF1R & !v_ERBB1) & !v_ERBB2_3) & v_ERBB1_2)) | ((!v_IGF1R & !v_ERBB1) & v_ERBB2_3)) | (!v_IGF1R & v_ERBB1)) | v_IGF1R)
+v_CDK2, ((!v_p21 & !v_p27) & v_CyclinE1)
+v_CDK4, ((!v_p21 & v_CyclinD1) & !v_p27)
+v_CDK6, v_CyclinD1
+v_CyclinD1, ((((!v_MEK1 & v_ERalpha) & v_AKT1) & v_MYC) | ((v_MEK1 & v_ERalpha) & v_MYC))
+v_CyclinE1, v_MYC
+v_EGF, v_EGF
+v_ERBB1, v_EGF
+v_ERBB1_2, (v_ERBB1 & v_ERBB2)
+v_ERBB1_3, (v_ERBB1 & v_ERBB3)
+v_ERBB2, v_EGF
+v_ERBB2_3, (v_ERBB2 & v_ERBB3)
+v_ERBB3, v_EGF
+v_ERalpha, ((!v_MEK1 & v_AKT1) | v_MEK1)
+v_IGF1R, (((!v_ERalpha & v_AKT1) & !v_ERBB2_3) | (v_ERalpha & !v_ERBB2_3))
+v_MEK1, ((((((((!v_IGF1R & !v_ERBB1) & !v_ERBB2_3) & !v_ERBB1_2) & v_ERBB1_3) | (((!v_IGF1R & !v_ERBB1) & !v_ERBB2_3) & v_ERBB1_2)) | ((!v_IGF1R & !v_ERBB1) & v_ERBB2_3)) | (!v_IGF1R & v_ERBB1)) | v_IGF1R)
+v_MYC, ((((!v_MEK1 & !v_ERalpha) & v_AKT1) | (!v_MEK1 & v_ERalpha)) | v_MEK1)
+v_p21, ((!v_CDK4 & !v_AKT1) & !v_MYC)
+v_p27, (((!v_CDK4 & !v_CDK2) & !v_AKT1) & !v_MYC)
+v_pRB1, (v_CDK4 & v_CDK6)

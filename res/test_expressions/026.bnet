@@ -1,0 +1,19 @@
+targets,factors
+v_B, (((v_Cln2 & !v_CD) | (v_B & !v_CD)) | (v_Clb5 & !v_CD))
+v_CD, ((v_M & (v_Cdc14 & v_FEAR)) & !v_CD)
+v_CKI, (((v_Swi5 & !((v_Clb2 | v_Cln2) | v_Clb5)) | (v_CKI & !((v_Clb2 | v_Cln2) | v_Clb5))) | (v_Cdc14 & v_Swi5))
+v_Cdc14, (v_FEAR & v_MEN)
+v_Cdc20, (v_M & (v_SFF & v_Clb2))
+v_Cdh1, (v_Cdc14 | !(((v_Cdc14 | v_Clb5) | v_Cln2) | v_Clb2))
+v_Clb2, (((v_B & (!v_Cdc20 | !v_Cdh1)) & !v_CKI) | ((v_Clb2 & ((!v_Cdc20 | !v_Cdh1) & v_SFF)) & !v_CKI))
+v_Clb5, (v_SMBF & (!v_Cdc20 | (!v_CKI & !v_Cdc20)))
+v_Cln2, v_SMBF
+v_Cln3, !v_Yhp1
+v_FEAR, v_Cdc20
+v_M, ((v_M & !v_CD) | ((v_S & v_Clb2) & !v_CD))
+v_MEN, (v_FEAR & v_Clb2)
+v_S, (((v_Clb5 & !v_CD) | (v_Clb2 & !v_CD)) | (v_S & !v_CD))
+v_SFF, ((v_Clb2 & v_SFF) | ((v_B & (!v_Cdc20 | !v_Cdh1)) & !v_CKI))
+v_SMBF, (((v_Cln3 & !v_Clb2) | (v_SMBF & !v_Clb2)) | (v_Cln2 & !v_Clb2))
+v_Swi5, ((v_Cdc14 & v_SFF) | (v_SFF & !v_Clb2))
+v_Yhp1, v_SMBF

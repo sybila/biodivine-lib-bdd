@@ -1,0 +1,8 @@
+targets,factors
+v_Gt, !v_Kr_b1
+v_Hb_b1, v_Hb_b1
+v_Hb_b2, ((v_Hb_b1 & v_Hb_b2) & v_Hb_b3)
+v_Hb_b3, v_Hb_b3
+v_Kni, ((!v_Gt & !v_Hb_b1) | ((!v_Gt & v_Hb_b1) & !v_Hb_b2))
+v_Kr_b1, ((((((((((((((!v_Gt & !v_Hb_b1) & v_Kr_b1) & v_Kr_b2) | ((!v_Gt & v_Hb_b1) & !v_Hb_b2)) | (((!v_Gt & v_Hb_b1) & v_Hb_b2) & !v_Hb_b3)) | (((((!v_Gt & v_Hb_b1) & v_Hb_b2) & v_Hb_b3) & v_Kr_b1) & v_Kr_b2)) | (((v_Gt & !v_Hb_b1) & v_Kr_b1) & v_Kr_b2)) | ((((v_Gt & v_Hb_b1) & !v_Hb_b2) & !v_Kr_b1) & !v_Kni)) | (((((v_Gt & v_Hb_b1) & !v_Hb_b2) & v_Kr_b1) & !v_Kr_b2) & !v_Kni)) | ((((v_Gt & v_Hb_b1) & !v_Hb_b2) & v_Kr_b1) & v_Kr_b2)) | (((((v_Gt & v_Hb_b1) & v_Hb_b2) & !v_Hb_b3) & !v_Kr_b1) & !v_Kni)) | ((((((v_Gt & v_Hb_b1) & v_Hb_b2) & !v_Hb_b3) & v_Kr_b1) & !v_Kr_b2) & !v_Kni)) | (((((v_Gt & v_Hb_b1) & v_Hb_b2) & !v_Hb_b3) & v_Kr_b1) & v_Kr_b2)) | (((((v_Gt & v_Hb_b1) & v_Hb_b2) & v_Hb_b3) & v_Kr_b1) & v_Kr_b2))
+v_Kr_b2, (((((!v_Gt & v_Hb_b1) & !v_Hb_b2) & v_Kr_b1) & !v_Kni) | (((((!v_Gt & v_Hb_b1) & v_Hb_b2) & !v_Hb_b3) & v_Kr_b1) & !v_Kni))

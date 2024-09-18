@@ -1,0 +1,38 @@
+targets,factors
+v_AF, v_AF
+v_AS_c, v_AS_c
+v_AS_p, v_AS_p
+v_Dmrt1_c, (((((!v_Gata4 & v_Sf1_c_b1) & v_Sox9_c_b1) & v_Sox9_c_b2) & !v_Foxl2_c) | (v_Gata4 & !v_Foxl2_c))
+v_Dmrt1_p, (((((!v_Gata4 & v_Sf1_p_b1) & v_Sox9_p_b1) & v_Sox9_p_b2) & !v_Foxl2_p) | (v_Gata4 & !v_Foxl2_p))
+v_Fgf9_c_b1, ((((((((!v_Sox9_c_b1 & !v_Fgf9_c_b1) & v_Fgf9_cr_b1) | (((!v_Sox9_c_b1 & v_Fgf9_c_b1) & !v_Fgf9_c_b2) & v_Fgf9_cr_b1)) | ((!v_Sox9_c_b1 & v_Fgf9_c_b1) & v_Fgf9_c_b2)) | (((v_Sox9_c_b1 & !v_Sox9_c_b2) & !v_Fgf9_c_b1) & v_Fgf9_cr_b1)) | ((((v_Sox9_c_b1 & !v_Sox9_c_b2) & v_Fgf9_c_b1) & !v_Fgf9_c_b2) & v_Fgf9_cr_b1)) | (((v_Sox9_c_b1 & !v_Sox9_c_b2) & v_Fgf9_c_b1) & v_Fgf9_c_b2)) | (v_Sox9_c_b1 & v_Sox9_c_b2))
+v_Fgf9_c_b2, (((v_Sox9_c_b1 & v_Sox9_c_b2) & v_Fgf9_c_b1) & v_Fgf9_cr_b1)
+v_Fgf9_cr_b1, (((!v_Fgf9_c_b1 & v_Fgf9_cr_b1) & v_Fgf9_cr_b2) | v_Fgf9_c_b1)
+v_Fgf9_cr_b2, (((v_Fgf9_p_b1 & v_Fgf9_p_b2) & v_Fgf9_c_b1) & v_Fgf9_cr_b1)
+v_Fgf9_p_b1, ((((((((!v_Sox9_p_b1 & !v_Fgf9_p_b1) & v_Fgf9_pr_b1) | (((!v_Sox9_p_b1 & v_Fgf9_p_b1) & !v_Fgf9_p_b2) & v_Fgf9_pr_b1)) | ((!v_Sox9_p_b1 & v_Fgf9_p_b1) & v_Fgf9_p_b2)) | (((v_Sox9_p_b1 & !v_Sox9_p_b2) & !v_Fgf9_p_b1) & v_Fgf9_pr_b1)) | ((((v_Sox9_p_b1 & !v_Sox9_p_b2) & v_Fgf9_p_b1) & !v_Fgf9_p_b2) & v_Fgf9_pr_b1)) | (((v_Sox9_p_b1 & !v_Sox9_p_b2) & v_Fgf9_p_b1) & v_Fgf9_p_b2)) | (v_Sox9_p_b1 & v_Sox9_p_b2))
+v_Fgf9_p_b2, (((v_Sox9_p_b1 & v_Sox9_p_b2) & v_Fgf9_p_b1) & v_Fgf9_pr_b1)
+v_Fgf9_pr_b1, (((!v_Fgf9_p_b1 & v_Fgf9_pr_b1) & v_Fgf9_pr_b2) | v_Fgf9_p_b1)
+v_Fgf9_pr_b2, (((v_Fgf9_p_b1 & v_Fgf9_pr_b1) & v_Fgf9_c_b1) & v_Fgf9_c_b2)
+v_Foxl2_c, (v_AF & !v_Dmrt1_c)
+v_Foxl2_p, (v_AF & !v_Dmrt1_p)
+v_Gata4, v_Gata4
+v_IW, v_IW
+v_Sf1_c_b1, (((!v_Wt1 & v_Sf1_c_b1) & v_Sf1_c_b2) | v_Wt1)
+v_Sf1_c_b2, (((v_Wt1 & v_Sf1_c_b1) & v_Sox9_c_b1) & v_Sox9_c_b2)
+v_Sf1_p_b1, (((!v_Wt1 & v_Sf1_p_b1) & v_Sf1_p_b2) | v_Wt1)
+v_Sf1_p_b2, (((v_Wt1 & v_Sf1_p_b1) & v_Sox9_p_b1) & v_Sox9_p_b2)
+v_Sox9_c_b1, (((((((!v_Sf1_c_b1 & v_Sox9_c_b1) & v_Sox9_c_b2) | (((v_Sf1_c_b1 & !v_Sox9_c_b1) & !v_b_cat_c_b1) & !v_Foxl2_c)) | ((((v_Sf1_c_b1 & !v_Sox9_c_b1) & v_b_cat_c_b1) & !v_b_cat_c_b2) & !v_Foxl2_c)) | ((((v_Sf1_c_b1 & v_Sox9_c_b1) & !v_Sox9_c_b2) & !v_b_cat_c_b1) & !v_Foxl2_c)) | (((((v_Sf1_c_b1 & v_Sox9_c_b1) & !v_Sox9_c_b2) & v_b_cat_c_b1) & !v_b_cat_c_b2) & !v_Foxl2_c)) | ((v_Sf1_c_b1 & v_Sox9_c_b1) & v_Sox9_c_b2))
+v_Sox9_c_b2, ((((((!v_Sry_c & v_Sf1_c_b1) & v_Sox9_c_b1) & !v_b_cat_c_b1) & !v_Foxl2_c) | ((((v_Sry_c & v_Sf1_c_b1) & v_Sox9_c_b1) & !v_b_cat_c_b1) & !v_Foxl2_c)) | (((((v_Sry_c & v_Sf1_c_b1) & v_Sox9_c_b1) & v_b_cat_c_b1) & !v_b_cat_c_b2) & !v_Foxl2_c))
+v_Sox9_p_b1, (((((((!v_Sf1_p_b1 & v_Sox9_p_b1) & v_Sox9_p_b2) | (((v_Sf1_p_b1 & !v_Sox9_p_b1) & !v_b_cat_p_b1) & !v_Foxl2_p)) | ((((v_Sf1_p_b1 & !v_Sox9_p_b1) & v_b_cat_p_b1) & !v_b_cat_p_b2) & !v_Foxl2_p)) | ((((v_Sf1_p_b1 & v_Sox9_p_b1) & !v_Sox9_p_b2) & !v_b_cat_p_b1) & !v_Foxl2_p)) | (((((v_Sf1_p_b1 & v_Sox9_p_b1) & !v_Sox9_p_b2) & v_b_cat_p_b1) & !v_b_cat_p_b2) & !v_Foxl2_p)) | ((v_Sf1_p_b1 & v_Sox9_p_b1) & v_Sox9_p_b2))
+v_Sox9_p_b2, ((((((!v_Sry_p & v_Sf1_p_b1) & v_Sox9_p_b1) & !v_b_cat_p_b1) & !v_Foxl2_p) | ((((v_Sry_p & v_Sf1_p_b1) & v_Sox9_p_b1) & !v_b_cat_p_b1) & !v_Foxl2_p)) | (((((v_Sry_p & v_Sf1_p_b1) & v_Sox9_p_b1) & v_b_cat_p_b1) & !v_b_cat_p_b2) & !v_Foxl2_p))
+v_Sry_c, (((((v_Y & v_Wt1) & v_AS_c) & v_Sf1_c_b1) & !v_Sox9_c_b1) | (((((v_Y & v_Wt1) & v_AS_c) & v_Sf1_c_b1) & v_Sox9_c_b1) & !v_Sox9_c_b2))
+v_Sry_p, (((((v_Y & v_Wt1) & v_AS_p) & v_Sf1_p_b1) & !v_Sox9_p_b1) | (((((v_Y & v_Wt1) & v_AS_p) & v_Sf1_p_b1) & v_Sox9_p_b1) & !v_Sox9_p_b2))
+v_Wnt4_c_b1, (((((!v_IW & !v_Fgf9_cr_b1) & v_Wnt4_c_b1) | (((!v_IW & v_Fgf9_cr_b1) & !v_Fgf9_cr_b2) & v_Wnt4_c_b1)) | ((((!v_IW & v_Fgf9_cr_b1) & v_Fgf9_cr_b2) & v_Wnt4_c_b1) & v_Wnt4_c_b2)) | ((v_IW & v_Wnt4_c_b1) & v_Wnt4_c_b2))
+v_Wnt4_c_b2, ((!v_IW & !v_Fgf9_cr_b1) & v_Wnt4_c_b1)
+v_Wnt4_p_b1, (((((!v_IW & !v_Fgf9_pr_b1) & v_Wnt4_p_b1) | (((!v_IW & v_Fgf9_pr_b1) & !v_Fgf9_pr_b2) & v_Wnt4_p_b1)) | ((((!v_IW & v_Fgf9_pr_b1) & v_Fgf9_pr_b2) & v_Wnt4_p_b1) & v_Wnt4_p_b2)) | ((v_IW & v_Wnt4_p_b1) & v_Wnt4_p_b2))
+v_Wnt4_p_b2, ((!v_IW & !v_Fgf9_pr_b1) & v_Wnt4_p_b1)
+v_Wt1, v_Wt1
+v_Y, v_Y
+v_b_cat_c_b1, (((((((!v_Sox9_c_b1 & !v_Wnt4_c_b1) & v_b_cat_c_b1) & v_b_cat_c_b2) | (!v_Sox9_c_b1 & v_Wnt4_c_b1)) | ((((v_Sox9_c_b1 & !v_Sox9_c_b2) & !v_Wnt4_c_b1) & v_b_cat_c_b1) & v_b_cat_c_b2)) | ((v_Sox9_c_b1 & !v_Sox9_c_b2) & v_Wnt4_c_b1)) | (((v_Sox9_c_b1 & v_Sox9_c_b2) & v_b_cat_c_b1) & v_b_cat_c_b2))
+v_b_cat_c_b2, ((((!v_Sox9_c_b1 & v_Wnt4_c_b1) & v_Wnt4_c_b2) & v_b_cat_c_b1) | ((((v_Sox9_c_b1 & !v_Sox9_c_b2) & v_Wnt4_c_b1) & v_Wnt4_c_b2) & v_b_cat_c_b1))
+v_b_cat_p_b1, (((((((!v_Sox9_p_b1 & !v_Wnt4_p_b1) & v_b_cat_p_b1) & v_b_cat_p_b2) | (!v_Sox9_p_b1 & v_Wnt4_p_b1)) | ((((v_Sox9_p_b1 & !v_Sox9_p_b2) & !v_Wnt4_p_b1) & v_b_cat_p_b1) & v_b_cat_p_b2)) | ((v_Sox9_p_b1 & !v_Sox9_p_b2) & v_Wnt4_p_b1)) | (((v_Sox9_p_b1 & v_Sox9_p_b2) & v_b_cat_p_b1) & v_b_cat_p_b2))
+v_b_cat_p_b2, ((((!v_Sox9_p_b1 & v_Wnt4_p_b1) & v_Wnt4_p_b2) & v_b_cat_p_b1) | ((((v_Sox9_p_b1 & !v_Sox9_p_b2) & v_Wnt4_p_b1) & v_Wnt4_p_b2) & v_b_cat_p_b1))

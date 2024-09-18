@@ -1,0 +1,17 @@
+targets,factors
+v_AKT, ((((v_p70S6K | v_mTOR) | v_ERBB3) | v_PDK1) | v_AKT)
+v_EGF, v_EGF
+v_ERBB1, (((v_EGF & !(v_pertuzumab | v_erlotinib)) | (v_ERBB1 & !(v_pertuzumab | v_erlotinib))) | (v_PLCg & !(v_pertuzumab | v_erlotinib)))
+v_ERBB2, (((v_ERBB1 & !((v_erlotinib | v_trastuzumab) | v_pertuzumab)) | (v_ERBB2 & !((v_erlotinib | v_trastuzumab) | v_pertuzumab))) | (v_PDK1 & !((v_erlotinib | v_trastuzumab) | v_pertuzumab)))
+v_ERBB3, (((v_ERK1_2 & !(v_erlotinib | v_pertuzumab)) | (v_ERBB3 & !(v_erlotinib | v_pertuzumab))) | (v_HRG & !(v_erlotinib | v_pertuzumab)))
+v_ERK1_2, (v_MEK1_2 | v_ERK1_2)
+v_HRG, v_HRG
+v_MEK1_2, ((((v_ERBB1 | v_PDK1) | v_MEK1_2) | v_ERBB2) | v_ERBB3)
+v_PDK1, (((v_ERBB2 | v_PDK1) | v_ERBB1) | v_ERBB3)
+v_PKCa, ((v_PLCg | v_PKCa) | v_trastuzumab)
+v_PLCg, (((v_ERBB1 | v_ERBB2) | v_PLCg) | v_ERBB3)
+v_erlotinib, v_erlotinib
+v_mTOR, (v_AKT | v_mTOR)
+v_p70S6K, ((((v_mTOR | v_erlotinib) | v_p70S6K) | v_AKT) | v_ERK1_2)
+v_pertuzumab, v_pertuzumab
+v_trastuzumab, v_trastuzumab

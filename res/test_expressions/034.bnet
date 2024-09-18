@@ -1,0 +1,24 @@
+targets,factors
+v_AKT, (((((v_AKT & !v_PTEN) | (v_ERBB1 & !v_PTEN)) | (v_ERBB2 & !v_PTEN)) | (v_CyclinB1 & !v_PTEN)) | (v_ERBB3 & !v_PTEN))
+v_CyclinB1, (v_CyclinB1 & !v_p53)
+v_CyclinD1, ((((v_ERK1_2 | v_cJUN) | v_AKT) | v_p70S6K) | v_CyclinD1)
+v_ERBB1, ((((v_stimulus & !(v_pertuzumab | v_erlotinib)) | (v_ERBB3 & !(v_pertuzumab | v_erlotinib))) | (v_cJUN & !(v_pertuzumab | v_erlotinib))) | (v_ERBB1 & !(v_pertuzumab | v_erlotinib)))
+v_ERBB2, ((v_stimulus & !((v_trastuzumab | v_erlotinib) | v_pertuzumab)) | (v_ERBB2 & !((v_trastuzumab | v_erlotinib) | v_pertuzumab)))
+v_ERBB3, (((v_ERBB3 & !(v_erlotinib | v_pertuzumab)) | (v_RPS6 & !(v_erlotinib | v_pertuzumab))) | (v_stimulus & !(v_erlotinib | v_pertuzumab)))
+v_ERK1_2, ((v_ERK1_2 | v_ERBB1) | v_cRAF)
+v_FOXO1_3a, (v_FOXO1_3a & !v_AKT)
+v_GSKa_b, (v_GSKa_b | v_p53)
+v_PRAS, ((v_PRAS & !v_AKT) | (v_cJUN & !v_AKT))
+v_PTEN, ((v_PTEN & !v_GSKa_b) | (v_cRAF & !v_GSKa_b))
+v_RB, ((v_RB & !v_CyclinB1) | (v_p53 & !v_CyclinB1))
+v_RPS6, (v_p70S6K | v_RPS6)
+v_TSC2, ((v_RB & !((v_AKT | v_GSKa_b) | v_ERK1_2)) | (v_TSC2 & !((v_AKT | v_GSKa_b) | v_ERK1_2)))
+v_cJUN, (v_cJUN & !v_GSKa_b)
+v_cRAF, (((v_ERBB1 & !v_ERK1_2) | (v_cRAF & !v_ERK1_2)) | (v_ERBB2 & !v_ERK1_2))
+v_erlotinib, v_erlotinib
+v_p38, (v_AKT | v_p38)
+v_p53, (((v_p53 | v_CyclinB1) | v_p38) | v_RB)
+v_p70S6K, ((v_ERK1_2 & !(v_PRAS | v_TSC2)) | (v_p70S6K & !(v_PRAS | v_TSC2)))
+v_pertuzumab, v_pertuzumab
+v_stimulus, v_stimulus
+v_trastuzumab, v_trastuzumab

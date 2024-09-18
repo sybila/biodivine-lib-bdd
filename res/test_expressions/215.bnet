@@ -1,0 +1,68 @@
+targets,factors
+v_2___O_acetyl_ADP_D_ribose_simple_molecule, ((v_STK11_acetylated & v_NAD____simple_molecule) & v_SIRT1)
+v_AKT1_phosphorylated, v_AKT1_phosphorylated
+v_AMP_simple_molecule, !v_glycolysis_phenotype
+v_ATP_simple_molecule, v_glycolysis_phenotype
+v_Akt_space_pathway_phenotype, (v_mTORC2_complex | !v_PHLPP1)
+v_CAMKK2, v_Calmodulin_complex
+v_Ca2__ion, v_cytosolic_space_calcium_space_ion_space_homeostasis_phenotype
+v_Calmodulin_complex, v_Ca2__ion
+v_DDB1_CUL4A_complex, v_DDB1_CUL4A_complex
+v_DDIT4, v_DDIT4
+v_DDIT4_phosphorylated, (v_DDIT4 & v_GSK3B)
+v_GATOR1_complex, !v_GATOR2_complex
+v_GATOR2_complex, v_GATOR2_complex
+v_GHRL, v_GHRL
+v_GSK3B, v_GSK3B
+v_MAPK1_phosphorylated_phosphorylated, v_MAPK1_phosphorylated_phosphorylated
+v_NAD____simple_molecule, (((v_nicotinamide_space_riboside_space__NR__simple_molecule & v_NMRK1) | (v_nicotinamide_simple_molecule & v_NAMPT)) | (v_nicotinamide_space_riboside_space__NR__simple_molecule & v_NMRK1))
+v_NAD_space_depletion_phenotype, v_nicotinamide_simple_molecule
+v_NAMPT, v_NAMPT
+v_NMRK1, v_NMRK1
+v_PARP1, ((v_ROS_simple_molecule | v_excitotoxicity_phenotype) & v_PARP1)
+v_PHLPP1, !v_sa11500_UCHL1_neuron
+v_ROS_simple_molecule, v_ROS_simple_molecule
+v_RPS6KB1_phosphorylated, v_mTORC1_complex
+v_Ragulator_SLC38A9_complex, (v_arginine_simple_molecule | v_v_ATPase_complex)
+v_SESN2, (v_SESN2 & v_leucine_simple_molecule)
+v_SIRT1, (((v_caloric_space_restriction_phenotype | v_resveratrol_drug) | !v_nicotinamide_simple_molecule) | v_NAD____simple_molecule)
+v_STK11, ((((v_STK11_acetylated & v_NAD____simple_molecule) & v_SIRT1) | v_AMP_simple_molecule) | !v_ATP_simple_molecule)
+v_STK11_acetylated, v_STK11_acetylated
+v_UBE2N_UBE2V1_complex, v_UBE2N_UBE2V1_complex
+v_UCHL1_PRKN_complex, (((((v_sa11464_PRKN_neuron & v_sa11500_UCHL1_neuron) & v_sa11471_UCHL1_neuron) & !v_sa11482_PRKN_neuron) & !v_sa11484_PRKN_neuron) & !v_sa11476_PRKN_neuron)
+v_aging_phenotype, !v_nicotinamide_space_riboside_space__NR__simple_molecule
+v_amino_space_acids_simple_molecule_lysosome, v_autophagy_lysosome_space_system_phenotype
+v_amino_space_acids_simple_molecule_neuron, v_amino_space_acids_simple_molecule_lysosome
+v_apoptosis_phenotype, v_NAD_space_depletion_phenotype
+v_arginine_simple_molecule, v_amino_space_acids_simple_molecule_lysosome
+v_autophagy_lysosome_space_system_phenotype, v_autophagy_lysosome_space_system_phenotype
+v_caloric_space_restriction_phenotype, v_caloric_space_restriction_phenotype
+v_catabolism_phenotype, v_csa1840_AMPK_complex_neuron
+v_csa1840_AMPK_complex_neuron, (((((v_CAMKK2 | v_STK11) | v_resveratrol_drug) | v_GHRL) | v_caloric_space_restriction_phenotype) | v_energy_space_homeostasis_phenotype)
+v_csa1841_TSC1_TSC2_complex_neuron, ((v_AKT1_phosphorylated | v_MAPK1_phosphorylated_phosphorylated) & v_csa1842_TSC1_TSC2_complex_neuron)
+v_csa1842_TSC1_TSC2_complex_neuron, (v_csa1840_AMPK_complex_neuron | v_DDIT4)
+v_csa1847_AMPK_complex_neuron, v_SESN2
+v_cytosolic_space_calcium_space_ion_space_homeostasis_phenotype, v_cytosolic_space_calcium_space_ion_space_homeostasis_phenotype
+v_energy_space_homeostasis_phenotype, v_energy_space_homeostasis_phenotype
+v_epilepsy__space_familial_space_focal_phenotype, v_GATOR1_complex
+v_excitotoxicity_phenotype, v_excitotoxicity_phenotype
+v_glycolysis_phenotype, v_csa1840_AMPK_complex_neuron
+v_leucine_simple_molecule, v_amino_space_acids_simple_molecule_neuron
+v_mTORC1_complex, (((v_DDB1_CUL4A_complex | v_sa11503_RHEB_lysosome) | v_Ragulator_SLC38A9_complex) & !v_sa11500_UCHL1_neuron)
+v_mTORC2_complex, ((!v_RPS6KB1_phosphorylated | v_sa11500_UCHL1_neuron) | v_csa1842_TSC1_TSC2_complex_neuron)
+v_mitochondrial_space_dysfunction_phenotype, v_NAD_space_depletion_phenotype
+v_nicotinamide_simple_molecule, (((v_STK11_acetylated & v_NAD____simple_molecule) & v_SIRT1) | (v_NAD____simple_molecule & v_PARP1))
+v_nicotinamide_space_riboside_space__NR__simple_molecule, v_nicotinamide_space_riboside_space__NR__simple_molecule
+v_parthanatos_phenotype, v_NAD_space_depletion_phenotype
+v_resveratrol_drug, v_resveratrol_drug
+v_sa11464_PRKN_neuron, v_sa11464_PRKN_neuron
+v_sa11471_UCHL1_neuron, v_sa11471_UCHL1_neuron
+v_sa11476_PRKN_neuron, v_sa11476_PRKN_neuron
+v_sa11480_RHEB_lysosome, (v_sa11503_RHEB_lysosome & v_csa1842_TSC1_TSC2_complex_neuron)
+v_sa11482_PRKN_neuron, v_sa11482_PRKN_neuron
+v_sa11484_PRKN_neuron, v_sa11484_PRKN_neuron
+v_sa11492_UCHL1_neuron, (v_UCHL1_PRKN_complex & v_UBE2N_UBE2V1_complex)
+v_sa11500_UCHL1_neuron, v_sa11500_UCHL1_neuron
+v_sa11503_RHEB_lysosome, v_sa11503_RHEB_lysosome
+v_sestrin_GATOR2_complex, (v_SESN2 & v_GATOR2_complex)
+v_v_ATPase_complex, v_amino_space_acids_simple_molecule_lysosome

@@ -1,0 +1,78 @@
+targets,factors
+v_ABCA7, v_SREBP2
+v_AKT, ((((!v_CASP3 & v_PI3K) & !v_PP2A) & v_s_NMDAR) | ((((!v_CASP3 & v_PI3K) & v_PP2A) & !v_PTEN) & v_s_NMDAR))
+v_APOE4, v_APOE4
+v_APP, (((((((!v_a_secretase & v_ERK) | ((v_a_secretase & !v_Apoer2) & v_ERK)) | (((v_a_secretase & v_Apoer2) & !v_Dab1) & v_ERK)) | ((((v_a_secretase & v_Apoer2) & v_Dab1) & v_ERK) & !v_Fyn)) | ((((((v_a_secretase & v_Apoer2) & v_Dab1) & v_ERK) & v_Fyn) & !v_LRP6) & !v_SORL1)) | (((((((v_a_secretase & v_Apoer2) & v_Dab1) & v_ERK) & v_Fyn) & !v_LRP6) & v_SORL1) & !v_Sortilin)) | ((((((v_a_secretase & v_Apoer2) & v_Dab1) & v_ERK) & v_Fyn) & v_LRP6) & !v_SORL1))
+v_ATM, v_ROS
+v_Ab, (((((((v_APP & !v_Autophagy) & v_BACE1) & !v_Cholesterol) & !v_PICALM) & v_Sortilin) | ((((v_APP & !v_Autophagy) & v_BACE1) & !v_Cholesterol) & v_PICALM)) | (((v_APP & !v_Autophagy) & v_BACE1) & v_Cholesterol))
+v_Apoer2, (!v_APOE4 & v_Reelin)
+v_Apoptosis, v_CASP3
+v_Autophagy, ((((((v_beclin1 & !v_Cholesterol) & v_LAMP2) & v_LC3) & v_p62) & v_ULK1) | ((((((v_beclin1 & v_Cholesterol) & v_LAMP2) & v_LC3) & v_p62) & !v_ROS) & v_ULK1))
+v_BACE1, (((!v_Cholesterol & !v_PGC1a) & v_STAT3) | (v_Cholesterol & !v_PGC1a))
+v_BAD, (!v_AKT & v_PP2B)
+v_BAX, ((((!v_AKT & !v_Bcl2) & v_Bim) & v_p53) & v_PUMA)
+v_BDNF, (((!v_CREB & v_PGC1a) & v_Sortilin) | (v_CREB & v_Sortilin))
+v_Bcl2, (((!v_BAD & !v_Bim) | ((!v_BAD & v_Bim) & !v_JNK)) | (((!v_BAD & v_Bim) & v_JNK) & !v_p53))
+v_Bim, ((!v_EGR1 & v_FOXO) | v_EGR1)
+v_CASP2, v_p53
+v_CASP3, (v_BAX & v_Bim)
+v_CIP2A, v_Ab
+v_CLU, ((!v_EGR1 & v_p53) | v_EGR1)
+v_CREB, (((!v_e_NMDAR | ((v_e_NMDAR & !v_ERK) & !v_Jacob)) | ((v_e_NMDAR & v_ERK) & !v_Jacob)) | (((v_e_NMDAR & v_ERK) & v_Jacob) & v_s_NMDAR))
+v_CYP46A1, (!v_APP & v_Ca_ion)
+v_Ca_ion, v_e_NMDAR
+v_Cdk5, ((!v_Ca_ion & v_EGR1) | v_Ca_ion)
+v_Cholesterol, (((!v_ABCA7 | ((v_ABCA7 & !v_CYP46A1) & !v_LPL)) | ((((v_ABCA7 & !v_CYP46A1) & v_LPL) & v_SREBP2) & v_HMGCR)) | ((v_ABCA7 & v_CYP46A1) & !v_LPL))
+v_Cofilin, (!v_LIMK1 & v_PP2B)
+v_DLK, v_APOE4
+v_Dab1, (v_Apoer2 & !v_Fyn)
+v_Dkk1, (((v_Ab & !v_CLU) & v_PICALM) | (v_Ab & v_CLU))
+v_EGR1, v_JNK
+v_ERK, ((((((!v_MKK7 & !v_PP2A) & v_s_NMDAR) & !v_STEP) | ((((!v_MKK7 & v_PP2A) & v_s_NMDAR) & !v_STEP) & !v_pTau)) | (v_MKK7 & !v_PP2A)) | ((v_MKK7 & v_PP2A) & !v_pTau))
+v_FOXO, (!v_AKT & v_JNK)
+v_Fyn, ((((!v_Apoer2 & v_mGluR) & !v_STEP) | (((v_Apoer2 & !v_Dab1) & v_mGluR) & !v_STEP)) | ((v_Apoer2 & v_Dab1) & !v_STEP))
+v_GSK3beta, ((((!v_AKT & !v_Ca_ion) & !v_LRP6) & v_PP2A) | ((!v_AKT & v_Ca_ion) & !v_LRP6))
+v_HMGCR, ((!v_BDNF & v_SREBP2) | v_BDNF)
+v_JNK, ((!v_MKK7 & v_Vangl2) | v_MKK7)
+v_Jacob, (((!v_e_NMDAR & v_ERK) & v_s_NMDAR) | v_e_NMDAR)
+v_LAMP2, ((!v_PIP2 & v_TFEB) | v_PIP2)
+v_LC3, ((!v_PICALM | ((v_PICALM & !v_PIP2) & v_TFEB)) | (v_PICALM & v_PIP2))
+v_LIMK1, (v_PI3K & !v_ROCK)
+v_LPL, (!v_SORL1 & v_SREBP2)
+v_LRP6, (!v_APOE4 | (v_APOE4 & !v_Dkk1))
+v_MAPT, (!v_CREB & v_e_NMDAR)
+v_MDM2, ((((!v_ATM & !v_CASP2) & v_p53) | (((!v_ATM & v_CASP2) & !v_GSK3beta) & v_p53)) | ((v_ATM & !v_GSK3beta) & v_p53))
+v_MKK7, ((!v_DLK & v_e_NMDAR) | v_DLK)
+v_PGC1a, (((!v_CREB & v_p38) & v_SIRT1) | (v_CREB & v_p38))
+v_PI3K, ((((!v_BDNF & !v_Dab1) & v_s_NMDAR) | (!v_BDNF & v_Dab1)) | v_BDNF)
+v_PICALM, (!v_Ca_ion & !v_CASP3)
+v_PIP2, !v_synj1
+v_PP2A, (((!v_APOE4 & !v_CIP2A) & !v_GSK3beta) | (((!v_APOE4 & !v_CIP2A) & v_GSK3beta) & !v_mGluR))
+v_PP2B, ((!v_Ca_ion & v_mGluR) | v_Ca_ion)
+v_PTEN, v_ROCK
+v_PUMA, (((!v_FOXO & v_p53) & !v_s_NMDAR) | (v_FOXO & !v_s_NMDAR))
+v_ROCK, ((!v_RhoA & !v_SIRT1) | v_RhoA)
+v_ROS, (((!v_Ab & v_Ca_ion) & !v_PGC1a) | (v_Ab & !v_PGC1a))
+v_Reelin, !v_Apoptosis
+v_RhoA, ((!v_CASP2 & v_Vangl2) | v_CASP2)
+v_SIRT1, (!v_APOE4 | (v_APOE4 & !v_ROS))
+v_SORL1, ((!v_BDNF & !v_ROCK) | v_BDNF)
+v_SREBP2, (((!v_ABCA7 | ((v_ABCA7 & !v_AKT) & !v_APP)) | (((v_ABCA7 & !v_AKT) & v_APP) & !v_Cholesterol)) | (v_ABCA7 & v_AKT))
+v_STAT3, v_Cdk5
+v_STEP, ((!v_e_NMDAR & v_PP2B) | ((v_e_NMDAR & v_PP2B) & !v_s_NMDAR))
+v_Sortilin, v_ROCK
+v_TFEB, ((!v_APOE4 & v_PP2B) | ((v_APOE4 & !v_mTOR) & v_PP2B))
+v_ULK1, !v_mTOR
+v_Vangl2, v_Dkk1
+v_a_secretase, (((((!v_Cholesterol & !v_CREB) & v_s_NMDAR) | (!v_Cholesterol & v_CREB)) | (((v_Cholesterol & !v_CREB) & !v_ROCK) & v_s_NMDAR)) | ((v_Cholesterol & v_CREB) & !v_ROCK))
+v_beclin1, (((((!v_Bcl2 & !v_JNK) & v_ROCK) | (!v_Bcl2 & v_JNK)) | (((v_Bcl2 & !v_CASP3) & !v_JNK) & v_ROCK)) | ((v_Bcl2 & !v_CASP3) & v_JNK))
+v_e_NMDAR, (((!v_Ab & v_PTEN) | ((v_Ab & !v_Fyn) & v_PTEN)) | (v_Ab & v_Fyn))
+v_mGluR, v_Ab
+v_mTOR, (((((!v_AKT & !v_Cholesterol) & v_ERK) & !v_SIRT1) | ((!v_AKT & v_Cholesterol) & !v_SIRT1)) | (v_AKT & !v_SIRT1))
+v_p38, !v_STEP
+v_p53, (((!v_ATM & !v_MDM2) & v_p38) | (v_ATM & !v_MDM2))
+v_p62, ((!v_PICALM | ((v_PICALM & !v_PIP2) & v_TFEB)) | (v_PICALM & v_PIP2))
+v_pTau, (((((((!v_Autophagy & !v_Cdk5) & !v_ERK) & v_GSK3beta) & v_MAPT) & !v_PP2A) | ((((!v_Autophagy & !v_Cdk5) & v_ERK) & v_MAPT) & !v_PP2A)) | (((!v_Autophagy & v_Cdk5) & v_MAPT) & !v_PP2A))
+v_s_NMDAR, ((((!v_BDNF & v_Fyn) & !v_STEP) & !v_pTau) | ((v_BDNF & !v_STEP) & !v_pTau))
+v_synapse_loss, ((((!v_BDNF & !v_Cofilin) & !v_CREB) & v_pTau) | ((!v_BDNF & v_Cofilin) & !v_CREB))
+v_synj1, (((!v_APOE4 & !v_Cdk5) & v_PP2B) | v_APOE4)

@@ -1,0 +1,69 @@
+targets,factors
+v_AKAP12, v_AKAP12
+v_AP1, (v_cFOS & v_cJUN)
+v_ATF2, (v_JNK & v_p38)
+v_Akt, (v_PI3K & !v_PTEN)
+v_C3G, v_CRKL
+v_CCL20, v_Erk
+v_CDK2, (v_CyclinD & (!v_CDKN1A | !v_CDKN2A))
+v_CDKN1A, v_STAT3
+v_CDKN2A, (v_Elk1 | v_ETS)
+v_CREB, v_RSK
+v_CRKL, v_Grb2
+v_CTGF, (v_Erk | v_p38)
+v_Ca, v_IP3
+v_Cdc42_Rac1, (v_Akt & (v_Ras & v_DOCK180))
+v_CellMigration, (v_IL8 & ((v_CTGF & v_CCL20) & v_PTGS2))
+v_CyclinD, (v_Elk1 | v_ATF2)
+v_DAG, v_PLC_g
+v_DOCK180, v_CRKL
+v_DUSP1, v_DUSP1
+v_ECM, v_MMP1_10
+v_EGF, v_EGF
+v_EGFR, (v_HBEGF | v_EGF)
+v_EGR1, v_Erk
+v_ETS, v_Erk
+v_Elk1, (v_JNK | v_Erk)
+v_Erk, v_Mek
+v_Fak, ((v_Integrins & v_Rap1) & !v_PTEN)
+v_Grb2, v_Shc
+v_HBEGF, (v_p38 | v_Erk)
+v_HGF, v_HGF
+v_IL8, (v_Erk | v_p38)
+v_IP3, v_PLC_g
+v_Integrins, v_ECM
+v_JNK, (v_PAK2 | (v_Mekk7 & v_Mkk4))
+v_MET, v_HGF
+v_MLK3, v_Cdc42_Rac1
+v_MMP1_10, v_Plasmin
+v_Mek, (v_Mekk1 | v_Raf)
+v_Mekk1, v_Cdc42_Rac1
+v_Mekk4, v_Cdc42_Rac1
+v_Mekk7, v_Mekk1
+v_Mkk3, v_MLK3
+v_Mkk4, ((v_MLK3 | v_Mekk1) | v_Mekk4)
+v_Mkk6, v_MLK3
+v_PAI_1, v_PAI_1
+v_PAK1, v_Cdc42_Rac1
+v_PAK2, v_Cdc42_Rac1
+v_PAK3, v_Cdc42_Rac1
+v_PI3K, (v_MET | (v_EGFR & v_Fak))
+v_PKC, ((v_DAG & v_Ca) & !v_AKAP12)
+v_PLC_g, (v_MET | v_EGFR)
+v_PTEN, v_PTEN
+v_PTGS2, (v_ATF2 | (v_cFOS & v_cJUN))
+v_Plasmin, (v_uPA & v_PAI_1)
+v_Proliferation, (v_CDK2 & v_CyclinD)
+v_RSK, v_Erk
+v_Raf, (v_Ras & (v_PAK3 & v_PKC))
+v_Rap1, v_C3G
+v_Ras, v_SOS
+v_SOS, v_Grb2
+v_STAT3, v_Erk
+v_Shc, ((v_MET | v_Fak) | v_EGFR)
+v_cFOS, v_Erk
+v_cJUN, (v_JNK & v_p38)
+v_cMYC, v_Erk
+v_p38, (((v_Mkk3 & v_Mkk6) & !v_DUSP1) | v_PAK1)
+v_uPA, v_uPAR
+v_uPAR, v_AP1

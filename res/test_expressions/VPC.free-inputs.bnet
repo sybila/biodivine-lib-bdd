@@ -1,0 +1,173 @@
+# model in BoolNet format
+# the header targets, factors is mandatory to be importable in the R package BoolNet
+
+targets, factors
+AC_id95,           AC_id95
+LET_23_id1_b1,     1
+LET_23_id1_b2,     LET_23_id1_b1
+LET_23_id25_b1,    1
+LET_23_id25_b2,    0
+LET_23_id35_b1,    LET_23_id35_b1&LET_23_id35_b2
+LET_23_id35_b2,    0
+LET_23_id45_b1,    1
+LET_23_id45_b2,    0
+LET_23_id55_b1,    LET_23_id55_b1&LET_23_id55_b2
+LET_23_id55_b2,    0
+LET_23_id65_b1,    LET_23_id65_b1&LET_23_id65_b2
+LET_23_id65_b2,    0
+LET_60_id29_b1,    !SEM_5_id28_b1&LET_60_id29_b1&LET_60_id29_b2 | SEM_5_id28_b1&!SEM_5_id28_b2&!LET_60_id29_b1&!lst_id33_b1 | SEM_5_id28_b1&!SEM_5_id28_b2&!LET_60_id29_b1&lst_id33_b1&!lst_id33_b2 | SEM_5_id28_b1&!SEM_5_id28_b2&LET_60_id29_b1&!LET_60_id29_b2&!lst_id33_b1 | SEM_5_id28_b1&!SEM_5_id28_b2&LET_60_id29_b1&!LET_60_id29_b2&lst_id33_b1&!lst_id33_b2 | SEM_5_id28_b1&!SEM_5_id28_b2&LET_60_id29_b1&LET_60_id29_b2 | SEM_5_id28_b1&SEM_5_id28_b2
+LET_60_id29_b2,    SEM_5_id28_b1&SEM_5_id28_b2&LET_60_id29_b1
+LET_60_id39_b1,    !SEM_5_id38_b1&LET_60_id39_b1&LET_60_id39_b2 | SEM_5_id38_b1&!SEM_5_id38_b2&!LET_60_id39_b1&!lst_id43_b1 | SEM_5_id38_b1&!SEM_5_id38_b2&!LET_60_id39_b1&lst_id43_b1&!lst_id43_b2 | SEM_5_id38_b1&!SEM_5_id38_b2&LET_60_id39_b1&!LET_60_id39_b2&!lst_id43_b1 | SEM_5_id38_b1&!SEM_5_id38_b2&LET_60_id39_b1&!LET_60_id39_b2&lst_id43_b1&!lst_id43_b2 | SEM_5_id38_b1&!SEM_5_id38_b2&LET_60_id39_b1&LET_60_id39_b2 | SEM_5_id38_b1&SEM_5_id38_b2
+LET_60_id39_b2,    SEM_5_id38_b1&SEM_5_id38_b2&LET_60_id39_b1
+LET_60_id49_b1,    !SEM_5_id48_b1&LET_60_id49_b1&LET_60_id49_b2 | SEM_5_id48_b1&!SEM_5_id48_b2&!LET_60_id49_b1&!lst_id53_b1 | SEM_5_id48_b1&!SEM_5_id48_b2&!LET_60_id49_b1&lst_id53_b1&!lst_id53_b2 | SEM_5_id48_b1&!SEM_5_id48_b2&LET_60_id49_b1&!LET_60_id49_b2&!lst_id53_b1 | SEM_5_id48_b1&!SEM_5_id48_b2&LET_60_id49_b1&!LET_60_id49_b2&lst_id53_b1&!lst_id53_b2 | SEM_5_id48_b1&!SEM_5_id48_b2&LET_60_id49_b1&LET_60_id49_b2 | SEM_5_id48_b1&SEM_5_id48_b2
+LET_60_id49_b2,    SEM_5_id48_b1&SEM_5_id48_b2&LET_60_id49_b1
+LET_60_id59_b1,    !SEM_5_id58_b1&LET_60_id59_b1&LET_60_id59_b2 | SEM_5_id58_b1&!SEM_5_id58_b2&!LET_60_id59_b1&!lst_id63_b1 | SEM_5_id58_b1&!SEM_5_id58_b2&!LET_60_id59_b1&lst_id63_b1&!lst_id63_b2 | SEM_5_id58_b1&!SEM_5_id58_b2&LET_60_id59_b1&!LET_60_id59_b2&!lst_id63_b1 | SEM_5_id58_b1&!SEM_5_id58_b2&LET_60_id59_b1&!LET_60_id59_b2&lst_id63_b1&!lst_id63_b2 | SEM_5_id58_b1&!SEM_5_id58_b2&LET_60_id59_b1&LET_60_id59_b2 | SEM_5_id58_b1&SEM_5_id58_b2
+LET_60_id59_b2,    SEM_5_id58_b1&SEM_5_id58_b2&LET_60_id59_b1
+LET_60_id5_b1,     !SEM_5_id4_b1&LET_60_id5_b1&LET_60_id5_b2 | SEM_5_id4_b1&!SEM_5_id4_b2&!LET_60_id5_b1&!lst_id9_b1 | SEM_5_id4_b1&!SEM_5_id4_b2&!LET_60_id5_b1&lst_id9_b1&!lst_id9_b2 | SEM_5_id4_b1&!SEM_5_id4_b2&LET_60_id5_b1&!LET_60_id5_b2&!lst_id9_b1 | SEM_5_id4_b1&!SEM_5_id4_b2&LET_60_id5_b1&!LET_60_id5_b2&lst_id9_b1&!lst_id9_b2 | SEM_5_id4_b1&!SEM_5_id4_b2&LET_60_id5_b1&LET_60_id5_b2 | SEM_5_id4_b1&SEM_5_id4_b2
+LET_60_id5_b2,     SEM_5_id4_b1&SEM_5_id4_b2&LET_60_id5_b1
+LET_60_id69_b1,    !SEM_5_id68_b1&LET_60_id69_b1&LET_60_id69_b2 | SEM_5_id68_b1&!SEM_5_id68_b2&!LET_60_id69_b1&!lst_id73_b1 | SEM_5_id68_b1&!SEM_5_id68_b2&!LET_60_id69_b1&lst_id73_b1&!lst_id73_b2 | SEM_5_id68_b1&!SEM_5_id68_b2&LET_60_id69_b1&!LET_60_id69_b2&!lst_id73_b1 | SEM_5_id68_b1&!SEM_5_id68_b2&LET_60_id69_b1&!LET_60_id69_b2&lst_id73_b1&!lst_id73_b2 | SEM_5_id68_b1&!SEM_5_id68_b2&LET_60_id69_b1&LET_60_id69_b2 | SEM_5_id68_b1&SEM_5_id68_b2
+LET_60_id69_b2,    SEM_5_id68_b1&SEM_5_id68_b2&LET_60_id69_b1
+LSext_id23_b1,     !LSext_id23_b1&!MPK_1_id31_b1&MPK_1_id51_b1 | !LSext_id23_b1&MPK_1_id31_b1 | LSext_id23_b1&!LSext_id23_b2&!MPK_1_id31_b1&MPK_1_id51_b1 | LSext_id23_b1&!LSext_id23_b2&MPK_1_id31_b1 | LSext_id23_b1&LSext_id23_b2
+LSext_id23_b2,     LSext_id23_b1&!MPK_1_id31_b1&MPK_1_id51_b1&MPK_1_id51_b2 | LSext_id23_b1&MPK_1_id31_b1&!MPK_1_id31_b2&MPK_1_id51_b1&MPK_1_id51_b2 | LSext_id23_b1&MPK_1_id31_b1&MPK_1_id31_b2
+LSext_id77_b1,     !MPK_1_id7_b1&!MPK_1_id61_b1&LSext_id77_b1&LSext_id77_b2 | !MPK_1_id7_b1&MPK_1_id61_b1 | MPK_1_id7_b1
+LSext_id77_b2,     !MPK_1_id7_b1&MPK_1_id61_b1&MPK_1_id61_b2&LSext_id77_b1 | MPK_1_id7_b1&!MPK_1_id7_b2&MPK_1_id61_b1&MPK_1_id61_b2&LSext_id77_b1 | MPK_1_id7_b1&MPK_1_id7_b2&LSext_id77_b1
+LSext_id81_b1,     !MPK_1_id51_b1&!MPK_1_id71_b1&LSext_id81_b1&LSext_id81_b2 | !MPK_1_id51_b1&MPK_1_id71_b1 | MPK_1_id51_b1
+LSext_id81_b2,     !MPK_1_id51_b1&MPK_1_id71_b1&MPK_1_id71_b2&LSext_id81_b1 | MPK_1_id51_b1&!MPK_1_id51_b2&MPK_1_id71_b1&MPK_1_id71_b2&LSext_id81_b1 | MPK_1_id51_b1&MPK_1_id51_b2&LSext_id81_b1
+LSext_id85_b1,     !MPK_1_id61_b1&LSext_id85_b1&LSext_id85_b2 | MPK_1_id61_b1
+LSext_id85_b2,     MPK_1_id61_b1&MPK_1_id61_b2&LSext_id85_b1
+LSext_id89_b1,     !MPK_1_id7_b1&!MPK_1_id41_b1&LSext_id89_b1&LSext_id89_b2 | !MPK_1_id7_b1&MPK_1_id41_b1 | MPK_1_id7_b1
+LSext_id89_b2,     !MPK_1_id7_b1&MPK_1_id41_b1&MPK_1_id41_b2&LSext_id89_b1 | MPK_1_id7_b1&!MPK_1_id7_b2&MPK_1_id41_b1&MPK_1_id41_b2&LSext_id89_b1 | MPK_1_id7_b1&MPK_1_id7_b2&LSext_id89_b1
+LSext_id93_b1,     !MPK_1_id31_b1&LSext_id93_b1&LSext_id93_b2 | MPK_1_id31_b1
+LSext_id93_b2,     MPK_1_id31_b1&MPK_1_id31_b2&LSext_id93_b1
+MPK_1_id31_b1,     !signal_id30_b1&!MPK_1_id31_b1&relsig_id32_b1 | !signal_id30_b1&MPK_1_id31_b1&!MPK_1_id31_b2&relsig_id32_b1 | !signal_id30_b1&MPK_1_id31_b1&MPK_1_id31_b2 | signal_id30_b1
+MPK_1_id31_b2,     !signal_id30_b1&MPK_1_id31_b1&relsig_id32_b1&relsig_id32_b2 | signal_id30_b1&!signal_id30_b2&MPK_1_id31_b1&relsig_id32_b1 | signal_id30_b1&signal_id30_b2&MPK_1_id31_b1
+MPK_1_id41_b1,     !signal_id40_b1&!MPK_1_id41_b1&relsig_id42_b1 | !signal_id40_b1&MPK_1_id41_b1&!MPK_1_id41_b2&relsig_id42_b1 | !signal_id40_b1&MPK_1_id41_b1&MPK_1_id41_b2 | signal_id40_b1
+MPK_1_id41_b2,     !signal_id40_b1&MPK_1_id41_b1&relsig_id42_b1&relsig_id42_b2 | signal_id40_b1&!signal_id40_b2&MPK_1_id41_b1&relsig_id42_b1 | signal_id40_b1&signal_id40_b2&MPK_1_id41_b1
+MPK_1_id51_b1,     !signal_id50_b1&!MPK_1_id51_b1&relsig_id52_b1 | !signal_id50_b1&MPK_1_id51_b1&!MPK_1_id51_b2&relsig_id52_b1 | !signal_id50_b1&MPK_1_id51_b1&MPK_1_id51_b2 | signal_id50_b1
+MPK_1_id51_b2,     !signal_id50_b1&MPK_1_id51_b1&relsig_id52_b1&relsig_id52_b2 | signal_id50_b1&!signal_id50_b2&MPK_1_id51_b1&relsig_id52_b1 | signal_id50_b1&signal_id50_b2&MPK_1_id51_b1
+MPK_1_id61_b1,     !signal_id60_b1&!MPK_1_id61_b1&relsig_id62_b1 | !signal_id60_b1&MPK_1_id61_b1&!MPK_1_id61_b2&relsig_id62_b1 | !signal_id60_b1&MPK_1_id61_b1&MPK_1_id61_b2 | signal_id60_b1
+MPK_1_id61_b2,     !signal_id60_b1&MPK_1_id61_b1&relsig_id62_b1&relsig_id62_b2 | signal_id60_b1&!signal_id60_b2&MPK_1_id61_b1&relsig_id62_b1 | signal_id60_b1&signal_id60_b2&MPK_1_id61_b1
+MPK_1_id71_b1,     !signal_id70_b1&!MPK_1_id71_b1&relsig_id72_b1 | !signal_id70_b1&MPK_1_id71_b1&!MPK_1_id71_b2&relsig_id72_b1 | !signal_id70_b1&MPK_1_id71_b1&MPK_1_id71_b2 | signal_id70_b1
+MPK_1_id71_b2,     !signal_id70_b1&MPK_1_id71_b1&relsig_id72_b1&relsig_id72_b2 | signal_id70_b1&!signal_id70_b2&MPK_1_id71_b1&relsig_id72_b1 | signal_id70_b1&signal_id70_b2&MPK_1_id71_b1
+MPK_1_id7_b1,      !signal_id6_b1&!MPK_1_id7_b1&relsig_id8_b1 | !signal_id6_b1&MPK_1_id7_b1&!MPK_1_id7_b2&relsig_id8_b1 | !signal_id6_b1&MPK_1_id7_b1&MPK_1_id7_b2 | signal_id6_b1
+MPK_1_id7_b2,      !signal_id6_b1&MPK_1_id7_b1&relsig_id8_b1&relsig_id8_b2 | signal_id6_b1&!signal_id6_b2&MPK_1_id7_b1&relsig_id8_b1 | signal_id6_b1&signal_id6_b2&MPK_1_id7_b1
+ROM_1_id10_b1,     !LET_23_id1_b1&ROM_1_id10_b1&ROM_1_id10_b2 | LET_23_id1_b1&!MPK_1_id7_b1&ROM_1_id10_b1&ROM_1_id10_b2 | LET_23_id1_b1&MPK_1_id7_b1
+ROM_1_id10_b2,     LET_23_id1_b1&LET_23_id1_b2&MPK_1_id7_b1&MPK_1_id7_b2&ROM_1_id10_b1
+ROM_1_id34_b1,     !LET_23_id25_b1&ROM_1_id34_b1&ROM_1_id34_b2 | LET_23_id25_b1&!MPK_1_id31_b1&ROM_1_id34_b1&ROM_1_id34_b2 | LET_23_id25_b1&MPK_1_id31_b1
+ROM_1_id34_b2,     LET_23_id25_b1&LET_23_id25_b2&MPK_1_id31_b1&MPK_1_id31_b2&ROM_1_id34_b1
+ROM_1_id44_b1,     !LET_23_id35_b1&ROM_1_id44_b1&ROM_1_id44_b2 | LET_23_id35_b1&!MPK_1_id41_b1&ROM_1_id44_b1&ROM_1_id44_b2 | LET_23_id35_b1&MPK_1_id41_b1
+ROM_1_id44_b2,     LET_23_id35_b1&LET_23_id35_b2&MPK_1_id41_b1&MPK_1_id41_b2&ROM_1_id44_b1
+ROM_1_id54_b1,     !LET_23_id45_b1&ROM_1_id54_b1&ROM_1_id54_b2 | LET_23_id45_b1&!MPK_1_id51_b1&ROM_1_id54_b1&ROM_1_id54_b2 | LET_23_id45_b1&MPK_1_id51_b1
+ROM_1_id54_b2,     LET_23_id45_b1&LET_23_id45_b2&MPK_1_id51_b1&MPK_1_id51_b2&ROM_1_id54_b1
+ROM_1_id64_b1,     !LET_23_id55_b1&ROM_1_id64_b1&ROM_1_id64_b2 | LET_23_id55_b1&!MPK_1_id61_b1&ROM_1_id64_b1&ROM_1_id64_b2 | LET_23_id55_b1&MPK_1_id61_b1
+ROM_1_id64_b2,     LET_23_id55_b1&LET_23_id55_b2&MPK_1_id61_b1&MPK_1_id61_b2&ROM_1_id64_b1
+ROM_1_id74_b1,     !LET_23_id65_b1&ROM_1_id74_b1&ROM_1_id74_b2 | LET_23_id65_b1&!MPK_1_id71_b1&ROM_1_id74_b1&ROM_1_id74_b2 | LET_23_id65_b1&MPK_1_id71_b1
+ROM_1_id74_b2,     LET_23_id65_b1&LET_23_id65_b2&MPK_1_id71_b1&MPK_1_id71_b2&ROM_1_id74_b1
+Relay_id24_b1,     !Relay_id24_b1&!ROM_1_id34_b1&ROM_1_id54_b1 | !Relay_id24_b1&ROM_1_id34_b1 | Relay_id24_b1&!Relay_id24_b2&!ROM_1_id34_b1&ROM_1_id54_b1 | Relay_id24_b1&!Relay_id24_b2&ROM_1_id34_b1 | Relay_id24_b1&Relay_id24_b2
+Relay_id24_b2,     Relay_id24_b1&!ROM_1_id34_b1&ROM_1_id54_b1&ROM_1_id54_b2 | Relay_id24_b1&ROM_1_id34_b1&!ROM_1_id34_b2&ROM_1_id54_b1&ROM_1_id54_b2 | Relay_id24_b1&ROM_1_id34_b1&ROM_1_id34_b2
+Relay_id78_b1,     !ROM_1_id10_b1&!ROM_1_id64_b1&Relay_id78_b1&Relay_id78_b2 | !ROM_1_id10_b1&ROM_1_id64_b1 | ROM_1_id10_b1
+Relay_id78_b2,     !ROM_1_id10_b1&ROM_1_id64_b1&ROM_1_id64_b2&Relay_id78_b1 | ROM_1_id10_b1&!ROM_1_id10_b2&ROM_1_id64_b1&ROM_1_id64_b2&Relay_id78_b1 | ROM_1_id10_b1&ROM_1_id10_b2&Relay_id78_b1
+Relay_id82_b1,     !ROM_1_id54_b1&!ROM_1_id74_b1&Relay_id82_b1&Relay_id82_b2 | !ROM_1_id54_b1&ROM_1_id74_b1 | ROM_1_id54_b1
+Relay_id82_b2,     !ROM_1_id54_b1&ROM_1_id74_b1&ROM_1_id74_b2&Relay_id82_b1 | ROM_1_id54_b1&!ROM_1_id54_b2&ROM_1_id74_b1&ROM_1_id74_b2&Relay_id82_b1 | ROM_1_id54_b1&ROM_1_id54_b2&Relay_id82_b1
+Relay_id86_b1,     !ROM_1_id64_b1&Relay_id86_b1&Relay_id86_b2 | ROM_1_id64_b1
+Relay_id86_b2,     ROM_1_id64_b1&ROM_1_id64_b2&Relay_id86_b1
+Relay_id90_b1,     !ROM_1_id10_b1&!ROM_1_id44_b1&Relay_id90_b1&Relay_id90_b2 | !ROM_1_id10_b1&ROM_1_id44_b1 | ROM_1_id10_b1
+Relay_id90_b2,     !ROM_1_id10_b1&ROM_1_id44_b1&ROM_1_id44_b2&Relay_id90_b1 | ROM_1_id10_b1&!ROM_1_id10_b2&ROM_1_id44_b1&ROM_1_id44_b2&Relay_id90_b1 | ROM_1_id10_b1&ROM_1_id10_b2&Relay_id90_b1
+Relay_id94_b1,     !ROM_1_id34_b1&Relay_id94_b1&Relay_id94_b2 | ROM_1_id34_b1
+Relay_id94_b2,     ROM_1_id34_b1&ROM_1_id34_b2&Relay_id94_b1
+SEM_5_id28_b1,     !signalact_id27_b1&SEM_5_id28_b1&SEM_5_id28_b2 | signalact_id27_b1&!signalact_id27_b2&!SEM_5_id28_b1&!lst_id33_b1 | signalact_id27_b1&!signalact_id27_b2&!SEM_5_id28_b1&lst_id33_b1&!lst_id33_b2 | signalact_id27_b1&!signalact_id27_b2&SEM_5_id28_b1&!SEM_5_id28_b2&!lst_id33_b1 | signalact_id27_b1&!signalact_id27_b2&SEM_5_id28_b1&!SEM_5_id28_b2&lst_id33_b1&!lst_id33_b2 | signalact_id27_b1&!signalact_id27_b2&SEM_5_id28_b1&SEM_5_id28_b2 | signalact_id27_b1&signalact_id27_b2
+SEM_5_id28_b2,     signalact_id27_b1&signalact_id27_b2&SEM_5_id28_b1
+SEM_5_id38_b1,     !signalact_id37_b1&SEM_5_id38_b1&SEM_5_id38_b2 | signalact_id37_b1&!signalact_id37_b2&!SEM_5_id38_b1&!lst_id43_b1 | signalact_id37_b1&!signalact_id37_b2&!SEM_5_id38_b1&lst_id43_b1&!lst_id43_b2 | signalact_id37_b1&!signalact_id37_b2&SEM_5_id38_b1&!SEM_5_id38_b2&!lst_id43_b1 | signalact_id37_b1&!signalact_id37_b2&SEM_5_id38_b1&!SEM_5_id38_b2&lst_id43_b1&!lst_id43_b2 | signalact_id37_b1&!signalact_id37_b2&SEM_5_id38_b1&SEM_5_id38_b2 | signalact_id37_b1&signalact_id37_b2
+SEM_5_id38_b2,     signalact_id37_b1&signalact_id37_b2&SEM_5_id38_b1
+SEM_5_id48_b1,     !signalact_id47_b1&SEM_5_id48_b1&SEM_5_id48_b2 | signalact_id47_b1&!signalact_id47_b2&!SEM_5_id48_b1&!lst_id53_b1 | signalact_id47_b1&!signalact_id47_b2&!SEM_5_id48_b1&lst_id53_b1&!lst_id53_b2 | signalact_id47_b1&!signalact_id47_b2&SEM_5_id48_b1&!SEM_5_id48_b2&!lst_id53_b1 | signalact_id47_b1&!signalact_id47_b2&SEM_5_id48_b1&!SEM_5_id48_b2&lst_id53_b1&!lst_id53_b2 | signalact_id47_b1&!signalact_id47_b2&SEM_5_id48_b1&SEM_5_id48_b2 | signalact_id47_b1&signalact_id47_b2
+SEM_5_id48_b2,     signalact_id47_b1&signalact_id47_b2&SEM_5_id48_b1
+SEM_5_id4_b1,      !signalact_id3_b1&SEM_5_id4_b1&SEM_5_id4_b2 | signalact_id3_b1&!signalact_id3_b2&!SEM_5_id4_b1&!lst_id9_b1 | signalact_id3_b1&!signalact_id3_b2&!SEM_5_id4_b1&lst_id9_b1&!lst_id9_b2 | signalact_id3_b1&!signalact_id3_b2&SEM_5_id4_b1&!SEM_5_id4_b2&!lst_id9_b1 | signalact_id3_b1&!signalact_id3_b2&SEM_5_id4_b1&!SEM_5_id4_b2&lst_id9_b1&!lst_id9_b2 | signalact_id3_b1&!signalact_id3_b2&SEM_5_id4_b1&SEM_5_id4_b2 | signalact_id3_b1&signalact_id3_b2
+SEM_5_id4_b2,      signalact_id3_b1&signalact_id3_b2&SEM_5_id4_b1
+SEM_5_id58_b1,     !signalact_id57_b1&SEM_5_id58_b1&SEM_5_id58_b2 | signalact_id57_b1&!signalact_id57_b2&!SEM_5_id58_b1&!lst_id63_b1 | signalact_id57_b1&!signalact_id57_b2&!SEM_5_id58_b1&lst_id63_b1&!lst_id63_b2 | signalact_id57_b1&!signalact_id57_b2&SEM_5_id58_b1&!SEM_5_id58_b2&!lst_id63_b1 | signalact_id57_b1&!signalact_id57_b2&SEM_5_id58_b1&!SEM_5_id58_b2&lst_id63_b1&!lst_id63_b2 | signalact_id57_b1&!signalact_id57_b2&SEM_5_id58_b1&SEM_5_id58_b2 | signalact_id57_b1&signalact_id57_b2
+SEM_5_id58_b2,     signalact_id57_b1&signalact_id57_b2&SEM_5_id58_b1
+SEM_5_id68_b1,     !signalact_id67_b1&SEM_5_id68_b1&SEM_5_id68_b2 | signalact_id67_b1&!signalact_id67_b2&!SEM_5_id68_b1&!lst_id73_b1 | signalact_id67_b1&!signalact_id67_b2&!SEM_5_id68_b1&lst_id73_b1&!lst_id73_b2 | signalact_id67_b1&!signalact_id67_b2&SEM_5_id68_b1&!SEM_5_id68_b2&!lst_id73_b1 | signalact_id67_b1&!signalact_id67_b2&SEM_5_id68_b1&!SEM_5_id68_b2&lst_id73_b1&!lst_id73_b2 | signalact_id67_b1&!signalact_id67_b2&SEM_5_id68_b1&SEM_5_id68_b2 | signalact_id67_b1&signalact_id67_b2
+SEM_5_id68_b2,     signalact_id67_b1&signalact_id67_b2&SEM_5_id68_b1
+lin_12_id26_b1,    !lin_12_id26_b1&!MPK_1_id31_b1&LSext_id89_b1 | !lin_12_id26_b1&MPK_1_id31_b1&!MPK_1_id31_b2&LSext_id89_b1 | !lin_12_id26_b1&MPK_1_id31_b1&MPK_1_id31_b2&LSext_id89_b1&LSext_id89_b2 | lin_12_id26_b1&!lin_12_id26_b2&!MPK_1_id31_b1&LSext_id89_b1 | lin_12_id26_b1&!lin_12_id26_b2&MPK_1_id31_b1&!MPK_1_id31_b2&LSext_id89_b1 | lin_12_id26_b1&!lin_12_id26_b2&MPK_1_id31_b1&MPK_1_id31_b2&LSext_id89_b1&LSext_id89_b2 | lin_12_id26_b1&lin_12_id26_b2
+lin_12_id26_b2,    lin_12_id26_b1&LSext_id89_b1&LSext_id89_b2
+lin_12_id2_b1,     !lin_12_id2_b1&!MPK_1_id7_b1&LSext_id23_b1 | !lin_12_id2_b1&MPK_1_id7_b1&!MPK_1_id7_b2&LSext_id23_b1 | !lin_12_id2_b1&MPK_1_id7_b1&MPK_1_id7_b2&LSext_id23_b1&LSext_id23_b2 | lin_12_id2_b1&!lin_12_id2_b2&!MPK_1_id7_b1&LSext_id23_b1 | lin_12_id2_b1&!lin_12_id2_b2&MPK_1_id7_b1&!MPK_1_id7_b2&LSext_id23_b1 | lin_12_id2_b1&!lin_12_id2_b2&MPK_1_id7_b1&MPK_1_id7_b2&LSext_id23_b1&LSext_id23_b2 | lin_12_id2_b1&lin_12_id2_b2
+lin_12_id2_b2,     lin_12_id2_b1&LSext_id23_b1&LSext_id23_b2
+lin_12_id36_b1,    !lin_12_id36_b1&!MPK_1_id41_b1&LSext_id93_b1 | !lin_12_id36_b1&MPK_1_id41_b1&!MPK_1_id41_b2&LSext_id93_b1 | !lin_12_id36_b1&MPK_1_id41_b1&MPK_1_id41_b2&LSext_id93_b1&LSext_id93_b2 | lin_12_id36_b1&!lin_12_id36_b2&!MPK_1_id41_b1&LSext_id93_b1 | lin_12_id36_b1&!lin_12_id36_b2&MPK_1_id41_b1&!MPK_1_id41_b2&LSext_id93_b1 | lin_12_id36_b1&!lin_12_id36_b2&MPK_1_id41_b1&MPK_1_id41_b2&LSext_id93_b1&LSext_id93_b2 | lin_12_id36_b1&lin_12_id36_b2
+lin_12_id36_b2,    lin_12_id36_b1&LSext_id93_b1&LSext_id93_b2
+lin_12_id46_b1,    !lin_12_id46_b1&!MPK_1_id51_b1&LSext_id77_b1 | !lin_12_id46_b1&MPK_1_id51_b1&!MPK_1_id51_b2&LSext_id77_b1 | !lin_12_id46_b1&MPK_1_id51_b1&MPK_1_id51_b2&LSext_id77_b1&LSext_id77_b2 | lin_12_id46_b1&!lin_12_id46_b2&!MPK_1_id51_b1&LSext_id77_b1 | lin_12_id46_b1&!lin_12_id46_b2&MPK_1_id51_b1&!MPK_1_id51_b2&LSext_id77_b1 | lin_12_id46_b1&!lin_12_id46_b2&MPK_1_id51_b1&MPK_1_id51_b2&LSext_id77_b1&LSext_id77_b2 | lin_12_id46_b1&lin_12_id46_b2
+lin_12_id46_b2,    lin_12_id46_b1&LSext_id77_b1&LSext_id77_b2
+lin_12_id56_b1,    !lin_12_id56_b1&!MPK_1_id61_b1&LSext_id81_b1 | !lin_12_id56_b1&MPK_1_id61_b1&!MPK_1_id61_b2&LSext_id81_b1 | !lin_12_id56_b1&MPK_1_id61_b1&MPK_1_id61_b2&LSext_id81_b1&LSext_id81_b2 | lin_12_id56_b1&!lin_12_id56_b2&!MPK_1_id61_b1&LSext_id81_b1 | lin_12_id56_b1&!lin_12_id56_b2&MPK_1_id61_b1&!MPK_1_id61_b2&LSext_id81_b1 | lin_12_id56_b1&!lin_12_id56_b2&MPK_1_id61_b1&MPK_1_id61_b2&LSext_id81_b1&LSext_id81_b2 | lin_12_id56_b1&lin_12_id56_b2
+lin_12_id56_b2,    lin_12_id56_b1&LSext_id81_b1&LSext_id81_b2
+lin_12_id66_b1,    !lin_12_id66_b1&!MPK_1_id71_b1&LSext_id85_b1 | !lin_12_id66_b1&MPK_1_id71_b1&!MPK_1_id71_b2&LSext_id85_b1 | !lin_12_id66_b1&MPK_1_id71_b1&MPK_1_id71_b2&LSext_id85_b1&LSext_id85_b2 | lin_12_id66_b1&!lin_12_id66_b2&!MPK_1_id71_b1&LSext_id85_b1 | lin_12_id66_b1&!lin_12_id66_b2&MPK_1_id71_b1&!MPK_1_id71_b2&LSext_id85_b1 | lin_12_id66_b1&!lin_12_id66_b2&MPK_1_id71_b1&MPK_1_id71_b2&LSext_id85_b1&LSext_id85_b2 | lin_12_id66_b1&lin_12_id66_b2
+lin_12_id66_b2,    lin_12_id66_b1&LSext_id85_b1&LSext_id85_b2
+lin_15_id22_b1,    lin_15_id22_b1
+lin_15_id22_b2,    lin_15_id22_b1&lin_15_id22_b2
+lin_15_id76_b1,    lin_15_id76_b1
+lin_15_id76_b2,    lin_15_id76_b1&lin_15_id76_b2
+lin_15_id80_b1,    lin_15_id80_b1
+lin_15_id80_b2,    lin_15_id80_b1&lin_15_id80_b2
+lin_15_id84_b1,    lin_15_id84_b1
+lin_15_id84_b2,    lin_15_id84_b1&lin_15_id84_b2
+lin_15_id88_b1,    lin_15_id88_b1
+lin_15_id88_b2,    lin_15_id88_b1&lin_15_id88_b2
+lin_15_id92_b1,    lin_15_id92_b1
+lin_15_id92_b2,    lin_15_id92_b1&lin_15_id92_b2
+lin_3_id21_b1,     !lin_3_id21_b1&!lin_15_id22_b1 | !lin_3_id21_b1&lin_15_id22_b1&!lin_15_id22_b2 | lin_3_id21_b1&!lin_3_id21_b2&!lin_15_id22_b1 | lin_3_id21_b1&!lin_3_id21_b2&lin_15_id22_b1&!lin_15_id22_b2 | lin_3_id21_b1&lin_3_id21_b2
+lin_3_id21_b2,     lin_3_id21_b1&!lin_15_id22_b1
+lin_3_id75_b1,     !lin_3_id75_b1&!lin_15_id76_b1 | !lin_3_id75_b1&lin_15_id76_b1&!lin_15_id76_b2 | lin_3_id75_b1&!lin_3_id75_b2&!lin_15_id76_b1 | lin_3_id75_b1&!lin_3_id75_b2&lin_15_id76_b1&!lin_15_id76_b2 | lin_3_id75_b1&lin_3_id75_b2
+lin_3_id75_b2,     lin_3_id75_b1&!lin_15_id76_b1
+lin_3_id79_b1,     !lin_3_id79_b1&!lin_15_id80_b1 | !lin_3_id79_b1&lin_15_id80_b1&!lin_15_id80_b2 | lin_3_id79_b1&!lin_3_id79_b2&!lin_15_id80_b1 | lin_3_id79_b1&!lin_3_id79_b2&lin_15_id80_b1&!lin_15_id80_b2 | lin_3_id79_b1&lin_3_id79_b2
+lin_3_id79_b2,     lin_3_id79_b1&!lin_15_id80_b1
+lin_3_id83_b1,     !lin_3_id83_b1&!lin_15_id84_b1 | !lin_3_id83_b1&lin_15_id84_b1&!lin_15_id84_b2 | lin_3_id83_b1&!lin_3_id83_b2&!lin_15_id84_b1 | lin_3_id83_b1&!lin_3_id83_b2&lin_15_id84_b1&!lin_15_id84_b2 | lin_3_id83_b1&lin_3_id83_b2
+lin_3_id83_b2,     lin_3_id83_b1&!lin_15_id84_b1
+lin_3_id87_b1,     !lin_3_id87_b1&!lin_15_id88_b1 | !lin_3_id87_b1&lin_15_id88_b1&!lin_15_id88_b2 | lin_3_id87_b1&!lin_3_id87_b2&!lin_15_id88_b1 | lin_3_id87_b1&!lin_3_id87_b2&lin_15_id88_b1&!lin_15_id88_b2 | lin_3_id87_b1&lin_3_id87_b2
+lin_3_id87_b2,     lin_3_id87_b1&!lin_15_id88_b1
+lin_3_id91_b1,     !lin_3_id91_b1&!lin_15_id92_b1 | !lin_3_id91_b1&lin_15_id92_b1&!lin_15_id92_b2 | lin_3_id91_b1&!lin_3_id91_b2&!lin_15_id92_b1 | lin_3_id91_b1&!lin_3_id91_b2&lin_15_id92_b1&!lin_15_id92_b2 | lin_3_id91_b1&lin_3_id91_b2
+lin_3_id91_b2,     lin_3_id91_b1&!lin_15_id92_b1
+lst_id33_b1,       !lin_12_id26_b1&lst_id33_b1&lst_id33_b2 | lin_12_id26_b1&!signalact_id27_b1 | lin_12_id26_b1&signalact_id27_b1&!signalact_id27_b2 | lin_12_id26_b1&signalact_id27_b1&signalact_id27_b2&lst_id33_b1&lst_id33_b2
+lst_id33_b2,       lin_12_id26_b1&lin_12_id26_b2&!signalact_id27_b1&lst_id33_b1 | lin_12_id26_b1&lin_12_id26_b2&signalact_id27_b1&!signalact_id27_b2&lst_id33_b1
+lst_id43_b1,       !lin_12_id36_b1&lst_id43_b1&lst_id43_b2 | lin_12_id36_b1&!signalact_id37_b1 | lin_12_id36_b1&signalact_id37_b1&!signalact_id37_b2 | lin_12_id36_b1&signalact_id37_b1&signalact_id37_b2&lst_id43_b1&lst_id43_b2
+lst_id43_b2,       lin_12_id36_b1&lin_12_id36_b2&!signalact_id37_b1&lst_id43_b1 | lin_12_id36_b1&lin_12_id36_b2&signalact_id37_b1&!signalact_id37_b2&lst_id43_b1
+lst_id53_b1,       !lin_12_id46_b1&lst_id53_b1&lst_id53_b2 | lin_12_id46_b1&!signalact_id47_b1 | lin_12_id46_b1&signalact_id47_b1&!signalact_id47_b2 | lin_12_id46_b1&signalact_id47_b1&signalact_id47_b2&lst_id53_b1&lst_id53_b2
+lst_id53_b2,       lin_12_id46_b1&lin_12_id46_b2&!signalact_id47_b1&lst_id53_b1 | lin_12_id46_b1&lin_12_id46_b2&signalact_id47_b1&!signalact_id47_b2&lst_id53_b1
+lst_id63_b1,       !lin_12_id56_b1&lst_id63_b1&lst_id63_b2 | lin_12_id56_b1&!signalact_id57_b1 | lin_12_id56_b1&signalact_id57_b1&!signalact_id57_b2 | lin_12_id56_b1&signalact_id57_b1&signalact_id57_b2&lst_id63_b1&lst_id63_b2
+lst_id63_b2,       lin_12_id56_b1&lin_12_id56_b2&!signalact_id57_b1&lst_id63_b1 | lin_12_id56_b1&lin_12_id56_b2&signalact_id57_b1&!signalact_id57_b2&lst_id63_b1
+lst_id73_b1,       !lin_12_id66_b1&lst_id73_b1&lst_id73_b2 | lin_12_id66_b1&!signalact_id67_b1 | lin_12_id66_b1&signalact_id67_b1&!signalact_id67_b2 | lin_12_id66_b1&signalact_id67_b1&signalact_id67_b2&lst_id73_b1&lst_id73_b2
+lst_id73_b2,       lin_12_id66_b1&lin_12_id66_b2&!signalact_id67_b1&lst_id73_b1 | lin_12_id66_b1&lin_12_id66_b2&signalact_id67_b1&!signalact_id67_b2&lst_id73_b1
+lst_id9_b1,        !lin_12_id2_b1&lst_id9_b1&lst_id9_b2 | lin_12_id2_b1&!signalact_id3_b1 | lin_12_id2_b1&signalact_id3_b1&!signalact_id3_b2 | lin_12_id2_b1&signalact_id3_b1&signalact_id3_b2&lst_id9_b1&lst_id9_b2
+lst_id9_b2,        lin_12_id2_b1&lin_12_id2_b2&!signalact_id3_b1&lst_id9_b1 | lin_12_id2_b1&lin_12_id2_b2&signalact_id3_b1&!signalact_id3_b2&lst_id9_b1
+relsig_id32_b1,    !relsig_id32_b1&!lst_id33_b1&Relay_id90_b1&Relay_id90_b2 | relsig_id32_b1&!relsig_id32_b2&!lst_id33_b1&Relay_id90_b1&Relay_id90_b2 | relsig_id32_b1&relsig_id32_b2
+relsig_id32_b2,    0
+relsig_id42_b1,    !relsig_id42_b1&!lst_id43_b1&Relay_id94_b1&Relay_id94_b2 | relsig_id42_b1&!relsig_id42_b2&!lst_id43_b1&Relay_id94_b1&Relay_id94_b2 | relsig_id42_b1&relsig_id42_b2
+relsig_id42_b2,    0
+relsig_id52_b1,    !relsig_id52_b1&!lst_id53_b1&Relay_id78_b1&Relay_id78_b2 | relsig_id52_b1&!relsig_id52_b2&!lst_id53_b1&Relay_id78_b1&Relay_id78_b2 | relsig_id52_b1&relsig_id52_b2
+relsig_id52_b2,    0
+relsig_id62_b1,    !relsig_id62_b1&!lst_id63_b1&Relay_id82_b1&Relay_id82_b2 | relsig_id62_b1&!relsig_id62_b2&!lst_id63_b1&Relay_id82_b1&Relay_id82_b2 | relsig_id62_b1&relsig_id62_b2
+relsig_id62_b2,    0
+relsig_id72_b1,    !relsig_id72_b1&!lst_id73_b1&Relay_id86_b1&Relay_id86_b2 | relsig_id72_b1&!relsig_id72_b2&!lst_id73_b1&Relay_id86_b1&Relay_id86_b2 | relsig_id72_b1&relsig_id72_b2
+relsig_id72_b2,    0
+relsig_id8_b1,     !relsig_id8_b1&!lst_id9_b1&Relay_id24_b1&Relay_id24_b2 | relsig_id8_b1&!relsig_id8_b2&!lst_id9_b1&Relay_id24_b1&Relay_id24_b2 | relsig_id8_b1&relsig_id8_b2
+relsig_id8_b2,     0
+signal_id30_b1,    !LET_60_id29_b1&signal_id30_b1&signal_id30_b2 | LET_60_id29_b1&!LET_60_id29_b2&!signal_id30_b1&!lst_id33_b1 | LET_60_id29_b1&!LET_60_id29_b2&!signal_id30_b1&lst_id33_b1&!lst_id33_b2 | LET_60_id29_b1&!LET_60_id29_b2&signal_id30_b1&!signal_id30_b2&!lst_id33_b1 | LET_60_id29_b1&!LET_60_id29_b2&signal_id30_b1&!signal_id30_b2&lst_id33_b1&!lst_id33_b2 | LET_60_id29_b1&!LET_60_id29_b2&signal_id30_b1&signal_id30_b2 | LET_60_id29_b1&LET_60_id29_b2
+signal_id30_b2,    LET_60_id29_b1&LET_60_id29_b2&signal_id30_b1
+signal_id40_b1,    !LET_60_id39_b1&signal_id40_b1&signal_id40_b2 | LET_60_id39_b1&!LET_60_id39_b2&!signal_id40_b1&!lst_id43_b1 | LET_60_id39_b1&!LET_60_id39_b2&!signal_id40_b1&lst_id43_b1&!lst_id43_b2 | LET_60_id39_b1&!LET_60_id39_b2&signal_id40_b1&!signal_id40_b2&!lst_id43_b1 | LET_60_id39_b1&!LET_60_id39_b2&signal_id40_b1&!signal_id40_b2&lst_id43_b1&!lst_id43_b2 | LET_60_id39_b1&!LET_60_id39_b2&signal_id40_b1&signal_id40_b2 | LET_60_id39_b1&LET_60_id39_b2
+signal_id40_b2,    LET_60_id39_b1&LET_60_id39_b2&signal_id40_b1
+signal_id50_b1,    !LET_60_id49_b1&signal_id50_b1&signal_id50_b2 | LET_60_id49_b1&!LET_60_id49_b2&!signal_id50_b1&!lst_id53_b1 | LET_60_id49_b1&!LET_60_id49_b2&!signal_id50_b1&lst_id53_b1&!lst_id53_b2 | LET_60_id49_b1&!LET_60_id49_b2&signal_id50_b1&!signal_id50_b2&!lst_id53_b1 | LET_60_id49_b1&!LET_60_id49_b2&signal_id50_b1&!signal_id50_b2&lst_id53_b1&!lst_id53_b2 | LET_60_id49_b1&!LET_60_id49_b2&signal_id50_b1&signal_id50_b2 | LET_60_id49_b1&LET_60_id49_b2
+signal_id50_b2,    LET_60_id49_b1&LET_60_id49_b2&signal_id50_b1
+signal_id60_b1,    !LET_60_id59_b1&signal_id60_b1&signal_id60_b2 | LET_60_id59_b1&!LET_60_id59_b2&!signal_id60_b1&!lst_id63_b1 | LET_60_id59_b1&!LET_60_id59_b2&!signal_id60_b1&lst_id63_b1&!lst_id63_b2 | LET_60_id59_b1&!LET_60_id59_b2&signal_id60_b1&!signal_id60_b2&!lst_id63_b1 | LET_60_id59_b1&!LET_60_id59_b2&signal_id60_b1&!signal_id60_b2&lst_id63_b1&!lst_id63_b2 | LET_60_id59_b1&!LET_60_id59_b2&signal_id60_b1&signal_id60_b2 | LET_60_id59_b1&LET_60_id59_b2
+signal_id60_b2,    LET_60_id59_b1&LET_60_id59_b2&signal_id60_b1
+signal_id6_b1,     !LET_60_id5_b1&signal_id6_b1&signal_id6_b2 | LET_60_id5_b1&!LET_60_id5_b2&!signal_id6_b1&!lst_id9_b1 | LET_60_id5_b1&!LET_60_id5_b2&!signal_id6_b1&lst_id9_b1&!lst_id9_b2 | LET_60_id5_b1&!LET_60_id5_b2&signal_id6_b1&!signal_id6_b2&!lst_id9_b1 | LET_60_id5_b1&!LET_60_id5_b2&signal_id6_b1&!signal_id6_b2&lst_id9_b1&!lst_id9_b2 | LET_60_id5_b1&!LET_60_id5_b2&signal_id6_b1&signal_id6_b2 | LET_60_id5_b1&LET_60_id5_b2
+signal_id6_b2,     LET_60_id5_b1&LET_60_id5_b2&signal_id6_b1
+signal_id70_b1,    !LET_60_id69_b1&signal_id70_b1&signal_id70_b2 | LET_60_id69_b1&!LET_60_id69_b2&!signal_id70_b1&!lst_id73_b1 | LET_60_id69_b1&!LET_60_id69_b2&!signal_id70_b1&lst_id73_b1&!lst_id73_b2 | LET_60_id69_b1&!LET_60_id69_b2&signal_id70_b1&!signal_id70_b2&!lst_id73_b1 | LET_60_id69_b1&!LET_60_id69_b2&signal_id70_b1&!signal_id70_b2&lst_id73_b1&!lst_id73_b2 | LET_60_id69_b1&!LET_60_id69_b2&signal_id70_b1&signal_id70_b2 | LET_60_id69_b1&LET_60_id69_b2
+signal_id70_b2,    LET_60_id69_b1&LET_60_id69_b2&signal_id70_b1
+signalact_id27_b1, !LET_23_id25_b1&!signalact_id27_b1&lin_3_id87_b1 | !LET_23_id25_b1&signalact_id27_b1&!signalact_id27_b2&lin_3_id87_b1 | !LET_23_id25_b1&signalact_id27_b1&signalact_id27_b2 | LET_23_id25_b1
+signalact_id27_b2, !LET_23_id25_b1&signalact_id27_b1&lin_3_id87_b1&lin_3_id87_b2 | LET_23_id25_b1&!LET_23_id25_b2&signalact_id27_b1&lin_3_id87_b1&lin_3_id87_b2 | LET_23_id25_b1&LET_23_id25_b2&signalact_id27_b1
+signalact_id37_b1, !LET_23_id35_b1&!signalact_id37_b1&lin_3_id91_b1 | !LET_23_id35_b1&signalact_id37_b1&!signalact_id37_b2&lin_3_id91_b1 | !LET_23_id35_b1&signalact_id37_b1&signalact_id37_b2 | LET_23_id35_b1
+signalact_id37_b2, !LET_23_id35_b1&signalact_id37_b1&lin_3_id91_b1&lin_3_id91_b2 | LET_23_id35_b1&!LET_23_id35_b2&signalact_id37_b1&lin_3_id91_b1&lin_3_id91_b2 | LET_23_id35_b1&LET_23_id35_b2&signalact_id37_b1
+signalact_id3_b1,  !LET_23_id1_b1&!signalact_id3_b1&lin_3_id21_b1 | !LET_23_id1_b1&signalact_id3_b1&!signalact_id3_b2&lin_3_id21_b1 | !LET_23_id1_b1&signalact_id3_b1&signalact_id3_b2 | LET_23_id1_b1
+signalact_id3_b2,  !LET_23_id1_b1&signalact_id3_b1&lin_3_id21_b1&lin_3_id21_b2 | LET_23_id1_b1&!LET_23_id1_b2&signalact_id3_b1&lin_3_id21_b1&lin_3_id21_b2 | LET_23_id1_b1&LET_23_id1_b2&signalact_id3_b1
+signalact_id47_b1, !LET_23_id45_b1&!signalact_id47_b1&lin_3_id75_b1 | !LET_23_id45_b1&signalact_id47_b1&!signalact_id47_b2&lin_3_id75_b1 | !LET_23_id45_b1&signalact_id47_b1&signalact_id47_b2 | LET_23_id45_b1
+signalact_id47_b2, !LET_23_id45_b1&signalact_id47_b1&lin_3_id75_b1&lin_3_id75_b2 | LET_23_id45_b1&!LET_23_id45_b2&signalact_id47_b1&lin_3_id75_b1&lin_3_id75_b2 | LET_23_id45_b1&LET_23_id45_b2&signalact_id47_b1
+signalact_id57_b1, !LET_23_id55_b1&!signalact_id57_b1&lin_3_id79_b1 | !LET_23_id55_b1&signalact_id57_b1&!signalact_id57_b2&lin_3_id79_b1 | !LET_23_id55_b1&signalact_id57_b1&signalact_id57_b2 | LET_23_id55_b1
+signalact_id57_b2, !LET_23_id55_b1&signalact_id57_b1&lin_3_id79_b1&lin_3_id79_b2 | LET_23_id55_b1&!LET_23_id55_b2&signalact_id57_b1&lin_3_id79_b1&lin_3_id79_b2 | LET_23_id55_b1&LET_23_id55_b2&signalact_id57_b1
+signalact_id67_b1, !LET_23_id65_b1&!signalact_id67_b1&lin_3_id83_b1 | !LET_23_id65_b1&signalact_id67_b1&!signalact_id67_b2&lin_3_id83_b1 | !LET_23_id65_b1&signalact_id67_b1&signalact_id67_b2 | LET_23_id65_b1
+signalact_id67_b2, !LET_23_id65_b1&signalact_id67_b1&lin_3_id83_b1&lin_3_id83_b2 | LET_23_id65_b1&!LET_23_id65_b2&signalact_id67_b1&lin_3_id83_b1&lin_3_id83_b2 | LET_23_id65_b1&LET_23_id65_b2&signalact_id67_b1

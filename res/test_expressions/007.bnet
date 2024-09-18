@@ -1,0 +1,6 @@
+targets,factors
+v_Coup_fti, (!(v_Fgf8 | v_Sp8) | !(v_Sp8 | v_Fgf8))
+v_Emx2, (v_Coup_fti & !((v_Fgf8 | v_Sp8) | v_Pax6))
+v_Fgf8, ((v_Fgf8 & v_Sp8) & !v_Emx2)
+v_Pax6, (v_Sp8 & !(v_Emx2 | v_Coup_fti))
+v_Sp8, (v_Fgf8 & !v_Emx2)

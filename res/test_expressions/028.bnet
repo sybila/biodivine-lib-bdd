@@ -1,0 +1,19 @@
+targets,factors
+v_Aop, !v_Rl
+v_CNK, v_CNK
+v_Drk, v_Pvr
+v_Dsor1, v_Raf
+v_Ksr, v_Ksr
+v_Pnt, v_Rl
+v_Pvf1, v_Pvf1
+v_Pvf2, v_Pvf2
+v_Pvf3, v_Pvf3
+v_Pvr, ((v_Pvf2 | v_Pvf1) | v_Pvf3)
+v_Raf, (v_Ras & ((v_CNK & v_Ksr) & v_Src42))
+v_Ras, (v_Sos & !v_Sty)
+v_Rl, (v_Dsor1 & v_msk)
+v_Sos, v_Drk
+v_Src42, v_Src42
+v_Sty, v_Sty
+v_Targets, (v_Pnt & !v_Aop)
+v_msk, v_msk

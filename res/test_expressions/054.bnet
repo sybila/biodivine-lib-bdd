@@ -1,0 +1,63 @@
+targets,factors
+v_AKT, v_PI3K
+v_AP1, (((v_JUNB | v_Fosl1) | v_JUND) | v_FOS)
+v_ARC, (v_Egr1 | v_CREB)
+v_ATF2, ((v_JNK | v_ERK) | v_P38)
+v_BTG2, (v_JNK | v_AKT)
+v_C3G, v_FRS2
+v_CITED2, ((v_ERK | v_P53) | v_CREB)
+v_CREB, ((v_AKT | v_RSK) | v_MSK1_2)
+v_Ca2_, v_PLC
+v_DAG, v_PLC
+v_Dusp6, v_ETS1
+v_ECM, v_Mmp3_10
+v_ERK, v_MEK
+v_ETS1, (v_JNK | v_ERK)
+v_Egr1, ((v_JNK | v_AKT) | v_ERK)
+v_FAK, (v_Itga1 | v_RAP1)
+v_FOS, ((v_JNK | v_AKT) | v_ERK)
+v_FRS2, v_TrkA
+v_Fosl1, ((v_AKT | v_JNK) | v_ERK)
+v_GRB2, v_SHC
+v_G_i_o_, v_NPYY1
+v_Itga1, v_ECM
+v_JNK, (v_MKK7 | v_MEKK4)
+v_JUNB, ((v_AKT | v_ERK) | v_JNK)
+v_JUND, (v_JNK | v_ERK)
+v_KLF10, ((v_AKT | v_ERK) | v_JNK)
+v_KLF2, ((v_ERK | v_AKT) | v_JNK)
+v_KLF4, ((v_ERK | v_JNK) | v_AKT)
+v_KLF5, ((v_P53 | v_AKT) | v_ERK)
+v_KLF6, (v_JNK | v_P53)
+v_MEK, (v_RAF | v_MEKK1)
+v_MEKK1, v_RAC1
+v_MEKK4, v_RAC1
+v_MKK6, v_MEKK4
+v_MKK7, v_MEKK1
+v_MSK1_2, (v_P38 | v_ERK)
+v_MYC, ((v_ERK | v_AKT) | v_JNK)
+v_Maff, ((v_ERK | v_ATF2) | v_JNK)
+v_Mapk3k, v_MEKK4
+v_Mmp3_10, v_Plasmin
+v_NGF, v_NGF
+v_NPYY1, v_Npy
+v_Npy, v_AP1
+v_P38, (v_Mapk3k | v_MKK6)
+v_P53, ((v_ERK | v_JNK) | v_AKT)
+v_PI3K, v_TrkA
+v_PKC, (v_DAG | v_Ca2_)
+v_PLC, (v_TrkA | v_G_i_o_)
+v_Plasmin, v_uPA_PLAT
+v_RAC1, v_RAS
+v_RAF, (v_RAS | v_PKC)
+v_RAP1, v_C3G
+v_RAS, v_SOS
+v_RSK, v_ERK
+v_SHC, (v_TrkA | v_FAK)
+v_SOS, v_GRB2
+v_SRF, v_RSK
+v_Stat3, (v_ERK | v_JNK)
+v_TrkA, v_NGF
+v_ZFP36, (v_JNK | v_ERK)
+v_uPAR, v_AP1
+v_uPA_PLAT, v_uPAR

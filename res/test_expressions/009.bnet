@@ -1,0 +1,74 @@
+targets,factors
+v_AIF1_MT, v_HK
+v_AIF1_NUC, v_AIF1_MT
+v_AbnormalTelomer, v_AbnormalTelomer
+v_AceticAcid, v_AceticAcid
+v_AdenylateCyclase, (v_RAS2 | v_Stress)
+v_Adozelesin, v_Adozelesin
+v_Apoptosis, (((((((((((((v_YCA1 & (((((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_SNO1) | !v_AceticAcid) | !v_FVY10)) & !(v_BIR1 & (v_SNO1 & v_FVY10))) | ((v_CPR3 & ((((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_AceticAcid) | !v_FVY10)) & !v_SNO1)) | (v_BIR1 & ((((!v_POR1_2 & !v_H2O2) & !v_SNO1) & !v_AceticAcid) & !v_FVY10))) | (v_DNA_Frag & ((((((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_SNO1) | !v_AceticAcid) | !v_FVY10) | ((((v_POR1_2 & v_H2O2) & v_BIR1) & v_AceticAcid) & v_FVY10)))) | (v_ROS_CYT & ((((((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_SNO1) | !v_AceticAcid) | !v_FVY10) | (((v_POR1_2 & v_H2O2) & v_BIR1) & v_AceticAcid)))) | (v_SNO1 & (((((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_AceticAcid) & !v_FVY10) | ((v_H2O2 & v_FVY10) & ((!v_POR1_2 & !v_ROS_CYT) & !v_DNA_Frag))))) | ((v_POR1_2 & (((!v_H2O2 | !v_BIR1) | !v_AceticAcid) | !v_FVY10)) & !v_SNO1)) | ((v_H2O2 & (((!v_POR1_2 | !v_BIR1) | !v_AceticAcid) | !v_FVY10)) & !v_SNO1)) | ((v_FVY10 & (((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_AceticAcid)) & !v_SNO1)) | (v_CU2 & (v_CPR3 | ((((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_AceticAcid) & (!v_SNO1 & !v_FVY10))))) | (v_AceticAcid & ((((((v_POR1_2 & v_H2O2) & v_BIR1) & (!v_SNO1 | !v_FVY10)) | ((((!v_POR1_2 | !v_H2O2) | !v_BIR1) | !v_FVY10) & !v_SNO1)) | (((v_BIR1 & v_SNO1) & v_FVY10) & (!v_POR1_2 & !v_H2O2))) | ((v_SNO1 & v_FVY10) & (((((!v_POR1_2 & !v_H2O2) & !v_BIR1) & !v_YCA1) & !v_ROS_CYT) & !v_DNA_Frag))))) | !((((((((((v_POR1_2 | v_H2O2) | v_BIR1) | v_CPR3) | v_SNO1) | v_AceticAcid) | v_FVY10) | v_CU2) | v_YCA1) | v_ROS_CYT) | v_DNA_Frag))
+v_BIR1, !v_NMA111_NUC
+v_CAMP, (v_AdenylateCyclase | v_TOR1)
+v_CDC48, v_HK
+v_CDC6, v_Adozelesin
+v_CPR3, v_CPR3
+v_CU2, v_CU2
+v_CytC_CYT, (v_CDC48 | v_CytC_MT)
+v_CytC_MT, (v_MCD1_MT | v_AceticAcid)
+v_DNA_Frag, (v_Tat_D | !(v_STM1_NUC | v_Tat_D))
+v_DRE2_TAH18, v_HK
+v_DesCyclinCCDK8, !v_SLT2
+v_EMC4, v_HK
+v_ESP1, v_H2O2
+v_FIS1, v_HK
+v_FVY10, v_HK
+v_H2B, ((((v_STE20_NUC | v_NUC1_NUC) | v_RPD3) | v_HOS3) | v_AIF1_NUC)
+v_H2O2, v_H2O2
+v_HK, v_HK
+v_HOG1, ((((v_PTP3 & !v_PTP2) | v_Stress) | (v_PTP2 & !v_PTP3)) | !((v_PTP2 | v_Stress) | v_PTP3))
+v_HOG1_Dep, v_HOG1
+v_HOS3, v_H2O2
+v_Heat, v_Heat
+v_KAP123, v_NUC1_MT
+v_MAPK, v_Mating
+v_MCD1_MT, v_HK
+v_MCD1_NUC, v_ESP1
+v_MDV1, v_HK
+v_MEC1, v_AbnormalTelomer
+v_MG2, v_MG2
+v_MMI1, v_HK
+v_MSN2_4, v_PKA
+v_MT_ALT, (((v_PKA | v_RAS2) | v_MT_Frag) | v_MMI1)
+v_MT_Frag, (((v_H2O2 & !v_DRE2_TAH18) | (v_MDV1 & !v_FIS1)) | v_MT_ALT)
+v_Mating, v_Mating
+v_NDI1, v_HK
+v_NMA111_CYT, v_Heat
+v_NMA111_NUC, v_NMA111_CYT
+v_NUC1_MT, v_H2O2
+v_NUC1_NUC, v_KAP123
+v_PKA, (v_Heat | v_RAS2)
+v_POR1_2, v_HK
+v_PTP2, v_RLM1
+v_PTP3, v_HOG1_Dep
+v_Protosom, v_CDC6
+v_RAS2, (v_RedActinDyn | v_TOR1)
+v_RLM1, (v_SLT2 | v_HOG1)
+v_ROS_CYT, ((((((((((v_DesCyclinCCDK8 | (v_AceticAcid & !v_SVF1)) | (v_H2O2 & !v_SVF1)) | (v_H2O2 & !v_EMC4)) | v_CDC48) | v_ESP1) | v_RedActinDyn) | v_SOD1) | v_Salt) | v_RAS2) | v_NDI1)
+v_ROS_MT, (v_NDI1 & !v_SOD2)
+v_RPD3, v_Stress
+v_RedActinDyn, v_RedActinDyn
+v_SDP1, v_MSN2_4
+v_SLT2, ((((((v_Stress & (!v_SDP1 | !v_PTP2)) | (v_PTP2 & (!v_SDP1 | !v_Stress))) | v_RLM1) | (v_SDP1 & (!v_PTP2 | !v_Stress))) | v_Heat) | !((((v_SDP1 | v_PTP2) | v_RLM1) | v_Stress) | v_Heat))
+v_SNO1, v_HK
+v_SOD1, v_Heat
+v_SOD2, v_HK
+v_SRO7, v_HK
+v_STE20_CYT, v_MAPK
+v_STE20_NUC, v_STE20_CYT
+v_STM1_CYT, v_HK
+v_STM1_NUC, (v_STM1_CYT & !v_Protosom)
+v_SVF1, v_HK
+v_Salt, v_Salt
+v_Stress, v_Stress
+v_TOR1, v_Stress
+v_Tat_D, v_MG2
+v_YCA1, (((((v_ROS_CYT | v_MT_Frag) | v_RedActinDyn) | (v_Salt & !v_SRO7)) | v_CytC_CYT) | v_MEC1)

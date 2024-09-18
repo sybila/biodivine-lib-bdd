@@ -1,0 +1,43 @@
+targets,factors
+v_AKT, ((((v_NKX3_1 & (!v_PTEN & !v_PDPK1)) | v_PDPK1) | (v_PTEN & (!v_PDPK1 & !v_NKX3_1))) | !((v_PTEN | v_PDPK1) | v_NKX3_1))
+v_AR_AR, (v_AKT | v_AR_HSP)
+v_AR_HSP, v_Androgens
+v_AZD5363, v_AZD5363
+v_AZD6244, v_AZD6244
+v_Androgens, v_Androgens
+v_BAD, !(v_RP6SKB1 | v_AKT)
+v_BCL2, !v_BAD
+v_BKM120, v_BKM120
+v_CDK2_Cyclin_E, !v_p21
+v_Cixutumumab, v_Cixutumumab
+v_EFGR, (v_EGF | v_HBEGF)
+v_EGF, v_EGF
+v_EGFR_ERBB2, v_EGF
+v_ERBB2_3, v_NRG1
+v_ERK1_2, (v_MEK1 & !v_AZD6244)
+v_Enzalutamide, v_Enzalutamide
+v_GRB2_SOS, ((((v_EFGR & !v_Lapatinib) | (v_EGFR_ERBB2 & !v_Lapatinib)) | v_IGFR1A_B) | (v_ERBB2_3 & !v_Lapatinib))
+v_HBEGF, v_HBEGF
+v_IGF, v_IGF
+v_IGFR1A_B, v_IGF
+v_IRS1, (v_IGFR1A_B & !v_Cixutumumab)
+v_Lapatinib, v_Lapatinib
+v_MEK1, v_Raf
+v_NKX3_1, v_NKX3_1
+v_NRG1, v_NRG1
+v_PDPK1, v_PIP3
+v_PIK3CA, ((v_ERBB2_3 | v_Ras) | v_IRS1)
+v_PIP3, (v_PIK3CA & !v_PTEN)
+v_PSA, (v_AR_AR & !v_Enzalutamide)
+v_PTEN, v_PTEN
+v_RHEB, !v_TSC_1_2
+v_RP6SKB1, (((v_mTOR & !v_Temsirolimus) | v_ERK1_2) | v_PDPK1)
+v_Raf, ((v_PIK3CA & !v_BKM120) | v_Ras)
+v_Ras, v_GRB2_SOS
+v_SP1, v_ERK1_2
+v_SRF___ELK1, (v_ERK1_2 & v_RP6SKB1)
+v_TMPRSS2, (v_AR_AR & !v_Enzalutamide)
+v_TSC_1_2, !(v_AKT & !v_AZD5363)
+v_Temsirolimus, v_Temsirolimus
+v_mTOR, v_RHEB
+v_p21, !v_AKT
