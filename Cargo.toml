@@ -29,8 +29,3 @@ rustdoc-args = ["--html-in-header", "./res/docs-head.html"]
 [features]
 default = []
 serde   = ["dep:serde"]
-
-[profile.test]
-opt-level = 3
-debug-assertions = true
-overflow-checks = true

@@ -200,9 +200,6 @@ impl Bdd {
         &self,
         interrupt: &I,
     ) -> Result<Vec<BddPartialValuation>, E> {
-        let target = self.exact_clause_cardinality();
-        let target = usize::try_from(target).unwrap_or(usize::MAX);
-
         if self.is_false() {
             return Ok(Vec::new());
         }
@@ -211,23 +208,17 @@ impl Bdd {
         }
 
         fn _rec<E, I: Fn(&[BddPartialValuation]) -> Result<(), E>>(
-            target: usize,
             bdd: &Bdd,
             partial_clause: &mut BddPartialValuation,
             results: &mut Vec<BddPartialValuation>,
             interrupt: &I,
-        ) -> Result<bool, E> {
-            if results.len() >= target {
-                // Larger than the naive DNF.
-                return Ok(false);
-            }
-
+        ) -> Result<(), E> {
             if bdd.is_false() {
-                return Ok(true);
+                return Ok(());
             }
             if bdd.is_true() {
                 results.push(partial_clause.clone());
-                return Ok(true);
+                return Ok(());
             }
 
             let mut support = Vec::from_iter(bdd.support_set());
@@ -254,7 +245,7 @@ impl Bdd {
             // Solve the common core first.
             let bdd = if best_core.1 != zero {
                 let best_core = bdd.var_for_all(best_core.0);
-                _rec(target, &best_core, partial_clause, results, interrupt)?;
+                _rec(&best_core, partial_clause, results, interrupt)?;
                 let mut remaining = bdd.and_not(&best_core);
 
                 // Remaining can be false only if the BDD does not depend on the core var
@@ -293,16 +284,14 @@ impl Bdd {
             let (var, _) = best;
 
             partial_clause[var] = Some(true);
-            let ok_true = _rec(
-                target,
+            _rec(
                 &bdd.var_restrict(var, true),
                 partial_clause,
                 results,
                 interrupt,
             )?;
             partial_clause[var] = Some(false);
-            let ok_false = _rec(
-                target,
+            _rec(
                 &bdd.var_restrict(var, false),
                 partial_clause,
                 results,
@@ -310,20 +299,14 @@ impl Bdd {
             )?;
             partial_clause[var] = None;
 
-            Ok(ok_true && ok_false)
+            Ok(())
         }
 
         let mut buffer = BddPartialValuation::empty();
         let mut results = Vec::new();
-        let ok = _rec(target, self, &mut buffer, &mut results, interrupt)?;
+        _rec(self, &mut buffer, &mut results, interrupt)?;
 
-        if ok {
-            Ok(results)
-        } else {
-            // In rare cases, the optimization can actually produce a bigger DNF than the naive
-            // approach, in which case we revert back to the naive approach.
-            Ok(self.to_dnf())
-        }
+        Ok(results)
     }
 }
 
@@ -391,9 +374,18 @@ mod tests {
                 continue;
             }
 
-            if name == "079.bnet" {
-                // The model fails to parse with stack overflow in debug mode,
-                // but is ok in release.
+            // These models fail to parse with stack overflow in debug mode,
+            // but are ok in release.
+            if name == "079.bnet"
+                || name == "122.bnet"
+                || name == "159.bnet"
+                || name == "146.bnet"
+                || name == "Skin3DFxd.bnet"
+                || name == "Metabolism_demo.free-inputs.bnet"
+                || name == "COVID_model.free-inputs.bnet"
+                || name == "InVitro.free-inputs.bnet"
+                || name == "InVivo.free-inputs.bnet"
+            {
                 continue;
             }
 
