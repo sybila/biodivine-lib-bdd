@@ -391,6 +391,12 @@ mod tests {
                 continue;
             }
 
+            if name == "079.bnet" {
+                // The model fails to parse with stack overflow in debug mode,
+                // but is ok in release.
+                continue;
+            }
+
             println!("Testing {}", name);
 
             let mut total_monotonicity_tests = 0usize;
