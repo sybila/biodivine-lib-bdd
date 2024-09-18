@@ -13,8 +13,13 @@ impl Bdd {
                 if dnf.is_empty() {
                     return Bdd::mk_false(num_vars);
                 }
-                if dnf.len() == 1 {
-                    return Bdd::mk_partial_valuation(num_vars, dnf[0]);
+                if var == num_vars || dnf.len() == 1 {
+                    let c = dnf[0];
+                    // At this point, all remaining clauses should just be duplicates.
+                    for cx in &dnf[1..] {
+                        assert_eq!(*cx, c);
+                    }
+                    return Bdd::mk_partial_valuation(num_vars, c);
                 }
 
                 // If we ever get to this point, the dnf should be always either empty,
@@ -450,5 +455,19 @@ mod tests {
         }
 
         assert_eq!(ctx.mk_dnf(&clauses).size(), 62);
+    }
+
+    #[test]
+    pub fn bad_mk_dnf_2() {
+        // Extracted from AEON.py test.
+        let ctx = BddVariableSet::new_anonymous(3);
+        let a_true = (BddVariable::from_index(0), true);
+        let b_false = (BddVariable::from_index(1), false);
+        let clauses = vec![
+            BddPartialValuation::from_values(&[a_true, b_false]),
+            BddPartialValuation::from_values(&[a_true, b_false]),
+        ];
+
+        assert_eq!(ctx.mk_dnf(&clauses).size(), 4);
     }
 }

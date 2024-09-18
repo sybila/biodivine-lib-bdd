@@ -12,8 +12,13 @@ impl Bdd {
                 if cnf.is_empty() {
                     return ctx.mk_true();
                 }
-                if cnf.len() == 1 {
-                    return ctx.mk_disjunctive_clause(cnf[0]);
+                if var == ctx.num_vars() || cnf.len() == 1 {
+                    let c = cnf[0];
+                    // At this point, all remaining clauses should just be duplicates.
+                    for cx in &cnf[1..] {
+                        assert_eq!(*cx, c);
+                    }
+                    return ctx.mk_disjunctive_clause(c);
                 }
 
                 // If we ever get to this point, the dnf should be always either empty,
@@ -179,5 +184,39 @@ impl Bdd {
             &mut result,
         );
         result
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{BddPartialValuation, BddVariable, BddVariableSet};
+
+    #[test]
+    pub fn bad_mk_cnf() {
+        let ctx = BddVariableSet::new_anonymous(60);
+        let variables = ctx.variables();
+        let mut clauses = Vec::new();
+        for i in 0..30 {
+            let mut c = BddPartialValuation::empty();
+            c[variables[2 * i]] = Some(true);
+            c[variables[2 * i + 1]] = Some(true);
+            clauses.push(c);
+        }
+
+        assert_eq!(ctx.mk_cnf(&clauses).size(), 62);
+    }
+
+    #[test]
+    pub fn bad_mk_cnf_2() {
+        // Extracted from AEON.py test.
+        let ctx = BddVariableSet::new_anonymous(3);
+        let a_true = (BddVariable::from_index(0), true);
+        let b_false = (BddVariable::from_index(1), false);
+        let clauses = vec![
+            BddPartialValuation::from_values(&[a_true, b_false]),
+            BddPartialValuation::from_values(&[a_true, b_false]),
+        ];
+
+        assert_eq!(ctx.mk_cnf(&clauses).size(), 4);
     }
 }
