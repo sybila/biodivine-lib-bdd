@@ -1,0 +1,25 @@
+targets,factors
+v_3MBz, v_3MBz
+v_CAA, v_CAA
+v_CellDens, v_CellDens
+v_Cold, v_Cold
+v_Crc, (v_CAA & !v_CellDens)
+v_Glu, v_Glu
+v_HU, v_HU
+v_Heat, v_Heat
+v_IHF, v_CellDens
+v_Meta, ((((v_3MBz & (v_XylS & ((v_RpoD | v_RpoH) | v_RpoS))) & !v_Crc) | ((v_XylSh & ((v_RpoD | v_RpoH) | v_RpoS)) & !v_Crc)) | ((v_m_xyl & ((v_Upper & ((v_RpoD | v_RpoH) | v_RpoS)) & v_XylS)) & !v_Crc))
+v_Meta2, ((((v_XylSh & ((v_RpoD | v_RpoH) | v_RpoS)) & !(v_ProX | v_Crc)) | ((v_m_xyl & ((v_XylS & ((v_RpoD | v_RpoH) | v_RpoS)) & v_Upper)) & !(v_ProX | v_Crc))) | ((v_3MBz & (((v_RpoD | v_RpoH) | v_RpoS) & v_XylS)) & !(v_ProX | v_Crc)))
+v_PprA, v_Cold
+v_ProX, (v_Glu & !v_CellDens)
+v_PtsN, (v_Glu & !v_CellDens)
+v_RpoD, v_RpoD
+v_RpoH, v_Heat
+v_RpoN, v_RpoN
+v_RpoS, v_CellDens
+v_TurA, v_Cold
+v_Upper, ((v_m_xyl & ((v_IHF & v_XylR) & v_RpoN)) & !(((v_TurA | v_Crc) | v_PprA) | v_PtsN))
+v_XylR, (v_RpoD & !(v_Crc | v_ProX))
+v_XylS, v_RpoD
+v_XylSh, ((v_m_xyl & ((v_XylR & v_HU) & v_RpoN)) & !(v_Crc | v_PtsN))
+v_m_xyl, v_m_xyl

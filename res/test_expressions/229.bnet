@@ -1,0 +1,57 @@
+targets,factors
+v_ABA, v_ABA
+v_ABH1, v_ABH1
+v_ABPS, (v_CA & (!v_PI3P & !v_PI4P))
+v_ACTIN, ((v_ARP23 & v_SCAB1) & (!v_AtRAC1 & (v_ROS | (v_CA & v_ABPS))))
+v_AHA1, (v_PP1 & (!v_CA & !v_pH))
+v_ARP23, (v_PIP2 | v_ROS)
+v_ATALMT6, v_CA
+v_ATGPX3, v_ROS
+v_AtRAC1, v_PP2C
+v_CA, ((v_Icas | (v_CADPR | (v_Ica | v_InSP6))) & (!v_CaATPASE & !v_CAX))
+v_CADPR, v_CGMP
+v_CAX, v_CIPK
+v_CBL, v_CA
+v_CDPK, (v_CA & !v_PP2C)
+v_CGMP, v_NO
+v_CIPK, (v_CBL & !v_PP2C)
+v_CLOSURE, (v_GORK & (v_ACTIN & (!v_MALATE & v_SLAC1)))
+v_CaATPASE, v_CaM
+v_CaM, v_CA
+v_CuAO, v_ABA
+v_DEPOLAR, (v_CA | (v_TPK1 | (!v_AHA1 | (v_SLAC1 | v_QUAC))))
+v_ERA1, v_ERA1
+v_GORK, ((!v_NO | (v_ROS | v_pH)) & v_DEPOLAR)
+v_GPA1, v_S1P
+v_GTG, (v_ABA & !v_GPA1)
+v_Ica, ((!v_ABH1 | (!v_ERA1 | v_MRP5)) & (v_ROS & !v_DEPOLAR))
+v_Icas, v_ACTIN
+v_InSP3, (v_PIP2 & v_PLC)
+v_InSP6, (v_InSP3 & !v_MRP5)
+v_KAT1, (!v_CDPK & (!v_SnRK2 & !v_DEPOLAR))
+v_MALATE, (v_PEPC & (!v_QUAC & !v_ATALMT6))
+v_MAPK, ((v_ROS | (v_CDPK & v_CA)) & !v_PP2C)
+v_MRP5, v_MRP5
+v_NO, (v_ROS & v_CaM)
+v_PA, (v_PLD | (v_PLC & v_PIP2))
+v_PEPC, (!v_MALATE & !v_ABA)
+v_PI3P, v_ABA
+v_PI4P, (v_ABA | v_PA)
+v_PIP2, v_PI4P
+v_PLC, (v_ABA & v_CA)
+v_PLD, (v_GPA1 | (v_NO | v_CA))
+v_PP1, !v_PA
+v_PP2C, ((!v_PYR & (!v_PA & (!v_ROS & (!v_ATGPX3 & (v_pH | v_ROP11))))) | ((!v_PYR & (!v_PA & (!v_ROS & (!v_ATGPX3 & v_ROP11)))) | (!v_PYR | (!v_PYR & v_ABH1))))
+v_PYR, v_ABA
+v_QUAC, (v_SnRK2 & v_DEPOLAR)
+v_RBOH, ((v_SnRK2 | (v_CDPK & v_CA)) & (v_RCN1 & (v_PA & ((v_PI3P | v_PI4P) & v_pH))))
+v_RCN1, v_PA
+v_ROP11, v_ERA1
+v_ROS, (((v_CuAO | v_RBOH) & !v_ATGPX3) | (v_CuAO & v_RBOH))
+v_S1P, v_SK
+v_SCAB1, (v_ABA | v_InSP6)
+v_SK, (v_ABA | v_PA)
+v_SLAC1, (((v_SnRK2 | (v_CDPK & !v_PP2C)) & (v_MAPK & (!v_ERA1 | (v_MRP5 | !v_ABH1)))) & !v_MALATE)
+v_SnRK2, !v_PP2C
+v_TPK1, (v_CA & !v_pH)
+v_pH, (v_SnRK2 & !v_AHA1)

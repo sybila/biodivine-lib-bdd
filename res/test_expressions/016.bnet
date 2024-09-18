@@ -1,0 +1,119 @@
+targets,factors
+v_a20, v_abin2
+v_abin2, v_abin2
+v_akt, (v_mtorc2 & (v_pip3 & v_pdk1))
+v_ap1, ((v_atf2 | v_cfos) | v_cjun)
+v_atf2, ((v_nuc_p38 | v_jnk) | v_erk12)
+v_ccl2, (v_ap1 & ((v_cjun & v_nfkb) & v_gsk3))
+v_cebpb, (v_nuc_p38 | v_erk12)
+v_cebpd, (v_nfkb & (v_jnk & v_ck2))
+v_cfos, (v_dum_sap1_or_elk_cfos & v_msk1)
+v_cjun, (v_jnk | v_cjun_gene)
+v_cjun_gene, v_msk1
+v_ck2, v_ck2
+v_cox2, (((v_ap1 | v_dum_cebp_cox2) | v_nfkb) | v_cjun)
+v_cyt_p38, (v_mk2 & v_nuc_p38)
+v_dum_cebp_cox2, (v_cebpd | v_cebpb)
+v_dum_cebp_il1ra, (v_cebpd | v_cebpb)
+v_dum_cebp_pro_il1b, (v_cebpd | v_cebpb)
+v_dum_cebp_saa, (v_cebpb | v_cebpd)
+v_dum_ikkab_nemo_akt_or_ck2_p65, (v_ck2 | (v_ikkab_nemo & v_akt))
+v_dum_ikkab_or_ikkbb_nemo_ikkb_a, (v_ikkab_nemo | v_ikkbb_nemo)
+v_dum_il1_r1, (v_il1a | v_il1b)
+v_dum_il1_r2, (v_il1a | v_il1b)
+v_dum_irak1_or_2_traf6_ub, (v_irak2 | v_irak1)
+v_dum_mek3_or_4_or_6_nuc_p38, ((v_mek6 | v_mek4) | v_mek3)
+v_dum_mek4_or_7_jnk, (v_mek4 | v_mek7)
+v_dum_sap1_or_elk_cfos, (v_elk1 | v_sap1)
+v_dum_tak1_tab_or_mekk3_ikkb_a, ((v_tak1_tab & v_irak1_ub) | v_mekk3)
+v_elk1, ((v_erk12 | v_jnk) | v_nuc_p38)
+v_erk12, (v_mek1 & !v_mkp1)
+v_gsk3, !v_akt
+v_hgf, (v_pro_hgf & v_upa)
+v_hnf4a, (v_nuc_p38 & v_ros)
+v_hsp27_ps, v_mk2
+v_ikba, (v_nfkb | !((v_ikba_degr | v_ikba_diss) | v_nfkb))
+v_ikba_degr, ((v_ikkb_a | v_ck2) | (v_ikkaa & v_nik))
+v_ikba_diss, v_ikka_a
+v_ikka, v_ikka
+v_ikka_a, (v_mekk3 & v_ikkaa_nemo)
+v_ikkaa, v_ikka
+v_ikkaa_nemo, (v_ikka & v_nemo)
+v_ikkab_nemo, (v_ikka & (v_ikkb & v_nemo))
+v_ikkb, v_ikkb
+v_ikkb_a, (v_dum_tak1_tab_or_mekk3_ikkb_a & v_dum_ikkab_or_ikkbb_nemo_ikkb_a)
+v_ikkbb_nemo, (v_ikkb & v_nemo)
+v_il1a, v_sil1r12
+v_il1b, v_sil1r12
+v_il1b_new, (v_pro_il1b & v_nalp_infl)
+v_il1r1, (v_dum_il1_r1 & !v_il1ra)
+v_il1r2, (v_dum_il1_r2 & !v_il1ra)
+v_il1ra, (v_sil1r12 | (v_dum_cebp_il1ra & v_nfkb))
+v_il1rc, (v_il1r1 & !(v_il1r2 | v_sil1r12))
+v_il6, ((v_ap1 & ((v_cebpb & v_nfkb) & v_gsk3)) & !(v_ttp | v_ksrp))
+v_il8, ((v_ap1 & (v_cfos & v_nfkb)) & !(v_ksrp | v_ttp))
+v_inos, (v_nfkb | v_hnf4a)
+v_irak1, ((v_irak4 & (v_myd88 & v_tollip)) & !(v_irak1c | v_irakm))
+v_irak1_ub, (v_pellino & v_trika1)
+v_irak1c, (v_myd88 & v_tollip)
+v_irak2, ((v_irak4 & (v_myd88 & v_tollip)) & !v_irak1c)
+v_irak4, (v_myd88 & !v_smyd88)
+v_irakm, v_irakm
+v_irs1_ps, ((v_erk12 | v_ikkb_a) | v_jnk)
+v_jnk, (v_dum_mek4_or_7_jnk & !v_mkp1)
+v_ksrp, !v_cyt_p38
+v_lbp, (v_cebpb & v_ap1)
+v_mek1, v_tpl2
+v_mek3, (v_tak1_tab | v_mekk3)
+v_mek4, (v_mekk3 | v_tak1_tab)
+v_mek6, (v_mekk3 | v_tak1_tab)
+v_mek7, (v_mekk3 | v_tak1_tab)
+v_mekk3, (v_traf6_ub | v_traf6)
+v_mk2, v_nuc_p38
+v_mkp1, v_ap1
+v_msk1, (v_erk12 | v_nuc_p38)
+v_mtorc2, v_mtorc2
+v_myd88, v_il1rc
+v_nalp_infl, !v_erk12
+v_nc_nfkb_pathway, (v_nik & v_ikkaa)
+v_nemo, !v_a20
+v_nfkb, ((v_p50 & v_p65) & !v_ikba)
+v_nik, v_tak1_tab
+v_nuc_p38, (v_dum_mek3_or_4_or_6_nuc_p38 & !v_mkp1)
+v_p105, !v_p105_degr
+v_p105_degr, v_ikkb_a
+v_p50, v_p105_degr
+v_p65, (v_dum_ikkab_nemo_akt_or_ck2_p65 & !v_socs1)
+v_pdk1, v_pdk1
+v_pellino, (v_irak1 | v_irak4)
+v_pi3k, (v_myd88 | v_il1rc)
+v_pip3, (v_pi3k & !v_pten)
+v_pro_hgf, (v_cebpd | v_cebpb)
+v_pro_il1b, (v_dum_cebp_pro_il1b & ((v_cjun & v_ck2) & v_nfkb))
+v_pten, v_pten
+v_ros, !(v_inos | v_nfkb)
+v_saa, (v_dum_cebp_saa & v_nfkb)
+v_sap1, ((v_erk12 | v_jnk) | v_nuc_p38)
+v_sil1r12, v_sil1r12
+v_sil1r_ap, v_sil1r12
+v_smyd88, v_smyd88
+v_socs1, v_socs1
+v_socs3, v_socs3
+v_src, v_src
+v_tak1_tab, ((v_traf6_ub & (v_mekk3 & v_trika1)) & !v_cyt_p38)
+v_tdum_a20_traf6_ub, v_a20
+v_tdum_cyt_p38_tak1_tab, v_cyt_p38
+v_tdum_hsp27_ps_traf6_ub, v_hsp27_ps
+v_tdum_il1r2_il1rc, v_il1r2
+v_tdum_il1ra_ilr12, v_il1ra
+v_tdum_irak1c_irak12, v_irak1c
+v_tdum_mkp1_p38_jnk_erk12, v_mkp1
+v_tdum_tpl2_degr_tp2, v_tpl2_degr
+v_tollip, v_il1rc
+v_tpl2, ((v_abin2 & v_src) & !(v_tpl2_degr | v_p105))
+v_tpl2_degr, v_tpl2
+v_traf6, v_irak1
+v_traf6_ub, ((v_dum_irak1_or_2_traf6_ub & v_trika1) & !((v_hsp27_ps | v_a20) | v_socs3))
+v_trika1, v_trika1
+v_ttp, !v_mk2
+v_upa, (v_ap1 & v_atf2)

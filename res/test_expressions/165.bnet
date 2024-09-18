@@ -1,0 +1,9 @@
+targets,factors
+v_BMP, v_BMP
+v_EGF_b1, v_EGF_b1
+v_EGF_b2, (v_EGF_b1 & v_EGF_b2)
+v_Floor, (((((v_EGF_b1 & !v_EGF_b2) & v_BMP) & v_Roof_adj) & v_anterior) | (((v_EGF_b1 & v_EGF_b2) & v_Roof_adj) & v_anterior))
+v_Operculum, (((((v_EGF_b1 & !v_EGF_b2) & v_BMP) & !v_Roof_adj) & v_anterior) | (((v_EGF_b1 & v_EGF_b2) & !v_Roof_adj) & v_anterior))
+v_Roof, (((v_EGF_b1 & !v_EGF_b2) & !v_BMP) & v_anterior)
+v_Roof_adj, v_Roof_adj
+v_anterior, v_anterior

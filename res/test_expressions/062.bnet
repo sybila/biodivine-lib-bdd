@@ -1,0 +1,19 @@
+targets,factors
+v_BCL6, (v_IL21 & !((v_IL2 | v_TBET) | v_TGFB))
+v_FOXP3, ((v_IL2 & (v_FOXP3 | v_TGFB)) & !(v_IL21 | v_RORGT))
+v_GATA3, (((v_IL4 & v_IL2) & !((((v_TBET | v_BCL6) | v_TGFB) | v_IFNG) | v_IL21)) | (v_GATA3 & !((((v_TBET | v_BCL6) | v_TGFB) | v_IFNG) | v_IL21)))
+v_IFNG, (((v_IFNGe & !(((v_IL21 | v_IL4) | v_IL10) | v_IL9)) | (v_TBET & !((((((v_IL21 | v_IL4) | v_BCL6) | v_IL10) | v_IL9) | v_TGFB) | v_GATA3))) | (v_IFNG & !((((((v_IL21 | v_IL4) | v_BCL6) | v_IL10) | v_IL9) | v_TGFB) | v_GATA3)))
+v_IFNGe, v_IFNGe
+v_IL10, ((v_IL10 & (((v_GATA3 | v_IFNG) | v_IL21) | v_TGFB)) | v_IL10e)
+v_IL10e, v_IL10e
+v_IL2, ((v_IL2e & !((v_IL21 | v_IFNG) | v_IL10)) | (v_IL2 & !(((v_IL21 | v_FOXP3) | v_IFNG) | v_IL10)))
+v_IL21, ((((v_IL21e & !((((v_IL4 | v_IFNG) | v_IL2) | v_IL9) | v_IL10)) | (v_BCL6 & !((((v_IL4 | v_IFNG) | v_IL2) | v_IL9) | v_IL10))) | (v_RORGT & !((((v_IL4 | v_IFNG) | v_IL2) | v_IL9) | v_IL10))) | (v_IL21 & !((((v_IL4 | v_IFNG) | v_IL2) | v_IL9) | v_IL10)))
+v_IL21e, v_IL21e
+v_IL2e, v_IL2e
+v_IL4, ((v_IL4e & !(v_IL21 | v_IFNG)) | ((v_GATA3 & (v_IL2 | v_IL4)) & !((v_TBET | v_IL21) | v_IFNG)))
+v_IL4e, v_IL4e
+v_IL9, ((v_IL4 & ((v_IL2 & v_IL10) | v_TGFB)) & !(v_IL21 | v_IFNG))
+v_RORGT, ((v_IL21 & v_TGFB) & !(((v_TBET | v_GATA3) | v_BCL6) | v_FOXP3))
+v_TBET, ((v_IFNG & !((((v_IL9 | v_GATA3) | v_BCL6) | v_IL21) | v_IL4)) | (v_TBET & !((((v_IL9 | v_GATA3) | v_BCL6) | v_IL21) | v_IL4)))
+v_TGFB, ((v_TGFBe | (v_FOXP3 & !v_IL21)) | (v_TGFB & !v_IL21))
+v_TGFBe, v_TGFBe

@@ -1,0 +1,28 @@
+targets,factors
+v_AKT, v_PI3K
+v_BMP4, v_BMP4
+v_CDH1_b1, (((((!v_OCT4 & !v_KLF4) & v_CDH1_b1) & v_CDH1_b2) | (!v_OCT4 & v_KLF4)) | v_OCT4)
+v_CDH1_b2, ((((!v_OCT4 & v_KLF4) & !v_SMAD3) & v_CDH1_b1) | ((v_OCT4 & !v_SMAD3) & v_CDH1_b1))
+v_DMRT1, ((!v_OCT4 & !v_SOX2) & !v_TFAP2C)
+v_ETV5, ((((((!v_OCT4 & !v_SOX2) & !v_NANOG) & v_SFK) | ((!v_OCT4 & !v_SOX2) & v_NANOG)) | (!v_OCT4 & v_SOX2)) | v_OCT4)
+v_EZH2, (!v_OCT4 | (v_OCT4 & !v_SOX2))
+v_GDNF, v_GDNF
+v_KLF4, ((!v_STAT3 & v_TFAP2C) | v_STAT3)
+v_LIF, v_LIF
+v_LIN28a, v_SOX2
+v_MET, ((!v_ETV5 & v_CDH1_b1) | v_ETV5)
+v_NANOG, (((((((((((!v_OCT4SOX2 & !v_NANOG) & !v_KLF4) & !v_TBX3) & v_SMAD1_5) | (((!v_OCT4SOX2 & !v_NANOG) & !v_KLF4) & v_TBX3)) | (((((!v_OCT4SOX2 & !v_NANOG) & v_KLF4) & !v_TBX3) & !v_SMAD1_5) & !v_EZH2)) | ((((!v_OCT4SOX2 & !v_NANOG) & v_KLF4) & !v_TBX3) & v_SMAD1_5)) | (((!v_OCT4SOX2 & !v_NANOG) & v_KLF4) & v_TBX3)) | (((!v_OCT4SOX2 & v_NANOG) & !v_TBX3) & v_SMAD1_5)) | ((!v_OCT4SOX2 & v_NANOG) & v_TBX3)) | v_OCT4SOX2)
+v_OCT4, ((!v_OCT4SOX2 & v_KLF4) | v_OCT4SOX2)
+v_OCT4SOX2, (v_OCT4 & v_SOX2)
+v_PI3K, ((!v_LIF & v_GDNF) | v_LIF)
+v_PRDM14, ((!v_STAT3 & v_SMAD1_5_4) | v_STAT3)
+v_SFK, v_GDNF
+v_SMAD1_5, v_BMP4
+v_SMAD1_5_4, v_SMAD1_5
+v_SMAD3, v_TGFB
+v_SOX2, (((!v_OCT4SOX2 & v_PRDM14) | ((v_OCT4SOX2 & !v_PRDM14) & !v_DMRT1)) | (v_OCT4SOX2 & v_PRDM14))
+v_STAT3, v_LIF
+v_TBX3, v_AKT
+v_TET1, ((!v_OCT4 & v_NANOG) | v_OCT4)
+v_TFAP2C, v_PRDM14
+v_TGFB, v_TGFB

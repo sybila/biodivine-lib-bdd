@@ -1,0 +1,105 @@
+targets,factors
+v_actinreorg, v_limk1
+v_akt, (((v_pi34p2 & (v_mtor_ric & v_pdk1)) & !v_pp2a) | ((v_pdk1 & (v_mtor_ric & v_pip3)) & !v_pp2a))
+v_aktd, v_akt
+v_ap1, (v_cfos & v_cjun)
+v_ar, v_ar
+v_bad, !(v_pak1 & v_akt)
+v_bir, v_bir
+v_btc, v_btc
+v_ca, v_ip3
+v_ccbl, v_erbb11
+v_cfos, ((v_jnk & !v_pp2a) | ((v_p90rsk & v_erk12) & !v_pp2a))
+v_cjun, v_jnk
+v_cmyc, (v_nucerk12 & !v_gsk3)
+v_creb, (v_p90rsk | v_mk2)
+v_csrc, v_csrc
+v_dag, v_plcg
+v_egf, v_egf
+v_elk1, (v_nucerk12 & !v_pp2b)
+v_endocyt_degrad, (v_ccbl & v_rab5a)
+v_epr, v_epr
+v_erbb1, v_erbb1
+v_erbb11, (((((((((((v_egf & (!v_endocyt_degrad | v_erbb1)) & !v_shp1d) | ((v_hbegf & (v_erbb1 | !v_endocyt_degrad)) & !v_shp1d)) | ((v_ar & (v_erbb1 | !v_endocyt_degrad)) & !v_shp1d)) | ((v_tgfa & (!v_endocyt_degrad | v_erbb1)) & !v_shp1d)) | (v_erbb1 & !v_endocyt_degrad)) | (v_shp1d & !v_endocyt_degrad)) | ((v_btc & (!v_endocyt_degrad | v_erbb1)) & !v_shp1d)) | ((v_bir & (v_erbb1 | !v_endocyt_degrad)) & !v_shp1d)) | ((v_epr & (v_erbb1 | !v_endocyt_degrad)) & !v_shp1d)) | !(((((((((v_hbegf | v_epr) | v_ar) | v_egf) | v_endocyt_degrad) | v_bir) | v_tgfa) | v_erbb1) | v_shp1d) | v_btc))
+v_erbb12, (((((((v_hbegf & (v_erbb2 & v_erbb1)) & !v_shp1d) | ((v_egf & (v_erbb2 & v_erbb1)) & !v_shp1d)) | ((v_tgfa & (v_erbb2 & v_erbb1)) & !v_shp1d)) | ((v_bir & (v_erbb2 & v_erbb1)) & !v_shp1d)) | ((v_btc & (v_erbb2 & v_erbb1)) & !v_shp1d)) | ((v_epr & (v_erbb2 & v_erbb1)) & !v_shp1d))
+v_erbb13, (((((((((v_epr & (v_erbb3 & v_erbb1)) & !(v_erbb2 | v_shp1d)) | ((v_nrg2a & (v_erbb3 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_ar & (v_erbb3 & v_erbb1)) & !v_shp1d)) | ((v_tgfa & (v_erbb3 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_btc & (v_erbb3 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_egf & (v_erbb3 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_nrg1a & (v_erbb3 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_nrg1b & (v_erbb3 & v_erbb1)) & !(v_erbb2 | v_shp1d)))
+v_erbb14, (((((((((v_nrg1a & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d)) | ((v_nrg4 & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_tgfa & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_nrg1b & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_epr & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_nrg2b & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_egf & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d))) | ((v_nrg2a & (v_erbb4 & v_erbb1)) & !(v_erbb2 | v_shp1d)))
+v_erbb2, v_erbb2
+v_erbb23, ((((((v_btc & (v_erbb2 & v_erbb3)) | (v_epr & (v_erbb2 & v_erbb3))) | (v_bir & (v_erbb2 & v_erbb3))) | (v_nrg1a & (v_erbb2 & v_erbb3))) | (v_nrg1b & (v_erbb2 & v_erbb3))) | (v_nrg2b & (v_erbb2 & v_erbb3)))
+v_erbb24, ((((((((((((v_tgfa & (v_erbb2 & v_erbb4)) | (v_nrg2a & (v_erbb2 & v_erbb4))) | (v_bir & (v_erbb2 & v_erbb4))) | (v_btc & (v_erbb2 & v_erbb4))) | (v_egf & (v_erbb2 & v_erbb4))) | (v_nrg1a & (v_erbb2 & v_erbb4))) | (v_hbegf & (v_erbb2 & v_erbb4))) | (v_nrg1b & (v_erbb2 & v_erbb4))) | (v_nrg2b & (v_erbb2 & v_erbb4))) | (v_epr & (v_erbb2 & v_erbb4))) | (v_nrg4 & (v_erbb2 & v_erbb4))) | (v_nrg3 & (v_erbb2 & v_erbb4)))
+v_erbb3, v_erbb3
+v_erbb34, (((((v_nrg1a & (v_erbb3 & v_erbb4)) & !v_erbb2) | ((v_nrg2a & (v_erbb3 & v_erbb4)) & !v_erbb2)) | ((v_nrg1b & (v_erbb3 & v_erbb4)) & !v_erbb2)) | ((v_nrg2b & (v_erbb3 & v_erbb4)) & !v_erbb2))
+v_erbb4, v_erbb4
+v_erbb44, (((((((v_nrg3 & v_erbb4) | (v_btc & v_erbb4)) | (v_nrg2b & v_erbb4)) | (v_nrg1a & v_erbb4)) | (v_nrg1b & v_erbb4)) | (v_bir & v_erbb4)) | (v_nrg4 & v_erbb4))
+v_erk12, v_mek12
+v_esp8r, v_esp8r
+v_gab1, ((v_erbb11 | v_grb2) | v_pip3)
+v_grb2, ((((((((v_erbb11 | v_shc) | v_erbb13) | v_erbb44) | v_erbb23) | v_erbb12) | v_erbb14) | v_erbb24) | v_erbb34)
+v_gsk3, !(v_p90rsk & v_akt)
+v_hbegf, v_hbegf
+v_hsp27, v_mk2
+v_ip3, v_plcg
+v_jnk, (v_mkk7 & v_mkk4)
+v_limk1, v_pak1
+v_mek12, (v_mekk1 | v_raf1)
+v_mekk1, v_raccdc42
+v_mekk4, v_raccdc42
+v_mk2, v_p38
+v_mkk3, v_mlk3
+v_mkk4, ((v_mlk3 | v_mekk1) | v_mekk4)
+v_mkk6, v_mlk3
+v_mkk7, v_mekk1
+v_mkp, v_mkp
+v_mlk3, v_raccdc42
+v_mtor_rap, (v_rheb & v_mtorr)
+v_mtor_ric, v_mtorr
+v_mtorr, v_mtorr
+v_nck, ((v_erbb11 | v_erbb14) | v_erbb44)
+v_nrg1a, v_nrg1a
+v_nrg1b, v_nrg1b
+v_nrg2a, v_nrg2a
+v_nrg2b, v_nrg2b
+v_nrg3, v_nrg3
+v_nrg4, v_nrg4
+v_nucerk12, (v_erk12 & !v_mkp)
+v_p38, ((v_mkk4 | v_mkk3) | v_mkk6)
+v_p70s6_1, (v_erk12 | v_jnk)
+v_p70s6_2, (v_pdk1 & (v_p70s6_1 & v_mtor_rap))
+v_p90rsk, (v_erk12 & v_pdk1)
+v_p90rskerk12d, (v_p90rsk & v_erk12)
+v_pak1, ((v_nck & v_raccdc42) | (v_grb2 & v_raccdc42))
+v_pdk1, v_pdk1
+v_pi34p2, ((v_ship2d & v_pi3k) & !v_ptend)
+v_pi3k, (((((v_ras & v_pi3kr) | (v_erbb34 & v_pi3kr)) | (v_erbb23 & v_pi3kr)) | (v_erbb13 & v_pi3kr)) | (v_pi3kr & v_gab1))
+v_pi3kr, v_pi3kr
+v_pip3, (v_pi3k & !(v_ptend | v_ship2d))
+v_pkc, (v_pdk1 & (v_dag & v_ca))
+v_plcg, v_erbb11
+v_pp2a, v_pp2a
+v_pp2b, v_pp2b
+v_pro_apoptotic, v_bad
+v_pten, v_pten
+v_ptend, v_pten
+v_rab5a, (v_rin1 & !v_rntre)
+v_raccdc42, (v_sos1esp8e3b1 | v_vav2)
+v_raf1, (((v_pak1 & v_ras) & !v_aktd) | ((v_ras & v_csrc) & !v_aktd))
+v_ras, (v_sos1 & !v_rasgap)
+v_rasgap, (v_gab1 & !v_shp2)
+v_rheb, !v_tsc1_tsc2
+v_rin1, v_ras
+v_rntre, (v_esp8r & v_erbb11)
+v_shc, (((((((v_erbb23 | v_erbb44) | v_erbb24) | v_erbb14) | v_erbb11) | v_erbb12) | v_erbb34) | v_erbb13)
+v_ship2, v_ship2
+v_ship2d, v_ship2
+v_shp1, v_erbb11
+v_shp1d, v_shp1
+v_shp2, v_gab1
+v_sos1, ((v_sos1r & v_grb2) & !v_p90rskerk12d)
+v_sos1esp8e3b1, (v_sos1r & ((v_pi3kr & v_pip3) & v_esp8r))
+v_sos1r, v_sos1r
+v_stat1, (v_erbb11 & v_csrc)
+v_stat3, (v_erbb11 & v_csrc)
+v_stat5, ((v_erbb11 & v_csrc) | (v_erbb24 & v_csrc))
+v_tgfa, v_tgfa
+v_tsc1_tsc2, !v_akt
+v_vav2, ((v_erbb11 & v_pip3) | (v_pi34p2 & v_erbb11))

@@ -1,0 +1,113 @@
+targets,factors
+v_ACE, v_aldosterone_simple_molecule_blood
+v_ACE2_Spike_complex, (v_ACE2_blood & v_S)
+v_ACE2_blood, v_ACE2_blood
+v_ACE2_endothelium__vascular, (v_ACE2_blood & !v_SARS_CoV_2_infection_phenotype)
+v_ACTH_simple_molecule, v_ACTH_simple_molecule
+v_AGT, v_AGT
+v_AGTR1_blood, v_angiotensin_II_simple_molecule
+v_AGTR1_platelet, v_angiotensin_II_simple_molecule
+v_Antithrombin, !v_SARS_CoV_2_infection_phenotype
+v_Bradykinin, v_KNG1_KLKB1_complex
+v_Bradykinin_1_5_, (v_Bradykinin & v_ACE)
+v_C2, v_C2
+v_C2a, (v_C2 & v_MASP1)
+v_C2a_C4b_complex, (v_C4b & v_C2a)
+v_C2b, (v_C2 & v_MASP1)
+v_C3, v_C3
+v_C3a, ((v_C3b_Bb_complex | v_C2a_C4b_complex) & v_C3)
+v_C3b, ((v_C3b_Bb_complex | v_C2a_C4b_complex) & v_C3)
+v_C3b_Bb_C3b_complex, (v_C3b & v_C3b_Bb_complex)
+v_C3b_Bb_complex, v_C3b_Bb_complex
+v_C4, v_C4
+v_C4a, (v_C4 & v_MASP2)
+v_C4b, (v_C4 & v_MASP2)
+v_C4d, (((v_C4b & v_CFI) | v_S) | v_SARS_CoV_2_infection_phenotype)
+v_C4d_deposition_phenotype, v_C4d
+v_C5, v_C5
+v_C5a, ((((v_C2a_C4b_complex | v_C3b_Bb_C3b_complex) & v_C5) | v_SARS_CoV_2_infection_phenotype) | v_Plasmin)
+v_C5b_9_deposition_phenotype, v_csa32_C5b_9_complex_endothelium__vascular
+v_CFI, v_CFI
+v_CRP, v_SARS_CoV_2_infection_phenotype
+v_D_dimer, (((v_Plasmin | v_TAFI) | v_SARS_CoV_2_infection_phenotype) & v_Fibrin_polymer)
+v_F10, v_F10
+v_F11, (v_F12a & v_Thrombin_blood_active)
+v_F11a, (v_F12a & v_Thrombin_blood_active)
+v_F12, v_F12
+v_F12a, (v_F12 & v_KLKB1)
+v_F13a, v_F13a
+v_F5, v_F5
+v_F5a_F10a_complex, (((v_F10 & v_F9a) & !v_Antithrombin) | ((v_F5 & !v_Thrombin_Thrombomodulin_complex) & !v_PROC))
+v_F8, v_SARS_CoV_2_infection_phenotype
+v_F8_F9_complex, (v_F9a & v_F8a)
+v_F8a, ((v_F8 & v_Thrombin_blood_active) & !v_PROC)
+v_F9, v_F9
+v_F9a, (v_F9 & v_F11a)
+v_Fibrin_monomer, (((v_Thrombin_blood | v_SARS_CoV_2_infection_phenotype) & v_Fibrinogen_complex) & !v_Thrombin_Thrombomodulin_complex)
+v_Fibrin_polymer, (v_Fibrin_monomer & v_F13a)
+v_Fibrinogen_GP6_complex, (v_Fibrinogen_complex & v_GP6)
+v_Fibrinogen_complex, v_SARS_CoV_2_infection_phenotype
+v_GP6, v_GP6
+v_GP6_alpha2_beta1_complex, (v_GP6 & v_ITGA2_ITGAB1_complex)
+v_GP6_alpha2beta1_VWF_complex, (v_GP6_alpha2_beta1_complex & v_VWF)
+v_Heparin_simple_molecule, v_Heparin_simple_molecule
+v_Hypokalemia_phenotype, (v_SARS_CoV_2_infection_phenotype | v_aldosterone_simple_molecule_blood)
+v_IL1B, (v_SARS_CoV_2_infection_phenotype | v_cytokine_storm_phenotype)
+v_IL2RA, (v_SARS_CoV_2_infection_phenotype | v_cytokine_storm_phenotype)
+v_IL6, (v_SARS_CoV_2_infection_phenotype | v_cytokine_storm_phenotype)
+v_IL8, (v_SARS_CoV_2_infection_phenotype | v_cytokine_storm_phenotype)
+v_ITGA2_ITGAB1_complex, v_ITGA2_ITGAB1_complex
+v_KLKB1, v_KLKB1
+v_KNG1, v_KNG1
+v_KNG1_KLKB1_complex, (v_KLKB1 & v_KNG1)
+v_K__ion, !v_Hypokalemia_phenotype
+v_Kallikrein, (v_KNG1_KLKB1_complex | (v_KLKB1 & v_F12a))
+v_Kininogen, v_KNG1_KLKB1_complex
+v_MAS1, v_angiotensin_I_7_simple_molecule
+v_MASP1, v_MBL2
+v_MASP2, v_SARS_CoV_2_infection_phenotype
+v_MASP2_deposition_phenotype, v_MASP2
+v_MBL2, v_MBL2
+v_NR3C2, (v_aldosterone_simple_molecule_endothelium__vascular | v_AGTR1_blood)
+v_PLAT_SERPINE1_complex, ((v_SERPINE1 & v_PLAT_blood) & v_SARS_CoV_2_infection_phenotype)
+v_PLAT_blood, v_PLAT_blood
+v_PLAT_blood_active, ((((((v_Bradykinin | v_angiotensin_II_simple_molecule) & v_PLAT_blood) & !v_SERPINE1) & !v_angiotensin_I_7_simple_molecule) & !v_PROC) | v_Bradykinin)
+v_PLAU, !v_SERPINE1
+v_PROC, v_SARS_CoV_2_infection_phenotype
+v_Plasmin, ((((v_PLAT_blood_active | v_PLAU) | v_F11a) | v_KLKB1) & v_Plasminogen)
+v_Plasminogen, v_csa32_C5b_9_complex_endothelium__vascular
+v_Prorenin, v_Prorenin
+v_Prothrombin, v_Prothrombin
+v_REN, (v_Prorenin & v_Kallikrein)
+v_S, v_S
+v_SARS_CoV_2_infection_phenotype, v_SARS_CoV_2_infection_phenotype
+v_SARS_CoV_2_viral_entry_phenotype, v_ACE2_Spike_complex
+v_SERPINE1, ((((v_aldosterone_simple_molecule_blood | v_angiotensin_II_simple_molecule) | v_IL6) | v_AGTR1_blood) & !v_angiotensin_I_7_simple_molecule)
+v_SERPINF2, v_SERPINF2
+v_SERPINF2_Plasmin_complex, ((v_Plasmin & v_SERPINF2) & v_SARS_CoV_2_infection_phenotype)
+v_Small_peptide, ((((v_F12 & v_KLKB1) | ((v_F10 & v_F9a) & !v_Antithrombin)) | ((v_F8 & v_Thrombin_blood_active) & !v_PROC)) | (v_Bradykinin & v_ACE))
+v_TAFI, v_Thrombin_blood_active
+v_TAT_complex_complex, ((v_Antithrombin & v_Thrombin_blood_active) & v_SARS_CoV_2_infection_phenotype)
+v_TNF, (v_SARS_CoV_2_infection_phenotype | v_cytokine_storm_phenotype)
+v_Thrombin_Thrombomodulin_complex, (v_Thrombin_blood_active & v_Thrombomodulin)
+v_Thrombin_blood, (v_Prothrombin & v_F5a_F10a_complex)
+v_Thrombin_blood_active, ((v_Thrombin_blood & v_Heparin_simple_molecule) & !v_Antithrombin)
+v_Thrombomodulin, v_SARS_CoV_2_infection_phenotype
+v_Thrombosis_phenotype_blood, (((((((((v_IL1B | v_IL6) | v_TNF) | v_IL8) | v_IL2RA) | v_CRP) | v_VWF) | v_C4d) | v_csa32_C5b_9_complex_endothelium__vascular) | v_angiotensin_II_simple_molecule)
+v_Thrombosis_phenotype_human_host, (v_NR3C2 | v_AGTR1_blood)
+v_VWF, v_SARS_CoV_2_infection_phenotype
+v_aldosterone_simple_molecule_blood, ((((v_angiotensin_II_simple_molecule | v_K__ion) | v_AGTR1_blood) | v_ACTH_simple_molecule) | v_SARS_CoV_2_infection_phenotype)
+v_aldosterone_simple_molecule_endothelium__vascular, v_aldosterone_simple_molecule_blood
+v_angiotensin_II_simple_molecule, (((v_angiotensin_I_simple_molecule & v_ACE) | v_angiotensin_I_simple_molecule) | v_SARS_CoV_2_infection_phenotype)
+v_angiotensin_I_7_simple_molecule, (v_angiotensin_II_simple_molecule & v_ACE2_endothelium__vascular)
+v_angiotensin_I_simple_molecule, (v_AGT & v_REN)
+v_apoptosis_phenotype, v_C5b_9_deposition_phenotype
+v_csa32_C5b_9_complex_endothelium__vascular, (v_SARS_CoV_2_infection_phenotype | ((v_C2a_C4b_complex | v_C3b_Bb_C3b_complex) & v_C5))
+v_csa43_C5b_9_complex_endothelium__vascular, (v_csa32_C5b_9_complex_endothelium__vascular & v_S)
+v_cytokine_storm_phenotype, v_cytokine_storm_phenotype
+v_platelet_activation_phenotype, (v_GP6_alpha2beta1_VWF_complex | v_Fibrinogen_GP6_complex)
+v_platelet_aggregation_phenotype, v_C5b_9_deposition_phenotype
+v_septal_capillary_necrosis_phenotype, v_C4d_deposition_phenotype
+v_thrombus_formation_phenotype, ((v_platelet_activation_phenotype | !v_MAS1) | v_AGTR1_platelet)
+v_vascular_inflammation_phenotype, v_aldosterone_simple_molecule_endothelium__vascular
+v_vascular_remodeling_phenotype, v_aldosterone_simple_molecule_endothelium__vascular

@@ -1,0 +1,37 @@
+targets,factors
+v_APC, v_APC
+v_FOXP3, ((((((((((!v_TGFB_e & !v_TGFB) & v_FOXP3) & v_NFAT) & v_STAT5_b1) | ((((((!v_TGFB_e & v_TGFB) & !v_FOXP3) & v_NFAT) & !v_STAT1) & !v_STAT3) & v_STAT5_b1)) | (((((((!v_TGFB_e & v_TGFB) & !v_FOXP3) & v_NFAT) & !v_STAT1) & v_STAT3) & v_STAT5_b1) & !v_RORGT)) | ((((!v_TGFB_e & v_TGFB) & v_FOXP3) & v_NFAT) & v_STAT5_b1)) | (((((v_TGFB_e & !v_FOXP3) & v_NFAT) & !v_STAT1) & !v_STAT3) & v_STAT5_b1)) | ((((((v_TGFB_e & !v_FOXP3) & v_NFAT) & !v_STAT1) & v_STAT3) & v_STAT5_b1) & !v_RORGT)) | (((v_TGFB_e & v_FOXP3) & v_NFAT) & v_STAT5_b1))
+v_GATA3, (((!v_TBET & !v_GATA3) & v_STAT6) | (!v_TBET & v_GATA3))
+v_IFNB_e, v_IFNB_e
+v_IFNG, ((((((!v_TBET & !v_FOXP3) & v_NFAT) & !v_STAT3) & v_STAT4) & v_proliferation) | ((((v_TBET & !v_FOXP3) & v_NFAT) & !v_STAT3) & v_proliferation))
+v_IFNG_e, v_IFNG_e
+v_IL10, ((((!v_GATA3 & v_NFAT) & v_STAT3) & v_proliferation) | ((v_GATA3 & v_NFAT) & v_proliferation))
+v_IL10_e, v_IL10_e
+v_IL12_e, v_IL12_e
+v_IL15_e, v_IL15_e
+v_IL17, ((((((((v_APC & !v_FOXP3) & v_NFAT) & !v_STAT1) & v_STAT3) & !v_STAT5_b1) & !v_STAT6) & v_proliferation) & v_RORGT)
+v_IL2, ((((((!v_APC & !v_FOXP3) & v_NFAT) & !v_STAT5_b1) | ((((!v_APC & !v_FOXP3) & v_NFAT) & v_STAT5_b1) & !v_STAT6)) | (((v_APC & !v_TBET) & !v_FOXP3) & !v_STAT5_b1)) | ((((v_APC & !v_TBET) & !v_FOXP3) & v_STAT5_b1) & !v_STAT6))
+v_IL21, ((v_NFAT & v_STAT3) & v_proliferation)
+v_IL21_e, v_IL21_e
+v_IL23, ((v_NFAT & v_STAT3) & v_proliferation)
+v_IL23_e, v_IL23_e
+v_IL27_e, v_IL27_e
+v_IL2RA, (((((((((!v_APC & !v_TGFB_e) & !v_TGFB) & !v_FOXP3) & v_NFAT) & v_STAT5_b1) | ((((!v_APC & !v_TGFB_e) & !v_TGFB) & v_FOXP3) & v_NFAT)) | (((!v_APC & !v_TGFB_e) & v_TGFB) & v_NFAT)) | ((!v_APC & v_TGFB_e) & v_NFAT)) | (v_APC & v_NFAT))
+v_IL2R_b1, (((((!v_IL2_e & !v_IL2R_b1) & v_IL2) | (((!v_IL2_e & v_IL2R_b1) & !v_IL2R_b2) & v_IL2)) | ((!v_IL2_e & v_IL2R_b1) & v_IL2R_b2)) | v_IL2_e)
+v_IL2R_b2, ((((!v_IL2_e & v_IL2R_b1) & v_IL2RA) & v_IL2) | ((v_IL2_e & v_IL2R_b1) & v_IL2RA))
+v_IL2_e, v_IL2_e
+v_IL4, (((((!v_TBET & v_GATA3) & !v_FOXP3) & v_NFAT) & !v_STAT1) & v_proliferation)
+v_IL4_e, v_IL4_e
+v_IL6_e, v_IL6_e
+v_NFAT, v_APC
+v_RORGT, (((((((!v_TGFB_e & !v_TGFB) & v_STAT3) & v_RORGT) | (((!v_TGFB_e & v_TGFB) & !v_STAT3) & v_RORGT)) | ((!v_TGFB_e & v_TGFB) & v_STAT3)) | ((v_TGFB_e & !v_STAT3) & v_RORGT)) | (v_TGFB_e & v_STAT3))
+v_STAT1, ((((((!v_IFNB_e & !v_IFNG_e) & !v_IL27_e) & v_IFNG) | ((!v_IFNB_e & !v_IFNG_e) & v_IL27_e)) | (!v_IFNB_e & v_IFNG_e)) | v_IFNB_e)
+v_STAT3, (((((((((((((((((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & !v_IL23_e) & !v_IL27_e) & !v_IL10) & !v_IL21) & v_IL23) & v_STAT3) & v_RORGT) | ((((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & !v_IL23_e) & !v_IL27_e) & !v_IL10) & v_IL21)) | (((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & !v_IL23_e) & !v_IL27_e) & v_IL10)) | ((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & !v_IL23_e) & v_IL27_e)) | ((((((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & v_IL23_e) & !v_IL27_e) & !v_IL10) & !v_IL21) & v_STAT3) & v_RORGT)) | ((((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & v_IL23_e) & !v_IL27_e) & !v_IL10) & v_IL21)) | (((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & v_IL23_e) & !v_IL27_e) & v_IL10)) | ((((!v_IL6_e & !v_IL10_e) & !v_IL21_e) & v_IL23_e) & v_IL27_e)) | ((!v_IL6_e & !v_IL10_e) & v_IL21_e)) | (!v_IL6_e & v_IL10_e)) | v_IL6_e)
+v_STAT4, (((v_IL12_e & !v_GATA3) & v_STAT1) & !v_STAT6)
+v_STAT5_b1, (((((((((!v_IL4_e & !v_IL15_e) & !v_IL2R_b1) & !v_IL4) & v_STAT5_b1) & v_STAT5_b2) | (((!v_IL4_e & !v_IL15_e) & !v_IL2R_b1) & v_IL4)) | ((!v_IL4_e & !v_IL15_e) & v_IL2R_b1)) | (!v_IL4_e & v_IL15_e)) | v_IL4_e)
+v_STAT5_b2, (((((((((!v_IL4_e & !v_IL2R_b1) & v_IL4) & v_STAT5_b1) & v_STAT5_b2) | (((((!v_IL4_e & v_IL2R_b1) & !v_IL2R_b2) & v_IL4) & v_STAT5_b1) & v_STAT5_b2)) | (((!v_IL4_e & v_IL2R_b1) & v_IL2R_b2) & v_STAT5_b1)) | (((v_IL4_e & !v_IL2R_b1) & v_STAT5_b1) & v_STAT5_b2)) | ((((v_IL4_e & v_IL2R_b1) & !v_IL2R_b2) & v_STAT5_b1) & v_STAT5_b2)) | (((v_IL4_e & v_IL2R_b1) & v_IL2R_b2) & v_STAT5_b1))
+v_STAT6, ((!v_IL4_e & v_IL4) | v_IL4_e)
+v_TBET, (((!v_TBET & !v_GATA3) & v_STAT1) | (v_TBET & !v_GATA3))
+v_TGFB, ((v_FOXP3 & v_NFAT) & v_proliferation)
+v_TGFB_e, v_TGFB_e
+v_proliferation, (((!v_STAT5_b1 & v_proliferation) | ((v_STAT5_b1 & !v_STAT5_b2) & v_proliferation)) | (v_STAT5_b1 & v_STAT5_b2))

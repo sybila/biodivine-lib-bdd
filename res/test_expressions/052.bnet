@@ -1,0 +1,32 @@
+targets,factors
+v_CK1, v_CK1
+v_Rga4, !v_pom1
+v_SIP, (v_cdk_H & !(v_cdk_0 & v_ppc89))
+v_byr4, (v_cdk_L & !(v_cdc42 | (v_cdk_H & v_plo1)))
+v_byr4_cdc16, (v_byr4 & v_cdc16)
+v_cdc11, (((v_cdc7 | (v_flp1 & v_sid4)) | v_sid4) | v_cdc16)
+v_cdc14_sid1, v_cdc7
+v_cdc16, !v_fin1
+v_cdc42, ((v_scd1 & !v_Rga4) | (v_gef1 & !v_Rga4))
+v_cdc7, (v_spg1 & v_cdc11)
+v_cdk_0, v_cdk_0
+v_cdk_H, v_cdk_H
+v_cdk_L, v_cdk_L
+v_dma1, (v_sid4 & v_CK1)
+v_etd1, v_etd1
+v_fin1, v_cdk_H
+v_flp1, ((v_sid2_mob1 & !v_cdk_H) | (v_cdk_0 & !v_cdk_H))
+v_gef1, v_orb6
+v_nak1, (v_pmo25 | (v_sid2_mob1 & v_cdk_H))
+v_orb6, (v_pak1 | v_nak1)
+v_pak1, v_cdc42
+v_plo1, ((v_sid4 & !(v_sid4 & v_dma1)) | (v_cdk_H & !((v_sid4 & v_dma1) | v_cdk_L)))
+v_pmo25, (v_cdc7 | v_cdc14_sid1)
+v_pom1, v_pak1
+v_ppc89, v_ppc89
+v_ras1, v_ras1
+v_scd1, v_ras1
+v_sid2, ((v_cdc11 & (v_cdc7 & v_SIP)) | v_cdc7)
+v_sid2_mob1, v_sid2_mob1
+v_sid4, v_ppc89
+v_spg1, ((v_cdc11 & !v_byr4_cdc16) | (v_etd1 & !v_byr4_cdc16))

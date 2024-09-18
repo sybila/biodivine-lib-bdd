@@ -1,0 +1,140 @@
+targets,factors
+v_AA, v_PLA2
+v_AC, ((v_Integrins & v_ECM) & (v_Gas & v_Gbg_i))
+v_AND_34, v_Cas
+v_ARF, (v_PIP3_345 | v_PIP2_45)
+v_ASK1, v_Trx
+v_Actin, (v_Arp_23 & v_Myosin)
+v_Akt, (((v_Akt & !v_PP2A) | (v_PDK1 & (((v_Src & v_ILK) & !v_Akt) & (v_PIP3_345 | v_PIP2_34)))) | (v_CaMKK & ((!v_Akt & (v_PIP3_345 | v_PIP2_34)) & (v_Src & v_ILK))))
+v_Arp_23, v_WASP
+v_B_Arrestin, (((v_Palpha_qR | v_Palpha_sR) | v_Palpha_1213R) | v_Palpha_iR)
+v_B_Parvin, v_ILK
+v_Ca, (v_IP3R1 & !v_ExtPump)
+v_CaM, v_Ca
+v_CaMK, (v_CaMKK & v_CaM)
+v_CaMKK, v_CaM
+v_Cas, ((v_Src & v_Fak) & !(v_PTPPEST & v_Cas))
+v_Cbp, (v_Src & !v_SHP2)
+v_Cdc42, (((v_Pix_Cool & ((!v_Cdc42 & !v_Rac) & (v_Gbg_i & v_PAK))) & !(v_RhoGDI & v_Src)) | ((v_Cdc42 & (!v_RhoGDI & v_Pix_Cool)) & !(v_RhoGDI & v_Src)))
+v_Crk, ((v_Cas & (v_Src | v_Fak)) & !v_PTPPEST)
+v_Csk, (((v_Fak & (v_Cbp & v_Src)) & !v_SHP2) | (v_Cbp & ((((v_Gbg_q | v_Gbg_i) | v_Gbg_1213) | v_PKA) | ((((!v_Gbg_q & !v_Gbg_i) & !v_Gbg_1213) & !v_PKA) & !v_SHP2))))
+v_DAG, ((((v_PLC_g & v_PIP2_45) & !(v_DGK & v_DAG)) | (v_DAG & !v_DGK)) | ((v_PLC_B & v_PIP2_45) & !(v_DGK & v_DAG)))
+v_DGK, ((v_EGFR | (v_PKC & v_DAG)) | (v_Src & (v_Ca & v_PA)))
+v_DOCK180, (v_Crk & (v_Cas & v_PIP3_345))
+v_ECM, v_ECM
+v_EGF, v_EGF
+v_EGFR, ((((v_alpha_iR & (v_PKC & v_Ca)) | (v_EGF & !v_PKC)) | (v_alpha_qR & (v_PKC & v_Ca))) | (v_alpha_1213R & (v_PKC & v_Ca)))
+v_Erk, (v_Mek | (v_Erk & !(v_MKPs | v_PP2A)))
+v_ExtPump, v_ExtPump
+v_Fak, (((v_Integrins & v_Talin) & !(v_PTEN & v_Fak)) | ((v_Src & v_Fak) & !(v_PTEN & v_Fak)))
+v_GCK, v_Trafs
+v_GRK, ((((((v_B_Arrestin & v_Src) & !(v_Erk | v_RKIP)) | ((v_Gbg_i & v_PIP2_45) & !(v_Erk | v_RKIP))) | ((v_Gbg_1213 & v_PIP2_45) & !(v_Erk | v_RKIP))) | ((v_Gbg_s & v_PIP2_45) & !(v_Erk | v_RKIP))) | ((v_Gbg_q & v_PIP2_45) & !(v_Erk | v_RKIP)))
+v_Ga_1213, ((v_Ga_1213 & (!v_p115RhoGEF & v_Gbg_1213)) | (v_alpha_1213R & (!v_Gbg_1213 & !v_Ga_1213)))
+v_Gab1, (((v_Gab1 & (v_PIP3_345 & v_EGFR)) & !v_SHP2) | (((v_Grb2 & v_EGFR) & !v_Gab1) & !v_SHP2))
+v_Gai, (((v_alpha_iR & (!v_Gbg_i & !v_Gai)) | (v_PKA & (((!v_Gai & !v_Gbg_i) & v_alpha_sL) & !v_alpha_sR))) | (v_Gbg_i & (!v_RGS & v_Gai)))
+v_Gaq, (((v_alpha_qR & !v_Gaq) & !v_Gbg_q) | (v_Gaq & ((!v_PLC_B & !v_RGS) & v_Gbg_q)))
+v_Gas, ((v_alpha_sR & ((!v_PKA & !v_Gas) & !v_Gbg_s)) | (v_Gbg_s & (v_Gas & !v_RGS)))
+v_Gbg_1213, (v_Ga_1213 | (v_alpha_1213R & (!v_Gbg_1213 & !v_Ga_1213)))
+v_Gbg_i, ((v_alpha_iR & (!v_Gbg_i & !v_Gai)) | v_Gai)
+v_Gbg_q, ((v_alpha_qR & (!v_Gaq & !v_Gbg_q)) | v_Gaq)
+v_Gbg_s, ((v_alpha_sR & (!v_Gbg_s & !v_Gas)) | v_Gas)
+v_Graf, (v_Fak & v_Src)
+v_Grb2, ((v_Shc | v_EGFR) | (v_Src & v_Fak))
+v_IL1_TNF, v_IL1_TNF
+v_IL1_TNFR, v_IL1_TNF
+v_ILK, v_PIP3_345
+v_IP3, ((v_PLC_g & v_PIP2_45) | (v_PLC_B & v_PIP2_45))
+v_IP3R1, (((v_Gbg_i & !(((v_Ca & (!v_IP3 & v_IP3R1)) | (v_IP3R1 & ((((!v_Ca & !v_PP2A) & !v_PKA) & !v_IP3) & (v_CaM & v_Gbg_i)))) | (v_CaM & (v_Ca & v_IP3R1)))) | ((v_IP3 & v_Ca) & !((v_Ca & (!v_IP3 & v_IP3R1)) | (v_CaM & (v_Ca & v_IP3R1))))) | (v_PKA & !(((v_Ca & (!v_IP3 & v_IP3R1)) | (v_PP2A & v_IP3R1)) | (v_CaM & (v_Ca & v_IP3R1)))))
+v_Integrins, ((((v_Integrins & (!v_Src & !v_ILK)) | (v_Talin & (v_ECM & (!v_Integrins & !v_ILK)))) | (v_PP2A & (((v_Talin & v_ECM) & v_ILK) & !v_Integrins))) | (v_Src & ((((!v_PP2A & !v_Talin) & !v_ECM) & !v_Integrins) & !v_ILK)))
+v_MKK3, ((((((((((v_Mekk2 & v_ASK1) | (v_Tpl2 & v_ASK1)) | (v_Mekk3 & v_ASK1)) | (v_TAK1 & v_ASK1)) | (v_PAK & v_ASK1)) | (v_MLK2 & v_ASK1)) | (v_MLK3 & v_ASK1)) | (v_Mekk4 & v_ASK1)) | (v_TAO_12 & v_ASK1)) | (v_MLK1 & v_ASK1))
+v_MKK6, ((((((v_TAK1 & v_ASK1) | (v_Tpl2 & v_ASK1)) | (v_MLK3 & v_ASK1)) | (v_TAO_12 & v_ASK1)) | (v_Mekk4 & v_ASK1)) | (v_PAK & v_ASK1))
+v_MKK7, (((((((v_Mekk2 & v_ASK1) | (v_Mekk4 & v_ASK1)) | (v_MLK3 & v_ASK1)) | (v_MLK2 & v_ASK1)) | (v_MLK1 & v_ASK1)) | (v_Mekk1 & v_ASK1)) | (v_Mekk3 & v_ASK1))
+v_MKPs, (((v_p38 & v_cAMP) | (v_Erk & v_cAMP)) | (v_SAPK & v_cAMP))
+v_MLCK, (((v_CaM & (!v_PAK & !v_PKA)) & !(v_PKA | v_PAK)) | ((v_Erk & (!v_PKA & !v_PAK)) & !(v_PKA | v_PAK)))
+v_MLCP, (((v_PKA & v_RhoK) & !(((v_PKC | v_Raf) | v_PAK) | v_ILK)) | !(((((v_PKC | v_Raf) | v_PAK) | v_RhoK) | v_PKA) | v_ILK))
+v_MLK1, (v_Rac | v_Cdc42)
+v_MLK2, ((v_Rac & v_SAPK) | (v_Cdc42 & v_SAPK))
+v_MLK3, ((v_Rac | v_Cdc42) | v_IL1_TNFR)
+v_Mek, (((((((v_Mekk2 & v_Raf) & !(v_PP2A & v_Mek)) | (v_Tpl2 & !(v_PP2A & v_Mek))) | ((v_Mekk1 & v_Raf) & !(v_PP2A & v_Mek))) | ((v_PAK & v_Tpl2) & !(v_PP2A & v_Mek))) | ((v_Raf & v_Tpl2) & !(v_PP2A & v_Mek))) | ((v_Mekk3 & v_Raf) & !(v_PP2A & v_Mek)))
+v_Mekk1, ((((((((v_Grb2 & v_Shc) | v_Ras) | (v_Rho & (v_Shc | v_Grb2))) | (v_NIK & (v_Shc | v_Grb2))) | v_Cdc42) | v_GCK) | v_Trafs) | v_Rac)
+v_Mekk2, ((((v_PI3K & (!v_Mekk2 & v_EGFR)) | (v_PLC_g & (v_EGFR & !v_Mekk2))) | (v_Src & (!v_Mekk2 & v_EGFR))) | (v_Grb2 & (!v_Mekk2 & v_EGFR)))
+v_Mekk3, (((v_IL1_TNFR & !v_Gab1) | (v_Trafs & !v_Gab1)) | (v_Rac & !v_Gab1))
+v_Mekk4, (v_Cdc42 | v_Rac)
+v_Myosin, (((((((v_CaM & (!v_Myosin & v_MLCK)) & !(v_MLCP & v_Myosin)) | ((v_PAK & (!v_Myosin | !v_MLCP)) & !(v_MLCP & v_Myosin))) | ((v_MLCK & (!v_MLCP & v_CaM)) & !(v_MLCP & v_Myosin))) | ((v_Myosin & !v_MLCP) & !(v_MLCP & v_Myosin))) | ((v_ILK & (!v_Myosin | !v_MLCP)) & !(v_MLCP & v_Myosin))) | ((v_RhoK & (!v_MLCP | !v_Myosin)) & !(v_MLCP & v_Myosin)))
+v_NIK, (v_Nck | v_TAK1)
+v_Nck, (v_EGFR | v_Cas)
+v_PA, v_PLD
+v_PAK, (((((v_Src & v_PAK) & (v_Cdc42 | v_Rac)) & !(v_PTP1b | v_PKA)) | ((v_Cdc42 & (v_Grb2 | (v_Nck & !v_Akt))) & !v_PKA)) | ((v_Rac & (v_Grb2 | (v_Nck & !v_Akt))) & !v_PKA))
+v_PDE4, ((v_B_Arrestin & !v_Erk) | (v_PKA & v_B_Arrestin))
+v_PDK1, (v_p90RSK | v_Src)
+v_PI3K, ((((((v_EGFR & v_Src) | v_Gbg_i) | v_Ras) | v_Fak) | v_Crk) | v_Gab1)
+v_PI4K, ((((v_Rho | v_PKC) | v_ARF) | v_Gai) | v_Gaq)
+v_PI5K, (((((v_Src & ((!v_Talin & v_Fak) & !v_PI5K)) | v_PA) | v_RhoK) | (v_PI5K & v_Talin)) | v_ARF)
+v_PIP2_34, ((v_PI4K & (!v_PIP2_34 & v_PI3K)) | (v_PIP2_34 & (!v_PI5K & !v_PTEN)))
+v_PIP2_45, ((v_PIP2_45 | (v_PI4K & v_PI5K)) | (v_PTEN & v_PIP3_345))
+v_PIP3_345, (((v_PI3K & v_PIP2_45) & !(v_PTEN & v_PIP3_345)) | ((v_PI5K & v_PIP2_34) & !(v_PTEN & v_PIP3_345)))
+v_PIP_4, ((((v_PI4K & !v_PIP_4) & !((v_PI3K & v_PIP_4) | (v_PI5K & v_PIP_4))) | ((v_PIP_4 & (!v_PI5K & !v_PI3K)) & !((v_PI3K & v_PIP_4) | (v_PI5K & v_PIP_4)))) | ((v_PTEN & (!v_PIP_4 & v_PIP2_34)) & !((v_PI3K & v_PIP_4) | (v_PI5K & v_PIP_4))))
+v_PKA, (((v_PDK1 & v_cAMP) & !(v_PP2A & v_PKA)) | ((v_PKA & v_cAMP) & !(v_PP2A & v_PKA)))
+v_PKC, ((((v_PKC & (!v_Trx & !v_PP2A)) & !(v_Trx & v_PKC)) | ((v_DAG & (v_Ca & v_PKC_primed)) & !(v_Trx & v_PKC))) | ((v_AA & (v_Ca & v_PKC_primed)) & !(v_Trx & v_PKC)))
+v_PKC_primed, (((v_PKC & (v_PDK1 & !v_PKC_primed)) | (v_PKC_primed & !v_PKC)) | (v_PDK1 & !v_PKC))
+v_PLA2, ((((v_PIP2_45 & (v_PIP3_345 & v_Erk)) | (v_Erk & v_Ca)) | (v_PIP3_345 & (v_PIP2_45 & v_CaMK))) | (v_CaMK & v_Ca))
+v_PLC_B, (((v_Gbg_i & v_PLC_B) & !(v_PKA & !v_Gaq)) | v_Gaq)
+v_PLC_g, (((v_Src & (v_PIP3_345 & v_Fak)) | ((v_EGFR & v_PIP3_345) & !(v_PA & (v_AA & (!v_Src & !v_Fak))))) | (v_Fak & (v_Src & (((!v_PIP3_345 & !v_AA) & !v_EGFR) & !v_PA))))
+v_PLD, (((((v_Rac & ((v_Actin & (v_PIP3_345 | v_PIP2_45)) & !v_ARF)) | (v_Rho & (!v_ARF & (v_Actin & (v_PIP3_345 | v_PIP2_45))))) | (v_PKC & (!v_ARF & (v_Actin & (v_PIP3_345 | v_PIP2_45))))) | (v_Cdc42 & (!v_ARF & (v_Actin & (v_PIP2_45 | v_PIP3_345))))) | (v_ARF & (v_PIP3_345 | v_PIP2_45)))
+v_PP2A, (!v_EGFR | !v_EGFR)
+v_PTEN, ((v_Stress & !(v_Src & v_PTEN)) | ((v_Pix_Cool & ((v_PI3K & v_Rho) & v_Cdc42)) & !(v_Src & v_PTEN)))
+v_PTP1b, (!(v_Stress | (v_EGFR & v_EGF)) | !((v_EGFR | v_EGF) | v_Stress))
+v_PTPPEST, ((v_Integrins & v_ECM) & !(v_PKC | v_PKA))
+v_PTPa, v_PKC
+v_Palpha_1213R, (v_alpha_1213R & v_GRK)
+v_Palpha_iR, (v_alpha_iR & v_GRK)
+v_Palpha_qR, (v_alpha_qR & v_GRK)
+v_Palpha_sR, (v_alpha_sR & v_GRK)
+v_Pix_Cool, ((v_PIP2_34 & v_B_Parvin) | (v_PIP3_345 & v_B_Parvin))
+v_RGS, (v_CaM & v_PIP3_345)
+v_RKIP, v_PKC
+v_Rac, (((((v_DOCK180 & (v_ECM & v_Integrins)) & !(((v_p190RhoGAP & v_Rac) | (v_RalBP1 & v_Rac)) | (v_RhoGDI & !v_PAK))) | ((v_Tiam & (v_ECM & v_Integrins)) & !(((v_p190RhoGAP & v_Rac) | (v_RalBP1 & v_Rac)) | (v_RhoGDI & !v_PAK)))) | ((v_Pix_Cool & (((!v_Gbg_i & ((!v_Rac & v_Cdc42) & (v_ECM & v_Integrins))) | ((v_Gbg_i & v_PAK) & ((v_ECM & v_Integrins) & (!v_Cdc42 & !v_Rac)))) | (!v_PAK & ((((!v_RhoGDI & v_Cdc42) & !v_Rac) & ((!v_RasGRF_GRP & !v_DOCK180) & !v_Tiam)) & (v_ECM & v_Integrins))))) & !(v_RhoGDI & !v_PAK))) | ((v_RasGRF_GRP & (v_ECM & v_Integrins)) & !(((v_p190RhoGAP & v_Rac) | (v_RalBP1 & v_Rac)) | (v_RhoGDI & !v_PAK))))
+v_Raf, ((((v_PAK & (((!v_Akt & !v_Erk) & !v_Ras) & v_Raf)) | (v_Src & (((v_PAK & v_Raf_Loc) & v_RKIP) & !v_Raf))) | (v_Raf & ((!v_Akt & !v_Erk) & !v_PKA))) | (v_Ras & v_Raf))
+v_Raf_DeP, ((v_PP2A & (v_Raf_Rest & !v_Raf_DeP)) | (v_Raf_DeP & !v_Raf_Loc))
+v_Raf_Loc, ((v_Raf_Loc & !v_Raf) | (v_Ras & (v_Raf_DeP & !v_Raf_Loc)))
+v_Raf_Rest, (((v_Raf_DeP & (!v_Raf & !v_Raf_Rest)) | (v_Raf_Rest & !v_Raf_DeP)) | !((v_Raf | v_Raf_Rest) | v_Raf_DeP))
+v_Ral, ((v_AND_34 | v_RalGDS) | v_CaM)
+v_RalBP1, v_Ral
+v_RalGDS, (((((v_alpha_sR & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1)))) | ((v_alpha_1213R & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1))))) | ((v_alpha_qR & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1))))) | ((v_alpha_iR & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1)))))
+v_Rap1, ((v_PKA & ((v_Src & v_cAMP) & (!v_Gai | !v_Rap1))) | (v_CaMK & ((!v_Gai | !v_Rap1) & (v_Src & v_cAMP))))
+v_Ras, ((v_SHP2 | v_Sos) | v_RasGRF_GRP)
+v_RasGRF_GRP, ((v_CaM & v_Cdc42) | (v_DAG & v_Cdc42))
+v_Rho, ((v_p115RhoGEF & (!v_Rho & !v_RhoGDI)) | (v_Rho & ((!v_p190RhoGAP & !v_PKA) & !v_Graf)))
+v_RhoGDI, (!((v_AA | v_PIP2_45) | v_PKC) | !((v_PKC | v_PIP2_45) | v_AA))
+v_RhoK, v_Rho
+v_SAPK, ((v_Sek1 & !((v_PP2A & v_SAPK) | (v_MKPs & v_SAPK))) | (v_MKK7 & !((v_PP2A & v_SAPK) | (v_MKPs & v_SAPK))))
+v_SHP2, v_Gab1
+v_Sek1, (((((((((v_Mekk2 & v_ASK1) | (v_Mekk3 & v_ASK1)) | (v_MLK2 & v_ASK1)) | (v_MLK3 & v_ASK1)) | (v_Mekk1 & v_ASK1)) | (v_Mekk4 & v_ASK1)) | (v_Tpl2 & v_ASK1)) | (v_MLK1 & v_ASK1)) | (v_TAK1 & v_ASK1))
+v_Shc, ((v_EGFR & (v_Src & v_Fak)) & !(v_Shc & (((v_Src & v_EGFR) & v_PTEN) & v_Fak)))
+v_Sos, ((v_Nck & (v_PIP3_345 & v_Crk)) | ((v_Grb2 & v_PIP3_345) & !v_Erk))
+v_Src, ((((((((v_Gas & v_B_Arrestin) & !(v_Csk & v_Src)) | (v_PTPa & !(v_Csk & v_Src))) | ((v_alpha_sR & v_B_Arrestin) & !(v_Csk & v_Src))) | ((v_Fak & v_PTP1b) & !(v_Csk & v_Src))) | ((v_Gai & v_B_Arrestin) & !(v_Csk & v_Src))) | ((v_Cas & v_PTP1b) & !(v_Csk & v_Src))) | (v_EGFR & !(v_Csk & v_Src)))
+v_Stress, v_Stress
+v_TAK1, v_Tab_12
+v_TAO_12, v_Stress
+v_Tab_12, (v_Trafs & !v_p38)
+v_Talin, ((v_PIP2_45 & !v_Talin) | (v_Talin & !v_Src))
+v_Tiam, (((v_CaMK & ((v_PIP3_345 | v_PIP2_34) & ((v_PIP2_45 | v_Rap1) | v_Ras))) | (v_Src & ((v_PIP3_345 | v_PIP2_34) & ((v_PIP2_45 | v_Rap1) | v_Ras)))) | (v_PKC & (((v_PIP2_45 | v_Rap1) | v_Ras) & (v_PIP3_345 | v_PIP2_34))))
+v_Tpl2, v_Trafs
+v_Trafs, v_IL1_TNFR
+v_Trx, (v_Trafs | v_Stress)
+v_Vinc, ((v_Talin & v_Src) | (v_Actin & (!v_PIP2_45 & (v_Talin & v_Vinc))))
+v_WASP, ((((v_Cdc42 & (((!v_Crk & !v_PTPPEST) & ((v_PIP2_45 | v_Nck) | v_Grb2)) & (v_Src | v_Fak))) & !v_PTPPEST) | ((v_Fak & ((v_Crk & v_Cdc42) & ((v_PIP2_45 | v_Nck) | v_Grb2))) & !v_PTPPEST)) | ((v_Src & (((v_PIP2_45 | v_Nck) | v_Grb2) & (v_Crk & v_Cdc42))) & !v_PTPPEST))
+v_alpha_1213L, v_alpha_1213L
+v_alpha_1213R, (((v_alpha_1213L & !(v_B_Arrestin & (v_Palpha_1213R | ((!v_Palpha_1213R & !v_alpha_1213L) & !v_alpha_1213R)))) | (v_alpha_1213R & !(v_B_Arrestin & (v_Palpha_1213R | ((!v_Palpha_1213R & !v_alpha_1213L) & !v_alpha_1213R))))) | ((v_Palpha_1213R & !v_B_Arrestin) & !(v_B_Arrestin & (v_Palpha_1213R | ((!v_Palpha_1213R & !v_alpha_1213L) & !v_alpha_1213R)))))
+v_alpha_iL, v_alpha_iL
+v_alpha_iR, (((v_alpha_iL & !(v_B_Arrestin & (((!v_alpha_iL & !v_alpha_iR) & !v_Palpha_iR) | v_Palpha_iR))) | (v_alpha_iR & !(v_B_Arrestin & (((!v_alpha_iL & !v_alpha_iR) & !v_Palpha_iR) | v_Palpha_iR)))) | ((v_Palpha_iR & !v_B_Arrestin) & !(v_B_Arrestin & (((!v_alpha_iL & !v_alpha_iR) & !v_Palpha_iR) | v_Palpha_iR))))
+v_alpha_qL, v_alpha_qL
+v_alpha_qR, ((((v_Palpha_iR & !v_B_Arrestin) & !(v_B_Arrestin & (((!v_alpha_qR & !v_Palpha_iR) & !v_alpha_qL) | v_Palpha_iR))) | (v_alpha_qL & !(v_B_Arrestin & (((!v_alpha_qR & !v_Palpha_iR) & !v_alpha_qL) | v_Palpha_iR)))) | (v_alpha_qR & !(v_B_Arrestin & (((!v_alpha_qR & !v_Palpha_iR) & !v_alpha_qL) | v_Palpha_iR))))
+v_alpha_sL, v_alpha_sL
+v_alpha_sR, (((v_alpha_sL & !(v_B_Arrestin & (((!v_alpha_sL & !v_alpha_sR) & !v_Palpha_sR) | v_Palpha_sR))) | (v_alpha_sR & !(v_B_Arrestin & (((!v_alpha_sL & !v_alpha_sR) & !v_Palpha_sR) | v_Palpha_sR)))) | ((v_Palpha_sR & !v_B_Arrestin) & !(v_B_Arrestin & (((!v_alpha_sL & !v_alpha_sR) & !v_Palpha_sR) | v_Palpha_sR))))
+v_cAMP, ((v_cAMP & !v_PDE4) | (v_AC & !v_PDE4))
+v_p115RhoGEF, (v_Ga_1213 & v_PIP3_345)
+v_p120RasGAP, (((((v_PIP2_34 & !(v_Fak | v_Src)) | (v_PIP2_45 & !(v_Fak | v_Src))) | (v_EGFR & !((v_Fak | v_SHP2) | v_Src))) | (v_PIP3_345 & !(v_Fak | v_Src))) | (v_Ca & !(v_Fak | v_Src)))
+v_p190RhoGAP, ((v_Fak & v_Src) | (v_Src & ((v_Fak | !v_p120RasGAP) | !v_p190RhoGAP)))
+v_p38, (((v_MKK3 & !(v_MKPs | v_PP2A)) | (v_MKK6 & !(v_MKPs | v_PP2A))) | (v_Sek1 & !(v_MKPs | v_PP2A)))
+v_p90RSK, (v_Erk & (v_PDK1 & !v_p90RSK))

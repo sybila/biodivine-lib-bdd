@@ -1,0 +1,17 @@
+targets,factors
+v_Adenylate_cyclase, (v_Dopamine_Receptor_1 & !v_Dopamine_Receptor_2)
+v_COMT, v_Dopamine
+v_Calcineurin, v_Calcium
+v_Calcium, (v_Phospholipase_C | v_Glutamate_Receptor)
+v_DARPP32, (v_Protein_Kinase_A & !v_Calcineurin)
+v_Dopamine, (v_Tryosine_hydroxylase & !v_COMT)
+v_Dopamine_Receptor_1, v_Dopamine
+v_Dopamine_Receptor_2, v_Dopamine
+v_Exocytosis, v_Packaging_Proteins
+v_Glutamate, v_Glutamate
+v_Glutamate_Receptor, ((v_Protein_Kinase_A & v_Glutamate) & !v_Protein_Phosphatase_1)
+v_Packaging_Proteins, v_Glutamate_Receptor
+v_Phospholipase_C, v_Dopamine_Receptor_2
+v_Protein_Kinase_A, v_Adenylate_cyclase
+v_Protein_Phosphatase_1, !v_DARPP32
+v_Tryosine_hydroxylase, v_Tryosine_hydroxylase

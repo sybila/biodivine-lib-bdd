@@ -1,0 +1,57 @@
+targets,factors
+v_AJ_b1, (((!v_ECad & v_AJ_b1) & v_AJ_b2) | v_ECad)
+v_AJ_b2, (((v_ECad & v_ECad_AJ_b1) & v_ECad_AJ_b2) & v_AJ_b1)
+v_AKT, (v_PI3K & v_ILK)
+v_BCat, (((!v_HGFR & !v_GSK3B) | ((!v_HGFR & v_GSK3B) & !v_BCat_AJ)) | v_HGFR)
+v_BCat_AJ, (((!v_FAK_SRC_b1 & !v_JNK) & v_ECad_AJ_b1) | (((v_FAK_SRC_b1 & v_RPTP) & !v_JNK) & v_ECad_AJ_b1))
+v_CK1, v_WNT
+v_CSL, (!v_DVL & v_NOTCH)
+v_DELTA, v_DELTA
+v_DVL, (v_CK1 & v_YAP_TAZ)
+v_ECM, v_ECM
+v_ECad, (((!v_SNAIL & !v_SLUG) & !v_ZEB) | (((v_SNAIL & !v_SLUG) & !v_ZEB) & v_miR200))
+v_ECad_AJ_b1, (((((((!v_FAK_SRC_b1 & !v_ECad) & v_ECad_AJ_b1) & v_ECad_AJ_b2) | (!v_FAK_SRC_b1 & v_ECad)) | (((v_FAK_SRC_b1 & !v_RPTP) & v_ECad_AJ_b1) & v_ECad_AJ_b2)) | ((((v_FAK_SRC_b1 & v_RPTP) & !v_ECad) & v_ECad_AJ_b1) & v_ECad_AJ_b2)) | ((v_FAK_SRC_b1 & v_RPTP) & v_ECad))
+v_ECad_AJ_b2, ((((!v_FAK_SRC_b1 & v_ECad) & v_ECad_AJ_b1) & v_BCat_AJ) | ((((v_FAK_SRC_b1 & v_RPTP) & v_ECad) & v_ECad_AJ_b1) & v_BCat_AJ))
+v_EGF, v_EGF
+v_EGFR, (((((((!v_EGF & !v_ITG_AB) & !v_RPTP) & v_TGFBR) | ((((!v_EGF & v_ITG_AB) & !v_FAK_SRC_b1) & !v_RPTP) & v_TGFBR)) | (((((!v_EGF & v_ITG_AB) & v_FAK_SRC_b1) & !v_FAK_SRC_b2) & !v_RPTP) & v_TGFBR)) | ((((!v_EGF & v_ITG_AB) & v_FAK_SRC_b1) & v_FAK_SRC_b2) & !v_RPTP)) | (v_EGF & !v_RPTP))
+v_ERK, v_MEK
+v_FAK_SRC_b1, (((((((((!v_ROS & !v_EGFR) & !v_HGFR) & !v_ITG_AB) & v_FAK_SRC_b1) & v_FAK_SRC_b2) | (((!v_ROS & !v_EGFR) & !v_HGFR) & v_ITG_AB)) | ((!v_ROS & !v_EGFR) & v_HGFR)) | (!v_ROS & v_EGFR)) | v_ROS)
+v_FAK_SRC_b2, (((((!v_ROS & v_EGFR) & v_HGFR) & v_ITG_AB) & v_FAK_SRC_b1) | ((v_ROS & v_ITG_AB) & v_FAK_SRC_b1))
+v_FAT4, (v_FAT4_L & !v_ERK)
+v_FAT4_L, v_FAT4_L
+v_FA_b1, (((((!v_FAK_SRC_b1 & !v_PAK) & v_FA_b1) & v_FA_b2) | (!v_FAK_SRC_b1 & v_PAK)) | v_FAK_SRC_b1)
+v_FA_b2, (((((!v_FAK_SRC_b1 & v_FA_b1) & v_FA_b2) & v_FA_b3) | ((((v_FAK_SRC_b1 & !v_PAK) & v_FA_b1) & v_FA_b2) & v_FA_b3)) | ((v_FAK_SRC_b1 & v_PAK) & v_FA_b1))
+v_FA_b3, ((((v_ITG_AB & v_FAK_SRC_b1) & v_PAK) & v_FA_b1) & v_FA_b2)
+v_GSK3B, ((!v_ERK & !v_AKT) & !v_DVL)
+v_HGF, v_HGF
+v_HGFR, (((!v_HGF & v_ITG_AB) & !v_RPTP) | (v_HGF & !v_RPTP))
+v_HIF1a, (v_NFkB & v_STAT3)
+v_IL6, v_IL6
+v_ILK, (v_ITG_AB & v_PI3K)
+v_ITG_AB, (v_ECM & v_RAP1)
+v_JAK, ((!v_IL6 & v_EGFR) | v_IL6)
+v_JNK, (((((!v_ROS & !v_FAK_SRC_b1) & !v_RPTP) & v_TGFBR) | ((!v_ROS & v_FAK_SRC_b1) & !v_RPTP)) | (v_ROS & !v_RPTP))
+v_LATS, (((((!v_PI3K & !v_FAT4) & v_ECad_AJ_b1) & v_ECad_AJ_b2) & v_BCat_AJ) | (!v_PI3K & v_FAT4))
+v_MEK, v_RAF1
+v_NFkB, ((((((!v_ROS & !v_AKT) & !v_TGFBR) & v_CSL) | ((!v_ROS & !v_AKT) & v_TGFBR)) | (!v_ROS & v_AKT)) | v_ROS)
+v_NOTCH, v_DELTA
+v_PAK, ((!v_FAK_SRC_b1 & v_PI3K) | v_FAK_SRC_b1)
+v_PI3K, ((!v_FAK_SRC_b1 & v_RAS) | v_FAK_SRC_b1)
+v_RAF1, v_RAS
+v_RAP1, ((((!v_FAK_SRC_b1 & v_ECad_AJ_b1) & v_ECad_AJ_b2) & !v_p120_AJ) | v_FAK_SRC_b1)
+v_RAS, ((((((((!v_EGFR & !v_HGFR) & !v_FAK_SRC_b1) & !v_TGFBR) & v_JAK) | (((!v_EGFR & !v_HGFR) & !v_FAK_SRC_b1) & v_TGFBR)) | ((!v_EGFR & !v_HGFR) & v_FAK_SRC_b1)) | (!v_EGFR & v_HGFR)) | v_EGFR)
+v_ROS, v_ROS
+v_RPTP, (((v_RPTP_L & !v_ROS) & !v_FAK_SRC_b1) | (((v_RPTP_L & !v_ROS) & v_FAK_SRC_b1) & !v_FAK_SRC_b2))
+v_RPTP_L, v_RPTP_L
+v_SLUG, ((((((((!v_ERK & !v_GSK3B) & !v_HIF1a) & !v_CSL) & v_TCF_LEF) & !v_miR200) | ((((!v_ERK & !v_GSK3B) & !v_HIF1a) & v_CSL) & !v_miR200)) | (((!v_ERK & !v_GSK3B) & v_HIF1a) & !v_miR200)) | ((v_ERK & !v_GSK3B) & !v_miR200))
+v_SMAD, (v_YAP_TAZ & v_TGFBR)
+v_SNAIL, ((((((((((((((((((((((((((((((((((((((((((((((((((!v_ERK & !v_GSK3B) & !v_NFkB) & !v_SMAD) & !v_JNK) & v_CSL) & !v_TCF_LEF) | (((((!v_ERK & !v_GSK3B) & !v_NFkB) & !v_SMAD) & v_JNK) & !v_TCF_LEF)) | (((!v_ERK & !v_GSK3B) & !v_NFkB) & v_SMAD)) | (((((!v_ERK & !v_GSK3B) & v_NFkB) & !v_SMAD) & !v_JNK) & !v_TCF_LEF)) | ((((((!v_ERK & !v_GSK3B) & v_NFkB) & !v_SMAD) & v_JNK) & !v_CSL) & !v_TCF_LEF)) | (((((!v_ERK & !v_GSK3B) & v_NFkB) & !v_SMAD) & v_JNK) & v_CSL)) | (((!v_ERK & !v_GSK3B) & v_NFkB) & v_SMAD)) | (((((((((!v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & !v_STAT3) & !v_JNK) & v_HIF1a) & v_PAK) & v_CSL) & !v_TCF_LEF)) | ((((((((!v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & !v_STAT3) & v_JNK) & v_HIF1a) & v_PAK) & !v_TCF_LEF)) | ((((((((!v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & v_STAT3) & !v_JNK) & v_HIF1a) & v_CSL) & !v_TCF_LEF)) | (((((((!v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & v_STAT3) & v_JNK) & v_HIF1a) & !v_TCF_LEF)) | ((((((!v_ERK & v_GSK3B) & !v_NFkB) & v_SMAD) & !v_STAT3) & v_HIF1a) & v_PAK)) | (((((!v_ERK & v_GSK3B) & !v_NFkB) & v_SMAD) & v_STAT3) & v_HIF1a)) | ((((((((!v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & !v_STAT3) & !v_JNK) & v_HIF1a) & v_PAK) & !v_TCF_LEF)) | (((((((((!v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & !v_STAT3) & v_JNK) & v_HIF1a) & v_PAK) & !v_CSL) & !v_TCF_LEF)) | ((((((((!v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & !v_STAT3) & v_JNK) & v_HIF1a) & v_PAK) & v_CSL)) | (((((((!v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & v_STAT3) & !v_JNK) & v_HIF1a) & !v_TCF_LEF)) | ((((((((!v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & v_STAT3) & v_JNK) & v_HIF1a) & !v_CSL) & !v_TCF_LEF)) | (((((((!v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & v_STAT3) & v_JNK) & v_HIF1a) & v_CSL)) | ((((((!v_ERK & v_GSK3B) & v_NFkB) & v_SMAD) & !v_STAT3) & v_HIF1a) & v_PAK)) | (((((!v_ERK & v_GSK3B) & v_NFkB) & v_SMAD) & v_STAT3) & v_HIF1a)) | (((((v_ERK & !v_GSK3B) & !v_NFkB) & !v_SMAD) & !v_JNK) & !v_TCF_LEF)) | ((((((v_ERK & !v_GSK3B) & !v_NFkB) & !v_SMAD) & v_JNK) & !v_CSL) & !v_TCF_LEF)) | (((((v_ERK & !v_GSK3B) & !v_NFkB) & !v_SMAD) & v_JNK) & v_CSL)) | (((v_ERK & !v_GSK3B) & !v_NFkB) & v_SMAD)) | ((((((v_ERK & !v_GSK3B) & v_NFkB) & !v_SMAD) & !v_JNK) & !v_CSL) & !v_TCF_LEF)) | (((((v_ERK & !v_GSK3B) & v_NFkB) & !v_SMAD) & !v_JNK) & v_CSL)) | ((((v_ERK & !v_GSK3B) & v_NFkB) & !v_SMAD) & v_JNK)) | (((v_ERK & !v_GSK3B) & v_NFkB) & v_SMAD)) | ((((((((v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & !v_STAT3) & !v_JNK) & v_HIF1a) & v_PAK) & !v_TCF_LEF)) | (((((((((v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & !v_STAT3) & v_JNK) & v_HIF1a) & v_PAK) & !v_CSL) & !v_TCF_LEF)) | ((((((((v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & !v_STAT3) & v_JNK) & v_HIF1a) & v_PAK) & v_CSL)) | (((((((v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & v_STAT3) & !v_JNK) & v_HIF1a) & !v_TCF_LEF)) | ((((((((v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & v_STAT3) & v_JNK) & v_HIF1a) & !v_CSL) & !v_TCF_LEF)) | (((((((v_ERK & v_GSK3B) & !v_NFkB) & !v_SMAD) & v_STAT3) & v_JNK) & v_HIF1a) & v_CSL)) | ((((((v_ERK & v_GSK3B) & !v_NFkB) & v_SMAD) & !v_STAT3) & v_HIF1a) & v_PAK)) | (((((v_ERK & v_GSK3B) & !v_NFkB) & v_SMAD) & v_STAT3) & v_HIF1a)) | (((((((((v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & !v_STAT3) & !v_JNK) & v_HIF1a) & v_PAK) & !v_CSL) & !v_TCF_LEF)) | ((((((((v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & !v_STAT3) & !v_JNK) & v_HIF1a) & v_PAK) & v_CSL)) | (((((((v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & !v_STAT3) & v_JNK) & v_HIF1a) & v_PAK)) | ((((((((v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & v_STAT3) & !v_JNK) & v_HIF1a) & !v_CSL) & !v_TCF_LEF)) | (((((((v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & v_STAT3) & !v_JNK) & v_HIF1a) & v_CSL)) | ((((((v_ERK & v_GSK3B) & v_NFkB) & !v_SMAD) & v_STAT3) & v_JNK) & v_HIF1a)) | ((((((v_ERK & v_GSK3B) & v_NFkB) & v_SMAD) & !v_STAT3) & v_HIF1a) & v_PAK)) | (((((v_ERK & v_GSK3B) & v_NFkB) & v_SMAD) & v_STAT3) & v_HIF1a))
+v_STAT3, ((!v_FAK_SRC_b1 & v_JAK) | v_FAK_SRC_b1)
+v_TCF_LEF, v_BCat
+v_TGFB, v_TGFB
+v_TGFBR, v_TGFB
+v_WNT, v_WNT
+v_YAP_TAZ, !v_LATS
+v_ZEB, (((!v_SNAIL & v_SLUG) & !v_miR200) | (v_SNAIL & !v_miR200))
+v_miR200, (!v_SNAIL & !v_ZEB)
+v_p120_AJ, (((((!v_CK1 & !v_RAP1) & v_ECad_AJ_b1) & v_ECad_AJ_b2) & v_p120_AJ) | (((!v_CK1 & v_RAP1) & v_ECad_AJ_b1) & v_ECad_AJ_b2))

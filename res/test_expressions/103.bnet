@@ -1,0 +1,70 @@
+targets,factors
+v_AKTp, v_PIP3p
+v_AKTs, v_PIP3s
+v_AP1s, v_ERKs
+v_Acts, (v_SMADs & ((!v_STATs | !v_PPARgs) & (v_NFkBs | v_AP1s)))
+v_Apop, v_CASPp
+v_Apos, v_P53s
+v_Autp, (!v_mTORp & (v_NFkBp | v_Beclin1p))
+v_BAXp, !v_BCLXLp
+v_BCLXLp, (!v_P53p & (v_NFkBp | (v_STATp | (v_AKTp | v_JNKp))))
+v_Beclin1p, (!v_BCLXLp & !v_CASPp)
+v_CASPp, (!v_NFkBp & (v_P53p | (v_Beclin1p | v_BAXp)))
+v_CyclinDp, (!v_P21p & v_NFkBp)
+v_CyclinEp, (!v_P21p & v_E2Fp)
+v_E2Fp, !v_RBp
+v_EGF, v_cJUNp
+v_EGFRp, (v_EGF | v_HER2p)
+v_EGFRs, v_EGF
+v_ERKp, v_MEKp
+v_ERKs, (v_PDGFBBRs | v_MEKs)
+v_FGFRp, v_bFGF
+v_FGFRs, v_bFGF
+v_HER2p, v_HER2p
+v_IFNGRs, v_IFNg
+v_IFNg, v_IFNg
+v_JAK1p, v_HER2p
+v_JNKp, v_MEKp
+v_MDM2p, (!v_E2Fp & (v_AKTp | v_P53p))
+v_MDM2s, (v_AKTs | v_P53s)
+v_MEKp, v_RAFp
+v_MEKs, v_RAFs
+v_Migs, (v_AKTs & (v_AP1s & v_Acts))
+v_NFkBp, v_AKTp
+v_NFkBs, (v_TNFRs | v_AKTs)
+v_P21p, (!v_STATp & (v_SMADp | v_P53p))
+v_P21s, v_P53s
+v_P38s, (v_MEKs | v_P53s)
+v_P53p, !v_MDM2p
+v_P53s, (!v_MDM2s & v_P38s)
+v_PDGFBB, (v_SMADs | v_SMADp)
+v_PDGFBBRs, v_PDGFBB
+v_PI3Kp, (v_EGFRp | v_RASp)
+v_PI3Ks, (v_PDGFBBRs | v_RASs)
+v_PIP3p, (!v_PTENp & v_PI3Kp)
+v_PIP3s, (!v_PTENs & v_PI3Ks)
+v_PPARgs, v_Thiazolidinedione
+v_PTENp, v_P53p
+v_PTENs, v_P53s
+v_Prop, (v_CyclinEp & (v_JNKp | v_cJUNp))
+v_Pros, (!v_P21s & v_AP1s)
+v_RAFp, v_RASp
+v_RAFs, v_RASs
+v_RASp, (v_EGFRp | v_FGFRp)
+v_RASs, (v_VEGFRs | (v_EGFRs | v_FGFRs))
+v_RBp, !v_CyclinDp
+v_SMADp, v_TGFRp
+v_SMADs, v_TGFRs
+v_STATp, v_JAK1p
+v_STATs, v_IFNGRs
+v_TGFRp, v_TGFb
+v_TGFRs, v_TGFb
+v_TGFb, (v_SMADs | v_SMADp)
+v_TNFRs, v_TNFa
+v_TNFa, v_TNFa
+v_Thiazolidinedione, v_Thiazolidinedione
+v_VEGF, (v_NFkBs | (v_STATp | v_NFkBp))
+v_VEGFRs, v_VEGF
+v_bFGF, (v_ERKs | v_ERKp)
+v_cJUNp, (v_ERKp | v_JNKp)
+v_mTORp, (!v_cJUNp & v_AKTp)

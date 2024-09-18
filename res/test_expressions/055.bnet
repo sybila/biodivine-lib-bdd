@@ -1,0 +1,20 @@
+targets,factors
+v_AMH, ((v_SOX9 & (((v_GATA4 & v_WT1mKTS) & v_NR5A1) | (v_GATA4 & v_NR5A1))) & !(v_NR0B1 & v_CTNNB1))
+v_CBX2, (v_UGR & !(v_NR0B1 & (v_WNT4 & v_CTNNB1)))
+v_CTNNB1, ((v_RSPO1 & !(v_SRY | (v_SOX9 & v_AMH))) | (v_WNT4 & !(v_SRY | (v_SOX9 & v_AMH))))
+v_DHH, v_SOX9
+v_DKK1, (v_SRY | v_SOX9)
+v_DMRT1, ((v_SOX9 & !v_FOXL2) | (v_SRY & !v_FOXL2))
+v_FGF9, (v_SOX9 & !v_WNT4)
+v_FOXL2, ((v_WNT4 & v_CTNNB1) & !(v_SOX9 | v_DMRT1))
+v_GATA4, (((v_SRY | v_UGR) | v_WNT4) | v_NR5A1)
+v_NR0B1, ((v_WT1mKTS & !(v_NR5A1 & v_SOX9)) | ((v_WNT4 & v_CTNNB1) & !(v_NR5A1 & v_SOX9)))
+v_NR5A1, ((((v_GATA4 & !(v_NR0B1 & v_WNT4)) | (v_UGR & !(v_NR0B1 & v_WNT4))) | (v_CBX2 & !(v_NR0B1 & v_WNT4))) | (v_WT1mKTS & !(v_NR0B1 & v_WNT4)))
+v_PGD2, v_SOX9
+v_RSPO1, ((v_WNT4 & !v_DKK1) | (v_CTNNB1 & !v_DKK1))
+v_SOX9, ((((((v_GATA4 & (v_SRY & v_NR5A1)) & !((v_CTNNB1 | v_FOXL2) | v_WNT4)) | ((v_CBX2 & v_SRY) & !((v_CTNNB1 | v_FOXL2) | v_WNT4))) | ((v_FGF9 & v_SOX9) & !((v_CTNNB1 | v_FOXL2) | v_WNT4))) | (v_PGD2 & !((v_CTNNB1 | v_FOXL2) | v_WNT4))) | (v_SRY & !((v_CTNNB1 | v_FOXL2) | v_WNT4)))
+v_SRY, (((((v_GATA4 & ((v_NR5A1 & v_CBX2) & v_WT1pKTS)) & !v_CTNNB1) | (v_SRY & !v_CTNNB1)) | ((v_CBX2 & (v_WT1mKTS & v_NR5A1)) & !v_CTNNB1)) | (v_SOX9 & !v_CTNNB1))
+v_UGR, (v_UGR & !(v_NR5A1 | v_WNT4))
+v_WNT4, ((((v_GATA4 & !(v_FGF9 | v_DKK1)) | (v_CTNNB1 & !(v_FGF9 | v_DKK1))) | (v_RSPO1 & !(v_FGF9 | v_DKK1))) | (v_NR0B1 & !(v_FGF9 | v_DKK1)))
+v_WT1mKTS, (v_UGR | v_GATA4)
+v_WT1pKTS, ((v_UGR & !(v_WNT4 & v_CTNNB1)) | (v_GATA4 & !(v_WNT4 & v_CTNNB1)))

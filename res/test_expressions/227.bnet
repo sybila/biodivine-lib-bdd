@@ -1,0 +1,66 @@
+targets,factors
+v_ANTI_APOP, v_BCL2
+v_BCL2, ((v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH))))) | (v_NUC_GLI2 & (v_NUC_STK36 & !v_NUC_SUFU)))
+v_BMI, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_BMP_RUNX3, v_BMP_RUNX3
+v_BOC, v_BOC
+v_BTRCP, v_BTRCP
+v_CDO, v_CDO
+v_CELLCYCLE_PROGRESSION, (v_CYCLIN_D | (v_CYCLIN_E | (v_CYCLIN_D2 | v_CYCLIN_B)))
+v_CELL_PROLIFERATION, v_FOXM1
+v_CKI_A, v_CKI_A
+v_CMYC, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_CTNNB_TCF4, !v_GLI1
+v_CYCLIN_B, !v_PTCH1
+v_CYCLIN_D, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_CYCLIN_D2, ((v_NUC_GLI2 & (v_NUC_STK36 & !v_NUC_SUFU)) | (v_GLI3_A & (v_NUC_STK36 & !v_NUC_SUFU)))
+v_CYCLIN_E, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_DHH, (v_DISPATCHED & (v_HHAT & !v_HHIP))
+v_DISPATCHED, v_DISPATCHED
+v_DYRK1, v_DYRK1
+v_EMT, v_SNAI1
+v_ERK12, v_ERK12
+v_FAS, !v_SMO
+v_FOXM1, v_GLI1
+v_GAS1, v_GAS1
+v_GLI1, ((v_HFU & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_ERK12 & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_RAS & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_TWIST & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_ULK3 & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_STK36 & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_GLI2 & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_GLI3_A & (!v_SKI & (!v_SNO & (!v_NCOR & (!v_SIN3A & !v_HDAC))))) | (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))))))))))
+v_GLI2, ((v_HFU & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_STK36 & (!v_PKA_A & (!v_GSK3 & (!v_CKI_A & (!v_BTRCP & !v_SUFU))))) | ((v_HFU & !v_NOTCH1) | (v_STK36 & !v_NOTCH1))))
+v_GLI3_A, v_GLI3_A
+v_GLI3_ACTIVE, !v_GLI3_R
+v_GLI3_R, !v_GLI1
+v_GSK3, v_GSK3
+v_HDAC, v_HDAC
+v_HFU, v_HFU
+v_HHAT, v_HHAT
+v_HHIP, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_IHH, (v_BMP_RUNX3 | (v_DISPATCHED & (v_HHAT & !v_HHIP)))
+v_ITCH, v_ITCH
+v_JAGGED2, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_NCOR, v_NCOR
+v_NOTCH1, v_NOTCH1
+v_NOTCH_SIGNAL, v_JAGGED2
+v_NUC_GLI1, v_GLI1
+v_NUC_GLI2, v_GLI2
+v_NUC_STK36, v_NUC_STK36
+v_NUC_SUFU, v_NUC_SUFU
+v_NUMB, v_NUMB
+v_OPN, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_PDGFRA, v_GLI1
+v_PKA_A, v_PKA_A
+v_PTCH1, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_PTCH1_Free, (!v_DHH & (!v_IHH & !v_SHH))
+v_PTCH2_Free, (!v_DHH & (!v_IHH & !v_SHH))
+v_RAS, v_RAS
+v_SFRP, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_SHH, ((v_CDO & v_BOC) | (v_DISPATCHED & (v_HHAT & (!v_HHIP & !v_GAS1))))
+v_SIN3A, v_SIN3A
+v_SKI, v_SKI
+v_SMO, ((v_DHH & !v_PTCH1_Free) | ((v_IHH & !v_PTCH1_Free) | ((v_SHH & !v_PTCH1_Free) | (v_SHH & !v_PTCH2_Free))))
+v_SNAI1, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_SNO, v_SNO
+v_STK36, v_SMO
+v_SUFU, v_SUFU
+v_TWIST, v_TWIST
+v_ULK3, v_ULK3
+v_WNT, (v_NUC_GLI1 & (v_NUC_STK36 & (v_DYRK1 & (!v_NUC_SUFU & (!v_NUMB & !v_ITCH)))))
+v_WNT_SIGNAL, (v_WNT & !v_SFRP)

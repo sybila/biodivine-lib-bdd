@@ -1,0 +1,78 @@
+targets,factors
+v_ABO_blood_group_system_phenotype, v_ABO_blood_group_system_phenotype
+v_ACE2_AGTR1_complex, ((v_AGTR1_cell & v_ACE2_cell) & !v_angiotensin_II_simple_molecule_cell)
+v_ACE2_Spike_complex_complex, ((v_ACE2_cell & v_S) | ((v_S & v_TMPRSS2) & !v_Camostat_mesilate_drug))
+v_ACE2__soluble, ((v_ADAM17 | v_AGTR1_cell_active) & v_ACE2_cell)
+v_ACE2_cell, ((((((v_estradiol_simple_molecule | v_Calcitriol_simple_molecule) & v_ACE2_gene) & !v_S) | !v_SARS_CoV_2_infection_phenotype) | (v_ACE2_gene & v_aging_phenotype)) | ((v_ACE2_gene & !v_hypertension_phenotype) & !v__Diabetes_mellitus__type_II_phenotype))
+v_ACE2_cell_active, ((v_ACE2_cell & v_sex__male_phenotype) | ((v_aging_phenotype | v_hypertension_phenotype) & v_ACE2_cell))
+v_ACE2_gene, v_ACE2_gene
+v_ACE_cell, (v_estradiol_simple_molecule & !v_Calcitriol_simple_molecule)
+v_ACE_cell_active, ((((((v_ACE_cell & !v_aging_phenotype) & !v_sex__male_phenotype) | (v_ACE_cell & v_aldosterone_simple_molecule)) | (v_ACE_cell & v_hypertension_phenotype)) | (v_ACE_cell & !v_Lisinopril_drug)) | (v_ACE_cell & v_ABO_blood_group_system_phenotype))
+v_ADAM17, v_ADAM17
+v_AGT, v_ethynylestradiol_simple_molecule
+v_AGTR1_cell, v_AGTR1_cell
+v_AGTR1_cell_active, ((((((v_angiotensin_II_simple_molecule_cell | v_angiotensin_IV_simple_molecule) | v_angiotensin_A_simple_molecule) & v_AGTR1_cell) | (v_AGTR1_cell & !v_Losartan_drug)) | (v_AGTR1_cell & !v_angiotensin_1_7_simple_molecule_cell)) | (v_angiotensin_II_simple_molecule_cell & !v_MAS1_AGTR1_complex))
+v_AGTR2_cell, v_AGTR2_cell
+v_AGTR2_cell_active, ((((v_AGTR2_cell & v_CGP42112A_drug) | ((v_angiotensin_II_simple_molecule_cell | v_angiotensin_A_simple_molecule) & v_AGTR2_cell)) | (v_AGTR2_cell & v_angiotensin_1_7_simple_molecule_cell)) | (v_AGTR2_cell & v_angiotensin_1_9_simple_molecule))
+v_ANPEP_, v_ANPEP_
+v_AR234960_drug, v_AR234960_drug
+v_CGP42112A_drug, v_CGP42112A_drug
+v_CMA1, v_CMA1
+v_CTSD, v_CTSD
+v_CTSG, v_CTSG
+v_Calcitriol_simple_molecule, v_Calcitriol_simple_molecule
+v_Camostat_mesilate_drug, v_Camostat_mesilate_drug
+v_ENPEP_cell, v_ENPEP_cell
+v_ENPEP_cell_active, ((v_ENPEP_cell & !v_QGC001_drug) | (v_ENPEP_cell & !v_sex__male_phenotype))
+v_KLK1, v_KLK1
+v_LNPEP_cell, v_LNPEP_cell
+v_LNPEP_cell_active, ((v_LNPEP_cell & v_angiotensin_IV_simple_molecule) | (v_LNPEP_cell & v_angiotensin_3_7_simple_molecule))
+v_Lisinopril_drug, v_Lisinopril_drug
+v_Losartan_drug, v_Losartan_drug
+v_MAS1_AGTR1_complex, (v_AGTR1_cell_active & v_MAS1_cell)
+v_MAS1_cell, !v_aldosterone_simple_molecule
+v_MAS1_cell_active, (((v_MAS1_cell & v_angiotensin_1_5_simple_molecule) | (v_MAS1_cell & v_AR234960_drug)) | (v_MAS1_cell & v_angiotensin_1_7_simple_molecule_cell))
+v_MME_cell, v_MME_cell
+v_MME_cell_active, (v_MME_cell & v_sex__male_phenotype)
+v_MRGPRD_cell, v_MRGPRD_cell
+v_MRGPRD_cell_active, ((v_MRGPRD_cell & v_alamandine_simple_molecule) | (v_MRGPRD_cell & v_angiotensin_1_7_simple_molecule_cell))
+v_PRCP, v_PRCP
+v_PREP, v_PREP
+v_QGC001_drug, v_QGC001_drug
+v_REN, !v_Calcitriol_simple_molecule
+v_S, v_S
+v_SARS_CoV_2_infection_phenotype, v_SARS_CoV_2_infection_phenotype
+v_THOP1, v_THOP1
+v_TMPRSS2, v_androgen_simple_molecule
+v__Diabetes_mellitus__type_II_phenotype, v__Diabetes_mellitus__type_II_phenotype
+v_aging_phenotype, v_aging_phenotype
+v_alamandine_simple_molecule, (v_angiotensin_1_7_simple_molecule_cell | (v_angiotensin_A_simple_molecule & v_ACE2_cell))
+v_aldosterone_simple_molecule, v_AGTR1_cell_active
+v_androgen_simple_molecule, v_androgen_simple_molecule
+v_angiotensin_1_12_simple_molecule, v_angiotensin_1_12_simple_molecule
+v_angiotensin_1_4_simple_molecule, (v_angiotensin_1_12_simple_molecule & v_MME_cell)
+v_angiotensin_1_5_simple_molecule, (v_angiotensin_1_7_simple_molecule_cell & v_ACE_cell_active)
+v_angiotensin_1_7_simple_molecule_cell, (((((((v_ACE_cell_active | v_MME_cell) & v_angiotensin_1_9_simple_molecule) | ((v_ACE2_cell | v_PRCP) & v_angiotensin_II_simple_molecule_cell)) | (v_angiotensin_I_simple_molecule & v_MME_cell)) | (v_angiotensin_1_12_simple_molecule & v_MME_cell)) | (v_angiotensin_I_simple_molecule & v_THOP1)) | (v_angiotensin_I_simple_molecule & v_PREP))
+v_angiotensin_1_7_simple_molecule_human_host, (v_angiotensin_II_simple_molecule_human_host & v_ACE2__soluble)
+v_angiotensin_1_9_simple_molecule, (v_angiotensin_I_simple_molecule & v_ACE2_cell)
+v_angiotensin_3_7_simple_molecule, ((v_angiotensin_1_7_simple_molecule_cell | v_angiotensin_II_simple_molecule_cell) | v_angiotensin_IV_simple_molecule)
+v_angiotensin_A_simple_molecule, v_angiotensin_II_simple_molecule_cell
+v_angiotensin_III_simple_molecule, (v_angiotensin_II_simple_molecule_cell & v_ENPEP_cell_active)
+v_angiotensin_II_simple_molecule_cell, (((((v_angiotensin_I_simple_molecule & v_ACE_cell) | v_S) | (v_angiotensin_1_12_simple_molecule & v_CMA1)) | (v_angiotensin_I_simple_molecule & v_CMA1)) | (v_angiotensin_I_simple_molecule & v_KLK1))
+v_angiotensin_II_simple_molecule_human_host, v_SARS_CoV_2_infection_phenotype
+v_angiotensin_IV_simple_molecule, (v_angiotensin_III_simple_molecule & v_ANPEP_)
+v_angiotensin_I_simple_molecule, (((v_AGT & v_REN) | (v_angiotensin_1_12_simple_molecule & v_ACE_cell)) | ((v_CTSD | v_CTSG) & v_AGT))
+v_cognition_phenotype, (!v_AGTR1_cell_active | v_LNPEP_cell_active)
+v_estradiol_simple_molecule, v_estradiol_simple_molecule
+v_ethynylestradiol_simple_molecule, v_ethynylestradiol_simple_molecule
+v_fibrosis_phenotype, ((!v_MAS1_cell_active | !v_AGTR2_cell_active) | v_AGTR1_cell_active)
+v_hypertension_phenotype, v_hypertension_phenotype
+v_inflammatory_response_phenotype, (((!v_MRGPRD_cell_active | !v_MAS1_cell_active) | !v_LNPEP_cell_active) | v_AGTR1_cell_active)
+v_neurodegeneration_phenotype, !v_LNPEP_cell_active
+v_oxidative_stress_phenotype, (!v_MAS1_cell_active | v_AGTR1_cell_active)
+v_platelet_aggregation_phenotype, v_AGTR1_cell_active
+v_pulmonary_edema_phenotype, v_AGTR1_cell_active
+v_sex__male_phenotype, v_sex__male_phenotype
+v_thrombosis_phenotype, (!v_MAS1_cell_active | v_AGTR1_cell_active)
+v_vasoconstriction_phenotype, ((((!v_AGTR2_cell_active | !v_MAS1_cell_active) | !v_LNPEP_cell_active) | !v_MRGPRD_cell_active) | v_AGTR1_cell_active)
+v_viral_replication_cycle_phenotype, v_ACE2_Spike_complex_complex

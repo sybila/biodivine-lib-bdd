@@ -1,0 +1,31 @@
+targets,factors
+v_akt, v_pi3k
+v_ap1, v_cjun
+v_cjun, v_jnk
+v_creb, v_p90rsk
+v_egf, v_egf
+v_egfr, v_egf
+v_erk, v_mek
+v_ex, v_nfkb
+v_gsk3, !v_akt
+v_ikb, (!v_ikk | v_ex)
+v_ikk, v_nik
+v_jnk, v_mkk7
+v_map3k1, (v_rac | v_ras)
+v_map3k7, v_traf2
+v_mek, v_raf1
+v_mkk4, (v_map3k7 | v_map3k1)
+v_mkk7, v_map3k1
+v_nfkb, !v_ikb
+v_nik, v_map3k7
+v_p38, v_mkk4
+v_p90rsk, v_mek
+v_ph, v_erk
+v_pi3k, (v_tnfr | v_egfr)
+v_rac, v_pi3k
+v_raf1, v_ras
+v_ras, v_sos
+v_sos, (v_egfr | !v_ph)
+v_tnfa, v_tnfa
+v_tnfr, v_tnfa
+v_traf2, v_tnfr

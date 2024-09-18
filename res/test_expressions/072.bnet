@@ -1,0 +1,82 @@
+targets,factors
+v_AKT, v_TNFR2
+v_B9, v_B9
+v_BCR, v_BCR
+v_Bach2, (v_Pax5 | v_Bcl6)
+v_Bcl11b, (v_Notch1 & v_TCF1)
+v_Bcl2, (v_STAT5 | v_FR4)
+v_Bcl6, ((v_IL21R & v_Ebf1) & (!v_Blimp1 & !v_Irf4))
+v_Blimp1, (v_Irf4 & ((!v_Pax5 & !v_Bach2) & !v_Bcl6))
+v_CD19, v_Pax5
+v_CD4, (((v_ThPOK & (!v_Ebf1 & !v_Runx3)) | (v_CD4 & (!v_Ebf1 & !v_Runx3))) | (v_Notch1 & (!v_Ebf1 & !v_Runx3)))
+v_CD8, (((v_CD8 & ((!v_Ebf1 & !v_TCR) & !v_ThPOK)) | (v_Notch1 & ((!v_Ebf1 & !v_TCR) & !v_ThPOK))) | (v_Runx3 & ((!v_Ebf1 & !v_TCR) & !v_ThPOK)))
+v_Dll1, v_Dll1
+v_EOMES, ((v_Tbet & v_Runx3) | (v_IL27R & v_Runx3))
+v_ERK, (v_BCR | v_Flt3)
+v_Ebf1, (v_Runx1 & !v_Runx3)
+v_FR4, (v_Foxp3 & v_B9)
+v_Flt3, ((v_Hoxa9 & !v_Pax5) | (v_Flt3L & !v_Pax5))
+v_Flt3L, v_Flt3L
+v_Foxp3, (((v_SMAD2 & (((!v_Tbet & !v_STAT3) & !v_RORgt) & !v_GATA3)) | (v_SMAD3 & (((!v_Tbet & !v_STAT3) & !v_RORgt) & !v_GATA3))) | (v_Foxp3 & (((!v_Tbet & !v_STAT3) & !v_RORgt) & !v_GATA3)))
+v_GATA3, (((v_TCF1 & ((((!v_Foxp3 & !v_Tbet) & !v_HEB) & !v_Runx1) & !v_RORgt)) | (v_STAT6 & ((((!v_Foxp3 & !v_Tbet) & !v_HEB) & !v_Runx1) & !v_RORgt))) | (v_GATA3 & ((((!v_Foxp3 & !v_Tbet) & !v_HEB) & !v_Runx1) & !v_RORgt)))
+v_Gfi1, v_Ikaros
+v_Gzmb, v_EOMES
+v_HEB, v_Notch1
+v_Helios, v_NFkB
+v_Hoxa9, v_Hoxa9
+v_IFNb, v_IFNb
+v_IFNbR, v_IFNb
+v_IFNg, ((((v_EOMES & !v_STAT3) | (v_STAT4 & !v_STAT3)) | (v_IRAK & !v_STAT3)) | (v_Tbet & !v_STAT3))
+v_IFNgR, v_IFNg
+v_IL10, v_GATA3
+v_IL10R, v_IL10
+v_IL12, v_IL12
+v_IL12R, (v_IL12 & !v_STAT6)
+v_IL17, v_RORgt
+v_IL18, v_IL18
+v_IL18R, (v_IL18 & !v_STAT6)
+v_IL2, v_IL2
+v_IL21, v_IL21
+v_IL21R, v_IL21
+v_IL23, v_IL23
+v_IL23R, v_IL23
+v_IL27, v_IL27
+v_IL27R, v_IL27
+v_IL2R, v_IL2
+v_IL4, (v_GATA3 & !v_STAT1)
+v_IL4R, (v_IL4 & !v_SOCS1)
+v_IL6, v_RORgt
+v_IL6R, v_IL6
+v_IL7, v_IL7
+v_IL7R, (v_IL7 & !v_TCR)
+v_IRAK, v_IL18R
+v_Ikaros, v_PU1
+v_Irf4, (((v_NFkB & !v_Flt3) & v_Ebf1) | ((v_Blimp1 & !v_Flt3) & v_Ebf1))
+v_JAK1, v_IFNgR
+v_JAK3, ((v_IL6R & !v_Notch1) | (v_IL7R & !v_Notch1))
+v_NFAT, v_TCR
+v_NFkB, v_BCR
+v_Notch1, v_Dll1
+v_PU1, v_Irf4
+v_Pax5, (((v_STAT5 & ((!v_Blimp1 & !v_Irf4) & !v_ThPOK)) & v_Ebf1) | (v_Ebf1 & (((!v_Blimp1 & !v_Flt3) & !v_Irf4) & !v_ThPOK)))
+v_Prf1, v_EOMES
+v_RORgt, ((v_SMAD2 & v_STAT3) | (v_RORgt & ((!v_Foxp3 & !v_Tbet) & !v_GATA3)))
+v_Runx1, (v_Runx1 & (((!v_Runx3 & !v_Notch1) & !v_TCR) & !v_ThPOK))
+v_Runx3, ((v_CD8 & ((!v_STAT5 & !v_ThPOK) & !v_CD4)) | (v_STAT5 & v_CD8))
+v_SMAD2, v_TGFbR
+v_SMAD3, (v_TGFbR & !v_AKT)
+v_SOCS1, (v_Tbet | v_STAT1)
+v_STAT1, ((v_IFNbR | v_IL27R) | v_JAK1)
+v_STAT3, (((v_IL10R | v_IL21R) | v_JAK3) | v_IL23R)
+v_STAT4, (v_IL12R & !v_GATA3)
+v_STAT5, ((v_JAK3 & !v_SOCS1) | (v_IL2R & !v_SOCS1))
+v_STAT6, v_IL4R
+v_TCF1, v_Notch1
+v_TCR, v_TCR
+v_TGFb, v_Foxp3
+v_TGFbR, v_TGFb
+v_TNFR2, v_TNFa
+v_TNFa, v_RORgt
+v_Tbet, ((v_Tbet & ((!v_Foxp3 & !v_RORgt) & !v_GATA3)) | (v_STAT1 & ((!v_Foxp3 & !v_RORgt) & !v_GATA3)))
+v_ThPOK, (((((((v_CD4 & !v_CD8) | v_TCR) | v_ThPOK) | v_RORgt) | v_GATA3) | (v_Tbet & !v_Runx3)) | v_Foxp3)
+v_XBP1, v_Blimp1

@@ -1,0 +1,42 @@
+targets,factors
+v_A20, v_NFkB
+v_AKT, v_PIP3
+v_APC, ((v_Cas9 & (v_Apaf1 & v_Mito)) & !v_IAP)
+v_Apaf1, v_p53
+v_Apoptosis, v_DNADamageEvent
+v_BAD, (v_p53 & !v_AKT)
+v_BID, (((v_Cas8 & v_p53) & !v_BclX) | ((v_JNK & v_p53) & !v_BclX))
+v_BclX, (v_NFkB & !(v_BAD | v_p53))
+v_Cas12, v_Cas7
+v_Cas3, (((v_Cas6 & !v_IAP) | (v_Cas8 & !v_IAP)) | (v_APC & !v_IAP))
+v_Cas6, (v_Cas3 & !v_IAP)
+v_Cas7, ((v_APC & !v_IAP) | (v_Cas8 & !v_IAP))
+v_Cas8, ((v_FADD & !v_cFLIP) | (v_Cas6 & !v_cFLIP))
+v_Cas9, ((v_Cas3 & !(v_AKT | v_IAP)) | (v_Cas12 & !(v_AKT | v_IAP)))
+v_DNADamageEvent, v_Cas3
+v_FADD, v_TRADD
+v_GF, v_GF
+v_GFR, v_GF
+v_IAP, (v_NFkB & !(v_Mito | (v_Cas3 & v_Cas6)))
+v_IKK, ((v_AKT & !v_A20) | (v_NIK & !v_A20))
+v_IkB, (v_NFkB & !v_IKK)
+v_JNK, v_JNKK
+v_JNKK, (v_MEKK1 & !v_AKT)
+v_MEKK1, v_RIP
+v_Mdm2, (v_AKT | v_p53)
+v_Mito, (v_BID & !v_BclX)
+v_NFkB, !v_IkB
+v_NIK, v_TRAF2
+v_PI3K, v_GFR
+v_PIP2, v_GFR
+v_PIP3, ((v_PI3K & v_PIP2) & !v_PTEN)
+v_PTEN, v_p53
+v_RIP, v_TRADD
+v_TNF, v_TNF
+v_TNFR1, v_TNF
+v_TNFR2, v_TNF
+v_TRADD, v_TNFR1
+v_TRAF, v_TRADD
+v_TRAF2, (v_TNFR2 | v_RIP)
+v_cFLIP, v_TRAF
+v_p53, ((v_DNADamageEvent & !v_Mdm2) | (v_JNK & !v_Mdm2))

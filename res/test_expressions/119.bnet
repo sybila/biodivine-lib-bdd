@@ -1,0 +1,20 @@
+targets,factors
+v_3a, v_3a
+v_3b, v_3b
+v_7a, v_7a
+v_AP_1_complex, (v_csa1_JNK_complex_cell | v_3b)
+v_ATF2_phosphorylated, v_csa1_JNK_complex_cell
+v_Apoptosis_phenotype, !v_BCL2_phosphorylated
+v_Autophagy_phenotype, v_BCL2_phosphorylated
+v_BCL2_phosphorylated, v_csa1_JNK_complex_cell
+v_Innate_Immunity_phenotype, v_AP_1_complex
+v_MAP2K4_phosphorylated, (v_MEKK1_4_complex | v_SARS_CoV_1_proteins_complex)
+v_MAP2K7_phosphorylated, (v_MLK1_2_3_complex | v_SARS_CoV_1_proteins_complex)
+v_MEKK1_4_complex, v_SARS_CoV_1_proteins_complex
+v_MLK1_2_3_complex, v_SARS_CoV_1_proteins_complex
+v_S, v_S
+v_SARS_CoV_1_proteins_complex, v_SARS_CoV_1_proteins_complex
+v_TP53_phosphorylated, v_csa1_JNK_complex_cell
+v_TP53_signalling_phenotype, v_TP53_phosphorylated
+v_csa12_JNK_complex_cell, v_csa12_JNK_complex_cell
+v_csa1_JNK_complex_cell, (((((v_MAP2K4_phosphorylated | v_MAP2K7_phosphorylated) | v_7a) | v_3a) & v_csa12_JNK_complex_cell) | (v_csa12_JNK_complex_cell & v_S))

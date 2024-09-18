@@ -1,0 +1,322 @@
+targets,factors
+v_APAF1, v_External_Activator
+v_APAF1_CYCS, (v_APAF1 & v_CYCScytoplasm)
+v_APAF1gene, v_TP53nucleus
+v_ATF2, v_External_Activator
+v_Apoptosis, (((v_DNA_Fragmentation | v_Inactive_DNA_Repair) | v_Cell_Shrinkage) | v_Inactivation_of_Protein_Synthesis)
+v_Apoptosome, (v_APAF1_CYCS & v_CASP9)
+v_BAD, v_Mitochondrial_Activator
+v_BAG4, (v_External_Activator | v_TNF_BAG4_TNFRSF1A)
+v_BAG4_TNFRSF1A, (v_BAG4 & v_TNFRSF1A)
+v_BAK1, v_Mitochondrial_Activator
+v_BAK1gene, v_IRF5_IRF5nucleus
+v_BAX, v_Mitochondrial_Activator
+v_BBC3gene, v_TP53nucleus
+v_BCL2, v_Mitochondrial_Activator
+v_BCL2A1, v_RELAp65_NFBK1p50nucleus
+v_BCL2A1gene, v_RELAp65_NFBK1p50nucleus
+v_BCL2L1_BAD, (v_BCL2L1mitochondria & v_BAD)
+v_BCL2L1gene, v_RELAp65_NFBK1p50nucleus
+v_BCL2L1mitochondria, v_Mitochondrial_Activator
+v_BCL2_BAX, (v_BCL2 & v_BAX)
+v_BCL3, v_External_Activator
+v_BCL3_NFKB2p52_NFKB2p52, (v_BCL3 & v_NFKB2p52_NFKB2p52nucleus)
+v_BID, v_External_Activator
+v_BIRC2, v_External_Activator
+v_BIRC3gene, v_RELAp65_NFBK1p50nucleus
+v_BIRC4cytoplasm, !(v_DIABLOcytoplasm | v_HTRA2cytoplasm)
+v_BIRC4gene, v_RELAp65_NFBK1p50nucleus
+v_Bacteria, v_Bacteria
+v_CASP1, (v_ProCASP1 & v_CASP4)
+v_CASP10, (v_ProCASP10 & v_TNF_TNFRSF1A_FADD_TRADD)
+v_CASP2, (v_ProCASP2 & v_Fragmented_DNAcytoplasm)
+v_CASP3_Activator, v_CASP3_Activator
+v_CASP3cytoplasm, (v_ProCASP3 & ((v_CASP8 | v_CASP4) | v_Apoptosome))
+v_CASP3gene, (v_IRF5_IRF5nucleus | v_CASP3cytoplasm)
+v_CASP3nucleus, v_CASP3cytoplasm
+v_CASP4, v_ProCASP4
+v_CASP6_Activator, v_CASP6_Activator
+v_CASP6cytoplasm, (v_ProCASP6 & v_CASP9)
+v_CASP6nucleus, v_CASP6cytoplasm
+v_CASP7_Activator, v_CASP7_Activator
+v_CASP7cytoplasm, (v_ProCASP7 & ((v_CASP8 | v_Apoptosome) | v_CASP10))
+v_CASP7nucleus, v_CASP7cytoplasm
+v_CASP8, (v_ProCASP8 & (((v_TNFSF10_TNFSF10B_FADD | v_FASLG_FAS_FADD_FAF1_DAXX) | v_FASLG_FAS_FADD_FAF1_DAXX_CFLAR) | v_TNFSF10_TNFRSF10A_FADD))
+v_CASP9, v_CASP6_Activator
+v_CBP, (v_EP300 & v_CREBBP)
+v_CCL5gene, v_IRF1_IRF1nucleus
+v_CD40, v_External_Activator
+v_CD40LG, v_CD40LG
+v_CD40_CD40LG, (v_CD40 & v_CD40LG)
+v_CD40_CD40LG_TRAF3, (v_CD40_CD40LG & v_TRAF3)
+v_CFLAR, v_External_Activator
+v_CFLARgene, v_RELAp65_NFBK1p50nucleus
+v_CHUK, v_External_Activator
+v_CHUK_CHUK, (v_CHUK & v_MAP3K14)
+v_CIITAgene, (v_IRF1_IRF1nucleus | v_IRF2)
+v_CKII, v_IRF1_IRF1_Activator
+v_CREBBP, v_External_Activator
+v_CXCL10gene, (v_ISGF3nucleus | (v_CBP & (v_IRF3_IRF7nucleus | v_IRF3_IRF3nucleus)))
+v_CXCL11gene, v_IRF5_IRF5nucleus
+v_CXCL9gene, v_STAT1_STAT1nucleus_p2
+v_CYBBgene, (v_IRF8 & v_SPI1)
+v_CYCScytoplasm, (v_CYCSmytochondria & ((v_BAK1 | v_tBID) | v_BAX))
+v_CYCSmytochondria, v_Mitochondrial_Activator
+v_Cell_Shrinkage, (v_cGAS2 | v_cLMNA)
+v_DAXX, v_External_Activator
+v_DFFA, v_External_Activator
+v_DIABLOcytoplasm, (v_DIABLOmitochondria & ((v_BAK1 | v_tBID) | v_BAX))
+v_DIABLOmitochondria, v_Mitochondrial_Activator
+v_DNA, v_External_Activator
+v_DNA_Fragmentation, (v_Fragmented_DNAnucleus | v_IDFFA)
+v_Diacyl_Lipopeptides, v_Bacteria
+v_EIF2AK2_PRKRA, (v_EIF2AK2cytoplasm & v_PRKRA)
+v_EIF2AK2cytoplasm, v_dsRNA
+v_EIF2AK2gene, (v_ISGF3nucleus | v_IRF1_IRF1nucleus)
+v_EIF2S1, v_EIF2AK2gene
+v_ENDOGcytoplasm, (v_tBID & v_ENDOGmitochondria)
+v_ENDOGmitochondria, v_Mitochondrial_Activator
+v_ENDOGnucleus, v_ENDOGcytoplasm
+v_EP300, v_External_Activator
+v_External_Activator, v_External_Activator
+v_FADD, v_External_Activator
+v_FAF1, v_External_Activator
+v_FAS, v_External_Activator
+v_FASLG, v_FASLG
+v_FASLG_FAS, (v_FASLG & v_FAS)
+v_FASLG_FAS_FADD_FAF1_DAXX, (v_FASLG_FAS & ((v_FADD & v_FAF1) & v_DAXX))
+v_FASLG_FAS_FADD_FAF1_DAXX_CFLAR, (v_FASLG_FAS_FADD_FAF1_DAXX & v_CFLAR)
+v_FASLGgene, (v_IRF1_IRF1nucleus | v_TP53nucleus)
+v_FASgene, v_RELAp65_NFBK1p50nucleus
+v_Flagellin, v_Bacteria
+v_Fragmented_DNAcytoplasm, v_DNA_Fragmentation
+v_Fragmented_DNAnucleus, (v_DNA & (v_ENDOGnucleus | v_PDCD8nucleus))
+v_G1P2gene, (((v_ISGF3nucleus | (v_IRF2 & ((v_SPI1 & v_IRF4) & v_IRF8))) | (v_CBP & (v_IRF3_IRF7nucleus | v_IRF3_IRF3nucleus))) | (v_IRF1_IRF1nucleus & ((v_SPI1 & v_IRF4) & v_IRF8)))
+v_G1P3gene, v_IRF8
+v_GAS2, v_External_Activator
+v_GBP1gene, (v_IRF2 | v_IRF1_IRF1nucleus)
+v_HIST2H4gene, (v_IRF1_IRF1nucleus | v_IRF2)
+v_HLA_Bgene, v_IRF8
+v_HSPA1A, v_External_Activator
+v_HTRA2cytoplasm, (v_tBID & v_HTRA2mitochondria)
+v_HTRA2mitochondria, v_Mitochondrial_Activator
+v_ICAM1gene, v_STAT1_STAT1nucleus_p2
+v_IDFFA, (v_DFFA & v_CASP3nucleus)
+v_IER3gene, v_RELAp65_NFBK1p50nucleus
+v_IFIT1gene, v_IRF5_IRF5nucleus
+v_IFIT2gene, ((v_CBP & (v_IRF3_IRF7nucleus | v_IRF3_IRF3nucleus)) | v_ISGF3nucleus)
+v_IFNA, v_IFNA
+v_IFNAR, ((v_IFNA & (((v_TYK2 & v_IFNAR1) & v_IFNAR2) & v_JAK1)) | (v_IFNB1 & (((v_TYK2 & v_IFNAR1) & v_IFNAR2) & v_JAK1)))
+v_IFNAR1, v_External_Activator
+v_IFNAR2, v_External_Activator
+v_IFNA_IFNA, v_IFNA
+v_IFNAgene, (((((((v_IRF5_IRF5nucleus | v_IRF7_IRF7nucleus) | v_IRF3_IRF5nucleus) | v_STAT1_STAT1_IRF9nucleus) | v_IRF1_IRF1nucleus) | v_IRF3_IRF3nucleus) | v_IRF3_IRF7nucleus) | v_ISGF3nucleus)
+v_IFNB1, v_IFNB1
+v_IFNB1_IFNB1, v_IFNB1
+v_IFNB1gene, ((((((v_RELAp65_NFBK1p50nucleus & (((v_IRF3_IRF7nucleus & v_IRF3_IRF3nucleus) & v_ATF2) & v_CBP)) | v_IRF5_IRF5nucleus) | v_IRF1_IRF1nucleus) | v_IRF3_IRF3nucleus) | v_ISGF3nucleus) | v_STAT1_STAT1nucleus_p2)
+v_IFNG, v_IFNG
+v_IFNGR, (v_IFNG & ((v_IFNGR2 & v_JAK2) & v_IFNGR1))
+v_IFNGR1, v_External_Activator
+v_IFNGR2, v_External_Activator
+v_IFR5gene, (v_STAT1_STAT1_IRF9nucleus | v_TP53nucleus)
+v_IKBKB, v_External_Activator
+v_IKBKE, v_External_Activator
+v_IKBKE_TBK1, (v_TLR4_TICAM1_TICAM2 & (v_IKBKE & v_TBK1))
+v_IKBKG, v_External_Activator
+v_IKBKG_CHUK_IKBKB, ((v_TLR3_TICAM1_TICAM2_RIPK1_RIPK3 & ((v_CHUK & v_IKBKB) & v_IKBKG)) | (v_IKBKG & ((v_CHUK & v_IKBKB) & v_MAP3K7IP1_MAP3K7IP2_MAP3K7)))
+v_IL12Bgene, v_IRF1_IRF1nucleus
+v_IL15gene, v_IRF1_IRF1nucleus
+v_IL1Bgene, (v_IRF8 & v_SPI1)
+v_IL1R1, v_External_Activator
+v_ILIB, v_ILIB
+v_ILIB_IL1R1, (v_ILIB & v_IL1R1)
+v_ILIB_IL1R1_MYD88_IRAK1_IRAK4, (v_ILIB_IL1R1 & ((v_IRAK1 & v_MYD88) & v_IRAK4))
+v_ILIB_IL1R1_MYD88_IRAK1_IRAK4_TRAF6, (v_ILIB_IL1R1_MYD88_IRAK1_IRAK4 & v_TRAF6)
+v_IPARP, (v_PARP & (v_CASP7nucleus | v_CASP3nucleus))
+v_IRAK1, v_External_Activator
+v_IRAK2, v_External_Activator
+v_IRAK4, v_External_Activator
+v_IRF1_IRF1_Activator, v_IRF1_IRF1_Activator
+v_IRF1_IRF1cytoplasm, v_IRF1cytoplasm
+v_IRF1_IRF1nucleus, v_IRF1_IRF1cytoplasm
+v_IRF1cytoplasm, ((v_PKA | v_CKII) | v_PKC)
+v_IRF1gene, v_STAT1_STAT1nucleus_p2
+v_IRF2, v_IRF2_Activator
+v_IRF2_Activator, v_IRF2_Activator
+v_IRF2gene, v_IRF1_IRF1nucleus
+v_IRF3, (v_TLR3_TICAM1_TICAM2_TBK1 | v_IKBKE_TBK1)
+v_IRF3_IRF3cytoplasm, v_IRF3
+v_IRF3_IRF3nucleus, v_IRF3_IRF3cytoplasm
+v_IRF3_IRF5cytoplasm, v_IRF5
+v_IRF3_IRF5nucleus, v_IRF3_IRF5cytoplasm
+v_IRF3_IRF7cytoplasm, (v_IRF3 & v_IRF7)
+v_IRF3_IRF7nucleus, v_IRF3_IRF7cytoplasm
+v_IRF4, v_External_Activator
+v_IRF5, ((v_TLR7_MYD88_TRAF6_IRF5 | v_Virus) | v_TLR9_MYD88_TRAF6_IRF5)
+v_IRF5_IRF5cytoplasm, v_IRF5
+v_IRF5_IRF5nucleus, v_IRF5_IRF5cytoplasm
+v_IRF5_IRF7cytoplasm, v_IRF5
+v_IRF5_IRF7nucleus, v_IRF5_IRF7cytoplasm
+v_IRF7, v_IKBKE_TBK1
+v_IRF7_IRF7cytoplasm, v_IRF7
+v_IRF7_IRF7nucleus, v_IRF7_IRF7cytoplasm
+v_IRF8, (v_IRF1_IRF1nucleus | v_IRF2)
+v_IRF9, v_External_Activator
+v_ISGF3cytoplasm, (v_STAT1_STAT2 & v_IRF9)
+v_ISGF3nucleus, v_ISGF3cytoplasm
+v_Inactivation_of_Protein_Synthesis, v_EIF2S1
+v_Inactive_DNA_Repair, v_IPARP
+v_JAK1, v_External_Activator
+v_JAK2, v_External_Activator
+v_LMNA, v_External_Activator
+v_LPS, v_Bacteria
+v_MAP3K14, ((v_CD40_CD40LG_TRAF3 | v_TNF_TNFRSF1B_TRAF2) | v_TNFSF13B_TNFRSF17_TRAF5)
+v_MAP3K7, v_External_Activator
+v_MAP3K7IP1, v_External_Activator
+v_MAP3K7IP1_MAP3K7IP2_MAP3K7, (((((((v_ILIB_IL1R1_MYD88_IRAK1_IRAK4_TRAF6 & ((v_MAP3K7IP1 & v_MAP3K7IP2) & v_MAP3K7)) | (v_TLR7_MYD88_IRAK1_IRAK4_TRAF6 & ((v_MAP3K7IP1 & v_MAP3K7IP2) & v_MAP3K7))) | (v_TLR3_TICAM1_TICAM2_TRAF6 & ((v_MAP3K7IP1 & v_MAP3K7IP2) & v_MAP3K7))) | (v_TLR9_MYD88_IRAK1_IRAK4_TRAF6 & ((v_MAP3K7IP1 & v_MAP3K7IP2) & v_MAP3K7))) | (v_TLR2_TLR6_TOLLIP_MYD88_IRAK1_IRAK4_TRAF6 & ((v_MAP3K7IP1 & v_MAP3K7IP2) & v_MAP3K7))) | (v_TLR5_MYD88_IRAK1_IRAK4_TRAF6 & ((v_MAP3K7IP1 & v_MAP3K7IP2) & v_MAP3K7))) | (v_TLR1_TLR2_TIRAP_MYD88_IRAK2_IRAK1_IRAK4_TRAF6 & ((v_MAP3K7IP1 & v_MAP3K7IP2) & v_MAP3K7)))
+v_MAP3K7IP2, v_External_Activator
+v_MDM2gene, v_TP53nucleus
+v_MYD88, v_External_Activator
+v_Mitochondrial_Activator, v_Mitochondrial_Activator
+v_NFKB1_p50, v_RELA_NFKB1_Activator
+v_NFKB2p100, v_External_Activator
+v_NFKB2p100_NFKB2p100_Ub, (v_NFKB2p100_NFKB2p100cytoplasm & v_Ub)
+v_NFKB2p100_NFKB2p100cytoplasm, (v_NFKB2p100 & v_IKBKG_CHUK_IKBKB)
+v_NFKB2p100_RELB_Ub, (v_NFKB2p100_RELBcytoplasm & v_Ub)
+v_NFKB2p100_RELBcytoplasm, (v_NFKB2p100 & (v_RELB & v_CHUK_CHUK))
+v_NFKB2p52_NFKB2p52cytoplasm, (v_NFKB2p100_NFKB2p100_Ub & v_Proteasome)
+v_NFKB2p52_NFKB2p52nucleus, v_NFKB2p52_NFKB2p52cytoplasm
+v_NFKB2p52_RELBcytoplasm, (v_NFKB2p100_RELB_Ub & v_Proteasome)
+v_NFKB2p52_RELBnucleus, v_NFKB2p52_RELBcytoplasm
+v_NFKBIA, (v_RELA_NFKB1_Activator | v_NFKBIA_RELAp65_NFKB1p50)
+v_NFKBIA_RELAp65_NFKB1p50, ((v_TNF_IKBKG_Complex & ((v_NFKBIA & v_RELA_p65) & v_NFKB1_p50)) | (v_IKBKG_CHUK_IKBKB & ((v_NFKBIA & v_RELA_p65) & v_NFKB1_p50)))
+v_NOS2Agene, v_External_Activator
+v_OAS1gene, (((v_ISGF3nucleus | v_IRF5_IRF5nucleus) | v_IRF8) | v_IRF1_IRF1nucleus)
+v_PARP, v_External_Activator
+v_PDCD8_HSPA1A, (v_PDCD8cytoplasm & v_HSPA1A)
+v_PDCD8cytoplasm, (v_tBID & v_PDCD8mitochondria)
+v_PDCD8mitochondria, v_Mitochondrial_Activator
+v_PDCD8nucleus, v_PDCD8cytoplasm
+v_PKA, v_IRF1_IRF1_Activator
+v_PKC, v_IRF1_IRF1_Activator
+v_PLSCR1gene, v_IRF5_IRF5nucleus
+v_PMAIPgene, v_IRF5_IRF5nucleus
+v_PRKCD, v_External_Activator
+v_PRKCZ, v_External_Activator
+v_PRKRA, v_External_Activator
+v_PRKRAgene, v_IRF5_IRF5nucleus
+v_PSMB9gene, (v_IRF1_IRF1nucleus | v_IRF2)
+v_PTP, v_External_Activator
+v_PTPN2, v_External_Activator
+v_ProCASP1, v_External_Activator
+v_ProCASP10, v_External_Activator
+v_ProCASP2, v_External_Activator
+v_ProCASP3, v_CASP3_Activator
+v_ProCASP4, v_External_Activator
+v_ProCASP6, v_CASP6_Activator
+v_ProCASP7, v_CASP7_Activator
+v_ProCASP8, v_External_Activator
+v_Proteasome, v_External_Activator
+v_RELA_NFKB1_Activator, v_RELA_NFKB1_Activator
+v_RELA_p65, v_RELA_NFKB1_Activator
+v_RELAp65_NFBK1p50nucleus, v_RELAp65_NFKB1p50cytoplasm
+v_RELAp65_NFKB1p50cytoplasm, (v_NFKBIA_RELAp65_NFKB1p50 & (((((v_TBK1 | v_CHUK) | v_IKBKB) | v_MAP3K7) | v_RPS6KA5) | v_PRKCZ))
+v_RELB, v_External_Activator
+v_RIPK1, v_External_Activator
+v_RIPK1gene, v_IRF5_IRF5nucleus
+v_RIPK3, v_External_Activator
+v_RPS6KA5, v_External_Activator
+v_SOCS1, v_External_Activator
+v_SOCS3, v_External_Activator
+v_SOD2gene, v_RELAp65_NFBK1p50nucleus
+v_SP100gene, v_IRF5_IRF5nucleus
+v_SPI1, v_External_Activator
+v_STAT1, v_IFNGR
+v_STAT1_STAT1_IRF9cytoplasm, (v_STAT1 & v_IRF9)
+v_STAT1_STAT1_IRF9nucleus, v_STAT1_STAT1_IRF9cytoplasm
+v_STAT1_STAT1cytoplasm, (v_STAT1 & v_PRKCD)
+v_STAT1_STAT1nucleus_p1, v_STAT1_STAT1cytoplasm
+v_STAT1_STAT1nucleus_p2, v_STAT1_STAT1nucleus_p1
+v_STAT1_STAT2, (v_STAT1 & v_STAT2)
+v_STAT1gene, v_IRF1_IRF1nucleus
+v_STAT2, v_IFNAR
+v_TAP1gene, (v_IRF2 | v_IRF1_IRF1nucleus)
+v_TBK1, v_External_Activator
+v_TICAM1, v_External_Activator
+v_TICAM2, v_External_Activator
+v_TIRAP, v_External_Activator
+v_TLR1_TLR2, v_Triacyl_Lipopeptides
+v_TLR1_TLR2_TIRAP_MYD88_IRAK2_IRAK1_IRAK4, (v_TLR1_TLR2 & ((((v_IRAK2 & v_TIRAP) & v_IRAK1) & v_MYD88) & v_IRAK4))
+v_TLR1_TLR2_TIRAP_MYD88_IRAK2_IRAK1_IRAK4_TRAF6, (v_TLR1_TLR2_TIRAP_MYD88_IRAK2_IRAK1_IRAK4 & v_TRAF6)
+v_TLR2, v_External_Activator
+v_TLR2_TLR6, (v_TLR2 & (v_TLR6 & v_Diacyl_Lipopeptides))
+v_TLR2_TLR6_TOLLIP_MYD88_IRAK1_IRAK4, (v_TLR2_TLR6 & (((v_TOLLIP & v_IRAK1) & v_MYD88) & v_IRAK4))
+v_TLR2_TLR6_TOLLIP_MYD88_IRAK1_IRAK4_TRAF6, (v_TLR2_TLR6_TOLLIP_MYD88_IRAK1_IRAK4 & v_TRAF6)
+v_TLR3, v_External_Activator
+v_TLR3_TICAM1_TICAM2, (v_TLR3_TLR3 & (v_TICAM2 & v_TICAM1))
+v_TLR3_TICAM1_TICAM2_RIPK1, (v_TLR3_TICAM1_TICAM2 & v_RIPK1)
+v_TLR3_TICAM1_TICAM2_RIPK1_RIPK3, (v_TLR3_TICAM1_TICAM2_RIPK1 & v_RIPK3)
+v_TLR3_TICAM1_TICAM2_TBK1, (v_TLR3_TICAM1_TICAM2 & v_TBK1)
+v_TLR3_TICAM1_TICAM2_TRAF6, (v_TLR3_TICAM1_TICAM2 & v_TRAF6)
+v_TLR3_TLR3, (v_dsRNA & v_TLR3)
+v_TLR4, v_LPS
+v_TLR4_TICAM1_TICAM2, (v_TLR4 & (v_TICAM2 & v_TICAM1))
+v_TLR5, v_External_Activator
+v_TLR5_MYD88_IRAK1_IRAK4, (v_TLR5_TLR5 & ((v_IRAK1 & v_MYD88) & v_IRAK4))
+v_TLR5_MYD88_IRAK1_IRAK4_TRAF6, (v_TLR5_MYD88_IRAK1_IRAK4 & v_TRAF6)
+v_TLR5_TLR5, (v_TLR5 & v_Flagellin)
+v_TLR6, v_External_Activator
+v_TLR7, v_External_Activator
+v_TLR7_MYD88_IRAK1_IRAK4, (v_TLR7_TLR7 & ((v_IRAK1 & v_MYD88) & v_IRAK4))
+v_TLR7_MYD88_IRAK1_IRAK4_TRAF6, (v_TLR7_MYD88_IRAK1_IRAK4 & v_TRAF6)
+v_TLR7_MYD88_TRAF6_IRF5, ((v_TLR7_TLR7 & (v_TRAF6 & v_MYD88)) & !v_IRF5)
+v_TLR7_TLR7, (v_TLR7 & v_ssRNA)
+v_TLR9, v_External_Activator
+v_TLR9_MYD88_IRAK1_IRAK4, (v_TLR9_TLR9 & ((v_IRAK1 & v_MYD88) & v_IRAK4))
+v_TLR9_MYD88_IRAK1_IRAK4_TRAF6, (v_TLR9_MYD88_IRAK1_IRAK4 & v_TRAF6)
+v_TLR9_MYD88_TRAF6, v_TLR9_MYD88_IRAK1_IRAK4_TRAF6
+v_TLR9_MYD88_TRAF6_IRF5, ((v_TLR9_TLR9 & (v_TRAF6 & v_MYD88)) & !v_IRF5)
+v_TLR9_TLR9, (v_TLR9 & v_Viral_Bacterial_CpG)
+v_TNF, v_TNF
+v_TNFRSF10A, v_External_Activator
+v_TNFRSF10B, v_External_Activator
+v_TNFRSF10Bgene, v_TP53nucleus
+v_TNFRSF17, v_External_Activator
+v_TNFRSF1A, v_External_Activator
+v_TNFRSF1B, v_External_Activator
+v_TNFSF10, v_TNFSF10
+v_TNFSF10_TNFRSF10A, (v_TNFSF10 & v_TNFRSF10A)
+v_TNFSF10_TNFRSF10A_FADD, (v_TNFSF10_TNFRSF10A & v_FADD)
+v_TNFSF10_TNFSF10B, (v_TNFSF10 & v_TNFRSF10B)
+v_TNFSF10_TNFSF10B_FADD, (v_TNFSF10_TNFSF10B & v_FADD)
+v_TNFSF10gene, (v_IRF5_IRF5nucleus | v_IRF1_IRF1nucleus)
+v_TNFSF13B, v_TNFSF13B
+v_TNFSF13B_TNFRSF17, (v_TNFSF13B & v_TNFRSF17)
+v_TNFSF13B_TNFRSF17_TRAF5, (v_TNFSF13B_TNFRSF17 & v_TRAF5)
+v_TNF_BAG4_TNFRSF1A, (v_TNF & v_BAG4_TNFRSF1A)
+v_TNF_IKBKG_Complex, (v_TNF_TNFRSF1A_FADD_TRADD_TRAF2_RIPK1 & ((v_CHUK & v_IKBKB) & v_IKBKG))
+v_TNF_TNFRSF1A, v_TNF_BAG4_TNFRSF1A
+v_TNF_TNFRSF1A_FADD_TRADD, (v_TNF_TNFRSF1A & (v_FADD & v_TRADD))
+v_TNF_TNFRSF1A_FADD_TRADD_TRAF2_RIPK1, (v_TNF_TNFRSF1A_FADD_TRADD & (v_RIPK1 & v_TRAF2cytoplasm))
+v_TNF_TNFRSF1B, (v_TNF & v_TNFRSF1B)
+v_TNF_TNFRSF1B_TRAF2, (v_TNF_TNFRSF1B & v_TRAF2cytoplasm)
+v_TOLLIP, v_External_Activator
+v_TP53cytoplasm, v_EIF2AK2_PRKRA
+v_TP53nucleus, v_TP53cytoplasm
+v_TRADD, v_External_Activator
+v_TRAF1gene, v_RELAp65_NFBK1p50nucleus
+v_TRAF2cytoplasm, v_External_Activator
+v_TRAF2gene, v_RELAp65_NFBK1p50nucleus
+v_TRAF3, v_External_Activator
+v_TRAF5, v_External_Activator
+v_TRAF6, v_External_Activator
+v_TYK2, v_External_Activator
+v_Triacyl_Lipopeptides, v_Bacteria
+v_Ub, v_External_Activator
+v_Viral_Bacterial_CpG, (v_Virus | v_Bacteria)
+v_Virus, v_Virus
+v_cGAS2, (v_GAS2 & v_CASP3nucleus)
+v_cLMNA, (v_LMNA & v_CASP6nucleus)
+v_dsRNA, v_Virus
+v_ssRNA, v_Virus
+v_tBID, (v_BID & (v_CASP8 | v_CASP2))

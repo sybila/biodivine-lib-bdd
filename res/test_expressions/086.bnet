@@ -1,0 +1,21 @@
+targets,factors
+v_AKT1, ((((((((((!v_GF & !v_TGFb_pthw) & !v_Notch_pthw) & v_WNT_pthw) & !v_p53) & v_EMTreg) & !v_miRNA) & !v_Ecadh) | ((((((!v_GF & !v_TGFb_pthw) & v_Notch_pthw) & v_WNT_pthw) & !v_p53) & !v_miRNA) & !v_Ecadh)) | (((((!v_GF & v_TGFb_pthw) & v_WNT_pthw) & !v_p53) & !v_miRNA) & !v_Ecadh)) | ((((v_GF & v_WNT_pthw) & !v_p53) & !v_miRNA) & !v_Ecadh))
+v_AKT2, ((!v_p53 & v_EMTreg) & !v_miRNA)
+v_Apoptosis, (((((((!v_p53 & !v_EMTreg) & !v_p63_73) & !v_AKT1) & !v_ERK_pthw) & v_miRNA) | ((((!v_p53 & !v_EMTreg) & v_p63_73) & !v_AKT1) & !v_ERK_pthw)) | (((v_p53 & !v_EMTreg) & !v_AKT1) & !v_ERK_pthw))
+v_CCA, ((((((((((((((((((((((((((!v_TGFb_pthw & !v_p53) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & !v_AKT2) & v_miRNA) | ((((((!v_TGFb_pthw & !v_p53) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & v_AKT2) & !v_ERK_pthw)) | (((((((!v_TGFb_pthw & !v_p53) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & v_AKT2) & v_ERK_pthw) & v_miRNA)) | (((((!v_TGFb_pthw & !v_p53) & !v_EMTreg) & v_p63_73) & !v_AKT1) & !v_ERK_pthw)) | ((((((!v_TGFb_pthw & !v_p53) & !v_EMTreg) & v_p63_73) & !v_AKT1) & v_ERK_pthw) & v_miRNA)) | (((!v_TGFb_pthw & !v_p53) & v_EMTreg) & !v_AKT1)) | ((((!v_TGFb_pthw & v_p53) & !v_EMTreg) & !v_AKT1) & !v_ERK_pthw)) | (((((!v_TGFb_pthw & v_p53) & !v_EMTreg) & !v_AKT1) & v_ERK_pthw) & v_miRNA)) | (((!v_TGFb_pthw & v_p53) & v_EMTreg) & !v_AKT1)) | (((((((v_TGFb_pthw & !v_Notch_pthw) & !v_p53) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & !v_AKT2) & v_miRNA)) | (((((((v_TGFb_pthw & !v_Notch_pthw) & !v_p53) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & v_AKT2) & !v_ERK_pthw)) | ((((((((v_TGFb_pthw & !v_Notch_pthw) & !v_p53) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & v_AKT2) & v_ERK_pthw) & v_miRNA)) | ((((((v_TGFb_pthw & !v_Notch_pthw) & !v_p53) & !v_EMTreg) & v_p63_73) & !v_AKT1) & !v_ERK_pthw)) | (((((((v_TGFb_pthw & !v_Notch_pthw) & !v_p53) & !v_EMTreg) & v_p63_73) & !v_AKT1) & v_ERK_pthw) & v_miRNA)) | ((((v_TGFb_pthw & !v_Notch_pthw) & !v_p53) & v_EMTreg) & !v_AKT1)) | (((((v_TGFb_pthw & !v_Notch_pthw) & v_p53) & !v_EMTreg) & !v_AKT1) & !v_ERK_pthw)) | ((((((v_TGFb_pthw & !v_Notch_pthw) & v_p53) & !v_EMTreg) & !v_AKT1) & v_ERK_pthw) & v_miRNA)) | ((((v_TGFb_pthw & !v_Notch_pthw) & v_p53) & v_EMTreg) & !v_AKT1)) | ((((v_TGFb_pthw & v_Notch_pthw) & !v_EMTreg) & !v_AKT1) & !v_ERK_pthw)) | (((((v_TGFb_pthw & v_Notch_pthw) & !v_EMTreg) & !v_AKT1) & v_ERK_pthw) & v_miRNA)) | (((v_TGFb_pthw & v_Notch_pthw) & v_EMTreg) & !v_AKT1))
+v_DNAdamage, v_DNAdamage
+v_ECMicroenv, v_ECMicroenv
+v_EMT, (v_EMTreg & !v_Ecadh)
+v_EMTreg, ((((((!v_Notch_pthw & !v_WNT_pthw) & !v_p53) & v_EMTreg) & !v_miRNA) | (((!v_Notch_pthw & v_WNT_pthw) & !v_p53) & !v_miRNA)) | ((v_Notch_pthw & !v_p53) & !v_miRNA))
+v_ERK_pthw, (((((((!v_GF & !v_TGFb_pthw) & !v_Notch_pthw) & v_EMTreg) & !v_AKT1) | (((!v_GF & !v_TGFb_pthw) & v_Notch_pthw) & !v_AKT1)) | ((!v_GF & v_TGFb_pthw) & !v_AKT1)) | (v_GF & !v_AKT1))
+v_Ecadh, (!v_EMTreg & !v_AKT2)
+v_GF, (((!v_GF & v_EMTreg) & !v_Ecadh) | (v_GF & !v_Ecadh))
+v_Invasion, (((!v_TGFb_pthw & v_WNT_pthw) | ((v_TGFb_pthw & !v_WNT_pthw) & v_EMTreg)) | (v_TGFb_pthw & v_WNT_pthw))
+v_Metastasis, v_Migration
+v_Migration, ((((((v_Invasion & v_EMT) & !v_p63_73) & !v_AKT1) & v_AKT2) & v_ERK_pthw) & !v_miRNA)
+v_Notch_pthw, (((v_ECMicroenv & !v_p53) & !v_p63_73) & !v_miRNA)
+v_TGFb_pthw, ((((!v_ECMicroenv & v_Notch_pthw) & !v_WNT_pthw) & !v_miRNA) | ((v_ECMicroenv & !v_WNT_pthw) & !v_miRNA))
+v_WNT_pthw, (((((((!v_Notch_pthw & !v_WNT_pthw) & !v_p53) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & !v_miRNA) & !v_Ecadh)
+v_miRNA, (((((!v_p53 & !v_EMTreg) & v_p63_73) & !v_AKT1) & !v_AKT2) | (((v_p53 & !v_EMTreg) & !v_AKT1) & !v_AKT2))
+v_p53, ((((((((!v_DNAdamage & !v_Notch_pthw) & v_WNT_pthw) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & !v_AKT2) | (((((!v_DNAdamage & v_Notch_pthw) & !v_EMTreg) & !v_p63_73) & !v_AKT1) & !v_AKT2)) | ((((v_DNAdamage & !v_EMTreg) & !v_p63_73) & !v_AKT1) & !v_AKT2))
+v_p63_73, (((((v_DNAdamage & !v_Notch_pthw) & !v_p53) & !v_EMTreg) & !v_AKT1) & !v_AKT2)

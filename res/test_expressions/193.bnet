@@ -1,0 +1,31 @@
+targets,factors
+v_ATM_b1, (((!v_ATM_b1 & v_DSB_b1) | ((v_ATM_b1 & !v_ATM_b2) & v_DSB_b1)) | (v_ATM_b1 & v_ATM_b2))
+v_ATM_b2, ((v_ATM_b1 & v_DSB_b1) & v_DSB_b2)
+v_ATR_b1, (((!v_ATR_b1 & v_SSB_b1) | ((v_ATR_b1 & !v_ATR_b2) & v_SSB_b1)) | (v_ATR_b1 & v_ATR_b2))
+v_ATR_b2, ((v_ATR_b1 & v_SSB_b1) & v_SSB_b2)
+v_CDK2CycE, (((!v_p21 & v_Cdc25A_b1) & v_Cdc25A_b2) & v_E2F)
+v_CDK46CycD, (((!v_p21 & !v_p16INK4a_b1) & v_Cdc25A_b1) & v_Cdc25A_b2)
+v_CHEK1, ((((!v_ATM_b1 & v_ATR_b1) & v_ATR_b2) | (((v_ATM_b1 & !v_ATM_b2) & v_ATR_b1) & v_ATR_b2)) | (v_ATM_b1 & v_ATM_b2))
+v_CHEK2, (v_ATM_b1 & v_ATM_b2)
+v_Cdc25A_b1, (((!v_CHEK1 | (v_CHEK1 & !v_CHEK2)) | ((v_CHEK1 & v_CHEK2) & !v_p38MAPK_b1)) | ((((v_CHEK1 & v_CHEK2) & v_p38MAPK_b1) & v_Cdc25A_b1) & v_Cdc25A_b2))
+v_Cdc25A_b2, (((!v_CHEK1 & !v_CHEK2) & !v_p38MAPK_b1) & v_Cdc25A_b1)
+v_DSB_b1, v_DSB_b1
+v_DSB_b2, (v_DSB_b1 & v_DSB_b2)
+v_E2F, !v_RB1
+v_Mdm2, (!v_p14ARF & v_p53_b1)
+v_RB1, (!v_CDK46CycD & !v_CDK2CycE)
+v_SSB_b1, v_SSB_b1
+v_SSB_b2, (v_SSB_b1 & v_SSB_b2)
+v_apoptosis, (v_p53_b1 & v_p53_b2)
+v_cycle_arrest, !v_CDK2CycE
+v_p14ARF, ((((!v_p38MAPK_b1 & v_E2F) | ((v_p38MAPK_b1 & !v_p38MAPK_b2) & v_E2F)) | (((v_p38MAPK_b1 & v_p38MAPK_b2) & !v_p38MAPK_b3) & v_E2F)) | ((v_p38MAPK_b1 & v_p38MAPK_b2) & v_p38MAPK_b3))
+v_p16INK4a_b1, (((!v_p16INK4a_b1 & v_p38MAPK_b1) | ((v_p16INK4a_b1 & !v_p16INK4a_b2) & v_p38MAPK_b1)) | (v_p16INK4a_b1 & v_p16INK4a_b2))
+v_p16INK4a_b2, (((v_p16INK4a_b1 & v_p38MAPK_b1) & v_p38MAPK_b2) & v_p38MAPK_b3)
+v_p21, v_p53_b1
+v_p38MAPK_b1, ((((((!v_p38MAPK_b1 & !v_ATM_b1) & v_ATR_b1) | (!v_p38MAPK_b1 & v_ATM_b1)) | (((v_p38MAPK_b1 & !v_p38MAPK_b2) & !v_ATM_b1) & v_ATR_b1)) | ((v_p38MAPK_b1 & !v_p38MAPK_b2) & v_ATM_b1)) | (v_p38MAPK_b1 & v_p38MAPK_b2))
+v_p38MAPK_b2, (((((v_p38MAPK_b1 & !v_p38MAPK_b2) & v_ATM_b1) & v_ATM_b2) | ((((v_p38MAPK_b1 & v_p38MAPK_b2) & !v_p38MAPK_b3) & v_ATM_b1) & v_ATM_b2)) | ((v_p38MAPK_b1 & v_p38MAPK_b2) & v_p38MAPK_b3))
+v_p38MAPK_b3, (((((v_p38MAPK_b1 & v_p38MAPK_b2) & v_ATM_b1) & v_ATM_b2) & v_ATR_b1) & v_ATR_b2)
+v_p53_b1, (((((((((((((((((((((!v_CHEK1 & !v_CHEK2) & !v_p53_b1) & !v_p38MAPK_b1) & !v_ATM_b1) & v_ATR_b1) | ((((!v_CHEK1 & !v_CHEK2) & !v_p53_b1) & !v_p38MAPK_b1) & v_ATM_b1)) | ((((((!v_CHEK1 & !v_CHEK2) & !v_p53_b1) & v_p38MAPK_b1) & !v_p38MAPK_b2) & !v_ATM_b1) & v_ATR_b1)) | (((((!v_CHEK1 & !v_CHEK2) & !v_p53_b1) & v_p38MAPK_b1) & !v_p38MAPK_b2) & v_ATM_b1)) | (((((((!v_CHEK1 & !v_CHEK2) & !v_p53_b1) & v_p38MAPK_b1) & v_p38MAPK_b2) & !v_p38MAPK_b3) & !v_ATM_b1) & v_ATR_b1)) | ((((((!v_CHEK1 & !v_CHEK2) & !v_p53_b1) & v_p38MAPK_b1) & v_p38MAPK_b2) & !v_p38MAPK_b3) & v_ATM_b1)) | (((((!v_CHEK1 & !v_CHEK2) & !v_p53_b1) & v_p38MAPK_b1) & v_p38MAPK_b2) & v_p38MAPK_b3)) | ((((((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & !v_p53_b2) & !v_p38MAPK_b1) & !v_ATM_b1) & v_ATR_b1)) | (((((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & !v_p53_b2) & !v_p38MAPK_b1) & v_ATM_b1)) | (((((((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & !v_p53_b2) & v_p38MAPK_b1) & !v_p38MAPK_b2) & !v_ATM_b1) & v_ATR_b1)) | ((((((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & !v_p53_b2) & v_p38MAPK_b1) & !v_p38MAPK_b2) & v_ATM_b1)) | ((((((((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & !v_p53_b2) & v_p38MAPK_b1) & v_p38MAPK_b2) & !v_p38MAPK_b3) & !v_ATM_b1) & v_ATR_b1)) | (((((((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & !v_p53_b2) & v_p38MAPK_b1) & v_p38MAPK_b2) & !v_p38MAPK_b3) & v_ATM_b1)) | ((((((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & !v_p53_b2) & v_p38MAPK_b1) & v_p38MAPK_b2) & v_p38MAPK_b3)) | (((!v_CHEK1 & !v_CHEK2) & v_p53_b1) & v_p53_b2)) | (!v_CHEK1 & v_CHEK2)) | v_CHEK1)
+v_p53_b2, ((((((((((((((!v_CHEK1 & !v_CHEK2) & !v_Mdm2) & v_p53_b1) & !v_p38MAPK_b1) & !v_ATM_b1) & v_ATR_b1) | (((((!v_CHEK1 & !v_CHEK2) & !v_Mdm2) & v_p53_b1) & !v_p38MAPK_b1) & v_ATM_b1)) | (((((((!v_CHEK1 & !v_CHEK2) & !v_Mdm2) & v_p53_b1) & v_p38MAPK_b1) & !v_p38MAPK_b2) & !v_ATM_b1) & v_ATR_b1)) | ((((((!v_CHEK1 & !v_CHEK2) & !v_Mdm2) & v_p53_b1) & v_p38MAPK_b1) & !v_p38MAPK_b2) & v_ATM_b1)) | ((((((((!v_CHEK1 & !v_CHEK2) & !v_Mdm2) & v_p53_b1) & v_p38MAPK_b1) & v_p38MAPK_b2) & !v_p38MAPK_b3) & !v_ATM_b1) & v_ATR_b1)) | (((((((!v_CHEK1 & !v_CHEK2) & !v_Mdm2) & v_p53_b1) & v_p38MAPK_b1) & v_p38MAPK_b2) & !v_p38MAPK_b3) & v_ATM_b1)) | ((((((!v_CHEK1 & !v_CHEK2) & !v_Mdm2) & v_p53_b1) & v_p38MAPK_b1) & v_p38MAPK_b2) & v_p38MAPK_b3)) | (((!v_CHEK1 & v_CHEK2) & !v_Mdm2) & v_p53_b1)) | ((v_CHEK1 & !v_Mdm2) & v_p53_b1))
+v_proliferation, v_CDK2CycE
+v_senescence, (((((((((!v_p53_b1 & v_p21) & v_p16INK4a_b1) & !v_p16INK4a_b2) & !v_Cdc25A_b1) | ((((!v_p53_b1 & v_p21) & v_p16INK4a_b1) & v_p16INK4a_b2) & !v_Cdc25A_b1)) | (((((!v_p53_b1 & v_p21) & v_p16INK4a_b1) & v_p16INK4a_b2) & v_Cdc25A_b1) & !v_Cdc25A_b2)) | (((((v_p53_b1 & !v_p53_b2) & v_p21) & v_p16INK4a_b1) & !v_p16INK4a_b2) & !v_Cdc25A_b1)) | (((((v_p53_b1 & !v_p53_b2) & v_p21) & v_p16INK4a_b1) & v_p16INK4a_b2) & !v_Cdc25A_b1)) | ((((((v_p53_b1 & !v_p53_b2) & v_p21) & v_p16INK4a_b1) & v_p16INK4a_b2) & v_Cdc25A_b1) & !v_Cdc25A_b2))

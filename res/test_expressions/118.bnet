@@ -1,0 +1,122 @@
+targets,factors
+v_AP_1_complex_cell, (((v_E | v_MAPK8_14_complex) & v_JUN) & v_FOS)
+v_AP_1_complex_nucleus, v_AP_1_complex_cell
+v_Azithromycin_drug, v_Azithromycin_drug
+v_DDX58_ubiquitinated, ((((v_TRIM25 | v_RNF135) | v_Azithromycin_drug) & !v_N) & !v_Nsp5)
+v_E, v_E
+v_EIF2AK, (v_EIF2AK_rna | !v_Nsp15)
+v_EIF2AK_rna, (v_ISRE_complex & v_IRF3_homodimer_complex_nucleus)
+v_FOS, v_FOS
+v_GRL0617_drug, v_GRL0617_drug
+v_IFIH1, (v_Azithromycin_drug & !v_Nsp15)
+v_IFNA1_IFNAR_complex, ((v_IFNAR_complex & v_sa5_IFNA1_extracellular_space) & v_sa31_IFNA1_extracellular_space)
+v_IFNA1_cell, v_IFNA1_rna
+v_IFNA1_rna, ((v_AP_1_complex_nucleus & v_p50_p65_complex_nucleus) & v_IRF7_homodimer_complex)
+v_IFNAR_complex, v_IFNAR_complex
+v_IFNB1_IFNAR_complex, ((v_IFNAR_complex & v_sa3_IFNB1_extracellular_space) & v_sa27_IFNB1_extracellular_space)
+v_IFNB1_cell, v_IFNB1_rna
+v_IFNB1_rna, ((((v_AP_1_complex_nucleus & v_p50_p65_complex_nucleus) & v_IRF3_homodimer_complex_nucleus) & v_IRF7_homodimer_complex) & v_Azithromycin_drug)
+v_IKBKE, (v_TBK1 & !v_Nsp3)
+v_IKKa, v_IKKa
+v_IKKa_IKKb_NEMO_complex, (((v_NEMO & v_IKKa) & v_IKKb) & v_TAB1_2_TRAF6_TAK1_complex)
+v_IKKb, v_IKKb
+v_IRAK1_4, v_IRAK1_4
+v_IRF3, v_IRF3
+v_IRF3_homodimer_complex_cell, (((((((((v_MAVS | v_TRAF3_TANK_TBK1_IKKepsilon_complex) & v_IRF3) & !v_Nsp3) & !v_N) & !v_Orf8_complex) & !v_Orf6) & !v_pp1ab) & !v_Nsp6) & !v_Nsp15)
+v_IRF3_homodimer_complex_nucleus, (v_IRF3_homodimer_complex_cell & !v_Orf6)
+v_IRF7, v_IRF7
+v_IRF7_homodimer_complex, (v_IRF7 & v_TRAF3_TANK_TBK1_IKKepsilon_complex)
+v_IRF9, v_IRF9
+v_ISG15, v_ISG15_rna
+v_ISG15_Nsp3_complex, ((v_ISG15 & v_Nsp3) & !v_GRL0617_drug)
+v_ISG15_rna, v_ISRE_complex
+v_ISG_expression_antiviral_response_phenotype, ((((v_p50_p65_complex_nucleus | v_OAS1_EIF2AK_complex) | !v_Nsp3) | v_ISG15) | v_Azithromycin_drug)
+v_ISRE_complex, (v_STAT1_2_IRF9_complex & !v_Orf6)
+v_ITCH, v_Orf9b
+v_IkB, v_IkB
+v_IkB_phosphorylated, v_csa42_IkB_p50_p65_complex_cell
+v_JAK1, v_JAK1
+v_JAK1_TYK2_complex, (((v_IFNA1_IFNAR_complex | v_IFNB1_IFNAR_complex) & v_JAK1) & v_TYK2)
+v_JUN, v_JUN
+v_M, v_M
+v_MAP3K7, v_TRAF6_ubiquitinated
+v_MAPK14, v_MAPK14
+v_MAPK8, v_MAPK8
+v_MAPK8_14_complex, (((v_TBK1 | v_MAP3K7) & v_MAPK14) & v_MAPK8)
+v_MAVS, ((v_RIG1_MDA5_complex & !v_Orf9b) & !v_ITCH)
+v_MNS_drug, v_MNS_drug
+v_MYD88, v_MYD88
+v_MYD88_TRAM_complex, (((((v_TREML4 | v_TLR7) | v_TLR9) | v_Viral_dsRNA_rna_endosome) & v_MYD88) & v_IRAK1_4)
+v_N, v_N
+v_NAP1, v_TLR4_TRIF_TRAM_complex
+v_NEMO, v_NEMO
+v_NFKB1, v_NFKB1
+v_NLRP3_inflammasome_complex, ((v_E | v_p50_p65_complex_nucleus) & !v_MNS_drug)
+v_Nsp1, v_Nsp1
+v_Nsp10, v_Nsp10
+v_Nsp13, v_Nsp13
+v_Nsp14, v_Nsp14
+v_Nsp15, v_Nsp15
+v_Nsp16, v_Nsp16
+v_Nsp3, v_Nsp3
+v_Nsp5, v_Nsp5
+v_Nsp6, v_Nsp6
+v_OAS1_EIF2AK_complex, (((v_OAS1_cell_active & v_OAS3_cell_active) & v_EIF2AK) & v_OAS2_cell_active)
+v_OAS1_cell, v_OAS1_rna
+v_OAS1_cell_active, (v_OAS1_cell & !v_Nsp15)
+v_OAS1_rna, (v_ISRE_complex & v_IRF3_homodimer_complex_nucleus)
+v_OAS2_cell, v_OAS2_rna
+v_OAS2_cell_active, (v_OAS2_cell & !v_Nsp15)
+v_OAS2_rna, (v_ISRE_complex & v_IRF3_homodimer_complex_nucleus)
+v_OAS3_cell, v_OAS3_rna
+v_OAS3_cell_active, (v_OAS3_cell & !v_Nsp15)
+v_OAS3_rna, (v_ISRE_complex & v_IRF3_homodimer_complex_nucleus)
+v_Orf3a, v_Orf3a
+v_Orf6, v_Orf6
+v_Orf7a, v_Orf7a
+v_Orf7b, v_Orf7b
+v_Orf8_complex, v_Orf8_complex
+v_Orf9b, v_Orf9b
+v_Proinflammatory_cytokine_expression_Inflammation_phenotype, (v_p50_p65_complex_nucleus | v_NLRP3_inflammasome_complex)
+v_RELA, v_RELA
+v_RIG1_MDA5_complex, (((((((((v_DDX58_ubiquitinated & v_IFIH1) & v_Viral_dsRNA_rna_cell) & !v_N) & !v_Nsp10) & !v_Nsp14) & !v_Nsp16) & !v_Nsp15) & !v_M) & !v_Nsp15)
+v_RIP1, v_RIP1
+v_RNF135, v_RNF135
+v_STAT1_2_IRF9_complex, ((((((v_TREML4 | v_JAK1_TYK2_complex) & v_STAT1_phosphorylated) & v_IRF9) & v_STAT2_phosphorylated) & !v_Orf6) & !v_Nsp5)
+v_STAT1_phosphorylated, (((((!v_Nsp1 & !v_Orf7b) & !v_Orf3a) & !v_M) & !v_Nsp6) & !v_Nsp13)
+v_STAT2_phosphorylated, (((!v_Orf7a & !v_Orf7b) & !v_Nsp6) & !v_Nsp13)
+v_STING1_ubiquitinated, (v_MAVS & !v_pp1ab)
+v_TAB1, v_TAB1
+v_TAB1_2_TRAF6_TAK1_complex, ((((v_TAB1 & v_TAB2) & v_TRAF6_ubiquitinated) & v_TAK1) & v_TLR3_TRIF_RIPK1_complex)
+v_TAB2, v_TAB2
+v_TAK1, v_TAK1
+v_TANK, v_TANK
+v_TBK1, (((v_IKBKE | v_STING1_ubiquitinated) | v_MAVS) & !v_Nsp13)
+v_TBK1_IKBKE_complex, (((((v_TRAF3 | v_NAP1) | v_Azithromycin_drug) & v_TBK1) & v_IKBKE) & !v_Nsp3)
+v_TLR3_TRIF_RIPK1_complex, (v_TLR3_TRIF_complex & v_RIP1)
+v_TLR3_TRIF_complex, ((v_Viral_dsRNA_rna_endosome | v_Azithromycin_drug) & v_TRIF)
+v_TLR4_TRIF_TRAM_complex, (v_IRAK1_4 & v_TRIF)
+v_TLR7, v_TLR7
+v_TLR9, v_TLR9
+v_TRAF3, (v_MYD88_TRAM_complex & !v_Nsp3)
+v_TRAF3_TANK_TBK1_IKKepsilon_complex, ((((v_TLR3_TRIF_complex | v_MAVS) & v_TRAF3_TBK1_IKBKE_complex_cell_active) & v_TANK) & !v_M)
+v_TRAF3_TBK1_IKBKE_complex_cell, ((v_TBK1_IKBKE_complex & v_TRAF3) & !v_pp1ab)
+v_TRAF3_TBK1_IKBKE_complex_cell_active, ((v_TRAF3_TBK1_IKBKE_complex_cell & v_STING1_ubiquitinated) & !v_pp1ab)
+v_TRAF6_ubiquitinated, ((v_MYD88_TRAM_complex & !v_Nsp3) & !v_ITCH)
+v_TREML4, v_TREML4
+v_TRIF, v_TRIF
+v_TRIM25, v_TRIM25
+v_TYK2, v_TYK2
+v_Viral_dsRNA_rna_cell, (((v_Viral_dsRNA_rna_cell & v_Viral_replication_phenotype) & !v_sa31_IFNA1_extracellular_space) & !v_sa27_IFNB1_extracellular_space)
+v_Viral_dsRNA_rna_endosome, v_Viral_dsRNA_rna_endosome
+v_Viral_replication_phenotype, v_Viral_replication_phenotype
+v_csa41_IkB_p50_p65_complex_cell, ((v_RELA & v_NFKB1) & v_IkB)
+v_csa42_IkB_p50_p65_complex_cell, (v_csa41_IkB_p50_p65_complex_cell & v_IKKa_IKKb_NEMO_complex)
+v_p50_p65_complex_cell, v_csa42_IkB_p50_p65_complex_cell
+v_p50_p65_complex_nucleus, v_p50_p65_complex_cell
+v_pp1ab, v_pp1ab
+v_sa27_IFNB1_extracellular_space, v_IFNB1_cell
+v_sa31_IFNA1_extracellular_space, v_IFNA1_cell
+v_sa3_IFNB1_extracellular_space, v_sa3_IFNB1_extracellular_space
+v_sa5_IFNA1_extracellular_space, v_sa5_IFNA1_extracellular_space
+v_type_I_IFN_response_phenotype, (v_sa31_IFNA1_extracellular_space | v_sa27_IFNB1_extracellular_space)

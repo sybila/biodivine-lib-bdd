@@ -1,0 +1,96 @@
+targets,factors
+v_AKT, (v_mTORC2 | (v_PIP3 & v_mTORC2))
+v_ATM, (v_DNAdam | v_Cas3)
+v_ATR, v_DNAdam
+v_Apo, v_CLPARP
+v_BAD, (v_JNK | !(v_AKT | (v_P90RSK | v_P70S6K)))
+v_BAX, ((v_p53 | v_BID) & !(v_BclxL | v_Bcl6))
+v_BID, ((v_Cas8 | (v_STRESS | v_Fas)) & !(v_Bcl2 | v_BclxL))
+v_BLIMP1, (v_IRF4 & !v_Bcl6)
+v_Bcl2, ((v_pNFkB | v_pSTAT3) & !(v_BAD | v_p53))
+v_Bcl6, (v_pSTAT3 | (v_pSTAT3 & !v_BLIMP1))
+v_BclxL, ((v_pNFkB | v_pSTAT3) & !(v_BAX | (v_BAD | v_p53)))
+v_Bort, v_Bort
+v_CAS3, v_CAS3
+v_CDK1, (!(v_p21 | v_p27) & v_Cdc25BC)
+v_CDK2, ((v_CYCE & v_Cdc25A) & !(v_p21 | v_p27))
+v_CDK4, ((v_CYCD & v_Cdc25A) & !(v_p21 | v_p27))
+v_CDK6, v_CYCD
+v_CIAP, v_TNFaR
+v_CLPARP, v_Cas3
+v_CYCB, v_CDK1
+v_CYCD, ((v_MYC | (v_AKT | (v_ERK | (v_P90RSK | v_cMAF)))) & !v_GSK3b)
+v_CYCE, v_MYC
+v_Cas3, ((v_Cas8 | v_Cas9) & !v_XIAP)
+v_Cas8, ((v_FasL & v_FasR) | !v_FLIP)
+v_Cas9, (v_Cytc & !v_XIAP)
+v_Cdc25A, !(v_Chk2 | v_Chk2)
+v_Cdc25BC, !(v_Chk1 | v_Chk2)
+v_Chk1, v_ATR
+v_Chk2, v_ATM
+v_Cytc, v_MITO
+v_DEPTOR, (v_cMAF | (v_cMAF & !(v_mTORC1 | v_mTORC2)))
+v_DNAPK, (v_ATM | v_ATR)
+v_DNAdam, (v_Cas3 | (v_STRESS | v_ROS))
+v_ERK, v_MAPK
+v_FLIP, v_pNFkB
+v_Fas, v_Fas
+v_FasL, (v_FasR | v_cJun)
+v_FasR, (v_FasL | v_p53)
+v_GSK3b, !(v_P70S6K | (v_AKT | v_P90RSK))
+v_IGF1, v_IGF1
+v_IGF1R, v_IGF1R
+v_IKK, (((v_RIP & v_NIK) | v_AKT) | (v_ROS & (v_ATM & v_DNAdam)))
+v_IL6, v_pNFkB
+v_IRF4, (v_IRF4 | (v_MYC | v_pNFkB))
+v_IRS, (((v_IGF1R & v_IGF1) | (v_IGF1R & (v_IL6 & v_gp130))) | !(v_P70S6K | v_JNK))
+v_JAK1, (v_IL6 & (v_gp130 & !v_SHP1))
+v_JAK2, (v_IL6 & (v_gp130 & !v_SHP1))
+v_JNK, (v_MKK4 & !v_Prot)
+v_MAPK, v_MEK1
+v_MDM, ((v_p53 | v_AKT) & !(v_ATM | v_ATR))
+v_MEK1, v_RAF
+v_MEKK, v_MEK1
+v_MEKK2, v_RAC
+v_MITO, (v_BAX | v_ROS)
+v_MKK4, v_MEKK2
+v_MYC, ((v_pSTAT3 | (v_ERK | (v_MEKK | v_IRF4))) & !v_BLIMP1)
+v_MnSOD2, (v_pNFkB & v_ROS)
+v_NIK, !v_TRAF3
+v_P70S6K, v_mTORC1
+v_P90RSK, v_ERK
+v_PI3K, ((v_IL6 & v_gp130) | v_IRS)
+v_PIP3, (v_PI3K & !v_PTEN)
+v_PRAS40, !v_AKT
+v_PTEN, v_p53
+v_Proliferation, v_pRB
+v_Prot, !v_Bort
+v_RAC, v_STRESS
+v_RAF, v_RAS
+v_RAS, ((v_IL6 & v_gp130) | (v_SHP1 | v_IRS))
+v_RIP, ((v_TNFa & v_TNFaR) | v_Bort)
+v_ROS, (!v_MnSOD2 & (v_MITO | v_STRESS))
+v_Rheb, !v_TSC
+v_SGK1, v_mTORC2
+v_SHP1, v_SHP1
+v_STAT3, !v_CAS3
+v_STRESS, (v_DNAdam | (!v_Prot | v_ROS))
+v_Smac, v_MITO
+v_TNFa, v_TNFa
+v_TNFaR, v_TNFaR
+v_TRAF3, !v_CIAP
+v_TSC, (!(v_AKT | (v_ERK | v_P90RSK)) & (v_GSK3b | v_STRESS))
+v_Viacel, (v_Proliferation & !v_Apo)
+v_XIAP, ((v_pNFkB | v_pSTAT3) & !(v_Smac | v_p53))
+v_cJun, v_JNK
+v_cMAF, !v_GSK3b
+v_gp130, !v_Cas3
+v_mTORC1, (v_Rheb | (v_Rheb & !(v_DEPTOR | v_PRAS40)))
+v_mTORC2, ((!v_DEPTOR & v_PI3K) | v_PI3K)
+v_p21, (v_p53 & (!v_MYC | (!v_MDM | (!v_AKT | (!v_CDK4 | !v_Bcl6)))))
+v_p27, (v_p53 & (!v_MYC | (!v_CDK4 | (!v_AKT | !v_Bcl6))))
+v_p53, ((v_DNAPK | (v_JNK | (v_Chk1 | v_Chk2))) & (!(v_MDM & (v_Prot & v_Bcl6)) | !(v_MDM & v_Prot)))
+v_pIKB, v_IKK
+v_pNFkB, ((v_pIKB & v_Prot) | (v_pIKB | (v_pSTAT3 | !v_GSK3b)))
+v_pRB, ((v_CDK4 & v_CDK6) | ((v_CDK4 & (v_CDK2 & v_CDK6)) | (v_CDK4 & (v_CDK2 & (v_CDK6 & v_CYCB)))))
+v_pSTAT3, (((v_JAK1 & (v_JAK2 & v_STAT3)) | (v_JAK1 & (v_JAK2 & (v_STAT3 & !v_IKK)))) & !v_JNK)

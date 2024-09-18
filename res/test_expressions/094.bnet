@@ -1,0 +1,32 @@
+targets,factors
+v_CSF2Ra, v_GM_CSF_e
+v_ERK, (v_FcgR | v_ERK)
+v_FcgR, ((v_IC_e & v_LPS_e) | (v_IC_e & (v_LPS_e & v_IL1b_e)))
+v_GM_CSF_e, v_GM_CSF_e
+v_IC_e, v_IC_e
+v_IFNb, v_IRF3
+v_IFNgR, (v_IFNg_e | v_IFNb)
+v_IFNg_e, v_IFNg_e
+v_IL10R, (v_IL10_e | v_IL10_out)
+v_IL10_e, v_IL10_e
+v_IL10_out, (v_ERK | (v_PPARg | (v_STAT6 | (v_JMJD3 | v_STAT3))))
+v_IL12_out, (v_NF_kB | (v_STAT5 | v_STAT1))
+v_IL16_e, v_IL16_e
+v_IL1R, (v_IL1b_e | v_IL1b)
+v_IL1b, v_NF_kB
+v_IL1b_e, v_IL1b_e
+v_IL4Ra, v_IL4_e
+v_IL4_e, v_IL4_e
+v_IRF3, v_TLR4
+v_IRF4, v_JMJD3
+v_JMJD3, (v_JMJD3 | v_IL4Ra)
+v_KLF4, v_STAT6
+v_LPS_e, v_LPS_e
+v_NF_kB, ((v_IL1R | v_TLR4) & !(v_STAT3 | (v_FcgR | (v_PPARg | v_KLF4))))
+v_PPARg, (v_PPARg | v_IL4Ra)
+v_SOCS1, v_STAT6
+v_STAT1, (v_IFNgR & !(v_STAT3 | v_SOCS1))
+v_STAT3, ((v_IL10R | v_STAT3) & !(v_PPARg | v_FcgR))
+v_STAT5, (v_CSF2Ra & !(v_STAT3 | v_IRF4))
+v_STAT6, (v_STAT6 | v_IL4Ra)
+v_TLR4, (v_LPS_e & !v_FcgR)

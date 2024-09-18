@@ -1,0 +1,19 @@
+targets,factors
+v_AKT, (!v_p53 & v_PI3K)
+v_Apoptosis, ((((((((!v_TGFBR_stimulus & !v_DNA_damage) & !v_ERK) & !v_p38) & v_p53) & !v_AKT) | ((((((!v_TGFBR_stimulus & !v_DNA_damage) & !v_ERK) & v_p38) & v_p53) & !v_AKT) & v_RAS)) | ((((!v_TGFBR_stimulus & v_DNA_damage) & !v_ERK) & v_p53) & !v_AKT)) | (((v_TGFBR_stimulus & !v_ERK) & v_p53) & !v_AKT))
+v_DNA_damage, v_DNA_damage
+v_EGFR, (((((!v_EGFR_stimulus & v_ERK) & !v_EGFR) & !v_FGFR3) & !v_GRB2) | (((v_EGFR_stimulus & !v_EGFR) & !v_FGFR3) & !v_GRB2))
+v_EGFR_stimulus, v_EGFR_stimulus
+v_ERK, ((((((((((!v_TGFBR_stimulus & !v_DNA_damage) & !v_ERK) & !v_p38) & !v_p53) & v_RAF) & !v_RAS) | ((((((!v_TGFBR_stimulus & !v_DNA_damage) & v_ERK) & !v_p38) & !v_p53) & !v_RAF) & v_RAS)) | (((((!v_TGFBR_stimulus & !v_DNA_damage) & v_ERK) & !v_p38) & !v_p53) & v_RAF)) | ((((((!v_TGFBR_stimulus & !v_DNA_damage) & v_ERK) & !v_p38) & v_p53) & v_RAF) & !v_RAS)) | ((((((!v_TGFBR_stimulus & v_DNA_damage) & v_ERK) & !v_p38) & !v_p53) & v_RAF) & !v_RAS))
+v_FGFR3, (((v_FGFR3_stimulus & !v_EGFR) & !v_FGFR3) & !v_GRB2)
+v_FGFR3_stimulus, v_FGFR3_stimulus
+v_GRB2, (((((((!v_TGFBR_stimulus & !v_ERK) & !v_EGFR) & v_FGFR3) & !v_GRB2) | ((!v_TGFBR_stimulus & !v_ERK) & v_EGFR)) | ((!v_TGFBR_stimulus & v_ERK) & v_EGFR)) | v_TGFBR_stimulus)
+v_Growth_Arrest, v_p21
+v_PI3K, ((!v_GRB2 & v_PI3K) | v_GRB2)
+v_Proliferation, (((((v_ERK & !v_p38) & !v_p21) & v_AKT) & v_PI3K) | (((v_ERK & v_p38) & !v_p21) & v_PI3K))
+v_RAF, ((((((!v_ERK & !v_EGFR) & !v_FGFR3) & !v_AKT) & v_RAS) | (((!v_ERK & !v_EGFR) & v_FGFR3) & !v_AKT)) | ((!v_ERK & v_EGFR) & !v_AKT))
+v_RAS, (((((((!v_ERK & !v_EGFR) & !v_FGFR3) & v_GRB2) | ((!v_ERK & !v_EGFR) & v_FGFR3)) | (!v_ERK & v_EGFR)) | ((v_ERK & !v_EGFR) & v_FGFR3)) | (v_ERK & v_EGFR))
+v_TGFBR_stimulus, v_TGFBR_stimulus
+v_p21, (v_p53 & !v_AKT)
+v_p38, ((((((((((((((!v_TGFBR_stimulus & !v_DNA_damage) & !v_ERK) & !v_p38) & !v_p53) & v_RAS) | ((((!v_TGFBR_stimulus & !v_DNA_damage) & !v_ERK) & !v_p38) & v_p53)) | (((((!v_TGFBR_stimulus & !v_DNA_damage) & !v_ERK) & v_p38) & v_p53) & v_RAS)) | ((((!v_TGFBR_stimulus & !v_DNA_damage) & v_ERK) & v_p53) & v_RAS)) | (((!v_TGFBR_stimulus & v_DNA_damage) & !v_ERK) & !v_p38)) | (((((!v_TGFBR_stimulus & v_DNA_damage) & !v_ERK) & v_p38) & !v_p53) & v_RAS)) | ((((!v_TGFBR_stimulus & v_DNA_damage) & !v_ERK) & v_p38) & v_p53)) | ((((!v_TGFBR_stimulus & v_DNA_damage) & v_ERK) & !v_p53) & v_RAS)) | (((!v_TGFBR_stimulus & v_DNA_damage) & v_ERK) & v_p53)) | v_TGFBR_stimulus)
+v_p53, ((((((!v_DNA_damage & v_p38) | ((((v_DNA_damage & !v_ERK) & !v_p38) & !v_p53) & !v_AKT)) | ((v_DNA_damage & !v_ERK) & v_p38)) | (((v_DNA_damage & v_ERK) & !v_p38) & !v_p53)) | ((((v_DNA_damage & v_ERK) & !v_p38) & v_p53) & v_AKT)) | ((v_DNA_damage & v_ERK) & v_p38))

@@ -1,0 +1,80 @@
+targets,factors
+v_AP1_complex, (v_MAPK14_phosphorylated | v_JNK_complex)
+v_CASP10, v_RIPK1_FADD_complex
+v_CASP8, v_RIPK1_FADD_complex
+v_CHUK, v_CHUK
+v_DDX58, v_DDX58
+v_DDX58_dsRNA_complex, (((v_dsRNA_rna_cell & v_DDX58) & !v_M) & !v_Nsp3)
+v_DDX58_ubiquitinated, (((v_RNF135 | v_TRIM25) | v_DDX58_dsRNA_complex) & !v_N)
+v_EIF2AK2, v_EIF2AK2
+v_EIF2AK2_dsRNA_complex, ((v_EIF2AK2 & v_dsRNA_rna_cell) & !v_Nsp15)
+v_IFIH1, v_IFIH1
+v_IFIH1_dsRNA_complex, ((((v_IFIH1 & v_dsRNA_rna_cell) & !v_M) & !v_Nsp15) & !v_Nsp3)
+v_IKBKB, v_IKBKB
+v_IKBKG, v_IKBKG
+v_IRAK1, v_IRAK1
+v_IRAK4, v_IRAK4
+v_IRF3, v_IRF3
+v_IRF3_phosphorylated_cell, (((((v_IRF3 & v_sa117_TBK1_cell) & !v_Orf3b) & !v_Orf8) & !v_Nsp3) | (v_IRF3 & v_sa117_TBK1_cell))
+v_IRF7_phosphorylated, (v_sa118_IKBKE_cell | v_MYD88_IRAK_TRAF_complex)
+v_ITCH, v_Orf9
+v_JNK_complex, (v_MAP2K7_phosphorylated | v_MAP2K4_phosphorylated)
+v_M, v_M
+v_MAP2K3_phosphorylated, v_MAP3K7
+v_MAP2K4_phosphorylated, v_MAP3K7
+v_MAP2K6_phosphorylated, (v_EIF2AK2_dsRNA_complex | v_MAP3K7)
+v_MAP2K7_phosphorylated, v_MAP3K7
+v_MAP3K7, (v_TRAF6_ubiquitinated | v_TICAM1_TRAF3_TRAF6_complex)
+v_MAPK14_phosphorylated, (v_MAP2K6_phosphorylated | v_MAP2K3_phosphorylated)
+v_MAVS, (v_DDX58_ubiquitinated | v_IFIH1_dsRNA_complex)
+v_MAVS_TRADD_complex, (v_MAVS & v_TRADD)
+v_MAVS_TRAF_complex, (((v_TRAF2 & v_TRAF5) & v_TRAF6) & v_MAVS)
+v_MYD88, (v_TLR7_ssRNA_complex | v_TLR8_ssRNA_complex)
+v_MYD88_IRAK_TRAF_complex, (((v_MYD88 & v_IRAK1) & v_IRAK4) & v_TRAF6)
+v_N, v_N
+v_NFKB1, v_NFKB1
+v_NFKBIA, v_NFKBIA
+v_NFKBIA_phosphorylated, (v_csa102_NFKB_NFKBIA_complex_cell & v_N)
+v_NFKB_complex, (v_csa102_NFKB_NFKBIA_complex_cell & v_N)
+v_Nsp15, v_Nsp15
+v_Nsp3, v_Nsp3
+v_Orf3b, v_Orf3b
+v_Orf8, v_Orf8
+v_Orf9, v_Orf9
+v_RELA, v_RELA
+v_RIPK1_FADD_complex, v_MAVS_TRADD_complex
+v_RNF135, v_RNF135
+v_TANK, v_TANK
+v_TICAM1_TRAF3_TRAF6_complex, ((v_sa91_TICAM1_cell & v_TRAF6) & v_sa418_TICAM1_cell)
+v_TLR3_dsRNA_complex, v_dsRNA_rna_endosome
+v_TLR7, v_TLR7
+v_TLR7_ssRNA_complex, (v_TLR7 & v_ssRNA_rna)
+v_TLR8, v_TLR8
+v_TLR8_ssRNA_complex, (v_TLR8 & v_ssRNA_rna)
+v_TRADD, v_TRADD
+v_TRAF2, v_TRAF2
+v_TRAF3, v_TRAF3
+v_TRAF5, v_TRAF5
+v_TRAF6, (v_TRAF6_ubiquitinated & v_Nsp3)
+v_TRAF6_ubiquitinated, (((v_TRAF6 & v_UBE2N) & v_MYD88_IRAK_TRAF_complex) & v_MAVS_TRAF_complex)
+v_TRIM25, v_TRIM25
+v_UBE2N, v_UBE2N
+v_csa100_NFKB_NFKBIA_complex_cell, ((v_NFKBIA & v_RELA) & v_NFKB1)
+v_csa102_NFKB_NFKBIA_complex_cell, (v_csa100_NFKB_NFKBIA_complex_cell & v_csa99_IKK_Complex_complex_cell)
+v_csa75_IKK_Complex_complex_cell, ((v_IKBKG & v_CHUK) & v_IKBKB)
+v_csa82_TANK_TRAF3_IKBKE_complex_cell, ((v_MAVS_TRADD_complex & !v_Nsp3) & !v_M)
+v_csa83_TANK_TRAF3_IKBKE_complex_cell, ((v_csa89_TANK_TRAF3_IKBKE_complex_cell & v_TICAM1_TRAF3_TRAF6_complex) & !v_M)
+v_csa89_TANK_TRAF3_IKBKE_complex_cell, ((v_TRAF3 & v_TANK) & v_sa427_IKBKE_cell)
+v_csa99_IKK_Complex_complex_cell, ((((v_TRAF6_ubiquitinated | v_CASP8) | v_CASP10) & v_csa75_IKK_Complex_complex_cell) & !v_M)
+v_dsRNA_rna_cell, v_dsRNA_rna_cell
+v_dsRNA_rna_endosome, v_dsRNA_rna_endosome
+v_sa117_TBK1_cell, ((v_sa426_TBK1_cell & v_csa83_TANK_TRAF3_IKBKE_complex_cell) | (v_sa426_TBK1_cell & v_csa82_TANK_TRAF3_IKBKE_complex_cell))
+v_sa118_IKBKE_cell, ((v_sa427_IKBKE_cell & v_csa83_TANK_TRAF3_IKBKE_complex_cell) & !v_Nsp3)
+v_sa157_IRF3_phosphorylated_nucleus, v_IRF3_phosphorylated_cell
+v_sa256_IRF3_phosphorylated_nucleus, v_IRF3_phosphorylated_cell
+v_sa418_TICAM1_cell, v_sa418_TICAM1_cell
+v_sa426_TBK1_cell, v_sa426_TBK1_cell
+v_sa427_IKBKE_cell, v_sa427_IKBKE_cell
+v_sa91_TICAM1_cell, (v_sa418_TICAM1_cell & v_TLR3_dsRNA_complex)
+v_ssRNA_rna, v_ssRNA_rna
+v_transcription_of_proinflammatory_proteins_phenotype, ((((v_AP1_complex | v_NFKB_complex) | v_sa157_IRF3_phosphorylated_nucleus) | v_IRF7_phosphorylated) | v_sa256_IRF3_phosphorylated_nucleus)

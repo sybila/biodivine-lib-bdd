@@ -1,0 +1,35 @@
+targets,factors
+v_Acetoacetyl_CoA, (v_Acetyl_CoA & v_Acetyl_CoA_acetyltransferase)
+v_Acetyl_CoA, v_Acetyl_CoA
+v_Acetyl_CoA_acetyltransferase, v_Acetyl_CoA_acetyltransferase_RNA
+v_Acetyl_CoA_acetyltransferase_RNA, v_Acetyl_CoA_acetyltransferase_gene
+v_Acetyl_CoA_acetyltransferase_gene, v_mSREBP
+v_Cholesterol, (v_Desmosterol | v_Septdehydrocholesterol)
+v_Cyp51, v_Cyp51_RNA
+v_Cyp51_RNA, v_Cyp51_gene
+v_Cyp51_gene, v_mSREBP
+v_Desmosterol, v_Lanosterol
+v_Dimethyl_allyl_pyrophosphate, v_Isopentenyl_pyrophosphate
+v_FPP_Synthase, v_FPP_Synthase_RNA
+v_FPP_Synthase_RNA, v_FPP_Synthase_gene
+v_FPP_Synthase_gene, v_mSREBP
+v_Farnesyl_pyrophosphate, (v_Geranyl_pyrophosphate & !v_FPP_Synthase)
+v_Geranyl_pyrophosphate, (v_Isopentenyl_pyrophosphate | v_Dimethyl_allyl_pyrophosphate)
+v_HMG_CoA, (v_Acetoacetyl_CoA & (v_HMG_CoA_Synthase & v_Acetyl_CoA))
+v_HMG_CoA_Reductase, (v_HMG_CoA_Reductase_RNA & !v_Statins)
+v_HMG_CoA_Reductase_RNA, v_HMG_CoA_Reductase_gene
+v_HMG_CoA_Reductase_gene, v_mSREBP
+v_HMG_CoA_Synthase, v_HMG_CoA_Synthase_RNA
+v_HMG_CoA_Synthase_RNA, v_HMG_CoA_Synthase_gene
+v_HMG_CoA_Synthase_gene, v_mSREBP
+v_Insig_SREBP_SCAP, !v_Cholesterol
+v_Isopentenyl_pyrophosphate, v_Mevalonyl_pyrophosphate
+v_Lanosterol, v_Squaline
+v_Mevalonic_Acid, (v_HMG_CoA & v_HMG_CoA_Reductase)
+v_Mevalonyl_pyrophosphate, v_Mevalonic_Acid
+v_SREBP_SCAP, (v_Insig_SREBP_SCAP & !v_Statins)
+v_Septdehydrocholesterol, v_Lanosterol
+v_Squaline, v_Farnesyl_pyrophosphate
+v_Statins, v_Statins
+v_mSREBP, v_pSREBP
+v_pSREBP, v_SREBP_SCAP

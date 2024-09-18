@@ -1,0 +1,32 @@
+targets,factors
+v_ATM, (v_DNA_Damage & (!v_HDAC1 | (!v_Wip1 | v_E2F1)))
+v_Apoptosis, v_Caspase3
+v_BAX, (!v_BCL2 & v_p53_K)
+v_BCL2, (!v_PUMA & (!v_miR_34a & (!v_miR_16 & !v_miR_449a)))
+v_BMI1, (!v_miR_16 & (v_E2F1 | v_c_Myc))
+v_CDK2_CycE, (v_Cdc25A & (v_E2F1 & (!v_miR_34a & (!v_miR_449a & (!v_p21 & !v_miR_16)))))
+v_CDK46_CycD, (v_Cdc25A & (!v_miR_34a & (!v_miR_449a & (!v_p21 & !v_miR_16))))
+v_C_Met, (!v_miR_34a & (!v_miR_449a & v_c_Myc))
+v_Caspase3, (!(v_BCL2 & v_p21) & v_BAX)
+v_Cdc25A, (!v_ATM & (!v_miR_34a & (!v_miR_449a & !v_miR_16)))
+v_DNA_Damage, v_DNA_Damage
+v_E2F1, ((!v_RB & ((v_Cdc25A & v_ATM) | (!v_Sirt_1 | (!v_miR_34a | !v_miR_449a)))) | v_c_Myc)
+v_HDAC1, (!v_DNA_Damage | !(v_miR_449a & (v_miR_34a | v_Sirt_1)))
+v_Mdm2, ((!v_Wip1 | (v_p53 | v_YY1)) & !v_ATM)
+v_PUMA, v_p53_K
+v_Proliferation, v_CDK2_CycE
+v_RB, (!v_CDK46_CycD & !v_CDK2_CycE)
+v_Senescence, (v_p21 & !v_CDK2_CycE)
+v_Sirt_1, (v_E2F1 | (!v_HDAC1 & !(v_miR_34a | v_miR_449a)))
+v_Wip1, (v_p53_A & !v_miR_16)
+v_YY1, (v_c_Myc & (!v_miR_34a | !v_RB))
+v_c_Myc, ((v_E2F1 | (v_C_Met | (!v_miR_34a | !v_miR_449a))) & (!v_RB & !v_p21))
+v_lnc_XIST, (v_YY1 & (!v_miR_34a | (!v_miR_449a | !v_miR_16)))
+v_miR_16, ((v_ATM | v_p53) & (!v_HDAC1 & (!v_c_Myc & !v_lnc_XIST)))
+v_miR_34a, ((v_ATM | v_p53) & !v_lnc_XIST)
+v_miR_449a, (v_DNA_Damage & !v_lnc_XIST)
+v_p21, (v_p53_A | ((!v_HDAC1 | (!v_c_Myc | (!v_BMI1 | (!v_YY1 | !v_lnc_XIST)))) & !v_Caspase3))
+v_p53, ((v_ATM | !v_Sirt_1) & (!v_Mdm2 & (!v_YY1 & !v_C_Met)))
+v_p53_A, (!v_Sirt_1 & (!v_p53_K & (v_p53 | !v_p53_INP1)))
+v_p53_INP1, (v_p53_A | v_p53_K)
+v_p53_K, (!v_p53_A & ((!v_Sirt_1 | !v_Wip1) & v_p53))

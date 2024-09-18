@@ -1,0 +1,76 @@
+targets,factors
+v_AKT, (v_PDK1 | (v_mTORC2 & !v_TRB3))
+v_APAF1, (v_CytochromeC | v_P53)
+v_AS160, v_AKT
+v_ASK1, (v_OS | (v_TRAF2 | v_DAXX))
+v_ATF4, v_EIF2S1
+v_ATF6, v_GRP78
+v_Apoptosis, (v_CASP3 | (v_CASP6 | v_CASP7))
+v_BAD, (v_JNK & !v_AKT)
+v_BAK, (v_BAX & !v_BCL2)
+v_BAX, (v_JNK | (v_P53 & !v_BCL2))
+v_BCL2, (!v_JNK & (!v_CHOP & (!v_P53 & !v_BAD)))
+v_BID, (v_CASP8 & !v_BCL2)
+v_CASP12, v_CASP12
+v_CASP3, (v_CASP9 | (v_CASP8 & !v_XIAP))
+v_CASP6, (v_CASP7 | v_CASP3)
+v_CASP7, (v_CASP9 | (v_CASP8 | (v_CASP3 | (v_CASP6 & !v_XIAP))))
+v_CASP8, (v_RAIDD | (v_FADD | (v_CASP3 | v_CASP6)))
+v_CASP9, (v_RAIDD | (v_CASP8 | (v_CASP3 | (v_APAF1 | (v_CASP12 & (!v_XIAP & !v_AKT))))))
+v_CHOP, (v_ATF6 | v_ATF4)
+v_CytochromeC, (v_BAX | (v_BAK | v_BID))
+v_DAXX, v_FasR
+v_DIABLO, (v_BAX | (v_BAK | v_BID))
+v_DNAJC3, (v_ATF6 | v_XBP1)
+v_EIF2S1, (v_GADD34 & !v_PERK)
+v_ER, v_ER
+v_FADD, (v_FasR | v_TRADD)
+v_FOXO1, (v_PERK & (!v_AKT & !v_XBP1))
+v_FasL, v_FasL
+v_FasR, v_FasL
+v_G6PC, v_FOXO1
+v_GADD34, v_CHOP
+v_GADD45, v_GADD45
+v_GLUT4, (v_AKT | (v_AS160 | v_PKC_alpha))
+v_GRP78, (v_ATF6 | (v_XBP1 | (v_ATF4 & !v_ER)))
+v_GS, !v_GSK3_beta
+v_GSK3_beta, !v_AKT
+v_HtrA2, (v_BAX | (v_BAK | v_BID))
+v_IKB_alpha, !v_IKK_beta
+v_IKK_beta, v_TRAF2
+v_IL_6, (v_IL_6 | v_NF_kappaB)
+v_INS, v_INS
+v_INSR, v_INS
+v_IRE1, (v_BAX | (v_BAK | v_GRP78))
+v_IRS, (v_INSR & (!v_SOCS3 & (!v_JNK & (!v_IKK_beta & !v_S6K))))
+v_JAK, (v_IL_6 & !v_SOCS3)
+v_JNK, (v_OS | (v_ASK1 | v_GADD45))
+v_NF_kappaB, !v_IKB_alpha
+v_OS, v_OS
+v_P53, v_P53
+v_PDK1, v_PIP3
+v_PEPCK, v_FOXO1
+v_PERK, (v_GRP78 & !v_DNAJC3)
+v_PGC1_alpha, v_FOXO1
+v_PI3K, (v_IRS | v_JAK)
+v_PIP3, v_PI3K
+v_PKC_alpha, v_PDK1
+v_PPAR_alpha, v_PGC1_alpha
+v_RAIDD, v_RIPK1
+v_RIPK1, (v_FasR | v_TRADD)
+v_Rheb, !v_TSC1_2
+v_S6K, v_mTORC1
+v_SOCS3, v_STAT3
+v_STAT3, v_JAK
+v_TNFR1, v_TNF_alpha
+v_TNFR2, v_TNF_alpha
+v_TNF_alpha, (v_TNF_alpha | v_NF_kappaB)
+v_TRADD, v_TNFR1
+v_TRAF2, (v_IRE1 | (v_TNFR2 | v_TRADD))
+v_TRB3, (v_PPAR_alpha | v_CHOP)
+v_TSC1_2, (!v_AKT & !v_IKK_beta)
+v_XBP1, v_IRE1
+v_XIAP, (!v_DIABLO & (!v_HtrA2 & !v_CASP3))
+v_mTORC1, v_Rheb
+v_mTORC2, !v_S6K
+v_p38, (v_OS | v_ASK1)

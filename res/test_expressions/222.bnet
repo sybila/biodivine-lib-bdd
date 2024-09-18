@@ -1,0 +1,207 @@
+targets,factors
+v_ABL, v_ABL
+v_AKT, (v_CARMA1 | (v_CDC42_RAC | (v_COT | (v_GRB7 | ((v_IKK_ALPHA & v_IKK_BETA) | (v_PAK | (v_PDK1 | v_PKC)))))))
+v_AP1, (!v_GSK3_BETA | ((v_ATF2 & (v_JUN & !v_GSK3_BETA)) | ((v_CRE & (v_ATF2 & (v_JUN & !v_GSK3_BETA))) | ((v_CRE & (v_JUN & !v_GSK3_BETA)) | ((v_FOS & (v_JUN & !v_GSK3_BETA)) | ((v_JUN & !v_GSK3_BETA) | ((v_NUC_ERK1_2 & (v_FOS & (v_JUN & !v_GSK3_BETA))) | ((v_NUC_JNK & (v_FOS & v_JUN)) | (v_NUC_P38 & (v_FOS & (v_JUN & !v_GSK3_BETA)))))))))))
+v_ASK1, v_TRAF2
+v_ATF2, v_NUC_P38
+v_B7_1, v_B7_1
+v_B7_2, v_B7_2
+v_BAD, (!v_AKT | (v_JNK & !v_AKT))
+v_BCL10, (v_CARMA1 & (v_PKC_THETA & (!v_IKK_ALPHA & (!v_IKK_BETA & !v_IKK_GAMMA))))
+v_BCL2, (!v_JNK | (v_ETS | v_NUC_CREB))
+v_BCLX, (!v_BAD | (!v_JNK | (v_ETS | v_NUC_NFKB)))
+v_C3G, v_CRK_L
+v_CABIN1, !v_CAMK4
+v_CALCINEURIN, ((!v_CABIN1 & v_CAM) | (v_CAM & (!v_CALCIPRESSIN & !v_CABIN1)))
+v_CALCIPRESSIN, v_CALCIPRESSIN
+v_CALCIUM_IN, (v_CRAC & v_CALCIUM_OUT)
+v_CALCIUM_OUT, v_CALCIUM_OUT
+v_CAM, (v_CALCIUM_IN | (v_VAV & v_CALCIUM_IN))
+v_CAMK4, v_CAM
+v_CARMA1, v_PKC_THETA
+v_CBL, v_CBL
+v_CCL19, v_NUC_NFKB
+v_CD2, (v_FYN | v_LCK)
+v_CD27, v_CD27
+v_CD28, !v_TNF_ALPHA
+v_CD3, v_LCK
+v_CD4, v_LCK
+v_CD45, v_CD45
+v_CD70, v_CD70
+v_CD8, v_LCK
+v_CDC25, v_NUC_MYC
+v_CDC42, (v_PAK | (v_RAS | v_VAV))
+v_CDC42_RAC, (v_VAV & !v_RAC_GAP)
+v_CDK_4, v_NUC_MYC
+v_COT, (v_RIP1 | v_TRAF2)
+v_CRAC, v_IP3
+v_CRE, v_CRE
+v_CREB, (v_RSK | !v_GSK3_BETA)
+v_CRK_L, v_TYK2
+v_CSK, v_CSK
+v_CTLA4, v_NUC_NFAT
+v_CYCLIN_A, ((v_AP1 & !v_GSK3_BETA) | (v_NUC_CREB | v_NUC_MYC))
+v_CYCLIN_D1, ((v_AP1 & !v_GSK3_BETA) | (v_ETS | (v_NUC_CREB | (v_NUC_MYC | v_NUC_NFKB))))
+v_CYCLIN_D2, v_NUC_MYC
+v_CYCLIN_E, v_NUC_MYC
+v_DAG, v_PIP2
+v_ELK1, v_NUC_ERK1_2
+v_ERK1_2, (v_MEK1_2 & !v_MKP)
+v_ETS, v_NUC_ERK1_2
+v_FASL, (v_ETS | v_NUC_NFKB)
+v_FKHR, !v_AKT
+v_FOS, (v_ELK1 | (v_ETS | (v_JUN | v_NUC_P38)))
+v_FYN, (!v_PAG_CSK | (v_CD45 & (!v_PAG_CSK & !v_CBL)))
+v_GAB1, (v_ERK1_2 | v_SHC)
+v_GADS, v_GADS
+v_GCKR, v_TRAF2
+v_GLK, v_TRAF2
+v_GM_CSF, ((v_ETS & v_NUC_NFKB) | (v_ETS & (v_NUC_NFKB & v_AP1)))
+v_GRB2, (v_PAK | v_SHC)
+v_GRB2_SOS, ((v_B7_1 & v_CD28) | ((v_B7_2 & v_CD28) | v_RAS_GRP))
+v_GRB7, v_SHC
+v_GSK3_BETA, (!v_AKT | v_IFN_GAMMA)
+v_HBEGF, v_ETS
+v_HDAC, v_HDAC
+v_HPK1, v_LAT
+v_ICOS, v_ICOS
+v_ICOSL, v_ICOSL
+v_IFNAR1_R2, v_IFNAR1_R2
+v_IFN_ALPHA, v_IFN_ALPHA
+v_IFN_BETA, v_IFN_BETA
+v_IFN_GAMMA, (v_NUC_NFAT & v_AP1)
+v_IFN_OMEGA, v_IFN_OMEGA
+v_IKB_ALPHA, !v_IKK_BETA
+v_IKB_BETA, ((!v_IKK_ALPHA & !v_IKK_BETA) | (!v_IKK_ALPHA & (!v_IKK_BETA & !v_IKK_GAMMA)))
+v_IKK_ALPHA, (v_NIK | v_TRAF2)
+v_IKK_BETA, (v_BCL10 | (v_IKK_ALPHA | (v_PKC_THETA | v_TRAF2)))
+v_IKK_GAMMA, ((v_BCL10 & (v_MALT1 & v_CARMA1)) | ((v_CARMA1 & (v_MALT1 & (v_BCL10 & (v_IKK_ALPHA & v_IKK_BETA)))) | ((v_IKK_ALPHA & v_IKK_BETA) | (v_RIP1 | ((v_TAK1_TAB & v_RIP1) | (v_TRAF6 & v_MALT1))))))
+v_IL1, v_NUC_NFKB
+v_IL10, ((v_AP1 & (v_CREB & !v_GSK3_BETA)) | v_NUC_NFAT)
+v_IL12, (v_ETS & v_NUC_NFKB)
+v_IL13, (v_NUC_NFAT & v_AP1)
+v_IL2, ((v_AP1 & (v_NUC_NFAT & !v_GSK3_BETA)) | ((v_ETS & v_NUC_NFKB) | ((v_NUC_NFAT & v_AP1) | v_NUC_NFKB)))
+v_IL2R, v_NUC_NFKB
+v_IL3, (v_ETS & v_NUC_NFKB)
+v_IL4, ((v_AP1 & v_NUC_NFAT) | (v_AP1 & (v_NUC_NFAT & !v_GSK3_BETA)))
+v_IL5, (v_AP1 & !v_GSK3_BETA)
+v_IL6, ((v_AP1 & (v_CREB & !v_GSK3_BETA)) | v_NUC_NFKB)
+v_IL8, v_NUC_NFKB
+v_IL9, (v_AP1 | (v_NUC_NFAT | v_NUC_NFKB))
+v_IP3, v_PIP2
+v_ITK, (v_CD2 | v_LCK)
+v_JAK, (!v_SOCS3 | (v_GRB2 | ((v_IFN_ALPHA & v_IFNAR1_R2) | ((v_IFNAR1_R2 & v_IFN_BETA) | ((v_IFNAR1_R2 & v_IFN_OMEGA) | v_SHC)))))
+v_JAK2, !v_SHP2
+v_JNK, (v_MKK | ((v_MKK4_7 & !v_MKP) | (v_MKK7 | v_T3JAM)))
+v_JUN, (v_FOS | v_NUC_JNK)
+v_LAT, (v_ITK | v_ZAP70)
+v_LAT_GRB2_SOS1, (v_LAT & (v_GRB2 & v_SOS1))
+v_LCK, ((!v_PAG_CSK & !v_LYP) | ((!v_PAG_CSK & (v_CD4 & v_MHC_CLASS_II_AG)) | ((v_CD4 & (v_MHC_CLASS_II_AG & (!v_PAG_CSK & !v_LYP))) | (v_CD45 & (v_CD4 & (v_MHC_CLASS_II_AG & (v_CD28 & (!v_CBL & (!v_LYP & !v_PAG_CSK)))))))))
+v_LIGHT, v_LIGHT
+v_LTBR, v_LTBR
+v_LYP, !v_CSK
+v_MALT1, (v_CARMA1 | v_PKC_THETA)
+v_MEF2, ((v_CALCINEURIN & v_P300) | ((v_CALCINEURIN & (v_P300 & (!v_CABIN1 & !v_HDAC))) | (v_MEF2A & (v_MEF2B & (v_MEF2C & v_MEF2D)))))
+v_MEF2A, v_MEF2A
+v_MEF2B, v_MEF2B
+v_MEF2C, v_MEF2C
+v_MEF2D, v_MEF2D
+v_MEK1_2, ((v_PAK & !v_MKP) | ((v_RAF & !v_MKP) | (v_RAF1 & !v_MKP)))
+v_MEKK, (v_CDC42_RAC | (v_GCKR | (v_HPK1 | v_PAK)))
+v_MEKK1_4, (v_CDC42_RAC | v_RAC1)
+v_MEKK3, v_OSM
+v_MEKK4_7, v_CDC42_RAC
+v_MHC_CLASS_II_AG, v_MHC_CLASS_II_AG
+v_MKK, (v_ASK1 | v_MEKK)
+v_MKK3_6, (v_MEKK1_4 | (v_MEKK3 | v_MLK3))
+v_MKK4_7, (v_ASK1 | ((v_COT & !v_MKP) | (v_MEKK4_7 & !v_MKP)))
+v_MKK7, (v_MEKK | v_TAK1)
+v_MKP, v_MKP
+v_MLK2, v_PAK
+v_MLK3, ((v_CDC42 & !v_AKT) | v_RAC)
+v_NCK, (!v_RAS | (v_PKC & !v_RAS))
+v_NCK_SOS, (v_NCK & v_SOS)
+v_NFAT, v_CALCINEURIN
+v_NFAT_P300_MEF2, (v_NFAT & (v_P300 & v_MEF2))
+v_NFKB, ((v_OX40 & (v_OX40L & (v_PKC_THETA & (v_TRAF2 & (v_RIP1 & (v_CARMA1 & (v_MALT1 & (v_BCL10 & (v_IKK_ALPHA & (v_IKK_BETA & (v_IKK_GAMMA & (!v_IKB_ALPHA & !v_IKB_BETA)))))))))))) | (!v_TRAF1 | (!v_IKB_BETA & (!v_IKB_ALPHA & v_NIK))))
+v_NIK, (v_COT | (v_TRAF2 | v_TRAF5))
+v_NUC_CREB, (v_CREB | v_NUC_ERK1_2)
+v_NUC_ERK1_2, v_ERK1_2
+v_NUC_JNK, v_JNK
+v_NUC_MYC, (v_NUC_ERK1_2 | v_NUC_NFKB)
+v_NUC_NFAT, (v_NFAT | (v_NFAT & !v_GSK3_BETA))
+v_NUC_NFKB, (v_NFKB | (v_NFKB & v_IL1))
+v_NUC_P38, v_P38
+v_NUR_77, v_NFAT_P300_MEF2
+v_OSM, v_RAC1
+v_OX40, v_OX40
+v_OX40L, v_OX40L
+v_P15, v_NUC_MYC
+v_P21, (v_AKT | v_NUC_MYC)
+v_P21RAS, (v_JAK2 | v_LAT_GRB2_SOS1)
+v_P300, v_P300
+v_P38, v_MKK3_6
+v_P53, (v_ETS & v_NUC_P38)
+v_P70, v_PDK1
+v_PAG, ((!v_CD45 & v_LCK) | (!v_CD45 & v_FYN))
+v_PAG_CSK, ((v_PAG & (v_CSK & (v_FYN & !v_CD45))) | (v_PAG & (v_CSK & (v_LCK & !v_CD45))))
+v_PAK, ((v_ERK1_2 & !v_PIP) | (v_GRB2 | (v_NCK & !v_PIP)))
+v_PD1, v_NUC_NFAT
+v_PDGF, v_ETS
+v_PDGFRB, v_NUC_MYC
+v_PDK1, (v_CARMA1 | v_PIP3)
+v_PDL, v_PDL
+v_PI3K, ((v_B7_1 & v_CD28) | ((v_B7_2 & v_CD28) | (v_GAB1 | (v_GRB2 | ((v_ICOSL & v_ICOS) | (v_RAS | v_SHP2))))))
+v_PIP, v_PIP
+v_PIP2, (v_PI3K | v_PLC_GAMMA)
+v_PIP3, (v_PIP2 | v_PTEN)
+v_PKC, v_JAK
+v_PKC_THETA, (v_AKT | (v_DAG | (v_GLK | v_PDK1)))
+v_PLC_GAMMA, (v_GAB1 | (v_GRB2 | (v_ITK | (v_LAT | (v_SHC | v_SHP2)))))
+v_PTEN, v_PTEN
+v_RAC, ((v_PAK & !v_RAC_GAP) | ((v_RAS & !v_RAC_GAP) | (v_VAV & !v_RAC_GAP)))
+v_RAC1, (v_NCK | v_VAV)
+v_RAC_GAP, v_DAG
+v_RAF, (v_PAK | ((v_PKC & !v_AKT) | v_RAS))
+v_RAF1, v_P21RAS
+v_RAP1, v_C3G
+v_RAS, (!v_RAP1 | (!v_RAS_GAP | (v_GRB2_SOS | ((v_GRB7 & (!v_RAS_GAP & !v_RAP1)) | ((v_NCK_SOS & (!v_RAS_GAP & !v_RAP1)) | (v_RAS_GRP | ((v_SHC_GRB2_SOS & (!v_RAS_GAP & !v_RAP1)) | ((v_SHP1_GRB2_SOS & (!v_RAS_GAP & !v_RAP1)) | (v_SHP2_GRB2_GAB1_SOS & (!v_RAS_GAP & !v_RAP1))))))))))
+v_RAS_GAP, (v_GRB2 | v_NCK)
+v_RAS_GRP, ((v_DAG & v_IP3) | v_LAT)
+v_RIP1, v_TRAF2
+v_RSK, v_ERK1_2
+v_SHC, ((v_IL2 & v_IL2R) | (v_PI3K | v_PKC))
+v_SHC_GRB2_SOS, (v_SHC & (v_GRB2 & v_SOS))
+v_SHP1, (!v_ERK1_2 | ((v_B7_1 & v_CTLA4) | ((v_B7_2 & v_CTLA4) | (v_PDL & v_PD1))))
+v_SHP1_GRB2_SOS, (v_SHP1 & (v_GRB2 & v_SOS))
+v_SHP2, (!v_LCK | ((v_B7_1 & v_CTLA4) | ((v_B7_2 & v_CTLA4) | (v_ERK1_2 | v_SHC))))
+v_SHP2_GRB2_GAB1_SOS, (v_SHP2 & (v_GRB2 & (v_GAB1 & v_SOS)))
+v_SLP76, v_ITK
+v_SOCS3, (v_CRK_L | v_NCK)
+v_SOS, v_SOS
+v_SOS1, v_ERK1_2
+v_STAT1, v_PKC
+v_STAT3, v_PKC
+v_STAT5, (!v_SHP2 | (v_JAK2 | (v_P38 | v_PAK)))
+v_T3JAM, v_TRAF3
+v_TAK1, v_BCL10
+v_TAK1_TAB, v_RIP1
+v_TCR, v_TCR
+v_TCR_CD3, (v_TCR & v_CD3)
+v_TGF_BETA, (v_AP1 & !v_GSK3_BETA)
+v_TNFR, v_TNFR
+v_TNFRSF9, v_TNFRSF9
+v_TNFSF9, v_TNFSF9
+v_TNF_ALPHA, (v_AP1 & !v_GSK3_BETA)
+v_TNF_BETA, v_TNF_BETA
+v_TRADD, ((v_TNF_ALPHA & v_TNFR) | (v_TNF_BETA & v_TNFR))
+v_TRAF1, ((v_TNFSF9 & v_TNFRSF9) | v_NUC_NFKB)
+v_TRAF2, ((v_CD70 & v_CD27) | ((v_LIGHT & v_LTBR) | ((v_OX40L & v_OX40) | ((v_TNFSF9 & v_TNFRSF9) | v_TRADD))))
+v_TRAF3, ((v_CD70 & v_CD27) | ((v_LIGHT & v_LTBR) | (v_TNFSF9 & v_TNFRSF9)))
+v_TRAF5, ((v_CD70 & v_CD27) | (v_LIGHT & v_LTBR))
+v_TRAF6, v_MALT1
+v_TYK2, ((v_IFNAR1_R2 & v_IFN_ALPHA) | ((v_IFNAR1_R2 & v_IFN_BETA) | (v_IFNAR1_R2 & v_IFN_OMEGA)))
+v_VAV, (v_JAK | (v_LAT & (v_GADS & v_SLP76)))
+v_VEGF, v_NUC_NFKB
+v_WASP, v_NCK
+v_ZAP70, ((v_ABL & (v_TCR_CD3 & (v_MHC_CLASS_II_AG & !v_SHP1))) | ((v_LCK & !v_SHP1) | ((v_LCK & (v_TCR_CD3 & (!v_LYP & (v_FYN & (v_ABL & (v_VAV & (!v_SHP1 & v_MHC_CLASS_II_AG))))))) | (v_TCR_CD3 & (v_MHC_CLASS_II_AG & (v_FYN & !v_SHP1))))))

@@ -1,0 +1,12 @@
+targets,factors
+v_Eve_b1, ((((((!v_Eve_b1 & v_Prd_b1) & !v_Slp) & !v_Odd) | (((v_Eve_b1 & !v_Eve_b2) & !v_Run) & !v_Slp)) | ((((v_Eve_b1 & !v_Eve_b2) & v_Run) & !v_Slp) & !v_Odd)) | (v_Eve_b1 & v_Eve_b2))
+v_Eve_b2, (((((((v_Eve_b1 & !v_Eve_b2) & v_Prd_b1) & !v_Run) & !v_Slp) & !v_Odd) | ((((((v_Eve_b1 & v_Eve_b2) & !v_Eve_b3) & v_Prd_b1) & !v_Run) & !v_Slp) & !v_Odd)) | ((v_Eve_b1 & v_Eve_b2) & v_Eve_b3))
+v_Eve_b3, (((((v_Eve_b1 & v_Eve_b2) & v_Prd_b1) & !v_Run) & !v_Slp) & !v_Odd)
+v_Ftz_b1, (((((((((((!v_Eve_b1 & !v_Slp) & !v_Ftz_b1) & !v_Odd) | ((((!v_Eve_b1 & !v_Slp) & v_Ftz_b1) & !v_Ftz_b2) & !v_Odd)) | (((!v_Eve_b1 & !v_Slp) & v_Ftz_b1) & v_Ftz_b2)) | (((!v_Eve_b1 & v_Slp) & v_Ftz_b1) & v_Ftz_b2)) | ((((v_Eve_b1 & !v_Eve_b2) & !v_Slp) & !v_Ftz_b1) & !v_Odd)) | (((((v_Eve_b1 & !v_Eve_b2) & !v_Slp) & v_Ftz_b1) & !v_Ftz_b2) & !v_Odd)) | ((((v_Eve_b1 & !v_Eve_b2) & !v_Slp) & v_Ftz_b1) & v_Ftz_b2)) | ((((v_Eve_b1 & !v_Eve_b2) & v_Slp) & v_Ftz_b1) & v_Ftz_b2)) | (((v_Eve_b1 & v_Eve_b2) & v_Ftz_b1) & v_Ftz_b2))
+v_Ftz_b2, ((((!v_Eve_b1 & !v_Slp) & v_Ftz_b1) & !v_Odd) | ((((v_Eve_b1 & !v_Eve_b2) & !v_Slp) & v_Ftz_b1) & !v_Odd))
+v_Odd, (!v_Eve_b1 & !v_Prd_b1)
+v_Ppa, (!v_Eve_b1 | (v_Eve_b1 & !v_Eve_b2))
+v_Prd_b1, (((!v_Prd_b1 & !v_Odd) | ((v_Prd_b1 & !v_Prd_b2) & !v_Odd)) | (v_Prd_b1 & v_Prd_b2))
+v_Prd_b2, ((v_Prd_b1 & !v_Ppa) & !v_Odd)
+v_Run, (((!v_Eve_b1 & v_Prd_b1) & !v_Odd) | (((v_Eve_b1 & !v_Eve_b2) & v_Prd_b1) & !v_Odd))
+v_Slp, (((!v_Eve_b1 & !v_Ftz_b1) & !v_Odd) | (((v_Eve_b1 & !v_Eve_b2) & !v_Ftz_b1) & !v_Odd))

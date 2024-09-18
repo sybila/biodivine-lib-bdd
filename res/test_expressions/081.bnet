@@ -1,0 +1,43 @@
+targets,factors
+v_AICytokines, ((v_AP1 & v_CREB1) & !v_ZFP36)
+v_AP1, (v_JUN & v_FOS)
+v_Akt, v_PDPK1
+v_CREB1, (((!v_RPS6KA2 & !v_GSK3b) & v_RPS6KA5) | (v_RPS6KA2 & !v_GSK3b))
+v_DUSP, (v_AP1 & v_CREB1)
+v_ERK, v_MAP2K2
+v_FOS, v_RPS6KA5
+v_GSK3b, !v_Akt
+v_IKBKB, (v_TAK1c & v_IKBKG)
+v_IKBKG, (v_TRAF6 & v_TAK1c)
+v_IRAK1, (((!v_MyD88 & v_TICAM1) & v_IRAK4) | (v_MyD88 & v_IRAK4))
+v_IRAK4, ((!v_MyD88 & v_TICAM1) | v_MyD88)
+v_JNK, v_MAP2K7
+v_JUN, (!v_GSK3b & v_JNK)
+v_MAP2K2, v_MAP3K8
+v_MAP2K3, v_TAK1c
+v_MAP2K7, v_TAK1c
+v_MAP3K8, (v_IKBKB & !v_NFKB1)
+v_MAPKAPK2, v_P38a
+v_MKNK1, ((!v_P38a & v_ERK) | v_P38a)
+v_MyD88, v_TLR5
+v_NFKB1, !v_IKBKB
+v_NFKBIA, (!v_SCFbTrCP | (v_SCFbTrCP & !v_IKBKB))
+v_NFkB, ((v_Akt & v_IKBKB) & !v_NFKBIA)
+v_P38a, v_MAP2K3
+v_PDPK1, (v_PI3K & v_MAPKAPK2)
+v_PI3K, v_PIK3R1
+v_PICytokines, ((v_NFkB & v_AP1) & !v_ZFP36)
+v_PIK3AP1, v_MyD88
+v_PIK3R1, v_PIK3AP1
+v_RPS6KA2, ((!v_ERK & v_MAPKAPK2) | v_ERK)
+v_RPS6KA5, ((!v_P38a & v_ERK) | v_P38a)
+v_SCFbTrCP, v_SCFbTrCP
+v_Survival, ((v_NFkB & v_AP1) & v_CREB1)
+v_TAB, v_TRAF6
+v_TAK1, (v_TRAF6 & v_TAB)
+v_TAK1c, (v_TAK1 & v_SCFbTrCP)
+v_TICAM1, v_TLR5
+v_TLR5, v_TLR5
+v_TNFAIP3, v_NFkB
+v_TRAF6, v_IRAK1
+v_ZFP36, ((!v_MAPKAPK2 & v_CREB1) & !v_ZFP36)

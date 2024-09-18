@@ -1,0 +1,39 @@
+targets,factors
+v_AKT2, ((!v_ILK & v_PI3_PI4_PI5_P3) | v_ILK)
+v_DAXX, v_TGFB1_TGFBR1
+v_FOS, ((((((!v_MAPK3 & !v_MAPK8) & !v_MAPK1) & v_MAPK9) | ((!v_MAPK3 & !v_MAPK8) & v_MAPK1)) | (!v_MAPK3 & v_MAPK8)) | v_MAPK3)
+v_IKK, ((((!v_AKT2 & !v_TAB1_TAB2_TAK1) & v_MAP3K14) | (!v_AKT2 & v_TAB1_TAB2_TAK1)) | v_AKT2)
+v_IL6, v_IL6
+v_IL6_IL6R, v_IL6
+v_IL6_IL6ST, v_IL6
+v_ILK, v_PI3_PI4_PI5_P3
+v_JAK1, ((!v_SOCS3 | ((v_SOCS3 & !v_IL6_IL6R) & v_IL6_IL6ST)) | (v_SOCS3 & v_IL6_IL6R))
+v_JUN, ((((((!v_MAPK8 & !v_MAPK1) & !v_MAPK9) & v_MAPK14) | ((!v_MAPK8 & !v_MAPK1) & v_MAPK9)) | (!v_MAPK8 & v_MAPK1)) | v_MAPK8)
+v_JUND, v_MAPK8
+v_MAP2K1, ((!v_TAB1_TAB2_TAK1 & v_MAP3K8) | v_TAB1_TAB2_TAK1)
+v_MAP2K3, ((!v_TAB1_TAB2_TAK1 & v_MAP3K5) | v_TAB1_TAB2_TAK1)
+v_MAP2K6, ((!v_TAB1_TAB2_TAK1 & v_MAP3K5) | v_TAB1_TAB2_TAK1)
+v_MAP2K7, v_TAB1_TAB2_TAK1
+v_MAP3K14, v_TAB1_TAB2_TAK1
+v_MAP3K5, v_DAXX
+v_MAP3K8, ((!v_IKK & v_AKT2) | v_IKK)
+v_MAP4K1, v_TGFB1_TGFBR1
+v_MAPK1, v_MAP2K1
+v_MAPK14, ((((!v_MAP2K3 & !v_MAPK1) & v_MAP2K6) | (!v_MAP2K3 & v_MAPK1)) | v_MAP2K3)
+v_MAPK3, v_MAP2K1
+v_MAPK8, ((((!v_MAPK3 & !v_MAP2K7) & v_MAP3K5) | (!v_MAPK3 & v_MAP2K7)) | v_MAPK3)
+v_MAPK9, v_MAP2K7
+v_NFKB, v_IKK
+v_NFKB1, ((!v_IKK & v_AKT2) | v_IKK)
+v_NFKBIA, v_IKK
+v_PI3_PI4_PI5_P3, v_PIK3R5
+v_PIK3R5, v_JAK1
+v_SOCS3, ((!v_FOS | (v_FOS & !v_JUN)) | ((v_FOS & v_JUN) & v_STAT3))
+v_STAT3, ((!v_AKT2 & v_JAK1) | v_AKT2)
+v_TAB1_TAB2_TAK1, ((!v_TRAF2_TRAF5 & v_MAP4K1) | v_TRAF2_TRAF5)
+v_TGFB1, v_TGFB1
+v_TGFB1_TGFBR1, v_TGFB1
+v_TNF, v_TNF
+v_TNF_TNFRSF1A_TNFRSFB, v_TNF
+v_TRADD, v_TNF_TNFRSF1A_TNFRSFB
+v_TRAF2_TRAF5, v_TRADD

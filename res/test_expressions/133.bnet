@@ -1,0 +1,11 @@
+targets,factors
+v_ARF, !v_AUXIAA
+v_AUXIAA, !v_AUXIN
+v_AUXIN, v_AUXIN
+v_CLEX, (v_SHR & v_CLEX)
+v_JKD, (v_SHR & v_SCR)
+v_MGP, ((v_SHR & v_SCR) & !v_WOX5)
+v_PLT, v_ARF
+v_SCR, (v_SHR & v_SCR)
+v_SHR, v_SHR
+v_WOX5, (((v_ARF & v_SHR) & v_SCR) & !v_CLEX)

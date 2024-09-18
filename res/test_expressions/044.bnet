@@ -1,0 +1,27 @@
+targets,factors
+v_AD, ((v_IS & !(v_IgG & v_NE)) | (v_AD & !(v_IgG & v_NE)))
+v_BC, (v_T0 | v_BC)
+v_DCI, v_PIC
+v_DCII, v_DCI
+v_EC, (v_AD | v_IS)
+v_EL, (v_IS & !v_EL2)
+v_EL2, ((v_IgE & v_IL5) | (v_IL13 & v_IL5))
+v_IFNgI, (v_DCI | v_Th1I)
+v_IL10I, v_Th2I
+v_IL12II, ((v_DCII & v_T0) & !v_IL4II)
+v_IL13, (((v_EL & v_IS) | v_EL2) | v_Th2I)
+v_IL4I, v_IL4II
+v_IL4II, (((v_Th2II & !v_IL12II) | v_EL2) | ((v_DCII & v_T0) & !v_IL12II))
+v_IL5, (v_EL2 | v_Th2I)
+v_IS, v_IS
+v_IgA, (v_BC & v_IS)
+v_IgE, ((v_IL13 & v_BC) | (v_IL4II & v_BC))
+v_IgG, v_BC
+v_NE, ((v_IFNgI & !(v_IL4I | v_IL10I)) | ((v_PIC & v_AD) & !(v_IL4I | v_IL10I)))
+v_PIC, (v_EC & !(v_IL10I | v_IgA))
+v_T0, v_DCII
+v_TEL, (v_EL | v_EL2)
+v_Th1I, v_Th1II
+v_Th1II, (v_DCII & (v_T0 & v_IL12II))
+v_Th2I, v_Th2II
+v_Th2II, ((v_DCII & v_T0) & !v_IL12II)

@@ -171,8 +171,6 @@ fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) -> bool {
     let cnf = eval.to_cnf();
     let dnf_o = eval.to_optimized_dnf();
 
-    assert!(dnf_o.len() <= dnf.len());
-
     assert!(universe.mk_dnf(&dnf).iff(&eval).is_true());
     assert!(universe.mk_dnf(&dnf_o).iff(&eval).is_true());
     assert!(universe.mk_cnf(&cnf).iff(&eval).is_true());

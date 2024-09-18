@@ -107,6 +107,10 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
 
 /// **(internal)** Parse a `ExprToken` tree into a `BooleanExpression` (or error if invalid).
 fn parse_formula(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
+    if data.len() == 1 && matches!(data[0], ExprToken::Tokens(..)) {
+        // A "fast-forward" branch for `(...)` formulas that tend to overflow the parser stack.
+        return terminal(data);
+    }
     iff(data)
 }
 
@@ -118,27 +122,27 @@ fn index_of_first(data: &[ExprToken], token: ExprToken) -> Option<usize> {
 /// **(internal)** Recursive parsing step 1: extract `<=>` operators.
 fn iff(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let iff_token = index_of_first(data, ExprToken::Iff);
-    Ok(if let Some(iff_token) = iff_token {
-        Box::new(Iff(
+    if let Some(iff_token) = iff_token {
+        Ok(Box::new(Iff(
             imp(&data[..iff_token])?,
             iff(&data[(iff_token + 1)..])?,
-        ))
+        )))
     } else {
-        imp(data)?
-    })
+        imp(data)
+    }
 }
 
 /// **(internal)** Recursive parsing step 2: extract `=>` operators.
 fn imp(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let imp_token = index_of_first(data, ExprToken::Imp);
-    Ok(if let Some(imp_token) = imp_token {
-        Box::new(Imp(
+    if let Some(imp_token) = imp_token {
+        Ok(Box::new(Imp(
             cond(&data[..imp_token])?,
             imp(&data[(imp_token + 1)..])?,
-        ))
+        )))
     } else {
-        cond(data)?
-    })
+        cond(data)
+    }
 }
 
 /// **(internal)** Recursive parsing step 3: extract `cond ? then_expr : else_expr` operators.
@@ -168,37 +172,40 @@ fn cond(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
 /// **(internal)** Recursive parsing step 4: extract `|` operators.
 fn or(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let or_token = index_of_first(data, ExprToken::Or);
-    Ok(if let Some(or_token) = or_token {
-        Box::new(Or(and(&data[..or_token])?, or(&data[(or_token + 1)..])?))
+    if let Some(or_token) = or_token {
+        Ok(Box::new(Or(
+            and(&data[..or_token])?,
+            or(&data[(or_token + 1)..])?,
+        )))
     } else {
-        and(data)?
-    })
+        and(data)
+    }
 }
 
 /// **(internal)** Recursive parsing step 5: extract `&` operators.
 fn and(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let and_token = index_of_first(data, ExprToken::And);
-    Ok(if let Some(and_token) = and_token {
-        Box::new(And(
+    if let Some(and_token) = and_token {
+        Ok(Box::new(And(
             xor(&data[..and_token])?,
             and(&data[(and_token + 1)..])?,
-        ))
+        )))
     } else {
-        xor(data)?
-    })
+        xor(data)
+    }
 }
 
 /// **(internal)** Recursive parsing step 6: extract `^` operators.
 fn xor(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
     let xor_token = index_of_first(data, ExprToken::Xor);
-    Ok(if let Some(xor_token) = xor_token {
-        Box::new(Xor(
+    if let Some(xor_token) = xor_token {
+        Ok(Box::new(Xor(
             terminal(&data[..xor_token])?,
             xor(&data[(xor_token + 1)..])?,
-        ))
+        )))
     } else {
-        terminal(data)?
-    })
+        terminal(data)
+    }
 }
 
 /// **(internal)** Recursive parsing step 7: extract terminals and negations.

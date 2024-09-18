@@ -1,0 +1,318 @@
+targets,factors
+v_RV2069, v_RV2069
+v_Rv0001, v_Rv1985
+v_Rv0002, ((v_Rv0001 & v_Rv3676) | (!v_Rv1985 & !v_Rv2711))
+v_Rv0005, v_Rv3676
+v_Rv0006, v_Rv3676
+v_Rv0007, (v_Rv3676 & (v_Rv0014 & v_Rv3414))
+v_Rv0009, (v_Rv3676 | (!v_Rv2027 | (v_Rv3133c | v_Rv3286c)))
+v_Rv0011c, (v_Rv0020 | v_Rv3286c)
+v_Rv0014, v_Rv0014
+v_Rv0014c, (v_Rv0015c & (v_Rv0019c & v_Rv0020c))
+v_Rv0015c, v_Rv0014c
+v_Rv0016c, (v_Rv0014c & (v_Rv0015c & (v_Rv0020c & v_Rv0019c)))
+v_Rv0019c, (v_Rv0014c & (v_Rv0015c & v_Rv3676))
+v_Rv0020, v_Rv0020
+v_Rv0020c, (v_Rv0014c & (v_Rv0015c & v_Rv0019c))
+v_Rv0053, (v_Rv1379 | !v_Rv2720)
+v_Rv0054, (v_Rv1379 | !v_Rv2720)
+v_Rv0055, (v_Rv3246c | !v_Rv2720)
+v_Rv0056, (v_Rv3246c | !v_Rv2720)
+v_Rv0058, (v_Rv3246c | !v_Rv2720)
+v_Rv0079, v_Rv3132c
+v_Rv0080, (v_Rv0081 & (v_Rv1343 & (v_Rv2621c | v_Rv3132c)))
+v_Rv0081, v_Rv3133c
+v_Rv0082, v_Rv0081
+v_Rv0083, v_Rv0081
+v_Rv0084, v_Rv0081
+v_Rv0085, v_Rv0081
+v_Rv0086, v_Rv0081
+v_Rv0087, v_Rv0081
+v_Rv0088, v_Rv0081
+v_Rv0113, !v_Rv2711
+v_Rv0114, !v_Rv2711
+v_Rv0117, v_Rv0117
+v_Rv0138, v_Rv0020c
+v_Rv0164, v_Rv2175c
+v_Rv0167, (v_Rv3676 | !v_Rv0494)
+v_Rv0168, (v_Rv3676 | !v_Rv0494)
+v_Rv0169, ((v_Rv0014c & (v_Rv3414c & v_Rv3676)) | !v_Rv0494)
+v_Rv0170, ((v_Rv3414c & v_Rv3676) | !v_Rv0494)
+v_Rv0171, (v_Rv3676 | !v_Rv0494)
+v_Rv0172, ((v_Rv0014c & (v_Rv3414c & v_Rv3676)) | !v_Rv0494)
+v_Rv0173, ((v_Rv0014c & (v_Rv3414c & v_Rv3676)) | !v_Rv0494)
+v_Rv0174, ((v_Rv3414c & v_Rv3676) | !v_Rv0494)
+v_Rv0175, ((v_Rv0020 & (v_Rv3676 & v_Rv2175)) | !v_Rv0494)
+v_Rv0177, ((v_Rv0020 & (v_Rv0014 & (v_Rv3676 & v_Rv2175))) | !v_Rv0494)
+v_Rv0178, ((v_Rv0020 & (v_Rv0014 & (v_Rv3676 & (v_Rv2175 & v_Rv3414)))) | !v_Rv0494)
+v_Rv0179c, (v_Rv0339c & v_Rv2175c)
+v_Rv0192, v_Rv3414c
+v_Rv0199, v_Rv2175c
+v_Rv0203, v_Rv2175c
+v_Rv0216, v_Rv2175c
+v_Rv0250c, (v_Rv0020c & (v_Rv1221 & v_Rv3223c))
+v_Rv0283, (v_Rv2069 | ((v_Rv3414 & (v_Rv3260 & v_Rv2175)) | (!v_Rv2711 & !v_Rv2359)))
+v_Rv0287, (v_Rv2069 | (!v_Rv2359 & v_Rv2711))
+v_Rv0308, (v_Rv3133c | !v_Rv2027c)
+v_Rv0339, v_Rv0339
+v_Rv0339c, v_Rv0339c
+v_Rv0350, (v_Rv0353 | v_Rv3223c)
+v_Rv0353, v_Rv3223c
+v_Rv0360c, (v_Rv3260c | !v_Rv3286c)
+v_Rv0429c, (v_Rv0014c & v_Rv3676)
+v_Rv0430, ((v_Rv2175c & (v_Rv3219 & v_Rv3260c)) | !v_Rv3286)
+v_Rv0431, (v_Rv0020c | !v_Rv3286c)
+v_Rv0451c, (v_Rv1343c | (v_Rv3676 | !v_Rv2711))
+v_Rv0479c, v_Rv2175c
+v_Rv0482, !v_Rv2711
+v_Rv0483, (v_Rv3219 & v_Rv3676)
+v_Rv0485, v_Rv0485
+v_Rv0491, v_Rv0491
+v_Rv0494, v_Rv0494
+v_Rv0502, v_Rv0020c
+v_Rv0511, (v_Rv0014c & v_Rv0020c)
+v_Rv0512, v_Rv3246c
+v_Rv0524, !v_Rv2711
+v_Rv0528, (v_Rv0014c & !v_Rv2711)
+v_Rv0543c, (v_Rv0020c & (v_Rv2175c & v_Rv3208))
+v_Rv0545c, v_Rv1626
+v_Rv0559c, v_Rv0020c
+v_Rv0569, v_Rv3132c
+v_Rv0613c, v_Rv2175c
+v_Rv0625c, v_Rv2175c
+v_Rv0636, (v_Rv2175c & v_Rv3219)
+v_Rv0638, (v_Rv2175c & (v_Rv3219 & v_Rv3260c))
+v_Rv0731c, v_Rv2175c
+v_Rv0733, v_Rv1626
+v_Rv0738, (v_Rv2175c & v_Rv3414c)
+v_Rv0756c, (v_Rv0339c & (v_Rv2175c & v_Rv3260c))
+v_Rv0792c, v_Rv0792c
+v_Rv0814c, ((v_Rv2175c & (v_Rv3219 & v_Rv3260c)) | (v_Rv2621c & v_Rv3260c))
+v_Rv0815c, (v_Rv3208 & (v_Rv2175c & (v_Rv3219 & v_Rv3260c)))
+v_Rv0844c, ((v_Rv0845 & v_Rv2027c) | !v_Rv3132c)
+v_Rv0845, v_Rv0844c
+v_Rv0854, (v_Rv3208 & v_Rv3260c)
+v_Rv0863, (v_Rv0020c & v_Rv3219)
+v_Rv0867c, v_Rv3676
+v_Rv0883c, (v_Rv0020c & (v_Rv3208 & (v_Rv3295 & v_Rv3260c)))
+v_Rv0896, v_Rv3676
+v_Rv0909, v_Rv0020c
+v_Rv0910, v_Rv3208
+v_Rv0935, (v_Rv1534 | !v_Rv0491)
+v_Rv0954, (v_Rv0020c & (v_Rv2175c & v_Rv3219))
+v_Rv1002c, v_Rv3260c
+v_Rv1018c, ((v_Rv3246c & v_Rv3648c) | v_Rv0485)
+v_Rv1109c, (v_Rv0020c & v_Rv3295)
+v_Rv1156, (v_Rv0020c & v_Rv2175c)
+v_Rv1158c, v_Rv3676
+v_Rv1166, (v_Rv0014c & v_Rv3414c)
+v_Rv1174c, v_Rv0020c
+v_Rv1196, (v_Rv3414c | !v_Rv2359)
+v_Rv1211, v_Rv3219
+v_Rv1221, v_Rv1221
+v_Rv1280c, (v_Rv3291c & !v_Rv0491)
+v_Rv1300, (v_Rv0014c & v_Rv3295)
+v_Rv1306, (v_Rv3219 & v_Rv3648c)
+v_Rv1307, (v_Rv1626 & v_Rv3219)
+v_Rv1308, (v_Rv3648c & v_Rv3246c)
+v_Rv1309, (v_Rv3246c & v_Rv3648c)
+v_Rv1310, (v_Rv3246c & v_Rv3648c)
+v_Rv1311, (v_Rv0014c & (v_Rv1534 & (v_Rv3246c & v_Rv3648c)))
+v_Rv1312, (v_Rv0014c & v_Rv3414c)
+v_Rv1322, (v_Rv0020c & v_Rv3219)
+v_Rv1342c, (v_Rv1343c | (!v_Rv2711 | !v_Rv3676))
+v_Rv1343, v_Rv1343
+v_Rv1343c, (v_Rv3676 | v_Rv2711)
+v_Rv1362c, v_Rv2175c
+v_Rv1379, v_Rv1379
+v_Rv1387, ((v_Rv3414c & v_Rv3676) | !v_Rv0494)
+v_Rv1388, (v_Rv1626 & v_Rv2175c)
+v_Rv1395, v_Rv1395
+v_Rv1423, v_Rv1423
+v_Rv1436, (v_Rv3676 | !v_Rv1785c)
+v_Rv1437, (v_Rv1785c | v_Rv3676)
+v_Rv1438, (v_Rv1785c | v_Rv3676)
+v_Rv1462, (v_Rv1343c & v_Rv2621c)
+v_Rv1534, v_Rv1534
+v_Rv1543, v_Rv1543
+v_Rv1547, (v_Rv1626 | v_Rv1423)
+v_Rv1558, ((v_Rv0019c & v_Rv2175c) | v_Rv3291c)
+v_Rv1565c, v_Rv0014c
+v_Rv1590, v_Rv2175c
+v_Rv1592c, (v_Rv1343c | v_Rv3676)
+v_Rv1613, (v_Rv1534 & (v_Rv1626 & !v_Rv0792c))
+v_Rv1614, (v_Rv0014c & (v_Rv1626 & v_Rv1746))
+v_Rv1626, v_Rv0015c
+v_Rv1630, (v_Rv1630 | v_Rv1423)
+v_Rv1632c, v_Rv1423
+v_Rv1642, v_Rv0014c
+v_Rv1643, (v_Rv1626 & v_Rv3246c)
+v_Rv1697, (v_Rv0014c | v_Rv2720)
+v_Rv1698, (v_Rv0014c | v_Rv2720)
+v_Rv1700, (v_Rv0014c & v_Rv3648c)
+v_Rv1710, (v_Rv0014c & v_Rv1534)
+v_Rv1711, v_Rv1746
+v_Rv1712, (v_Rv0844c & v_Rv1534)
+v_Rv1713, ((v_Rv1746 & v_Rv0844c) | v_Rv0353)
+v_Rv1736c, v_Rv3133c
+v_Rv1737c, (v_Rv3133c | (!v_Rv0015c & !v_Rv1626))
+v_Rv1746, v_Rv0014c
+v_Rv1784, (v_Rv0014c & v_Rv0020c)
+v_Rv1785c, v_Rv1785c
+v_Rv1789, (v_Rv0339c & v_Rv2175c)
+v_Rv1796, (v_Rv0020c & v_Rv3295)
+v_Rv1828, v_Rv0020c
+v_Rv1871c, (v_Rv0020c | !v_Rv2359)
+v_Rv1884c, v_Rv0020c
+v_Rv1886c, v_Rv3219
+v_Rv1887, v_Rv2175c
+v_Rv1891, (v_Rv0020c & (v_Rv0339c & v_Rv2175))
+v_Rv1980c, v_Rv0020c
+v_Rv1984c, (v_Rv0020c & v_Rv0339c)
+v_Rv1985, v_Rv1985
+v_Rv1996, v_Rv3133c
+v_Rv1997, v_Rv3133c
+v_Rv2005c, (v_Rv3132c & v_Rv3133c)
+v_Rv2006, v_Rv3132c
+v_Rv2007c, (v_Rv3133c & v_Rv2621c)
+v_Rv2027, v_Rv2027
+v_Rv2027c, v_Rv0844c
+v_Rv2028c, ((v_Rv1343 & (v_Rv3132c & v_Rv2027c)) | v_Rv2069)
+v_Rv2029c, ((v_Rv3132c & v_Rv3133c) | (v_Rv1379 | !v_RV2069))
+v_Rv2030c, ((v_Rv3132c & v_Rv3133c) | !v_RV2069)
+v_Rv2031c, (v_Rv3133c | !v_Rv2069)
+v_Rv2032, v_Rv3132c
+v_Rv2036, v_Rv2711
+v_Rv2049c, v_Rv2175c
+v_Rv2061c, v_Rv2175c
+v_Rv2069, v_Rv2069
+v_Rv2074, (v_Rv1626 & v_Rv314c)
+v_Rv2091c, (v_Rv0020c & v_Rv2175c)
+v_Rv2097c, (v_Rv2175c & v_Rv3219)
+v_Rv2108, v_Rv1343c
+v_Rv2109c, (v_Rv0020c & (v_Rv0339 & (v_Rv0014c | v_Rv0019c)))
+v_Rv2112c, v_Rv2175c
+v_Rv2123, (v_Rv1343 | v_Rv2711)
+v_Rv2145c, (v_Rv0014c & v_Rv0020c)
+v_Rv2147c, (v_Rv0020c & v_Rv3246c)
+v_Rv2149c, v_Rv3246c
+v_Rv2163c, (v_Rv0014c & v_Rv0020c)
+v_Rv2175, v_Rv2175
+v_Rv2175c, (v_Rv2175c & (v_Rv3219 & v_Rv3246c))
+v_Rv2184c, v_Rv2175c
+v_Rv2194, v_Rv0014c
+v_Rv2198c, (v_Rv3414c & !v_Rv1395)
+v_Rv2203, v_Rv2175c
+v_Rv2224c, v_Rv2175c
+v_Rv2237, v_Rv2175c
+v_Rv2239c, v_Rv3676
+v_Rv2256c, (v_Rv0019c & (v_Rv0020c & v_Rv0339c))
+v_Rv2286c, (v_Rv0339c & v_Rv2175c)
+v_Rv2302, v_Rv3219
+v_Rv2335, (v_Rv0844c & v_Rv1534)
+v_Rv2359, v_Rv2359
+v_Rv2362c, v_Rv0014c
+v_Rv2376c, v_Rv2175c
+v_Rv2381c, (v_Rv1343c & !v_Rv2711)
+v_Rv2382c, !v_Rv2711
+v_Rv2383c, !v_Rv2711
+v_Rv2413c, v_Rv2175c
+v_Rv2450c, (v_Rv2175c & v_Rv3260c)
+v_Rv2457c, (v_Rv1626 & (v_Rv3246c & v_Rv3648c))
+v_Rv2462c, (v_Rv1626 & v_Rv3246c)
+v_Rv2468c, (v_Rv2175c & (v_Rv3219 & v_Rv3260c))
+v_Rv2507, v_Rv0020c
+v_Rv2619c, (v_Rv1343c & v_Rv2621c)
+v_Rv2620c, (v_Rv1343c & v_Rv2621c)
+v_Rv2621c, v_Rv2621c
+v_Rv2626c, ((!v_Rv0014c & !v_Rv0015c) | !v_Rv0019c)
+v_Rv2629, (v_Rv2621c | v_Rv3132c)
+v_Rv2672, v_Rv2175c
+v_Rv2696c, v_Rv2175c
+v_Rv2697c, v_Rv3208
+v_Rv2708c, (v_Rv2175c & v_Rv3260c)
+v_Rv2711, v_Rv1343c
+v_Rv2720, v_Rv2720
+v_Rv2721c, (v_Rv2175c & v_Rv3260c)
+v_Rv2783c, v_Rv1626
+v_Rv2840c, (v_Rv0020c & (v_Rv2175c & v_Rv3219))
+v_Rv2860c, (v_Rv1534 | v_Rv3676)
+v_Rv2864c, (!v_Rv2711 | v_Rv3133c)
+v_Rv2890c, (v_Rv0014c & v_Rv3246c)
+v_Rv2902c, (v_Rv0844c & v_Rv0845)
+v_Rv2909c, ((v_Rv3219 & v_Rv2069) | !v_Rv1395)
+v_Rv2948c, (v_Rv0844c & v_Rv1543)
+v_Rv2966c, !v_Rv1626
+v_Rv2985, v_Rv0020c
+v_Rv2986c, (v_Rv3246c | (v_Rv0353 | v_Rv3676))
+v_Rv3004, (v_Rv0019c & (v_Rv0339c & v_Rv2175c))
+v_Rv3018c, v_Rv1343c
+v_Rv3019c, (v_Rv1343c | !v_Rv2359)
+v_Rv3024c, (v_Rv1626 & v_Rv3246c)
+v_Rv3028c, v_Rv3676
+v_Rv3029c, v_Rv3676
+v_Rv3046c, v_Rv2175c
+v_Rv3054c, (v_Rv2027c | (v_Rv3133c | v_Rv3223c))
+v_Rv3118, (v_Rv2175c & (v_Rv3219 & v_Rv3260c))
+v_Rv3125c, (v_Rv1343c & v_Rv2027c)
+v_Rv3127, (v_Rv3143c & (v_Rv3132c & v_Rv3133c))
+v_Rv3129, v_Rv3132c
+v_Rv3130c, (v_Rv3132c & v_Rv3133c)
+v_Rv3131, (v_Rv3132c & (v_Rv3133c & v_Rv1343c))
+v_Rv3132c, ((v_Rv0081 & v_Rv3133c) | !v_Rv0844c)
+v_Rv3133c, (v_Rv0845 & v_Rv2027c)
+v_Rv3134c, v_Rv3133c
+v_Rv3143c, v_Rv3143c
+v_Rv314c, v_Rv314c
+v_Rv3208, v_Rv3246c
+v_Rv3219, v_Rv3676
+v_Rv3223c, v_Rv3223c
+v_Rv3246c, (v_Rv1626 & v_Rv3208)
+v_Rv3248c, v_Rv3246c
+v_Rv3257c, v_Rv3208
+v_Rv3258c, (v_Rv1626 & (v_Rv2175c & (v_Rv3208 & (v_Rv3219 & (v_Rv3246c & (v_Rv3260c & v_Rv3414c))))))
+v_Rv3259, v_Rv3260c
+v_Rv3260, v_Rv3260
+v_Rv3260c, (v_Rv2175c & (v_Rv3219 & v_Rv3246c))
+v_Rv3267, (v_Rv0014c | !v_Rv2069)
+v_Rv3277, v_Rv3208
+v_Rv3278c, v_Rv3208
+v_Rv3286, v_Rv3286
+v_Rv3286c, v_Rv3286c
+v_Rv3291c, v_Rv3291c
+v_Rv3295, v_Rv3295
+v_Rv3317, v_Rv3260c
+v_Rv3332, (v_Rv0792c | (!v_Rv0485 | !v_Rv3676))
+v_Rv3346c, (v_Rv0339c & v_Rv2175c)
+v_Rv3409c, (v_Rv3219 & v_Rv3414c)
+v_Rv3414, v_Rv3414
+v_Rv3414c, v_Rv3414c
+v_Rv3489, ((v_Rv0020c & v_Rv3208) | v_Rv2711)
+v_Rv3493c, (v_Rv3414c & !v_Rv3574)
+v_Rv3496c, (v_Rv3414c & !v_Rv3574)
+v_Rv3574, v_Rv3574
+v_Rv3587c, (v_Rv0020c & (v_Rv0339c & (v_Rv3260c & v_Rv3414c)))
+v_Rv3592, (v_Rv0020c & v_Rv3208)
+v_Rv3597c, (v_Rv0020c & (v_Rv3219 & v_Rv3260c))
+v_Rv3646c, v_Rv0014c
+v_Rv3648c, v_Rv3648c
+v_Rv3651, v_Rv2175c
+v_Rv3676, (v_Rv1343c & v_Rv3219)
+v_Rv3682, (v_Rv0014c & v_Rv3414c)
+v_Rv3714c, (v_Rv2175c & v_Rv3260c)
+v_Rv3717, v_Rv0014c
+v_Rv3782, (v_Rv0020c & (v_Rv3260c & v_Rv3208))
+v_Rv3811, v_Rv0020c
+v_Rv3847, v_Rv2175c
+v_Rv3849, (v_Rv0020c & (v_Rv2175c & v_Rv3260c))
+v_Rv3869, (v_Rv0014c & v_Rv0020c)
+v_Rv3870, v_Rv0014c
+v_Rv3871, v_Rv0014c
+v_Rv3875, (v_Rv0020c & v_Rv3219)
+v_Rv3876, (v_Rv0020c & (v_Rv3208 & v_Rv3414c))
+v_Rv3910, (v_Rv0014c & v_Rv3414c)
+v_Rv3913, (v_Rv3223c | !v_Rv0117)
+v_Rv3914, (v_Rv3223c | !v_Rv0117)
+v_Rv3920c, v_Rv0014c
+v_Rv3921c, (v_Rv1626 & v_Rv3246c)
+v_Rv3923c, (v_Rv0019c & (v_Rv0020c & v_Rv2175c))

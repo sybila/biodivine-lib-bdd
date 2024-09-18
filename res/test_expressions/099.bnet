@@ -1,0 +1,20 @@
+targets,factors
+v_Brg1, !v_Nrg1_HAGs
+v_Cyr1, (!v_Farnesol & v_Temperature)
+v_EFG1_T, (!v_Efg1_active | (v_Efg1_active & v_Brg1))
+v_ESCRT, v_Rim8
+v_Efg1, v_EFG1_T
+v_Efg1_active, (((!v_ESCRT & v_cAMP_PKA) & v_Efg1) | (v_ESCRT & v_Efg1))
+v_Farnesol, v_Farnesol
+v_HAG_T, (((!v_Nrg1_HAGs & !v_Brg1) & v_Ume6) | (!v_Nrg1_HAGs & v_Brg1))
+v_HATs, (v_Efg1_active & !v_HDACs)
+v_HDACs, v_Brg1
+v_NRG1_T, (((((((((((((!v_ESCRT & !v_cAMP_PKA) & !v_Brg1) & !v_Ume6) | ((((!v_ESCRT & !v_cAMP_PKA) & !v_Brg1) & v_Ume6) & v_hyphal_initiation)) | (((!v_ESCRT & !v_cAMP_PKA) & v_Brg1) & v_hyphal_initiation)) | ((((!v_ESCRT & v_cAMP_PKA) & !v_Efg1_active) & !v_Brg1) & !v_Ume6)) | (((((!v_ESCRT & v_cAMP_PKA) & !v_Efg1_active) & !v_Brg1) & v_Ume6) & v_hyphal_initiation)) | ((((!v_ESCRT & v_cAMP_PKA) & !v_Efg1_active) & v_Brg1) & v_hyphal_initiation)) | (((!v_ESCRT & v_cAMP_PKA) & v_Efg1_active) & v_hyphal_initiation)) | (((v_ESCRT & !v_Efg1_active) & !v_Brg1) & !v_Ume6)) | ((((v_ESCRT & !v_Efg1_active) & !v_Brg1) & v_Ume6) & v_hyphal_initiation)) | (((v_ESCRT & !v_Efg1_active) & v_Brg1) & v_hyphal_initiation)) | ((v_ESCRT & v_Efg1_active) & v_hyphal_initiation))
+v_Nrg1_HAGs, ((v_NRG1_T & !v_HDACs) | ((v_NRG1_T & v_HDACs) & v_HATs))
+v_Rim8, v_pH
+v_Temperature, v_Temperature
+v_Ume6, (!v_Nrg1_HAGs & v_Brg1)
+v_cAMP_PKA, v_Cyr1
+v_hyphal_initiation, (((((!v_Nrg1_HAGs & !v_Brg1) & v_hyphal_initiation) | (((!v_Nrg1_HAGs & v_Brg1) & !v_HATs) & v_hyphal_initiation)) | ((!v_Nrg1_HAGs & v_Brg1) & v_HATs)) | (v_Nrg1_HAGs & v_hyphal_initiation))
+v_hyphal_maintenance, ((!v_Nrg1_HAGs & v_Ume6) & v_hyphal_initiation)
+v_pH, v_pH

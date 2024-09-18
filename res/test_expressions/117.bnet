@@ -1,0 +1,48 @@
+targets,factors
+v_5_cap_viral_RNA_rna, (v_viral_RNA_N_methyl_Guanine_rna & v_nsp16)
+v_80S_ribosome_complex, (v_ribosomal_60S_subunit_complex & v_ribosomal_40S_subunit_complex)
+v_IFN_III, v_IFN_III_rna
+v_IFN_III_rna, (v_p38_NFkB_complex | v_IRF1_phosphorylated)
+v_IFN_sensitive_response_element_gene, v_IFN_sensitive_response_element_gene
+v_IFNs_complex, (v_ISGs_rna & v_80S_ribosome_complex)
+v_IRF1_phosphorylated, v_RIG_I_MAVS_complex_peroxisome
+v_IRF3_phosphorylated, v_RIG_I_MAVS_complex_mitochondrion
+v_IRF9, v_IRF9
+v_ISGF3_complex, (v_ISGF3_precursor_complex & v_IRF9)
+v_ISGF3_precursor_complex, ((v_STAT1_empty & v_csa10_receptor_complex_complex_cell) | (v_STAT2_empty & v_csa10_receptor_complex_complex_cell))
+v_ISGs_rna, (v_IFN_sensitive_response_element_gene & v_ISGF3_complex)
+v_Ifn_lambda_complex, (v_IFN_III | v_csa10_receptor_complex_complex_cell)
+v_Inhibited_ISGF3_precursor_complex, (v_ISGF3_precursor_complex & v_STAT3)
+v_M, v_M
+v_MAVS, v_MAVS
+v_Nsp1, v_Nsp1
+v_PLPro, v_PLPro
+v_RIG_1_M_Protein_complex, (v_M & v_RIG_I)
+v_RIG_I, v_RIG_I
+v_RIG_I_MAVS_complex_mitochondrion, (v_csa37_RIG_I_dsRNA_complex_mitochondrion & v_MAVS)
+v_RIG_I_MAVS_complex_peroxisome, v_dsRNA_rna
+v_RNA_rna, v_RNA_rna
+v_Riplet_TRIM25_complex, v_Riplet_TRIM25_complex
+v_SOCS1, v_SOCS1
+v_SOCS3, v_SOCS3
+v_STAT1_empty, v_STAT1_empty
+v_STAT2_empty, v_STAT2_empty
+v_STAT3, v_STAT3
+v_antiviral_proteins_complex, (v_ISGs_rna & v_80S_ribosome_complex)
+v_csa10_receptor_complex_complex_cell, (v_csa9_receptor_complex_complex_cell & v_Ifn_lambda_complex)
+v_csa11_receptor_complex_complex_cell, (v_csa10_receptor_complex_complex_cell & v_SOCS3)
+v_csa34_receptor_complex_complex_cell, (v_csa10_receptor_complex_complex_cell & v_SOCS1)
+v_csa36_RIG_I_dsRNA_complex_mitochondrion, ((v_RIG_I & v_dsRNA_rna) | (v_csa37_RIG_I_dsRNA_complex_mitochondrion & v_PLPro))
+v_csa37_RIG_I_dsRNA_complex_mitochondrion, (v_csa36_RIG_I_dsRNA_complex_mitochondrion & v_Riplet_TRIM25_complex)
+v_csa9_receptor_complex_complex_cell, v_csa10_receptor_complex_complex_cell
+v_dsRNA_rna, (v_dsRNA_vesicle_rna | v_RNA_rna)
+v_dsRNA_vesicle_rna, v_dsRNA_rna
+v_inhibited_80S_ribosome_complex, (v_80S_ribosome_complex & v_Nsp1)
+v_inhibited_ribosomal_40S_SU_complex, (v_ribosomal_40S_subunit_complex & v_Nsp1)
+v_nsp14, v_nsp14
+v_nsp16, v_nsp16
+v_p38_NFkB_complex, v_IRF3_phosphorylated
+v_ribosomal_40S_subunit_complex, v_ribosomal_40S_subunit_complex
+v_ribosomal_60S_subunit_complex, v_ribosomal_60S_subunit_complex
+v_viral_RNA_N_methyl_Guanine_rna, (v_viral_RNA_rna & v_nsp14)
+v_viral_RNA_rna, v_viral_RNA_rna

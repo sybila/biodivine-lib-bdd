@@ -1,0 +1,183 @@
+targets,factors
+v_ACE2, v_ACE2
+v_ACE2_SARS_CoV_interaction_complex, ((v_ACE2__space_membrane_bound & v_S) & !v_ACE2__space_soluble)
+v_ACE2_Spike_complex, (v_ACE2 & v_S)
+v_ACE2__space_membrane_bound, (v_ACE2 & v_ADAM17_cell)
+v_ACE2__space_soluble, (v_ACE2 & v_ADAM17_cell)
+v_ACE2_rna, !v_viral_entry_into_host_cell_phenotype
+v_ADAM17_cell, v_PACS2_ADAM17_space_interaction_complex
+v_ADAM17_early_space_endosome, v_ADAM17_early_space_endosome
+v_AP_1, v_AP_1
+v_AP_1_phosphorylated_phosphorylated, ((v_MAPK8_phosphorylated | v_DDIT3) & v_AP_1)
+v_ATF4, v_ATF4_rna
+v_ATF4_gene, v_ATF4_gene
+v_ATF4_rna, (v_ATF4_gene & v_EIF2_P_GDP_complex)
+v_ATF6_Golgi_apparatus, ((((v_ATF6_endoplasmic_reticulum & v_ER_space_Stress_phenotype) & !v_retrograde_space_transport_space_from_space_ER_space_to_space_cytosol_phenotype) | (v_ATF6_Golgi_apparatus & v_MBTPS2)) | (v_ATF6_Golgi_apparatus & v_MBTPS1))
+v_ATF6_HSPA5_complex, v_ATF6_HSPA5_complex
+v_ATF6_endoplasmic_reticulum, (v_ATF6_HSPA5_complex & v_Unfolded_space_protein)
+v_ATF6_nucleus, v_ATF6_Golgi_apparatus
+v_ATG5, v_ATG5
+v_Apoptosis_phenotype_cell, (((((((((v_cleaved_CASP9 | v_cleaved_CASP3) | v_CASP8_FADD_MAP1LC3A_SQSTM1_ATG5_complex) | v_TRIB3) | v_Cell_space_survival_phenotype) | v_DDIT3_phosphorylated) | v_BCL2L11_phosphorylated) | v_BAX_phosphorylated) | v_MAPK14_phosphorylated) | v_BID_phosphorylated)
+v_Apoptosis_phenotype_endoplasmic_reticulum, ((v_MFN2_endoplasmic_reticulum | v_ER_space_stress_phenotype) | !v_SIGMAR1_mitochondria_associated_endoplasmic_reticulum_membrane)
+v_BAK1, v_BAK1
+v_BAK1_ERN1_complex, v_BAK1_ERN1_complex
+v_BAX_ERN1_complex, v_BAX_ERN1_complex
+v_BAX_cell, v_BAX_cell
+v_BAX_endoplasmic_reticulum, v_BAX_endoplasmic_reticulum
+v_BAX_phosphorylated, ((v_MAPK8_phosphorylated | v_MAPK14_phosphorylated) & v_BAX_cell)
+v_BBC3, v_BBC3
+v_BCAP31, v_BCAP31
+v_BCL2, v_BCL2
+v_BCL2L1, v_BCL2L1
+v_BCL2L11_cell, (v_BCL2L11_phosphorylated & v_PPP2CA)
+v_BCL2L11_endoplasmic_reticulum, v_BCL2L11_endoplasmic_reticulum
+v_BCL2L11_phosphorylated, (v_BCL2L11_cell & v_MAPK8_phosphorylated)
+v_BCL2_gene, v_BCL2_gene
+v_BCL2_rna, (v_BCL2_gene & !v_DDIT3_phosphorylated)
+v_BID, v_BID
+v_BID_phosphorylated, (v_BID & v_MAPK8_phosphorylated)
+v_CAPN1, v_CAPN1
+v_CAPN1_Ca2__complex, ((v_CAPN1 & v_Ca2__ion_cell) & v_high_space_Ca2_space_cytosolic_space_concentration_phenotype)
+v_CASP3, v_CASP3
+v_CASP4, v_CASP4
+v_CASP8_CASP8_ubq_FADD_complex, v_CASP8_CASP8_ubq_FADD_complex
+v_CASP8_FADD_MAP1LC3A_SQSTM1_ATG5_complex, (((((v_TRIM13 | v_Persistant_space_ER_space_Stress_phenotype_endoplasmic_reticulum) & v_CASP8_CASP8_ubq_FADD_complex) & v_SQSTM1_space_) & v_MAP1LC3A) & v_ATG5)
+v_CASP9, v_CASP9
+v_CDK5, (v_CDK5 & v_ER_space_Stress_phenotype)
+v_Ca2__ion_cell, (((v_TMBIM6 | v_RYR1) | v_ITPR) & v_Ca2__ion_endoplasmic_reticulum)
+v_Ca2__ion_endoplasmic_reticulum, v_Ca2__ion_endoplasmic_reticulum
+v_Ca2__ion_mitochondrial_matrix, (v_Ca2__ion_mitochondrion & v_Mitochondrial_space_calcium_space_uniporter_space_complex_complex)
+v_Ca2__ion_mitochondrion, (((v_ITPR3_HSPA9_VDAC1_complex | v_ITPR3_HSPA9_VDAC1_complex) | v_SIGMAR1_ITPR3_complex) & v_Ca2__ion_endoplasmic_reticulum)
+v_Ca2_space_ER_space_depletion_phenotype, v_Ca2_space_ER_space_depletion_phenotype
+v_Ca2_space_cytosolic_space_concentration_phenotype, (!v_VAPB | !v_RMDN3)
+v_Ca2_space_mitochondrial_space_concentration_phenotype, ((v_FIS1 | v_VAPB) | v_RMDN3)
+v_Cell_space_survival_phenotype, v_Apoptosis_phenotype_cell
+v_DDIT3, v_DDIT3_rna
+v_DDIT3_gene, v_DDIT3_gene
+v_DDIT3_phosphorylated, ((v_DDIT3 & v_MAPK14_phosphorylated) | (v_DDIT3 & v_MAPK14_phosphorylated))
+v_DDIT3_rna, ((((v_ATF6_nucleus | v_XBP1) & v_DDIT3_gene) & v_ATF4) & v_Persistant_space_ER_space_Stress_phenotype_cell)
+v_DNAJC3, v_DNAJC3_rna
+v_DNAJC3_gene, v_DNAJC3_gene
+v_DNAJC3_rna, (v_DNAJC3_gene & v_ATF6_nucleus)
+v_EIF2AK1, v_EIF2AK1
+v_EIF2AK2, ((v_EIF2AK2 & v_presence_space_of_space_dsRNA_phenotype) & !v_DNAJC3)
+v_EIF2AK3, v_EIF2AK3
+v_EIF2AK3_EIF2AK3_complex, ((v_Persistant_space_ER_space_Stress_phenotype_endoplasmic_reticulum | v_Unfolded_space_protein) & v_EIF2AK3)
+v_EIF2B_complex, v_EIF2B_complex
+v_EIF2S1, ((v_PPP1R15A | v_EIF2AK1) & v_EIF2S1_phosphorylated)
+v_EIF2S1_phosphorylated, ((((v_EIF2AK3_EIF2AK3_complex | v_GCN2_ATP_complex) | v_EIF2AK2) & v_EIF2S1) & !v_DNAJC3)
+v_EIF2S2, v_EIF2S2
+v_EIF2S3_GDP_complex, v_EIF2S3_GDP_complex
+v_EIF2_GDP_Met_tRNA_complex, ((v_Met_tRNA_rna & v_EIF2_GDP_complex) | (v_Ternary_space_Complex_complex & v_GDP_simple_molecule))
+v_EIF2_GDP_complex, ((v_EIF2S2 & v_EIF2S3_GDP_complex) & v_EIF2S1)
+v_EIF2_P_GDP_complex, ((v_EIF2S1_phosphorylated & v_EIF2S2) & v_EIF2S3_GDP_complex)
+v_ERAD_phenotype, v_XBP1
+v_ERN1_BBC3_complex, ((v_path_0_sa617_ERN1_endoplasmic_reticulum & v_BBC3) & !v_Persistant_space_ER_space_Stress_phenotype_cell)
+v_ERN1_BCL2L11_complex, ((v_path_0_sa617_ERN1_endoplasmic_reticulum & v_BCL2L11_endoplasmic_reticulum) & !v_Persistant_space_ER_space_Stress_phenotype_cell)
+v_ERN1_Unfolded_space_protein_complex, (v_path_0_sa1_ERN1_endoplasmic_reticulum & v_Unfolded_space_protein)
+v_ERO1A_cell, v_ERO1A_rna
+v_ERO1A_endoplasmic_reticulum, v_ERO1A_cell
+v_ERO1A_gene, v_ERO1A_gene
+v_ERO1A_rna, ((v_ATF6_nucleus | v_DDIT3) & v_ERO1A_gene)
+v_ER_space_Stress_phenotype, v_accumulation_space_of_space_misfolded_space_protein_space_in_space_ER_phenotype
+v_ER_space_stress_phenotype, ((v_MFN2_endoplasmic_reticulum | !v_ACE2) | !v_SIGMAR1_mitochondria_associated_endoplasmic_reticulum_membrane)
+v_FIS1, v_FIS1
+v_FIS1_BCAP31_complex, (v_BCAP31 & v_FIS1)
+v_GCN2_ATP_complex, v_GCN2_ATP_complex
+v_GDP_simple_molecule, ((v_EIF2_GDP_Met_tRNA_complex & v_GTP_simple_molecule) & v_EIF2B_complex)
+v_GTP_simple_molecule, (v_Ternary_space_Complex_complex & v_GDP_simple_molecule)
+v_HSPA5_Spike_interaction_complex, (v_S & v_HSPA5_default_compartment)
+v_HSPA5_default_compartment, v_HSPA5_default_compartment
+v_HSPA5_endoplasmic_reticulum, (((v_ATF6_HSPA5_complex & v_Unfolded_space_protein) | ((v_ER_space_stress_phenotype | v_Ca2_space_ER_space_depletion_phenotype) & v_SIGMAR1_HSPA5_complex)) | ((v_HSPA5_rna & v_ER_space_stress_phenotype) & !v_ACE2))
+v_HSPA5_gene, v_HSPA5_gene
+v_HSPA5_rna, ((v_HSPA5_gene & v_S) & !v_ACE2)
+v_HYOU1, v_HYOU1_rna
+v_HYOU1_gene, v_HYOU1_gene
+v_HYOU1_rna, (v_HYOU1_gene & v_ATF6_nucleus)
+v_ITPR, ((v_TMBIM6 | v_ERO1A_endoplasmic_reticulum) & v_ITPR)
+v_ITPR3, v_ITPR3
+v_ITPR3_HSPA9_VDAC1_complex, v_ITPR3_HSPA9_VDAC1_complex
+v_MAP1LC3A, v_MAP1LC3A
+v_MAP3K4, v_MAP3K4
+v_MAP3K4_phosphorylated, (v_MAP3K4 & v_CDK5)
+v_MAP3K5, v_MAP3K5
+v_MAP3K5_phosphorylated, ((v_TRAF2_ERN1_complex | v_TRAF2) & v_MAP3K5)
+v_MAPK14, v_MAPK14
+v_MAPK14_phosphorylated, (v_MAPK14 & v_MAP3K5_phosphorylated)
+v_MAPK8, v_MAPK8
+v_MAPK8_phosphorylated, ((v_MAP3K4_phosphorylated | v_MAP3K5_phosphorylated) & v_MAPK8)
+v_MBTPS1, v_MBTPS1
+v_MBTPS2, v_MBTPS2
+v_MCU, v_MCU
+v_MCU1, v_MCU1
+v_MCU2, v_MCU2
+v_MCU_MICU1_MICU2_SMDT1_complex, ((v_MCU & v_SMDT1) | (v_MCU2 & v_MCU1))
+v_MFN1, v_MFN1
+v_MFN1_MFN2_complex, (v_MFN2_endoplasmic_reticulum & v_MFN1)
+v_MFN2_MFN2_complex, (v_MFN2_endoplasmic_reticulum & v_MFN2_mitochondrion)
+v_MFN2_endoplasmic_reticulum, (v_MFN2_rna & v_ER_space_stress_phenotype)
+v_MFN2_gene, v_MFN2_gene
+v_MFN2_mitochondrion, v_MFN2_mitochondrion
+v_MFN2_rna, v_MFN2_gene
+v_Met_tRNA_rna, v_Met_tRNA_rna
+v_Mitochondrial_space_calcium_space_uniporter_space_complex_complex, v_MCU_MICU1_MICU2_SMDT1_complex
+v_PACS2_ADAM17_space_interaction_complex, (v_PACS2_early_space_endosome & v_ADAM17_early_space_endosome)
+v_PACS2_early_space_endosome, v_PACS2_early_space_endosome
+v_PACS2_endoplasmic_reticulum, v_PACS2_endoplasmic_reticulum
+v_PPP1R15A, v_PPP1R15A_rna
+v_PPP1R15A_gene, v_PPP1R15A_gene
+v_PPP1R15A_rna, ((v_ATF4 | v_DDIT3) & v_PPP1R15A_gene)
+v_PPP2CA, v_PPP2CA
+v_Persistant_space_ER_space_Stress_phenotype_cell, v_Persistant_space_ER_space_Stress_phenotype_cell
+v_Persistant_space_ER_space_Stress_phenotype_endoplasmic_reticulum, v_ER_space_Stress_phenotype
+v_RMDN3, v_RMDN3
+v_RYR1, v_RYR1
+v_S, v_S
+v_SARS_CoV_infection_phenotype, v_SARS_CoV_infection_phenotype
+v_SIGMAR1_HSPA5_complex, (v_SIGMAR1_endoplasmic_reticulum & v_HSPA5_endoplasmic_reticulum)
+v_SIGMAR1_ITPR3_complex, (((v_ER_space_stress_phenotype | v_Ca2_space_ER_space_depletion_phenotype) & v_SIGMAR1_mitochondria_associated_endoplasmic_reticulum_membrane) & v_ITPR3)
+v_SIGMAR1_endoplasmic_reticulum, v_SIGMAR1_endoplasmic_reticulum
+v_SIGMAR1_mitochondria_associated_endoplasmic_reticulum_membrane, ((v_ER_space_stress_phenotype | v_Ca2_space_ER_space_depletion_phenotype) & v_SIGMAR1_HSPA5_complex)
+v_SMDT1, v_SMDT1
+v_SQSTM1_space_, v_SQSTM1_space_
+v_TMBIM6, v_TMBIM6
+v_TRAF2, (v_TRAF2 & v_TRAF2_ERN1_complex)
+v_TRAF2_ERN1_complex, ((((((((v_BAK1_ERN1_complex | v_BAX_ERN1_complex) | v_BAX_endoplasmic_reticulum) | v_BAK1) & v_ERN1_Unfolded_space_protein_complex) & v_TRAF2) & !v_BCL2) & !v_BCL2L1) & !v_Persistant_space_ER_space_Stress_phenotype_endoplasmic_reticulum)
+v_TRIB3, v_TRIB3_rna
+v_TRIB3_gene, v_TRIB3_gene
+v_TRIB3_rna, (v_TRIB3_gene & v_DDIT3)
+v_TRIM13, v_TRIM13
+v_Ternary_space_Complex_complex, ((v_EIF2_GDP_Met_tRNA_complex & v_GTP_simple_molecule) & v_EIF2B_complex)
+v_Translation_space_initiation_phenotype, v_Ternary_space_Complex_complex
+v_UPR_phenotype, ((((v_XBP1 | v_TRAF2_ERN1_complex) | v_accumulation_space_of_space_misfolded_space_protein_space_in_space_ER_phenotype) | v_ATF6_Golgi_apparatus) | v_EIF2AK3_EIF2AK3_complex)
+v_Unfolded_space_protein, v_Unfolded_space_protein
+v_VAPB, v_VAPB
+v_VAPB_RMDN3_complex, (v_VAPB & v_RMDN3)
+v_XBP1, v_XBP1_rna
+v_XBP1_gene, v_XBP1_gene
+v_XBP1_rna, ((((v_ATF6_nucleus | v_TRAF2_ERN1_complex) | v_ERN1_BBC3_complex) | v_ERN1_BCL2L11_complex) & v_XBP1_gene)
+v_accumulation_space_of_space_misfolded_space_protein_space_in_space_ER_phenotype, (v_Unfolded_space_protein | v_ERAD_phenotype)
+v_autophagy_phenotype, (((!v_RMDN3 | !v_VAPB) | !v_ITPR3) | !v_mitochondrion_endoplasmic_space_reticulum_space_membrane_space_tethering_space__phenotype)
+v_cleaved_CASP3, (v_CASP3 & v_cleaved_CASP4)
+v_cleaved_CASP4, (v_CASP4 & v_CAPN1_Ca2__complex)
+v_cleaved_CASP9, (v_CASP9 & v_cleaved_CASP4)
+v_endoplasmic_space_reticulum_space_calcium_space_ion_space_homeostasis_phenotype, (v_MFN2_endoplasmic_reticulum | v_HSPA5_endoplasmic_reticulum)
+v_endoplasmic_space_reticulum_space_organization_phenotype, v_MFN2_endoplasmic_reticulum
+v_high_space_Ca2_space_cytosolic_space_concentration_phenotype, (v_release_space_of_space_ER_space_Ca2__phenotype | v_Ca2__ion_cell)
+v_hyperoxidation_phenotype, v_ERO1A_endoplasmic_reticulum
+v_mitochondria_space_fragmentation_phenotype, v_mitochondrial_space_fission_phenotype
+v_mitochondrial_space_calcium_space_ion_space_transmembrane_space_transport_phenotype, v_Mitochondrial_space_calcium_space_uniporter_space_complex_complex
+v_mitochondrial_space_fission_phenotype, !v_PACS2_endoplasmic_reticulum
+v_mitochondrial_space_outer_space_membrane_space_depolarization_phenotype, v_FIS1
+v_mitochondrion_endoplasmic_space_reticulum_space_membrane_space_tethering_space__phenotype, ((((v_VAPB_RMDN3_complex | v_MFN2_MFN2_complex) | v_FIS1_BCAP31_complex) | v_MFN1_MFN2_complex) | v_PACS2_endoplasmic_reticulum)
+v_p20, ((v_BCAP31 & v_Apoptosis_phenotype_endoplasmic_reticulum) & !v_PACS2_endoplasmic_reticulum)
+v_path_0_sa1_ERN1_endoplasmic_reticulum, v_path_0_sa1_ERN1_endoplasmic_reticulum
+v_path_0_sa617_ERN1_endoplasmic_reticulum, v_path_0_sa617_ERN1_endoplasmic_reticulum
+v_presence_space_of_space_dsRNA_phenotype, v_presence_space_of_space_dsRNA_phenotype
+v_protein_space_ubiquitination_space_and_space_destruction_phenotype, v_retrograde_space_transport_space_from_space_ER_space_to_space_cytosol_phenotype
+v_pulmonary_fibrosis_phenotype, !v_ACE2
+v_release_space_of_space_ER_space_Ca2__phenotype, v_BAX_phosphorylated
+v_retrograde_space_transport_space_from_space_ER_space_to_space_cytosol_phenotype, (v_ATF6_endoplasmic_reticulum | v_EIF2AK3_EIF2AK3_complex)
+v_unfolded_space_protein_space_response_space__UPR__phenotype, ((v_ER_space_stress_phenotype | v_MFN2_endoplasmic_reticulum) | v_p20)
+v_viral_RNA_genome_replication_phenotype, v_ACE2
+v_viral_entry_into_host_cell_phenotype, (((v_ACE2_SARS_CoV_interaction_complex & v_SARS_CoV_infection_phenotype) | !v_ACE2__space_soluble) | v_HSPA5_Spike_interaction_complex)

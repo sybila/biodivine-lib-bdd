@@ -1,0 +1,23 @@
+targets,factors
+v_Acts, (v_TGFb & ((!v_IFNg | !v_Thiazolidinedione) & (v_NFkBs | v_ERKs)))
+v_Autp, ((v_RASp | !v_PIP3p) & (v_PIP3p | (!v_BCLXLp & !v_CASPp)))
+v_BCLXLp, (!v_P53p & (v_PIP3p | (v_STATp | v_RASp)))
+v_CASPp, (!v_PIP3p & (v_P53p | !v_BCLXLp))
+v_ERKs, (v_TGFb | v_RASs)
+v_HER2p, v_HER2p
+v_IFNg, v_IFNg
+v_Migs, (v_PIP3s & (v_ERKs & v_Acts))
+v_NFkBs, (v_TNFa | v_PIP3s)
+v_P21p, (!v_STATp & (v_TGFb | v_P53p))
+v_P53p, !((v_P21p | !v_PIP3p) & (v_PIP3p | v_P53p))
+v_P53s, (!v_PIP3s & (!v_P53s & v_RASs))
+v_PIP3p, (!v_P53p & (v_RASp | v_HER2p))
+v_PIP3s, (!v_P53s & (v_TGFb | v_RASs))
+v_Prop, (!v_P21p & (v_PIP3p & v_RASp))
+v_Pros, (!v_P53s & v_ERKs)
+v_RASp, (v_RASp | (v_HER2p | v_ERKs))
+v_RASs, (v_NFkBs | (v_STATp | (v_PIP3p | (v_RASp | v_ERKs))))
+v_STATp, v_HER2p
+v_TGFb, v_TGFb
+v_TNFa, v_TNFa
+v_Thiazolidinedione, v_Thiazolidinedione

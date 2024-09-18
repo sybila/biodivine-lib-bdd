@@ -1,0 +1,56 @@
+targets,factors
+v_AKT1, (v_PDK1 & v_ILK)
+v_ATF2, v_JNK
+v_CSK, (!v_H_pylori | v_CagA)
+v_Ca2p, v_IP3
+v_CagA, (v_c_SRC & (v_FYN & v_H_pylori))
+v_CagA_c_Met, (v_CagA & v_c_Met)
+v_Calmodulin, v_Ca2p
+v_Calpain2, (v_FAK & v_ERK1_2)
+v_Crk_CrkL, (v_Gab1 | (v_c_Cbl | v_CagA))
+v_DAG, (v_PLCgamma1 & v_PIP2)
+v_DOCK180, v_Crk_CrkL
+v_ELK1, (v_JNK | v_ERK1_2)
+v_ERK1_2, v_MEK
+v_ETS, v_ERK1_2
+v_FAK, !v_SHP2
+v_FYN, !v_CSK
+v_Gab1, v_HGF_c_Met
+v_Grb2, (v_HGF_c_Met | v_Shc1)
+v_HGF, v_HGF
+v_HGF_c_Met, (v_HGF & v_c_Met)
+v_H_pylori, v_H_pylori
+v_IKK, v_PAK1
+v_ILK, v_PI3K
+v_IP3, (v_PLCgamma1 & v_PIP2)
+v_IQGAP_1, (v_Rac1 & v_Calmodulin)
+v_IkBalpha, !v_IKK
+v_JNK, v_MKK4
+v_MEK, v_Raf1
+v_MKK4, v_PAK1
+v_NF_kB, !v_IkBalpha
+v_PAK1, (v_AKT1 | v_Rac1)
+v_PDK1, v_PIP3
+v_PI3K, (v_Gab1 | v_c_Cbl)
+v_PIP2, v_PIP2
+v_PIP3, (!v_PTEN & (v_PI3K & v_PIP2))
+v_PIPKIgamma661, v_FAK
+v_PKCalpha, (v_DAG & v_Ca2p)
+v_PLCgamma1, (v_Gab1 | v_CagA_c_Met)
+v_PTEN, v_PTEN
+v_RAC1, v_AKT1
+v_Rac1, v_DOCK180
+v_Raf1, (v_Ras | v_PKCalpha)
+v_Ras, (!v_RasGAP & v_SOS1)
+v_RasGAP, (!v_SHP2 & v_Gab1)
+v_SHP2, (v_Gab1 | (v_HGF_c_Met | v_CagA))
+v_SOS1, v_Grb2
+v_STAT3, (v_RAC1 | v_HGF_c_Met)
+v_Shc1, v_HGF_c_Met
+v_Talin, v_PIPKIgamma661
+v_alpha_catenin_beta_catenin_E_cadherin, !v_IQGAP_1
+v_c_Cbl, v_HGF_c_Met
+v_c_JUN, v_JNK
+v_c_Met, v_c_Met
+v_c_Myc, v_ERK1_2
+v_c_SRC, !v_CSK

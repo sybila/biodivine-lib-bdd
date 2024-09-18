@@ -1,0 +1,66 @@
+targets,factors
+v_ADCYAP1_rna, v_TF_space_NR4A2_complex
+v_ALDH1A1_rna, ((v_TF_space_NR4A2_complex | v_TF_space_FOXA1_2_complex) | v_TF_space_PITX3_complex)
+v_BDNF_rna, (v_TF_space_NR4A2_complex | v_TF_space_PITX3_complex)
+v_CFLAR_rna, v_TF_space_NR4A2_complex
+v_COX5A_rna, v_TF_space_NR4A2_complex
+v_COX5B_rna, v_TF_space_NR4A2_complex
+v_COX6A1_rna, v_TF_space_NR4A2_complex
+v_COX8A_rna, v_TF_space_NR4A2_complex
+v_DCTN1_rna, v_TF_space_LMX1A_B_complex
+v_DDC_rna, (v_TF_space_NR4A2_complex | v_TF_space_FOXA1_2_complex)
+v_DRD2_rna, ((v_TF_space_NR4A2_complex | v_TF_space_FOXA1_2_complex) | v_TF_space_PITX3_complex)
+v_DYNC1H1_rna, v_TF_space_LMX1A_B_complex
+v_EN1, !v_TF_space_PITX3_complex
+v_EN1_rna, v_TF_space_FOXA1_2_complex
+v_FOXA2, v_FOXA2
+v_FOXO1_rna, v_TF_space_LMX1A_B_complex
+v_FOXO3_rna, v_TF_space_LMX1A_B_complex
+v_GCH1_rna, v_TF_space_NR4A2_complex
+v_GDNF_rna, v_TF_space_PITX3_complex
+v_KCNJ6_rna, v_TF_space_PITX3_complex
+v_KIF1A_rna, v_TF_space_LMX1A_B_complex
+v_KLC1_rna, v_TF_space_LMX1A_B_complex
+v_LMX1A_rna, v_TF_space_FOXA1_2_complex
+v_LMX1B_rna, v_TF_space_FOXA1_2_complex
+v_LRRK2, v_LRRK2
+v_MAP1B_rna, v_TF_space_LMX1A_B_complex
+v_MIR133B_rna, v_TF_space_PITX3_complex
+v_NCOR2, v_NCOR2
+v_NDUFB8_rna, v_TF_space_NR4A2_complex
+v_NKX6_1_rna, v_TF_space_FOXA1_2_complex
+v_NR4A2_rna, (v_TF_space_LMX1A_B_complex | v_TF_space_FOXA1_2_complex)
+v_NRF1_rna, v_TF_space_LMX1A_B_complex
+v_PARK7, v_PIAS4
+v_PBX1, v_PBX1
+v_PIAS4, v_PIAS4
+v_PIN1, v_PIN1
+v_PITX3, (v_PITX3_rna & !v_MIR133B_rna)
+v_PITX3_rna, v_TF_space_NR4A2_complex
+v_PRKAA2_rna, v_TF_space_NR4A2_complex
+v_RET_rna, v_TF_space_NR4A2_complex
+v_RGS6_rna, v_TF_space_PITX3_complex
+v_RXRA, v_retinoic_space_acid_simple_molecule
+v_SESN3_rna, v_TF_space_NR4A2_complex
+v_SFPQ, !v_PARK7
+v_SLC18A2_rna, ((v_TF_space_NR4A2_complex | v_TF_space_PITX3_complex) | v_TF_space_FOXA1_2_complex)
+v_SLC6A3_rna, ((v_TF_space_FOXA1_2_complex | v_TF_space_PITX3_complex) | v_TF_space_NR4A2_complex)
+v_SNCA, v_SNCA
+v_SOD1_rna, v_TF_space_NR4A2_complex
+v_TFEB_rna, v_TF_space_LMX1A_B_complex
+v_TF_space_FOXA1_2_complex, v_TF_space_FOXA1_2_complex
+v_TF_space_LMX1A_B_complex, v_TF_space_LMX1A_B_complex
+v_TF_space_NR4A2_complex, (((((((v_PITX3 | v_PIN1) | v_FOXA2) | v_RXRA) & v_sa6075_NR4A2_nucleus) & !v_PIAS4) & !v_NCOR2) & !v_SNCA)
+v_TF_space_PITX3_complex, (!v_LRRK2 | v_PBX1)
+v_TH_rna, (((v_TF_space_NR4A2_complex | v_TF_space_FOXA1_2_complex) | v_TF_space_PITX3_complex) | !v_SFPQ)
+v_VIP_rna, v_TF_space_NR4A2_complex
+v_autophagy_phenotype, v_TFEB_rna
+v_axonal_space_transport_phenotype, ((((v_KIF1A_rna | v_MAP1B_rna) | v_KLC1_rna) | v_DYNC1H1_rna) | v_DCTN1_rna)
+v_dopamine_space_metabolism_phenotype, ((((((((((((v_SLC18A2_rna | v_DDC_rna) | v_DRD2_rna) | v_SLC6A3_rna) | v_GCH1_rna) | v_SLC18A2_rna) | v_DDC_rna) | v_DRD2_rna) | v_ALDH1A1_rna) | v_SLC6A3_rna) | v_TH_rna) | v_TH_rna) | v_ALDH1A1_rna)
+v_mitochondrial_space_biogenesis_phenotype, ((((v_COX5A_rna | v_NDUFB8_rna) | v_COX6A1_rna) | v_COX5B_rna) | v_COX8A_rna)
+v_neuron_space_survival_phenotype, (((v_BDNF_rna | v_GDNF_rna) | v_BDNF_rna) | v_RET_rna)
+v_pacemaking_space_activity_phenotype, v_KCNJ6_rna
+v_retinoic_space_acid_simple_molecule, v_retinoic_space_acid_simple_molecule
+v_retinoic_space_acid_space_synthesis_phenotype, (v_ALDH1A1_rna | v_ALDH1A1_rna)
+v_sa6075_NR4A2_nucleus, v_sa6075_NR4A2_nucleus
+v_sa8823_NR4A2_nucleus, (v_sa6075_NR4A2_nucleus & v_PIAS4)

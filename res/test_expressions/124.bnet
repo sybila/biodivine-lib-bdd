@@ -1,0 +1,253 @@
+targets,factors
+v_2_Methoxyestradiol_drug, v_2_Methoxyestradiol_drug
+v_3_5_Dinitrocatechol_drug, v_3_5_Dinitrocatechol_drug
+v_AATF, v_AATF
+v_AATFcomp_complex, (v_Nsp8 & v_AATF)
+v_ACSL3, v_ACSL3
+v_ACSLcomp_complex, (v_ACSL3 & v_Nsp7)
+v_ACcomp_complex, (v_COMT & v_Ademetionine_drug)
+v_ADP_simple_molecule, v_ADP_simple_molecule
+v_ADPcomp_complex, (v_BCKDK & v_ADP_simple_molecule)
+v_AIFM1, v_AIFM1
+v_AIFMFlaComp_complex, (v_AIFM1 & v_Flavin_adenine_dinucleotide_drug)
+v_AP2A2, v_AP2A2
+v_AP2A2comp_complex, (v_Nsp10_cell & v_AP2A2)
+v_AP2M1, v_AP2M1
+v_AP2M1comp_complex, (v_Nsp10_cell & v_AP2M1)
+v_Acetylsalicylic_acid_drug, v_Acetylsalicylic_acid_drug
+v_Ademetionine_drug, v_Ademetionine_drug
+v_Ambrisentan_drug, v_Ambrisentan_drug
+v_BAG6, v_BAG6
+v_BCKDK, v_BCKDK
+v_BZcomp_complex, (v_CA12 & v_Benzthiazide_drug)
+v_Benzthiazide_drug, v_Benzthiazide_drug
+v_CA12, v_CA12
+v_CA12comp_complex, (v_Nsp7 & v_CA12)
+v_CCDC86, v_CCDC86
+v_CCDCcomp_complex, (v_Nsp8 & v_CCDC86)
+v_COMT, v_COMT
+v_COMT_complex, (v_COMT & v_Nsp7)
+v_COPS2, v_COPS2
+v_COPS4, v_COPS4
+v_COPS5, v_COPS5
+v_COPS6, v_COPS6
+v_COPS7A, v_COPS7A
+v_COPS8, v_COPS8
+v_CYB5R3, v_CYB5R3
+v_CYB5R3comp_complex, (v_CYB5R3 & v_Nsp7)
+v_DCAF7, v_DCAF7
+v_DCcomp_complex, (v_COMT & v_3_5_Dinitrocatechol_drug)
+v_DDX10, v_DDX10
+v_DDX10comp_complex, (v_Nsp8 & v_DDX10)
+v_DLL1, v_DLL1
+v_DNCcomp_complex, (v_COMT & v__3_4_DIHYDROXY_2_NITROPHENYL__PHENYL_METHANONE_drug)
+v_EAcomp_complex, (v_CA12 & v_Ellagic_Acid_drug)
+v_EDN1, (v_EDN1_rna | v_EDN1_rna)
+v_EDN1_homo_complex_cell, (v_EDN1_homo_complex_human_host & v_EDNRA)
+v_EDN1_homo_complex_human_host, v_csa36_EDN1_homo_complex_nucleus
+v_EDN1_rna, v_DCAF7
+v_EDNRA, v_EDNRA
+v_EDNRASitaComp_complex, (v_EDNRA & v_Sitaxentan_drug)
+v_EDNRAcetComp_complex, (v_EDNRA & v_Acetylsalicylic_acid_drug)
+v_EDNRAmbComp_complex, (v_EDNRA & v_Ambrisentan_drug)
+v_EDNRMacComp_complex, (v_EDNRA & v_Macitentan_drug)
+v_EIF4H, v_EIF4H
+v_ELN, v_ELN
+v_ENV, v_ENV
+v_ERGIC1, v_ERGIC1
+v_ERGIC1comp_complex, (v_Nsp10_nucleus & v_ERGIC1)
+v_EXOCcomp_complex, ((((v_EXOSC2 & v_Nsp8) & v_EXOSC3) & v_EXOSC5) & v_EXOSC8)
+v_EXOSC2, v_EXOSC2
+v_EXOSC3, v_EXOSC3
+v_EXOSC5, v_EXOSC5
+v_EXOSC8, v_EXOSC8
+v_Ellagic_Acid_drug, v_Ellagic_Acid_drug
+v_Entacapone_drug, v_Entacapone_drug
+v_FAD_simple_molecule, v_FAD_simple_molecule
+v_FADcomp_complex, (v_CYB5R3 & v_FAD_simple_molecule)
+v_FBLN5, v_FBLN5
+v_FGCOMP_complex, (v_GFER & v_FAD_simple_molecule)
+v_FOCAD, v_FOCAD
+v_FOCADcomp_complex, ((v_FOCAD & v_Nsp7) & v_Nsp8)
+v_Fibrillincomp_complex, (((v_Nsp9_cell & v_csa8_Fibrillin_complex_human_host) & v_FBLN5) & v_PLG)
+v_Flavin_adenine_dinucleotide_drug, v_Flavin_adenine_dinucleotide_drug
+v_GDP_simple_molecule, v_GDP_simple_molecule
+v_GDPcomp_complex, (v_RALA & v_GDP_simple_molecule)
+v_GFER, v_GFER
+v_GFERcomp_complex, (v_GFER & v_Nsp10_cell)
+v_GTF2B, v_GTF2B
+v_GTF2F2, v_GTF2F2
+v_HCTcomp_complex, (v_CA12 & v_Hydrochlorothiazide_drug)
+v_HFTcomp_complex, (v_CA12 & v_Hydroflumethiazide_drug)
+v_Hydrochlorothiazide_drug, v_Hydrochlorothiazide_drug
+v_Hydroflumethiazide_drug, v_Hydroflumethiazide_drug
+v_IMPDH2, v_IMPDH2
+v_IMcomp_complex, (v_IMPDH2 & v_Mycophenolic_acid_drug)
+v_IMercomp_complex, (v_IMPDH2 & v_Mercaptopurine_drug)
+v_INPDH2comp_complex, (v_Nsp14_nucleus & v_IMPDH2)
+v_IRcomp_complex, (v_IMPDH2 & v_Ribavirin_drug)
+v_Insulin, v_Insulin
+v_LARP4B_, v_LARP4B_
+v_LARP7, v_LARP7
+v_LARPcomp_complex, (v_Nsp12 & v_LARP4B_)
+v_LOXL1, v_LOXL1
+v_LOXcomp_complex, ((v_FBLN5 & v_LOXL1) & v_PLG)
+v_L_Asparagine_simple_molecule, v_L_Asparagine_simple_molecule
+v_MAT1A, v_MAT1A
+v_MAT2A, v_MAT2A
+v_MAT2B, v_MAT2B
+v_MAT_complex, ((v_MAT1A & v_MAT2A) & v_MAT2B)
+v_MCcomp_complex, (v_COMT & v_2_Methoxyestradiol_drug)
+v_MEPCE, v_MEPCE
+v_MEPCEcomp_complex, ((v_Nsp8 & v_MEPCE) & v_LARP7)
+v_MIB1, v_MIB1
+v_MIBcomp_complex, (v_MIB1 & v_DLL1)
+v_MPHOSPH10, v_MPHOSPH10
+v_MPHOSPHcomp_complex, (v_Nsp8 & v_MPHOSPH10)
+v_MRPS2, v_MRPS2
+v_MRPS5, v_MRPS5
+v_MRPScomp_complex, ((v_MRPS5 & v_Nsp8) & v_MRPS2)
+v_MYCBP2, v_MYCBP2
+v_MYCBPcomp_complex, (v_Nsp12 & v_MYCBP2)
+v_Macitentan_drug, v_Macitentan_drug
+v_Mercaptopurine_drug, v_Mercaptopurine_drug
+v_Mycophenolate_mofetil_drug, v_Mycophenolate_mofetil_drug
+v_Mycophenolic_acid_drug, v_Mycophenolate_mofetil_drug
+v_NADH_simple_molecule, v_NADH_simple_molecule
+v_NADHcomp_complex, (v_CYB5R3 & v_NADH_simple_molecule)
+v_NARS2, v_NARS2
+v_NARS2comp_complex, (v_Nsp8 & v_NARS2)
+v_NCcomp_complex, (v_COMT & v_Entacapone_drug)
+v_NEC1_complex, (v_MAT2B & v_PCSK1)
+v_NECENVComp_complex, (v_PCSK1 & v_ENV)
+v_NECINsComp_complex, (v_PCSK1 & v_Insulin)
+v_NEK6, v_NEK6
+v_NEK7, v_NEK7
+v_NEK9, v_NEK9
+v_NEKs_complex, ((v_NEK9 & v_NEK7) & v_NEK6)
+v_NEMF, v_NEMF
+v_NGDN, v_NGDN
+v_NGDNcomp_complex, (v_Nsp8 & v_NGDN)
+v_NLcomp_complex, (v_NARS2 & v_L_Asparagine_simple_molecule)
+v_NOL10, v_NOL10
+v_NOL10comp_complex, (v_Nsp8 & v_NOL10)
+v_NUP214, v_NUP214
+v_NUP54, v_NUP54
+v_NUP58, v_NUP58
+v_NUP62, v_NUP62
+v_NUP88, v_NUP88
+v_Nafamostat_drug, v_Nafamostat_drug
+v_Neutrophil_activation_phenotype, v_pathogen_complex
+v_Nsp10_cell, v_Nsp10_cell
+v_Nsp10_nucleus, v_Nsp10_nucleus
+v_Nsp12, v_Nsp12
+v_Nsp14_cell, v_Nsp14_cell
+v_Nsp14_nucleus, v_Nsp14_nucleus
+v_Nsp16, v_Nsp16
+v_Nsp7, v_Nsp7
+v_Nsp8, v_Nsp8
+v_Nsp9_cell, v_Nsp9_cell
+v_Nsp9_nucleus, v_Nsp9_nucleus
+v_NspComp_complex, (v_Nsp8 & v_Nsp9_cell)
+v_Nuclear_Pore_comp_complex, (v_Nuclear_Pore_complex & v_Nsp9_cell)
+v_Nuclear_Pore_complex, (v_nup2_complex & v_nup1_complex)
+v_PCSK1, v_PCSK1
+v_PEG10, v_PEG10
+v_PEG10comp_complex, (v_Nsp14_cell & v_PEG10)
+v_PLAT, v_PLAT
+v_PLG, ((v_PLG & v_PLAT) & v_Nafamostat_drug)
+v_POLR2A, v_POLR2A
+v_POLR2B, v_POLR2B
+v_POLR2E, v_POLR2E
+v_POLR2G, v_POLR2G
+v_PTGS2, v_PTGS2
+v_PTGScomp_complex, (v_PTGS2 & v_Rofecoxib_drug)
+v_Phosphatidyl_serine_simple_molecule, v_Phosphatidyl_serine_simple_molecule
+v_Pyridoxal_phosphate_simple_molecule, v_Pyridoxal_phosphate_simple_molecule
+v_RAB7A, v_RAB7A
+v_RAB7comp_complex, (v_RAB7A & v_Nsp7)
+v_RALA, v_RALA
+v_RALAcomp_complex, (v_RALA & v_Nsp7)
+v_RBM41, v_RBM41
+v_RBMcomp_complex, (v_Nsp12 & v_RBM41)
+v_RHOA, v_RHOA
+v_RHOA7comp_complex, (v_RHOA & v_Nsp7)
+v_RNArecognition_complex, (v_homodimer_complex & v_ssRNAoligo_rna)
+v_RdRpassembled_rna, v_RdRpassembled_rna
+v_Ribavirin_drug, v_Ribavirin_drug
+v_RofecoxibComp_complex, (v_ELN & v_Rofecoxib_drug)
+v_Rofecoxib_drug, v_Rofecoxib_drug
+v_SAdComp2_complex, (v_MAT2A & v_S_Adenosylmethionine_drug)
+v_SAdComp_complex, (v_MAT1A & v_S_Adenosylmethionine_drug)
+v_SBNO1, v_SBNO1
+v_SBNOcomp_complex, (v_Nsp12 & v_SBNO1)
+v_SCARB1, v_SCARB1
+v_SCARB1_complex, (v_SCARB1 & v_Nsp7)
+v_SEPSECS, v_SEPSECS
+v_SEPSECScomp_complex, (v_Nsp8 & v_SEPSECS)
+v_SIRT5, v_SIRT5
+v_SIRT5comp_complex, (v_Nsp14_cell & v_SIRT5)
+v_SPART, v_SPART
+v_SPARTcomp_complex, (v_SPART & v_AIFM1)
+v_SPcomp_complex, (v_SEPSECS & v_Pyridoxal_phosphate_simple_molecule)
+v_SRP19, v_SRP19
+v_SRP54, v_SRP54
+v_SRP54comp_complex, ((v_Nsp8 & v_SRP54) & v_SRP19)
+v_SRP72, v_SRP72
+v_SRP72comp_complex, (v_SRP72 & v_Nsp7)
+v_SScomp_complex, (v_SIRT5 & v_Suramin_drug)
+v_S_Adenosylmethionine_drug, v_S_Adenosylmethionine_drug
+v_Sitaxentan_drug, v_Sitaxentan_drug
+v_Suramin_drug, v_Suramin_drug
+v_TAT, v_TAT
+v_TAT_HIV_complex, (v_GTF2F2 & v_TAT)
+v_TCF12, v_TCF12
+v_TCFcomp_complex, (v_Nsp12 & v_TCF12)
+v_TCcomp_complex, (v_COMT & v_Tolcapone_drug)
+v_Tolcapone_drug, v_Tolcapone_drug
+v_UBQLN4, v_UBQLN4
+v_Vpr, v_Vpr
+v_ZC3H7A_, v_ZC3H7A_
+v_ZC3H7Acomp_complex, (v_Nsp12 & v_ZC3H7A_)
+v_ZNF250, v_ZNF250
+v_ZNF250comp_complex, (v_Nsp14_nucleus & v_ZNF250)
+v_ZNF318, v_ZNF318
+v_ZNF503, v_ZNF503
+v_ZNFcomp_complex, (v_Nsp12 & v_ZNF318)
+v_ZonisamideComp_complex, (v_CA12 & v_Zonisamide_drug)
+v_Zonisamide_drug, v_Zonisamide_drug
+v__3_4_DIHYDROXY_2_NITROPHENYL__PHENYL_METHANONE_drug, v__3_4_DIHYDROXY_2_NITROPHENYL__PHENYL_METHANONE_drug
+v_csa101_RGcomp_complex_cell, (v_RHOA & v_GDP_simple_molecule)
+v_csa36_EDN1_homo_complex_nucleus, (v_EDN1 & v_EDN1)
+v_csa37_EDN1_homo_complex_nucleus, (v_BAG6 & v_csa36_EDN1_homo_complex_nucleus)
+v_csa39_EDN1_homo_complex_endoplasmic_reticulum, v_csa36_EDN1_homo_complex_nucleus
+v_csa40_COPS_complex_nucleus, (((((v_COPS2 & v_COPS4) & v_COPS5) & v_COPS6) & v_COPS7A) & v_COPS8)
+v_csa41_COPS_complex_nucleus, (v_Vpr & v_csa40_COPS_complex_nucleus)
+v_csa42_EDN1_homo_complex_nucleus, (v_csa36_EDN1_homo_complex_nucleus & v_COPS6)
+v_csa43_EDN1_homo_complex_nucleus, (v_csa36_EDN1_homo_complex_nucleus & v_UBQLN4)
+v_csa44_EDN1_homo_complex_endoplasmic_reticulum, v_csa43_EDN1_homo_complex_nucleus
+v_csa51_Fibrillin_complex_human_host, ((v_csa8_Fibrillin_complex_human_host & v_ELN) & v_PLG)
+v_csa63_Nsp7812_complex_cell, ((v_Nsp8 & v_Nsp7) & v_Nsp12)
+v_csa64_Nsp7812_complex_cell, (((v_remdesivir__drug | v_favipiravir_drug) & v_csa63_Nsp7812_complex_cell) & v_RdRpassembled_rna)
+v_csa8_Fibrillin_complex_human_host, v_csa8_Fibrillin_complex_human_host
+v_csa99_RGcomp_complex_cell, (v_RAB7A & v_GDP_simple_molecule)
+v_dcafcomp_complex, (v_Nsp9_nucleus & v_DCAF7)
+v_dcafznf_complex, (v_ZNF503 & v_DCAF7)
+v_eifcomp_complex, (v_Nsp9_nucleus & v_EIF4H)
+v_favipiravir_drug, v_favipiravir_drug
+v_gtf2f2comp_complex, (v_Nsp9_nucleus & v_GTF2F2)
+v_gtfrnapoly_complex, (((((v_GTF2F2 & v_GTF2B) & v_POLR2A) & v_POLR2B) & v_POLR2E) & v_POLR2G)
+v_homodimer_complex, v_Nsp9_cell
+v_lipidcomp_complex, (v_SCARB1 & v_Phosphatidyl_serine_simple_molecule)
+v_mat2bcomp_complex, (v_Nsp9_cell & v_MAT2B)
+v_mibcomp_complex, (v_MIB1 & v_Nsp9_cell)
+v_nek9comp_complex, (v_Nsp9_nucleus & v_NEK9)
+v_nup1_complex, ((v_NUP54 & v_NUP58) & v_NUP62)
+v_nup2_complex, (v_NUP214 & v_NUP88)
+v_pathogen_complex, ((((v_Nsp10_cell & v_Nsp9_cell) & v_Nsp16) & v_NEMF) & v_Nsp14_cell)
+v_remdesivir__drug, v_remdesivir__drug
+v_s389_complex, (v_Nsp12 & v_BCKDK)
+v_spartcomp_complex, (v_SPART & v_Nsp9_cell)
+v_ssRNAoligo_rna, v_ssRNAoligo_rna
+v_virus_replication_phenotype, v_csa64_Nsp7812_complex_cell
+v_znfcomp_complex, (v_Nsp9_nucleus & v_ZNF503)

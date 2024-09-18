@@ -1,0 +1,70 @@
+targets,factors
+v_AKT, (v_ILK | v_PI3K)
+v_AXIN2, (v_AXIN2 | v_TCF_LEF)
+v_CD44, v_TCF_LEF
+v_CDC42, (v_TGFR | v_CHD1L)
+v_CHD1L, v_CHD1L
+v_Csl, v_NOTCH_ic
+v_Csn, v_NFB
+v_DELTA, v_RAS
+v_DSH, v_Frizzled
+v_Dest_Compl, ((v_GSK3 & (v_AXIN2 & v_catenin_nuc)) | (v_GSK3 & v_Dest_Compl))
+v_EGF, v_EGF
+v_EGFR, v_EGF
+v_EGR1, v_c_fos
+v_EMT, (!v_E_cadherin | v_EMT)
+v_ERK, v_MEK
+v_E_cadherin, (v_catenin_memb & (!v_SNAI1 | (!v_HEY1 | (!v_ZEB1 | (!v_ZEB2 | (!v_FOXC2 | (!v_TWIST1 | !v_SNAI2)))))))
+v_FGF, v_FGF
+v_FGFR, v_FGF
+v_FOXC2, (v_Goosecoid | (v_SNAI1 | v_TWIST1))
+v_FUS, v_SMO
+v_Frizzled, v_Wnt
+v_GLI, (v_TCF_LEF | !v_SUFU)
+v_GSK3, (!v_DSH & (!v_AKT & (!v_Csn | (!v_ERK | !v_Dest_Compl))))
+v_Goosecoid, v_Goosecoid
+v_HEY1, (v_Csl | v_SMAD)
+v_HGF, v_HGF
+v_HIF1, v_Hypoxia
+v_Hypoxia, v_Hypoxia
+v_IGF1, v_IGF1
+v_IGF1R, v_IGF1
+v_IKK, v_AKT
+v_ILK, v_SMAD
+v_Jagged, (v_TCF_LEF | v_SMAD)
+v_LIV1, v_STAT
+v_LOXL23, v_HIF1
+v_MEK, (v_RAF | !v_RKIP)
+v_NFB, v_IKK
+v_NOTCH, (v_DELTA | v_Jagged)
+v_NOTCH_ic, v_NOTCH
+v_PAK1, v_CDC42
+v_PDGF, v_PDGF
+v_PDGFR, v_PDGF
+v_PI3K, v_RAS
+v_Patched, !v_SHH
+v_RAF, v_RAS
+v_RAS, (v_SOS_GRB2 | (v_SRC | (!v_GSK3 | v_TCF_LEF)))
+v_RKIP, (!v_ERK | !v_SNAI1)
+v_SHH, (v_SMAD | v_GLI)
+v_SMAD, ((v_ERK | v_TGFR) & (v_ZEB1 | !v_ZEB2))
+v_SMO, !v_Patched
+v_SNAI1, (v_GLI | (v_LOXL23 | (v_SMAD | (v_LIV1 | (v_PAK1 | (v_Csl | (v_EGR1 | (v_Goosecoid | (!v_TrCP | !v_GSK3)))))))))
+v_SNAI2, (v_ERK | (v_catenin_nuc | (v_SNAI2 | v_TWIST1)))
+v_SOS_GRB2, ((v_PDGFR | (v_cMet | (v_TGFR | (v_FGFR | (v_IGF1R | v_EGFR))))) & !v_ERK)
+v_SRC, (v_PDGFR | (v_EGFR | (v_FGFR | (v_cMet | v_IGF1R))))
+v_STAT, v_SRC
+v_SUFU, !v_FUS
+v_TCF_LEF, v_catenin_nuc
+v_TGF, (v_Goosecoid | (v_SNAI1 | (v_TWIST1 | v_GLI)))
+v_TGFR, v_TGF
+v_TWIST1, (v_NFB | (v_HIF1 | (v_TCF_LEF | (v_Goosecoid | v_SNAI1))))
+v_TrCP, !v_Csn
+v_Wnt, v_GLI
+v_ZEB1, ((v_HIF1 | (v_SNAI1 | v_Goosecoid)) & !v_miR200)
+v_ZEB2, ((v_HIF1 | (v_SNAI1 | v_Goosecoid)) & !v_miR200)
+v_cMet, (v_HGF | v_CD44)
+v_c_fos, v_ERK
+v_catenin_memb, (v_E_cadherin & !v_catenin_nuc)
+v_catenin_nuc, (!v_Dest_Compl & (!v_catenin_memb & (!v_SUFU | !v_E_cadherin)))
+v_miR200, (!v_SNAI1 & (!v_ZEB1 & !v_ZEB2))

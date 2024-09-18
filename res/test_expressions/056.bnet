@@ -1,0 +1,92 @@
+targets,factors
+v_ADM, (v_HSP90AA1 | (v_TNF & v_HSP90AA1))
+v_AEBP1, v_TGFBR3
+v_AFF1, !v_SIAH1
+v_AICDA, (v_HSP90AA1 | ((v_CD27 & v_HSP90AA1) & !v_CD79A))
+v_AKAP12, v_TNF
+v_AKT3, (v_IGF1R & !v_PTEN)
+v_ALOX5, (v_EGR1 | (v_TGFBR3 & v_EGR1))
+v_ANXA2, v_ANXA2
+v_APLP2, v_APP
+v_APOBEC3G, ((v_IFNGR2 & !v_CUL5) | !(v_IFNGR2 | v_CUL5))
+v_APP, ((((v_FYN & (v_IFNGR2 & v_TNF)) & !v_CD74) | (v_IFNGR2 & v_TNF)) | (v_FYN & !v_CD74))
+v_BLNK, v_CD79A
+v_BMI1, v_BMI1
+v_CASP3, (v_TNF & (!v_IGF1R & !v_CTSB))
+v_CAV1, (v_PRKCA | (v_TGFBR3 & v_PRKCA))
+v_CCL5, (v_IFNGR2 & !v_FOS)
+v_CCND2, (v_ANXA2 & !v_PTEN)
+v_CD27, !v_PRF1
+v_CD63, v_SELP
+v_CD69, (v_TNF & v_CD81)
+v_CD70, v_TNF
+v_CD74, v_CD74
+v_CD79A, (v_TCF3 & v_CD86)
+v_CD81, v_CD81
+v_CD86, !v_TNFRSF1B
+v_CHST2, v_CHST2
+v_CNR1, v_CNR1
+v_CREM, v_CREM
+v_CSDA, v_CSDA
+v_CSNK2A2, v_CSNK2A2
+v_CTSB, v_CAV1
+v_CUL5, v_CUL5
+v_DPP4, v_TNF
+v_EED, v_EED
+v_EGR1, ((v_CNR1 & (v_AEBP1 & v_TGFBR3)) & !(v_HDAC9 | v_NAB1))
+v_EZH2, ((v_EED & !v_HDAC9) | !(v_HDAC9 | v_EED))
+v_FCER2, v_NOTCH2
+v_FGFR1, v_FGFR1
+v_FOS, (((v_ADM & ((v_LMNA & v_TNF) & v_MAP2K6)) & !v_JAK1) | ((v_CNR1 & ((((v_ADM & v_PCNA) & v_LMNA) & v_TNF) & v_MAP2K6)) & !(v_CREM | v_JAK1)))
+v_FRK, v_FRK
+v_FYN, v_FYN
+v_GSK3B, v_GSK3B
+v_H2AFX, v_CASP3
+v_HDAC9, (v_NCOR2 & !v_SKI)
+v_HIST1H3H, !v_HIST2H2AA3
+v_HIST2H2AA3, !v_HDAC9
+v_HSP90AA1, v_HSP90AA1
+v_HSP90B1, !v_IFNGR2
+v_IFNGR2, v_TNF
+v_IGF1R, (v_EGR1 & v_CAV1)
+v_IL10RA, v_IL10RA
+v_IL7, (v_TNF | (v_IFNGR2 & v_TNF))
+v_ILK, !v_FOS
+v_INPP5D, (v_TGFBR3 | (v_IGF1R & v_TGFBR3))
+v_JAK1, ((v_IFNGR2 & (v_IL7 & v_IL10RA)) & !v_HDAC9)
+v_LGALS1, v_TGFBR3
+v_LIG1, v_PCNA
+v_LMNA, v_LMNA
+v_LPL, (v_FOS & !v_TNF)
+v_MAP2K6, v_CCL5
+v_MAP4K4, v_TNF
+v_MARCKS, !v_PRKCA
+v_MGAT5, !v_LGALS1
+v_MIF, (v_CD74 & (v_IFNGR2 & v_TNF))
+v_MYL9, v_MYLK
+v_MYLK, v_TNF
+v_NAB1, v_EGR1
+v_NCOR2, v_TNF
+v_NFE2L2, (v_TNF & !v_GSK3B)
+v_NOTCH2, v_TNF
+v_OGT, v_IGF1R
+v_PAX3, (v_PTCH1 & !v_TGFBR3)
+v_PCNA, ((v_CSDA & v_HSP90AA1) & !v_RFC5)
+v_PLD1, (v_PRKCA & v_APP)
+v_PRF1, ((v_TNF & v_RUNX3) | v_RUNX3)
+v_PRKCA, (v_TGFBR3 & v_AKAP12)
+v_PTCH1, v_FGFR1
+v_PTEN, (((v_EGR1 & ((((v_RRM1 & v_ILK) & v_FRK) & v_BMI1) & v_INPP5D)) & !((v_BMI1 | v_TGFBR3) | v_AEBP1)) | ((v_FRK & ((((((v_IFNGR2 & v_RRM1) & v_ILK) & v_BMI1) & v_EGR1) & v_INPP5D) & v_TNF)) & !((((v_ADM | v_BMI1) | v_TGFBR3) | v_AEBP1) | v_CSNK2A2)))
+v_RFC5, v_RFC5
+v_RPS6KA5, v_TNF
+v_RRM1, v_RRM1
+v_RUNX3, !v_EZH2
+v_SELL, (v_CHST2 & v_IFNGR2)
+v_SELP, (v_MGAT5 & v_TNF)
+v_SIAH1, v_SIAH1
+v_SKI, v_SKI
+v_TCF3, v_TCF3
+v_TGFBR3, v_TGFBR3
+v_TNF, v_LPL
+v_TNFRSF1B, v_TNFRSF1B
+v_VDR, (v_PRKCA & !v_NCOR2)

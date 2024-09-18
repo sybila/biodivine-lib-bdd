@@ -1,0 +1,69 @@
+targets,factors
+v_2_oxoglutaric_space_acid_simple_molecule, ((((((((((v_D2HGDH | v_Zn2__ion) | v_Co2__ion) | v_Mn2__ion) & v__S__2_hydroxyglutaric_space_acid_simple_molecule) & v_FAD_simple_molecule) | (((v_L_glutamate_2___simple_molecule & v_H2O_simple_molecule) & v_NAD____simple_molecule) & v_GLUD1)) | ((v__S__2_hydroxyglutaric_space_acid_simple_molecule & v_FAD_simple_molecule) & v_L2HGDH)) | ((v_isocitric_space_acid_simple_molecule & v_NADP____simple_molecule) & v_isocitrate_space_dehydrogenase_complex)) | ((((v_isocitrate_space_dehydrogenase_space_3_complex | v_ADP_simple_molecule) | v_Ca2__ion) & v_isocitric_space_acid_simple_molecule) & v_NAD____simple_molecule)) | ((v__S__2_hydroxyglutaric_space_acid_simple_molecule & v_succinic_space_semialdehyde_simple_molecule) & v_ADHFE1))
+v_4_hydroxybutyrate_simple_molecule, ((v__S__2_hydroxyglutaric_space_acid_simple_molecule & v_succinic_space_semialdehyde_simple_molecule) & v_ADHFE1)
+v_ACO2, v_ACO2
+v_ACSS1, v_ACSS1
+v_ADHFE1, v_ADHFE1
+v_ADP_simple_molecule, ((((v_pyruvate_simple_molecule_mitochondrial_space_matrix & v_ATP_simple_molecule) & v_CO2_simple_molecule) & v_PC) | (((((v_acetyl_CoA_simple_molecule | v_PDK_space_isoforms_complex) | v_NADH_simple_molecule) & v_csa1895_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix) & v_ATP_simple_molecule) & !v_pyruvate_simple_molecule_mitochondrial_space_matrix))
+v_ALDH2, v_ALDH2
+v_ATP_simple_molecule, (((v_succinyl_CoA_simple_molecule & v_phosphate_3___simple_molecule) & v_ADP_simple_molecule) & v_csa1899_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix)
+v_CO2_simple_molecule, (((((((v_isocitrate_space_dehydrogenase_space_3_complex | v_ADP_simple_molecule) | v_Ca2__ion) & v_isocitric_space_acid_simple_molecule) & v_NAD____simple_molecule) | (((v_pyruvate_simple_molecule_mitochondrial_space_matrix & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule) & v_csa1895_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix)) | ((v_isocitric_space_acid_simple_molecule & v_NADP____simple_molecule) & v_isocitrate_space_dehydrogenase_complex)) | ((((v_alpha_ketoglutarate_space_dehydrogenase_complex | v_Ca2__ion) & v_2_oxoglutaric_space_acid_simple_molecule) & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule))
+v_CS, v_CS
+v_Ca2__ion, v_Ca2__ion
+v_Co2__ion, v_Co2__ion
+v_D2HGDH, v_D2HGDH
+v_FADH2_simple_molecule, ((((((v_D2HGDH | v_Zn2__ion) | v_Co2__ion) | v_Mn2__ion) & v__S__2_hydroxyglutaric_space_acid_simple_molecule) & v_FAD_simple_molecule) | ((v__S__2_hydroxyglutaric_space_acid_simple_molecule & v_FAD_simple_molecule) & v_L2HGDH))
+v_FAD_simple_molecule, v_FAD_simple_molecule
+v_GDP_simple_molecule, v_GDP_simple_molecule
+v_GLUD1, v_SIRT3
+v_GMP_simple_molecule, ((v_GP4G_simple_molecule & v_H2O_simple_molecule) & v_NUDT2)
+v_GP4G_simple_molecule, v_GP4G_simple_molecule
+v_GTP_simple_molecule, (((v_GP4G_simple_molecule & v_H2O_simple_molecule) & v_NUDT2) | (((v_succinyl_CoA_simple_molecule & v_phosphate_3___simple_molecule) & v_GDP_simple_molecule) & v_csa1916_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix))
+v_H2O_simple_molecule, (v__S__malate_2___simple_molecule & v_fumarate_space_hydratase_complex)
+v_H__ion_neuron, v_H__ion_neuron
+v_L2HGDH, v_L2HGDH
+v_L_glutamate_2___simple_molecule, v_L_glutamate_2___simple_molecule
+v_Mg2__ion, v_Mg2__ion
+v_Mn2__ion, v_Mn2__ion
+v_NADH_simple_molecule, ((((((((v_isocitrate_space_dehydrogenase_space_3_complex | v_ADP_simple_molecule) | v_Ca2__ion) & v_isocitric_space_acid_simple_molecule) & v_NAD____simple_molecule) | (((v_pyruvate_simple_molecule_mitochondrial_space_matrix & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule) & v_csa1895_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix)) | ((((v_alpha_ketoglutarate_space_dehydrogenase_complex | v_Ca2__ion) & v_2_oxoglutaric_space_acid_simple_molecule) & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule)) | ((v__S__malate_2___simple_molecule & v_NAD____simple_molecule) & v_malate_space_dehydrogenase_space_2_complex)) | (((v_L_glutamate_2___simple_molecule & v_H2O_simple_molecule) & v_NAD____simple_molecule) & v_GLUD1))
+v_NADPH_simple_molecule, ((v_isocitric_space_acid_simple_molecule & v_NADP____simple_molecule) & v_isocitrate_space_dehydrogenase_complex)
+v_NADP____simple_molecule, v_NADP____simple_molecule
+v_NAD____simple_molecule, (((v_oxaloacetate_2___simple_molecule & v_sa11966_H__ion_mitochondrial_space_matrix) & v_NADH_simple_molecule) & v_malate_space_dehydrogenase_space_2_complex)
+v_NUDT2, v_NUDT2
+v_PC, v_PC
+v_PDK_space_isoforms_complex, v_PDK_space_isoforms_complex
+v_PDP1_PDPR_complex, v_PDP1_PDPR_complex
+v_PDP2_PDPR_complex, v_PDP2_PDPR_complex
+v_SIRT3, v_SIRT3
+v_Zn2__ion, v_Zn2__ion
+v__5_hydroxyindol_3_yl_acetaldehyde_simple_molecule, v__5_hydroxyindol_3_yl_acetaldehyde_simple_molecule
+v__5_hydroxyindol_3_yl_acetic_space_acid_simple_molecule, (v__5_hydroxyindol_3_yl_acetaldehyde_simple_molecule & v_ALDH2)
+v__S__2_hydroxyglutaric_space_acid_simple_molecule, ((v_2_oxoglutaric_space_acid_simple_molecule & v_4_hydroxybutyrate_simple_molecule) & v_ADHFE1)
+v__S__malate_2___simple_molecule, (((v_fumaric_space_acid_simple_molecule & v_H2O_simple_molecule) & v_fumarate_space_hydratase_complex) | (((v_oxaloacetate_2___simple_molecule & v_sa11966_H__ion_mitochondrial_space_matrix) & v_NADH_simple_molecule) & v_malate_space_dehydrogenase_space_2_complex))
+v_acetaldehyde_simple_molecule, v_acetaldehyde_simple_molecule
+v_acetate_simple_molecule, (v_acetaldehyde_simple_molecule & v_ALDH2)
+v_acetyl_CoA_simple_molecule, ((((v_pyruvate_simple_molecule_mitochondrial_space_matrix & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule) & v_csa1895_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix) | (v_acetate_simple_molecule & v_ACSS1))
+v_alpha_ketoglutarate_space_dehydrogenase_complex, v_alpha_ketoglutarate_space_dehydrogenase_complex
+v_ammonium_simple_molecule, (((v_L_glutamate_2___simple_molecule & v_H2O_simple_molecule) & v_NAD____simple_molecule) & v_GLUD1)
+v_citrate_3___simple_molecule, (((v_oxaloacetate_2___simple_molecule & v_acetyl_CoA_simple_molecule) & v_H2O_simple_molecule) & v_CS)
+v_coenzyme_space_A_simple_molecule, (((((v_oxaloacetate_2___simple_molecule & v_acetyl_CoA_simple_molecule) & v_H2O_simple_molecule) & v_CS) | (((v_succinyl_CoA_simple_molecule & v_phosphate_3___simple_molecule) & v_GDP_simple_molecule) & v_csa1916_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix)) | (((v_succinyl_CoA_simple_molecule & v_phosphate_3___simple_molecule) & v_ADP_simple_molecule) & v_csa1899_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix))
+v_csa1895_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix, (((((v_PDP1_PDPR_complex | v_Ca2__ion) | v_Mg2__ion) & v_csa1949_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix) & v_H2O_simple_molecule) | (((v_PDP2_PDPR_complex | v_Mg2__ion) & v_csa1949_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix) & v_H2O_simple_molecule))
+v_csa1899_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix, v_csa1899_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix
+v_csa1916_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix, v_csa1916_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix
+v_csa1949_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix, (((((v_acetyl_CoA_simple_molecule | v_PDK_space_isoforms_complex) | v_NADH_simple_molecule) & v_csa1895_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix) & v_ATP_simple_molecule) & !v_pyruvate_simple_molecule_mitochondrial_space_matrix)
+v_fumarate_space_hydratase_complex, v_fumarate_space_hydratase_complex
+v_fumaric_space_acid_simple_molecule, (v__S__malate_2___simple_molecule & v_fumarate_space_hydratase_complex)
+v_isocitrate_space_dehydrogenase_complex, v_SIRT3
+v_isocitrate_space_dehydrogenase_space_3_complex, v_isocitrate_space_dehydrogenase_space_3_complex
+v_isocitric_space_acid_simple_molecule, (v_citrate_3___simple_molecule & v_ACO2)
+v_malate_space_dehydrogenase_space_2_complex, v_malate_space_dehydrogenase_space_2_complex
+v_mitochondrial_space_pyruvate_space_carrier_complex, v_mitochondrial_space_pyruvate_space_carrier_complex
+v_oxaloacetate_2___simple_molecule, ((((v_pyruvate_simple_molecule_mitochondrial_space_matrix & v_ATP_simple_molecule) & v_CO2_simple_molecule) & v_PC) | ((v__S__malate_2___simple_molecule & v_NAD____simple_molecule) & v_malate_space_dehydrogenase_space_2_complex))
+v_phosphate_3___simple_molecule, (((((v_pyruvate_simple_molecule_mitochondrial_space_matrix & v_ATP_simple_molecule) & v_CO2_simple_molecule) & v_PC) | ((((v_PDP1_PDPR_complex | v_Ca2__ion) | v_Mg2__ion) & v_csa1949_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix) & v_H2O_simple_molecule)) | (((v_PDP2_PDPR_complex | v_Mg2__ion) & v_csa1949_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix) & v_H2O_simple_molecule))
+v_pyruvate_simple_molecule_mitochondrial_space_matrix, ((v_pyruvate_simple_molecule_neuron & v_H__ion_neuron) & v_mitochondrial_space_pyruvate_space_carrier_complex)
+v_pyruvate_simple_molecule_neuron, v_pyruvate_simple_molecule_neuron
+v_sa11902_H__ion_mitochondrial_space_matrix, ((v_pyruvate_simple_molecule_neuron & v_H__ion_neuron) & v_mitochondrial_space_pyruvate_space_carrier_complex)
+v_sa11966_H__ion_mitochondrial_space_matrix, (((((((((v_alpha_ketoglutarate_space_dehydrogenase_complex | v_Ca2__ion) & v_2_oxoglutaric_space_acid_simple_molecule) & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule) | ((((v_isocitrate_space_dehydrogenase_space_3_complex | v_ADP_simple_molecule) | v_Ca2__ion) & v_isocitric_space_acid_simple_molecule) & v_NAD____simple_molecule)) | ((v__S__malate_2___simple_molecule & v_NAD____simple_molecule) & v_malate_space_dehydrogenase_space_2_complex)) | (((v_L_glutamate_2___simple_molecule & v_H2O_simple_molecule) & v_NAD____simple_molecule) & v_GLUD1)) | ((v_isocitric_space_acid_simple_molecule & v_NADP____simple_molecule) & v_isocitrate_space_dehydrogenase_complex)) | (((v_pyruvate_simple_molecule_mitochondrial_space_matrix & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule) & v_csa1895_pyruvate_space_dehydrogenase_space_complex_complex_mitochondrial_space_matrix))
+v_succinic_space_acid_simple_molecule, ((((v_succinyl_CoA_simple_molecule & v_phosphate_3___simple_molecule) & v_GDP_simple_molecule) & v_csa1916_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix) | (((v_succinyl_CoA_simple_molecule & v_phosphate_3___simple_molecule) & v_ADP_simple_molecule) & v_csa1899_Succinyl_CoA_space_ligase_complex_mitochondrial_space_matrix))
+v_succinic_space_semialdehyde_simple_molecule, ((v_2_oxoglutaric_space_acid_simple_molecule & v_4_hydroxybutyrate_simple_molecule) & v_ADHFE1)
+v_succinyl_CoA_simple_molecule, ((((v_alpha_ketoglutarate_space_dehydrogenase_complex | v_Ca2__ion) & v_2_oxoglutaric_space_acid_simple_molecule) & v_coenzyme_space_A_simple_molecule) & v_NAD____simple_molecule)

@@ -1,0 +1,104 @@
+targets,factors
+v_A2M, v_PPARG
+v_ACTB, ((v_HSP90AB1 | v_SYNPO) & !v_TP53)
+v_AKT2, ((v_ARRB1 | (v_HSP90AB1 | v_CAV1)) & !(v_BRCA1 | (v_EZH2 | v_TRIB3)))
+v_ANXA1, v_ANXA1
+v_AR, v_AR
+v_ARAF, v_CSNK2B
+v_ARNT, ((v_HIF1A | (v_RELA | v_BRCA1)) & !v_STAT5A)
+v_ARRB1, v_ARRB1
+v_ATF2, (v_RB1 | v_BRCA1)
+v_BAX, !v_BCL2L1
+v_BCL2L1, ((v_CREB1 | (v_NFKB1 | (v_STAT3 | (v_FOS | (v_HIF1A | (v_ATF2 | (v_STAT1 | (v_REL | (v_ETS1 | (v_STAT5A | (v_NFE2L2 | (v_GABP | v_RELA)))))))))))) & !(v_TP53 | (v_HDAC1 | (v_ERBB2 | v_BCL2L1))))
+v_BCL6, v_BCL6
+v_BRCA1, ((v_CREB1 | (v_PARP1 | (v_NFE2L2 | (v_AKT2 | v_GABP)))) & !(v_TP53 | (v_HDAC1 | (v_RB1 | (v_MTA1 | v_PML)))))
+v_BTG3, v_TP53
+v_CAV1, ((v_STAT3 | (v_ETS1 | (v_EGFR | (v_ARNT | (v_PLAUR | (v_CD82 | v_RELA)))))) & !(v_TP53 | v_SQSTM1))
+v_CCND1, ((v_CREB1 | (v_NFKB1 | (v_E2F1 | (v_FOS | (v_ATF2 | (v_STAT1 | (v_PARP1 | (v_REL | (v_EZH2 | (v_ETS1 | (v_STAT5A | (v_MTA1 | (v_EGFR | v_RELA))))))))))))) & !(v_HDAC1 | (v_TP53 | (v_PML | (v_CAV1 | (v_PSMD4 | (v_HINT1 | (v_TNRC6A | (v_HIF1A | v_NR3C1)))))))))
+v_CD44, ((v_FOS | (v_NFKB1 | (v_ETS1 | v_RELA))) & !v_E2F1)
+v_CD82, (v_TP53 | v_HIF1A)
+v_CREB1, (v_CREB1 | (v_ARRB1 | v_AKT2))
+v_CSNK2B, ((v_STAT3 | (v_CSNK2B | (v_HSP90AB1 | (v_ETS1 | v_PLAU)))) & !v_ACTB)
+v_CTSD, (v_TP53 | v_CTSD)
+v_CYP3A4, v_NR3C1
+v_DDR1, (v_TP53 | (v_E2F1 | (v_DDR1 | v_TM4SF1)))
+v_E2F1, ((v_CREB1 | (v_E2F1 | v_ARRB1)) & !(v_TP53 | (v_HDAC1 | (v_PARP1 | (v_IFI16 | (v_BTG3 | (v_RELA | (v_NFKB1 | (v_HDAC1 | (v_SETDB1 | (v_RB1 | v_E2F4)))))))))))
+v_E2F4, v_E2F4
+v_EEF1G, v_EEF1G
+v_EGFR, (v_EGFR | v_ERBB2)
+v_EPHA2, ((v_TP53 | (v_AKT2 | (v_ETS1 | v_CREB1))) & !(v_MTA1 | v_RELA))
+v_ERBB2, (v_HSP90AB1 | (v_EGFR | (v_HSPB1 | (v_ITGB4 | v_ETV1))))
+v_ETS1, ((v_FOS | (v_HIF1A | v_ARNT)) & !(v_TP53 | (v_RB1 | v_RELA)))
+v_ETV1, v_ERBB2
+v_EZH2, ((v_E2F1 | (v_STAT3 | (v_REL | (v_HSP90AB1 | v_STAT5A)))) & !(v_TP53 | v_RB1))
+v_FOS, ((v_CREB1 | (v_E2F1 | (v_STAT3 | (v_FOS | (v_ATF2 | (v_STAT1 | (v_PARP1 | (v_STAT5A | (v_NFE2L2 | v_IKBKG))))))))) & !v_HDAC1)
+v_GABP, v_GABP
+v_GADD45B, (v_REL | (v_TP53 | (v_E2F1 | v_MYC)))
+v_HDAC1, ((v_CSNK2B | (v_STAT3 | (v_EZH2 | (v_RB1 | (v_STAT5A | (v_MTA1 | (v_CCND1 | v_RELA))))))) & !v_HDAC1)
+v_HIF1A, ((v_CREB1 | (v_NFKB1 | (v_STAT3 | (v_BRCA1 | (v_REL | (v_HSP90AB1 | (v_ARRB1 | (v_MTA1 | (v_ARNT | (v_RELA | (v_ATF2 | (v_E2F1 | (v_HIF1A | (v_PARP1 | (v_HDAC1 | v_SAT1))))))))))))))) & !(v_TP53 | (v_PSMD4 | (v_MCM7 | (v_SQSTM1 | v_STAT1)))))
+v_HINT1, v_HINT1
+v_HMGCR, v_PARP1
+v_HSP90AB1, ((v_HDAC1 | (v_STAT3 | (v_CSNK2B | (v_STAT1 | v_HSPB1)))) & !v_TP53)
+v_HSPB1, v_HSPB1
+v_IFI16, v_TP53
+v_IKBKG, (v_HSP90AB1 | (v_ANXA1 | (v_MAP3K7 | v_SQSTM1)))
+v_INSR, v_PPARG
+v_IRF9, v_IRF9
+v_ITGB4, ((v_NFKB1 | (v_ERBB2 | v_AKT2)) & !(v_TP53 | v_HDAC1))
+v_KRT15, v_TP53
+v_KRT17, ((v_FOS | v_STAT1) & !(v_TP53 | (v_BRCA1 | v_EZH2)))
+v_KRT5, (v_FOS & !v_BRCA1)
+v_LAPTM5, v_TP53
+v_LDHB, (v_STAT3 | v_PPARD)
+v_MAP3K4, v_GADD45B
+v_MAP3K7, (v_MAP3K7 | v_TGFBR1)
+v_MCM7, ((v_E2F1 | v_CCND1) & !(v_TP53 | v_RB1))
+v_MTA1, (v_RELA & !(v_TP53 | v_PARP1))
+v_MYC, v_MYC
+v_NCOA4, v_NCOA4
+v_NEDD9, v_NR3C1
+v_NFE2L2, ((v_CSNK2B | (v_BRCA1 | (v_NFE2L2 | v_AKT2))) & !(v_EZH2 | (v_PML | (v_CAV1 | v_RELA))))
+v_NFKB1, ((v_FOS | (v_BRCA1 | (v_PARP1 | (v_PSMD4 | (v_RELA | (v_HIF1A | v_ETS1)))))) & !(v_E2F1 | (v_HDAC1 | v_ARRB1)))
+v_NR3C1, v_AR
+v_PARP1, (v_ETS1 & !(v_AKT2 | (v_PARP1 | v_HDAC1)))
+v_PAX6, v_PPARG
+v_PCGF5, v_PCGF5
+v_PLAT, (v_CREB1 | (v_ATF2 | (v_RELA | v_FOS)))
+v_PLAU, ((v_TP53 | (v_NFKB1 | (v_HIF1A | (v_ATF2 | (v_ETS1 | (v_PLAUR | (v_ST14 | v_RELA))))))) & !v_HDAC1)
+v_PLAUR, ((v_NFKB1 | (v_FOS | (v_HIF1A | (v_ATF2 | (v_PLAU | (v_RELA | v_CAV1)))))) & !(v_TP53 | v_HDAC1))
+v_PLK2, v_TP53
+v_PML, ((v_TP53 | (v_IRF9 | (v_STAT5A | (v_STAT1 | v_RB1)))) & !v_CSNK2B)
+v_PPARD, (!v_HSP90AB1 & !v_RELA)
+v_PPARG, ((v_NCOA4 | v_AKT2) & !v_SMAD3)
+v_PSMD4, v_PARP1
+v_RB1, ((v_CREB1 | (v_E2F1 | (v_ATF2 | (v_BRCA1 | (v_GABP | v_PML))))) & !(v_HDAC1 | v_BCL6))
+v_REL, (v_HIF1A & !v_NFKB1)
+v_RELA, ((v_PCGF5 | (v_E2F1 | (v_ATF2 | (v_CSNK2B | (v_BRCA1 | (v_PARP1 | (v_EZH2 | (v_ARRB1 | (v_AKT2 | (v_HIF1A | (v_CREB1 | v_FOS))))))))))) & !(v_TP53 | (v_STAT1 | (v_PML | (v_SQSTM1 | (v_TRIB3 | v_HDAC1))))))
+v_S100A10, v_STAT1
+v_SAT1, v_SAT1
+v_SERPINA3, (v_TP53 | (v_NFKB1 | (v_STAT3 | (v_STAT1 | v_RELA))))
+v_SETDB1, (v_AKT2 & !v_TP53)
+v_SLC3A2, (v_NFE2L2 | v_RELA)
+v_SMAD3, v_PPARG
+v_SMAD4, !v_MAP3K7
+v_SOD1, ((v_NFE2L2 | v_RELA) & !(v_HDAC1 | (v_CAV1 | v_PSMD4)))
+v_SQSTM1, (v_NFKB1 | (v_RELA | (v_NFE2L2 | v_FOS)))
+v_ST14, ((v_TP53 | (v_PPARD | (v_STAT1 | v_ST14))) & !v_RELA)
+v_STAT1, ((v_CREB1 | v_BRCA1) & !(v_ARRB1 | (v_PML | v_HDAC1)))
+v_STAT3, ((v_CREB1 | (v_STAT3 | (v_FOS | (v_ATF2 | (v_EZH2 | (v_MTA1 | (v_HIF1A | (v_NFKB1 | (v_SETDB1 | (v_CD44 | v_RELA)))))))))) & !(v_HDAC1 | (v_RB1 | (v_PML | (v_CAV1 | v_CCND1)))))
+v_STAT5A, ((v_TP53 | (v_HSP90AB1 | (v_RELA | v_STAT5A))) & !(v_BRCA1 | v_UBE2D1))
+v_SYNPO, v_YWHAB
+v_TGFB1, ((v_CREB1 | (v_NFKB1 | (v_STAT3 | (v_HIF1A | (v_FOS | (v_ATF2 | (v_PPARD | (v_RELA | v_REL)))))))) & !(v_HSP90AB1 | v_NFE2L2))
+v_TGFBR1, ((v_TGFB1 | (v_TGFBR2 | v_YWHAB)) & !v_CAV1)
+v_TGFBR2, (v_FOS | v_TGFB1)
+v_TK1, v_E2F1
+v_TM4SF1, v_TM4SF1
+v_TNRC6A, v_HSP90AB1
+v_TP53, ((v_TP53 | (v_CREB1 | (v_NFKB1 | (v_E2F1 | (v_HIF1A | (v_STAT1 | (v_BRCA1 | (v_HSP90AB1 | (v_ETS1 | (v_PML | (v_YWHAB | (v_PLK2 | (v_IRF9 | (v_IFI16 | v_RELA)))))))))))))) & !(v_HDAC1 | (v_STAT3 | (v_CSNK2B | (v_PARP1 | (v_EZH2 | (v_ARRB1 | (v_PSMD4 | (v_PLAU | (v_BCL2L1 | (v_BCL6 | (v_SETDB1 | (v_EEF1G | (v_UBE2D1 | (v_WWP1 | (v_TRIM29 | v_MTA1))))))))))))))))
+v_TRIB3, !v_TP53
+v_TRIM29, v_TRIM29
+v_UBE2D1, v_UBE2D1
+v_UBQLN1, v_GABP
+v_VIM, ((v_NFKB1 | (v_E2F1 | (v_STAT3 | (v_FOS | (v_HIF1A | (v_ATF2 | (v_STAT1 | (v_PARP1 | (v_HSP90AB1 | (v_EEF1G | (v_ARRB1 | (v_STAT5A | (v_SQSTM1 | (v_HSPB1 | (v_ITGB4 | v_RELA))))))))))))))) & !(v_CREB1 | (v_ANXA1 | v_TP53)))
+v_WWP1, v_WWP1
+v_YWHAB, ((v_PPARD | v_AKT2) & !v_SOD1)

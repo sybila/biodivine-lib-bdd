@@ -1,0 +1,54 @@
+targets,factors
+v_AD, ((v_IgG & (v_AD | v_IS)) & !(v_NE_TRetortaeformis | v_MPI_Bacterium))
+v_AP, ((v_IgG_Bacterium & ((v_Bb & (v_Th1I_Bacterium & v_MPI_Bacterium)) & v_Cb)) | (v_AgAb_Bacterium & ((v_Th1I_Bacterium & v_MPI_Bacterium) & v_Bb)))
+v_AgAb_Bacterium, ((v_IgG_Bacterium & v_Bb) | (v_IgA_Bacterium & v_Bb))
+v_BC_Bacterium, (v_T0 | v_BC_Bacterium)
+v_BC_TRetortaeformis, (v_T0 | v_BC_TRetortaeformis)
+v_Bb, (v_Bb & !v_PH)
+v_Cb, ((v_Bb & !v_Oag) | (v_AgAb_Bacterium & v_IgG_Bacterium))
+v_DCII_Bacterium, v_DCI_Bacterium
+v_DCII_TRetortaeformis, v_DCI_TRetortaeformis
+v_DCI_Bacterium, ((v_PIC & v_Bb) | (v_IFNg_Bacterium & v_Bb))
+v_DCI_TRetortaeformis, v_PIC
+v_DP, (v_NE_Bacterium & v_TTSSI)
+v_EC_Bacterium, v_Bb
+v_EC_TRetortaeformis, (v_AD | v_IS)
+v_EL, (v_IS & !v_EL2)
+v_EL2, ((v_IL13 & v_IL5) | (v_IgE & v_IL5))
+v_IFNgI, ((v_IFNg_Bacterium | v_Th1I_TRetortaeformis) | v_DCI_TRetortaeformis)
+v_IFNgII, (v_IFNg_Bacterium | v_IFNgI)
+v_IFNg_Bacterium, (((v_Th1I_Bacterium & !(v_IL4I | v_IL10I_Bacterium)) | v_DCI_Bacterium) | v_MPI_Bacterium)
+v_IL10I, (v_IL10I_Bacterium | v_Th2I_TRetortaeformis)
+v_IL10I_Bacterium, ((v_MPI_Bacterium | (v_Th2I_Bacterium & v_TTSSI)) | v_TrI_Bacterium)
+v_IL12II, (((v_DCII_Bacterium & v_T0) & !v_IL4II) | ((v_DCII_TRetortaeformis & v_T0) & !v_IL4II))
+v_IL13, ((((v_EL & v_IS) | v_Th2I_Bacterium) | v_Th2I_TRetortaeformis) | v_EL2)
+v_IL4I, v_IL4II
+v_IL4II, (((((v_Th2II_Bacterium & !(v_IFNgI | v_IL12II)) | v_EL2) | ((v_DCII_Bacterium & v_T0) & !(v_IFNgI | v_IL12II))) | ((v_DCII_TRetortaeformis & v_T0) & !(v_IFNgI | v_IL12II))) | (v_Th2II_TRetortaeformis & !(v_IFNgI | v_IL12II)))
+v_IL5, (v_Th2II_TRetortaeformis | v_EL2)
+v_IS, v_IS
+v_IgA_Bacterium, ((v_BC_Bacterium & v_Bb) | (v_IgA_Bacterium & v_Bb))
+v_IgA_TRetortaeformis, (v_IS & v_BC_TRetortaeformis)
+v_IgE, ((v_IL13 & v_BC_TRetortaeformis) | (v_IL4II & v_BC_TRetortaeformis))
+v_IgG, v_BC_TRetortaeformis
+v_IgG_Bacterium, (v_BC_Bacterium | v_IgG_Bacterium)
+v_MPI_Bacterium, ((v_IFNg_Bacterium & v_Bb) | (v_PIC & v_Bb))
+v_NE_Bacterium, v_PIC
+v_NE_TRetortaeformis, ((v_PIC & v_AD) | (v_IFNgI & !(v_IL4I | v_IL10I)))
+v_Oag, v_Bb
+v_PH, (v_AP & v_Bb)
+v_PIC, ((((v_AP & !(v_IL10I | v_IgA_TRetortaeformis)) | (v_EC_Bacterium & !(v_IL10I | v_IgA_TRetortaeformis))) | (v_AD & !(v_IL10I | v_IgA_TRetortaeformis))) | (v_EC_TRetortaeformis & !(v_IL10I | v_IgA_TRetortaeformis)))
+v_T0, (v_DCII_Bacterium | v_DCII_TRetortaeformis)
+v_TEL, (v_EL | v_EL2)
+v_TNE, (v_NE_Bacterium | v_NE_TRetortaeformis)
+v_TTSSI, (v_Bb & !(v_IgA_Bacterium | v_IgG_Bacterium))
+v_TTSSII, v_TTSSI
+v_Th1II_Bacterium, (v_DCII_Bacterium & (v_T0 & v_IL12II))
+v_Th1II_TRetortaeformis, (v_DCII_TRetortaeformis & ((v_IL12II & v_T0) & v_DCII_TRetortaeformis))
+v_Th1I_Bacterium, v_Th1II_Bacterium
+v_Th1I_TRetortaeformis, v_Th1II_TRetortaeformis
+v_Th2II_Bacterium, ((v_DCII_Bacterium & v_T0) & !v_IL12II)
+v_Th2II_TRetortaeformis, ((v_DCII_TRetortaeformis & v_T0) & !v_IL12II)
+v_Th2I_Bacterium, v_Th2II_Bacterium
+v_Th2I_TRetortaeformis, v_Th2II_TRetortaeformis
+v_TrII, (v_DCII_Bacterium & (v_T0 & v_TTSSII))
+v_TrI_Bacterium, v_TrII

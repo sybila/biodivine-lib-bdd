@@ -1,0 +1,42 @@
+targets,factors
+v_akt1, v_e2f1
+v_axin2, (v_e2f1 | (v_e2f3 | (v_gsk3b | (v_lef1 | v_mdm2))))
+v_bcl2, v_e2f1
+v_birc2, v_traf1
+v_birc3, !v_birc2
+v_cdh1, (!v_mdm2 | (!v_mir_25_3p | (!v_snai1 | (!v_snai2 | (!v_src | !v_twist1)))))
+v_cdkn2a, (!v_tp53 | (!v_twist1 | (v_e2f1 | (v_e2f2 | (v_myc | v_sp1)))))
+v_ctnnb1, (!v_axin2 | (!v_cdh1 | v_gsk3b))
+v_e2f1, (!v_birc3 | (!v_cdkn2a | (!v_gsk3b | (!v_mir_205_5p | (!v_rb1 | (v_birc2 | (v_e2f3 | (v_flt4 | (v_foxa1 | (v_kpna2 | (v_lef1 | (v_mdm2 | (v_myc | (v_ncoa3 | v_tp53))))))))))))))
+v_e2f2, v_e2f1
+v_e2f3, !v_rb1
+v_egfr, v_cdh1
+v_emt, (!v_cdh1 | ((!v_cdh1 & v_fn1) | (v_fn1 | ((v_snai1 & (v_sani2 & v_src)) | ((v_src & (v_snai1 & (v_snai2 & !v_cdh1))) | ((v_src & (v_snai1 & (v_snai2 & (!v_cdh1 & v_fn1)))) | (v_src & (v_snai1 & (v_snai2 & v_fn1)))))))))
+v_flt4, v_fn1
+v_fn1, (v_e2f1 | (v_hmmr | v_snai1))
+v_foxa1, !v_rara
+v_foxo3, v_e2f1
+v_gsk3b, (!v_akt1 | (!v_axin2 | v_ctnnb1))
+v_hmmr, v_hmmr
+v_il1r1, v_il1r1
+v_kpna2, v_fn1
+v_lef1, !v_ctnnb1
+v_mdm2, (!v_cdkn2a | (!v_e2f1 | (v_akt1 | v_tp53)))
+v_mir_17_5p, v_e2f1
+v_mir_205_5p, v_tp53
+v_mir_25_3p, v_e2f1
+v_myc, (!v_mdm2 | (v_ctnnb1 | (v_e2f2 | (v_lef1 | v_thrb))))
+v_ncoa3, (!v_mir_17_5p | v_rara)
+v_rara, !v_e2f1
+v_rb1, v_e2f1
+v_sani2, v_sani2
+v_sirt1, v_e2f1
+v_snai1, (!v_gsk3b | (v_ctnnb1 | v_tgfbr))
+v_snai2, (!v_mdm2 | (!v_tp53 | (v_ctnnb1 | v_tgfbr)))
+v_sp1, v_e2f1
+v_src, v_egfr
+v_tgfbr, v_tgfbr
+v_thrb, v_thrb
+v_tp53, (!v_bcl2 | (!v_mdm2 | (!v_mir_25_3p | (!v_rb1 | (!v_sirt1 | (!v_twist1 | (v_e2f1 | (v_foxo3 | v_sp1))))))))
+v_traf1, (!v_birc3 | v_il1r1)
+v_twist1, v_ctnnb1

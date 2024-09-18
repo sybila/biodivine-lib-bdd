@@ -1,0 +1,189 @@
+targets,factors
+v_AKT, v_PDK1
+v_AP1, ((v_ERK | v_STAT4) | v_JNK)
+v_APC, v_APC
+v_ATF2, v_P38
+v_Arp2_3, (v_WAVE_2 | v_N_WASP)
+v_B7, v_B7
+v_BCL10_Malt1, v_CARMA1
+v_BRAF, v_Rap1
+v_Bcl10_Carma1_MALTI, (v_BCL10_Malt1 & v_CARMA1)
+v_Bintegrin, (v_TCR | v_ECM)
+v_C3G, v_Crk
+v_CARMA1, (v_PKC | v_CD26)
+v_CAV1_ACTIVATOR, v_CAV1_ACTIVATOR
+v_CAV1_scaffold, ((v_CAV1_ACTIVATOR | v_Src) | v_Bintegrin)
+v_CD26, v_CAV1_scaffold
+v_CD28, (v_B7 | v_APC)
+v_CD3, v_TCR
+v_CD4, (v_TCR & (v_CD3 & v_MHC_II))
+v_CGC, v_CGC
+v_Ca2_, v_IP3
+v_Calcineurin, v_Ca2_
+v_Cas, (v_FAK_576_577 & v_Bintegrin)
+v_Cdc42, (v_C3G | v_RhoGEF)
+v_Cofilin, (!v_LIMK | !v_LIMK)
+v_Crk, (v_Cas | v_Paxillin)
+v_DAG, (v_PLCg | v_PLCb)
+v_Dec2, v_GATA3
+v_ECM, v_ECM
+v_EPAC, v_cAMP
+v_ERK, v_MEK1_2
+v_ERM, v_STAT4
+v_FAK_576_577, (v_FAK_Tyr397 & v_Src)
+v_FAK_Tyr397, v_Bintegrin
+v_FOXP3, ((v_NFAT & (v_STAT5 & v_FOXP3)) | ((v_SMAD3 & (v_STAT5 & v_NFAT)) & !((v_STAT3 & v_RORGT) | v_STAT1)))
+v_FYN, ((v_CD3 & v_TCR) | v_CAV1_scaffold)
+v_F_Actin, (v_Arp2_3 & v_G_Actin)
+v_GAB2, (v_Shc1 & v_Grb2)
+v_GADD45B, (v_IL12_e & v_TCR)
+v_GADD45G, (v_IL12_e | v_CD3)
+v_GATA3, ((v_STAT6 & !v_TBET) | v_Dec2)
+v_GFI1, (v_STAT6 | v_TCR)
+v_GP130, v_GP130
+v_GSK_3b, (!v_AKT | !v_AKT)
+v_G_Actin, v_Profilin
+v_Gads, v_LAT
+v_Galpha12_13R, v_alpha_13L
+v_GalphaS_L, v_GalphaS_L
+v_GalphaS_R, v_GalphaS_L
+v_Galpha_Q, v_Galpha_QL
+v_Galpha_QL, v_Galpha_QL
+v_Galpha_iL, v_Galpha_iL
+v_Galpha_iR, v_Galpha_iL
+v_Grb2, (v_LAT | v_Shc1)
+v_HLX, v_TBET
+v_ICOS, v_APC
+v_IFNBR, v_IFNB_e
+v_IFNB_e, v_IFNB_e
+v_IFNG, ((((((v_AP1 & v_STAT4) & !(v_FOXP3 | v_STAT3)) | ((v_RUNX3 & ((v_NFAT & v_TBET) & v_proliferation)) & !(v_FOXP3 | v_STAT3))) | ((v_STAT4 & (v_NFAT & v_proliferation)) & !(v_FOXP3 | v_STAT3))) | (v_HLX & !(v_FOXP3 | v_STAT3))) | (v_ATF2 & !(v_FOXP3 | v_STAT3)))
+v_IFNGR, ((v_IFNG_e & (v_IFNGR2 & v_IFNGR1)) | (v_IFNG & (v_IFNGR2 & v_IFNGR1)))
+v_IFNGR1, v_IFNGR1
+v_IFNGR2, v_IFNGR2
+v_IFNG_e, v_IFNG_e
+v_IKB, (!v_IKKcomplex | !v_IKKcomplex)
+v_IKKcomplex, ((v_NIK | v_Bcl10_Carma1_MALTI) | v_TCR)
+v_IL10, ((v_NFAT & (v_STAT3 | v_GATA3)) & v_proliferation)
+v_IL10R, ((v_IL10 & (v_IL10RB & v_IL10RA)) | (v_IL10_e & (v_IL10RB & v_IL10RA)))
+v_IL10RA, v_IL10RA
+v_IL10RB, v_IL10RB
+v_IL10_e, v_IL10_e
+v_IL12RB1, (v_IRF1 | v_IL12_e)
+v_IL12RB2, v_IL12_e
+v_IL12_e, v_IL12_e
+v_IL15R, (v_CGC & ((v_IL2RB & v_IL15RA) & v_IL15_e))
+v_IL15RA, v_IL15RA
+v_IL15_e, v_IL15_e
+v_IL17, ((v_NFAT & (((v_NFKB & v_STAT3) & v_RORGT) & v_proliferation)) & !(((v_STAT1 & v_FOXP3) | (v_STAT6 & v_FOXP3)) | (v_STAT5 & v_FOXP3)))
+v_IL18R1, v_IL18_e
+v_IL18_e, v_IL18_e
+v_IL2, ((v_NFKB & !((v_STAT5 & v_STAT6) | (v_TBET & v_NFKB))) | ((v_NFAT & !v_FOXP3) & !((v_STAT5 & v_STAT6) | (v_TBET & v_NFKB))))
+v_IL21, (v_NFAT & (v_STAT3 & v_proliferation))
+v_IL21R, ((v_IL21 & (v_CGC & v_GP130)) | (v_IL21_e & (v_CGC & v_GP130)))
+v_IL21_e, v_IL21_e
+v_IL22, (((v_STAT1 | v_STAT5) | v_STAT3) | v_STAT4)
+v_IL22R, v_IL22_e
+v_IL22_e, v_IL22_e
+v_IL23, (v_NFAT & (v_STAT3 & v_proliferation))
+v_IL23R, ((v_IL23 & (((v_IL12RB1 & v_STAT3) & v_RORGT) & v_GP130)) | (v_IL23_e & (((v_IL12RB1 & v_STAT3) & v_RORGT) & v_GP130)))
+v_IL23_e, v_IL23_e
+v_IL27R, (v_GP130 & (v_IL27_e & v_IL27RA))
+v_IL27RA, v_IL27RA
+v_IL27_e, v_IL27_e
+v_IL2R, (((v_IL2 & (v_CGC & v_IL2RB)) & !v_IL2RA) | ((v_IL2_e & (v_CGC & v_IL2RB)) & !v_IL2RA))
+v_IL2RA, ((((v_NFKB & v_NFAT) | (v_FOXP3 & v_NFAT)) | (v_STAT5 & v_NFAT)) | (v_SMAD3 & v_NFAT))
+v_IL2RB, v_IL2RB
+v_IL2R_HIGH, ((v_IL2 & ((v_CGC & v_IL2RB) & v_IL2RA)) | (v_IL2_e & ((v_CGC & v_IL2RB) & v_IL2RA)))
+v_IL2_e, v_IL2_e
+v_IL4, (((v_GATA3 & (v_NFAT & v_proliferation)) & !((v_IRF1 | (v_TBET & v_RUNX3)) | v_FOXP3)) | v_IRF4)
+v_IL4R, ((v_IL4 & (v_CGC & v_IL4RA)) | (v_IL4_e & (v_CGC & v_IL4RA)))
+v_IL4RA, (!v_STAT5_HIGH | !v_STAT5_HIGH)
+v_IL4RA_HIGH, v_STAT5_HIGH
+v_IL4R_HIGH, ((v_IL4_e & (v_CGC & v_IL4RA_HIGH)) | (v_IL4 & (v_CGC & v_IL4RA_HIGH)))
+v_IL4_e, v_IL4_e
+v_IL6R, (v_GP130 & (v_IL6RA & v_IL6_e))
+v_IL6RA, v_IL6RA
+v_IL6_e, v_IL6_e
+v_IL9R, (v_IL9_e | v_JAK3)
+v_IL9_e, v_IL9_e
+v_IP3, v_PLCg
+v_IRAK1, v_IL18R1
+v_IRF1, v_STAT1
+v_IRF4, v_GATA3
+v_IRSp53, v_rac1
+v_ITAMS, v_Lck
+v_ITK, v_SLP_76
+v_JAK1, ((((v_IL22R & !v_SOCS3) | (v_IL2R & !v_SOCS3)) | (v_IL9R & !v_SOCS3)) | (v_JAK3 & !v_SOCS3))
+v_JAK2, (v_IL12RB1 & v_IL12RB2)
+v_JAK3, v_IL2R
+v_JNK, ((v_MKK7 | v_MEK4) | (v_rac1 & v_Crk))
+v_LAT, v_ZAP_70
+v_LIMK, (v_ROCK | v_PAK)
+v_Lck, (((v_JAK3 & v_IL2RB) | v_CD4) | v_CD28)
+v_MEK1_2, ((v_RAF1 | v_PAK) | v_BRAF)
+v_MEK3, v_MEKK4
+v_MEK4, v_MEKK4
+v_MEK6, v_MEKK4
+v_MEKK4, (v_GADD45B & v_GADD45G)
+v_MHC_II, v_MHC_II
+v_MKK7, v_TAK1
+v_MLC, v_ROCK
+v_NFAT, (((v_CD28 & v_TCR) | (v_TCR & v_CD28)) | ((v_Calcineurin & v_P38) & !v_GSK_3b))
+v_NFKB, (!(v_IKB | v_FOXP3) | !(v_IKB | v_FOXP3))
+v_NIK, v_TRAF6
+v_NOS2A, v_CAV1_scaffold
+v_N_WASP, ((v_Nck & v_Vav) | v_Cdc42)
+v_Nck, v_SLP_76
+v_P38, (v_MEK6 | v_MEK3)
+v_PAK, ((v_rac1 | v_Nck) | v_Cdc42)
+v_PDK1, v_PIP3_345
+v_PI3K, (((((v_IL2R | v_Ras) | v_SHP2) | v_FAK_576_577) | v_GAB2) | (v_CD28 & v_ICOS))
+v_PIP3_345, v_PI3K
+v_PKA, v_cAMP
+v_PKC, v_DAG
+v_PLCb, v_Galpha_Q
+v_PLCg, ((v_LAT | v_ZAP_70) | v_ITK)
+v_Paxillin, v_FAK_576_577
+v_Profilin, v_RIAM
+v_RAF1, v_Ras
+v_RASgrp, v_DAG
+v_RIAM, v_Rap1
+v_ROCK, v_RhoA
+v_RORGT, ((v_TGFBR & v_STAT3) | (v_RORGT & (v_TGFBR | v_STAT3)))
+v_RUNX3, (v_TBET & !v_GATA3)
+v_Rap1, ((v_EPAC | (v_C3G & v_Crk)) | v_PKA)
+v_Ras, (v_RASgrp | v_Sos)
+v_RhoA, (v_CAV1_scaffold | v_RhoGEF)
+v_RhoGEF, (v_Galpha12_13R | v_FAK_576_577)
+v_SHP2, (v_IL2RB | v_GAB2)
+v_SLP_76, (v_ZAP_70 | v_Gads)
+v_SMAD3, v_TGFBR
+v_SOCS1, (v_STAT6 | v_STAT3)
+v_SOCS3, v_STAT3
+v_STAT1, (((v_IFNGR & !v_SOCS1) | (v_IL27R & !v_SOCS1)) | (v_IFNBR & !v_SOCS1))
+v_STAT3, ((((v_IL10R | v_IL27R) | v_IL6R) | v_IL21R) | v_IL23R)
+v_STAT4, (((v_P38 & v_Tyk2) & !v_GATA3) | (v_JAK2 & !v_GATA3))
+v_STAT5, (((((v_IL4R | v_SYK) | v_IL2R) | v_JAK1) | v_IL15R) | v_Lck)
+v_STAT5_HIGH, (v_IL4R_HIGH | v_IL2R_HIGH)
+v_STAT6, v_IL4R
+v_SYK, v_IL2R
+v_Shc1, (v_FYN | (v_IL2RB & v_IL2R))
+v_Sos, v_Grb2
+v_Src, (v_FAK_Tyr397 | v_Bintegrin)
+v_TAK1, v_TRAF6
+v_TBET, ((v_TBET & !v_GATA3) | (v_STAT1 & !v_GATA3))
+v_TCR, (v_APC & v_CD28)
+v_TGFB, (v_FOXP3 & (v_NFAT & v_proliferation))
+v_TGFBR, (v_TGFB | v_TGFB_e)
+v_TGFB_e, v_TGFB_e
+v_TRAF6, v_IRAK1
+v_Tyk2, (v_IL12RB1 & v_IL12RB2)
+v_Vav, v_SLP_76
+v_WAVE_2, (v_IRSp53 & v_rac1)
+v_ZAP_70, (v_ITAMS & v_CD3)
+v_adenyl_cyclase, v_GalphaS_R
+v_alpha_13L, v_alpha_13L
+v_cAMP, v_adenyl_cyclase
+v_proliferation, (v_STAT5_HIGH | v_proliferation)
+v_rac1, (((v_Vav | v_was) | (v_Crk & v_Paxillin)) | v_NOS2A)
+v_was, v_Src

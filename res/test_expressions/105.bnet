@@ -1,0 +1,50 @@
+targets,factors
+v_8_nitro_cGMP__ADPRc__cADPR_a, (v_NOGC1__cGMP_GTP & (v_RBOH_RCN1_b__ROS_a & v_NO_Nitrite_a))
+v_ABA, v_ABA
+v_ABI1, (!v_PA_DAGK_PC & ((!v_RCARs | v_ROP11_GEF1_4_10) & (!v_RBOH_RCN1_b__ROS_a & v_pHc)))
+v_ABI2, ((!v_RCARs | v_ROP11_GEF1_4_10) & !v_RBOH_RCN1_b__ROS_a)
+v_Actin_Reorganization_ARP_Complex_SCAB1_b_c, !v_AtRAC1
+v_AnionEM, (v_SLAC1 | (v_QUAC1 & v_SLAH3))
+v_AtRAC1, (!v_ABA | v_ABI1)
+v_CIS, (v_InsP3__InsP6_c | v_8_nitro_cGMP__ADPRc__cADPR_a)
+v_CPK3_21, (v_Ca2_ | v_CPK3_21)
+v_CPK6_23, v_CPK6_23
+v_Ca2_, ((v_CIS | v_CaIM__ABH1__ERA1_MRP5_NtSyp121) & !v_Ca2__ATPase)
+v_Ca2__ATPase, v_Ca2_
+v_CaIM__ABH1__ERA1_MRP5_NtSyp121, (v_Actin_Reorganization_ARP_Complex_SCAB1_b_c | v_GHR1)
+v_Closure, (v_Microtubule_Depolymerization & v_H2O_Efflux)
+v_DAG_c, v_PLC
+v_Depolarization, ((v_AnionEM | (v_Ca2_ | v_KEV)) & (!v_H__ATPase | !v_K__efflux))
+v_GHR1, (!v_ABI2 & v_RBOH_RCN1_b__ROS_a)
+v_H2O_Efflux, (v_AnionEM & (v_OST1__PIP2_1 & (v_K__efflux & !v_Malate)))
+v_HAB1, (!v_RCARs & !v_RBOH_RCN1_b__ROS_a)
+v_H__ATPase, (!v_pHc & (!v_Ca2_ & !v_RBOH_RCN1_b__ROS_a))
+v_InsP3__InsP6_c, v_PLC
+v_KEV, (v_Vacuolar_Acidification | v_Ca2_)
+v_KOUT, ((!v_NO_Nitrite_a | (!v_RBOH_RCN1_b__ROS_a | v_pHc)) & v_Depolarization)
+v_K__efflux, (v_KEV & v_KOUT)
+v_MPK9_12, (v_Ca2_ | v_MPK9_12)
+v_Malate, (v_PEPC & (!v_ABA & !v_AnionEM))
+v_Microtubule_Depolymerization, (v_TCTP | v_Microtubule_Depolymerization)
+v_NIA1_2, v_RBOH_RCN1_b__ROS_a
+v_NOGC1__cGMP_GTP, v_NO_Nitrite_a
+v_NO_Nitrite_a, v_NIA1_2
+v_OST1__PIP2_1, ((!v_ABI1 & !v_HAB1) | ((!v_PP2CA & !v_ABI2) | ((!v_ABI1 & !v_ABI2) | ((!v_HAB1 & !v_PP2CA) | ((!v_HAB1 & !v_ABI2) | (!v_ABI1 & !v_PP2CA))))))
+v_PA_DAGK_PC, (v_PLDdel_GAPC1_2 | (v_PLDa | v_DAG_c))
+v_PEPC, !v_ABA
+v_PI3P5K__PtdIns_3_5_P2__V_PPase, v_ABA
+v_PLC, v_Ca2_
+v_PLDa, (v_SPHK1_2__S1P__SPP1_Sph__GPA1__GCR1 & v_Ca2_)
+v_PLDdel_GAPC1_2, (v_NO_Nitrite_a | v_RBOH_RCN1_b__ROS_a)
+v_PP2CA, (!v_RCARs & !v_RBOH_RCN1_b__ROS_a)
+v_QUAC1, (v_OST1__PIP2_1 & v_Ca2_)
+v_RBOH_RCN1_b__ROS_a, (v_pHc & (!v_ABI1 & (v_OST1__PIP2_1 & (v_SPHK1_2__S1P__SPP1_Sph__GPA1__GCR1 & v_PA_DAGK_PC))))
+v_RCARs, v_ABA
+v_ROP11_GEF1_4_10, v_ROP11_GEF1_4_10
+v_SLAC1, ((v_CPK6_23 | v_CPK3_21) & (v_MPK9_12 & (v_OST1__PIP2_1 & (v_GHR1 & (!v_ABI1 & (!v_PP2CA & (!v_ABI2 & v_pHc)))))))
+v_SLAH3, (v_CPK6_23 & (v_CPK3_21 & !v_ABI1))
+v_SPHK1_2__S1P__SPP1_Sph__GPA1__GCR1, (v_PA_DAGK_PC | v_ABA)
+v_TCTP, v_Ca2_
+v_V_ATPase, v_Ca2_
+v_Vacuolar_Acidification, (v_PI3P5K__PtdIns_3_5_P2__V_PPase | (v_V_ATPase | v_Vacuolar_Acidification))
+v_pHc, (((v_OST1__PIP2_1 & (!v_ABI2 & !v_ABI1)) | v_Ca2_) & v_Vacuolar_Acidification)

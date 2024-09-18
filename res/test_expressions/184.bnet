@@ -1,0 +1,7 @@
+targets,factors
+v_DNAdam, ((!v_p53_b1 & v_DNAdam) | ((v_p53_b1 & !v_p53_b2) & v_DNAdam))
+v_Mdm2cyt_b1, v_Mdm2cyt_b1
+v_Mdm2cyt_b2, ((v_p53_b1 & v_p53_b2) & v_Mdm2cyt_b1)
+v_Mdm2nuc, (((((!v_p53_b1 & v_Mdm2cyt_b1) & !v_Mdm2cyt_b2) & !v_DNAdam) | ((!v_p53_b1 & v_Mdm2cyt_b1) & v_Mdm2cyt_b2)) | ((v_p53_b1 & v_Mdm2cyt_b1) & v_Mdm2cyt_b2))
+v_p53_b1, (((!v_p53_b1 & !v_Mdm2nuc) | ((v_p53_b1 & !v_p53_b2) & !v_Mdm2nuc)) | (v_p53_b1 & v_p53_b2))
+v_p53_b2, (v_p53_b1 & !v_Mdm2nuc)

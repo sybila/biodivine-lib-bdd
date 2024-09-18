@@ -1,0 +1,248 @@
+targets,factors
+v_AA, v_PLA2
+v_AC, ((v_Integrins & v_ECM) & (v_Gas & v_Gbg_i))
+v_AG, v_AG
+v_AMSH, ((v_ESCRT_0 | v_Alix) | v_ESCRT_I)
+v_AND_34, v_Cas
+v_AP2, (((((((v_EGFR_EGFR_EGF_PM | v_Eps15) | v_PIP2_45) | v_Epsin) | v_EGFR_EGFR_TGFa_PM) | v_Hip1R) | v_PIP3_345) | v_CIN85)
+v_ARF, ((((v_ARNO & !v_PIP2_45) | (v_PIP3_345 & !v_PIP2_45)) | ((v_PIP2_45 & (v_PIP3_345 | v_ARNO)) & !v_ARF)) | (v_ARF & !v_PIP2_45))
+v_ARNO, v_PIP2_45
+v_ASK1, v_Trx
+v_Actin, ((v_IQGAP1 & v_Myosin) | (v_Arp_23 & ((v_Myosin & !v_IQGAP1) & v_alpha_catenin)))
+v_Akt, (((v_CaMKK & (((v_Src & v_ILK) & (v_PIP3_345 | v_PIP2_34)) & !v_Akt)) | (v_PDK1 & ((!v_Akt & (v_PIP3_345 | v_PIP2_34)) & (v_Src & v_ILK)))) | (v_Akt & !v_PP2A))
+v_Alix, (v_ESCRT_III | v_ESCRT_I)
+v_Arp_23, v_WASP
+v_B_Arrestin, (((v_Palpha_1213R | v_Palpha_qR) | v_Palpha_iR) | v_Palpha_sR)
+v_B_Parvin, v_ILK
+v_B_catenin, (((v_Fer & ((((((((((((((!v_EGFR_EGFR & !v_EGFR_EGFR_TGFa_CCV) & !v_EGFR_ErbB4) & !v_EGFR_ErbB2) & !v_EGFR_EGFR_EGF_MVB) & !v_EGFR_ErbB3) & !v_EGFR_EGFR_TGFa_CCP) & !v_EGFR_EGFR_EGF_CCP) & !v_Src) & !v_EGFR_EGFR_EGF_CCV) & !v_EGFR_EGFR_TGFa_End) & !v_EGFR_EGFR_EGF_PM) & !v_EGFR_EGFR_EGF_End) & !v_EGFR_EGFR_TGFa_PM) | v_PTP1b)) | (v_PTP1b & (((((((((((((!v_EGFR_EGFR & !v_EGFR_EGFR_TGFa_CCV) & !v_EGFR_ErbB4) & !v_EGFR_ErbB2) & !v_EGFR_EGFR_EGF_MVB) & !v_EGFR_ErbB3) & !v_EGFR_EGFR_TGFa_CCP) & !v_EGFR_EGFR_EGF_CCP) & !v_Src) & !v_EGFR_EGFR_EGF_CCV) & !v_EGFR_EGFR_TGFa_End) & !v_EGFR_EGFR_EGF_PM) & !v_EGFR_EGFR_EGF_End) & !v_EGFR_EGFR_TGFa_PM))) | !(((((((((((((((v_EGFR_EGFR | v_Fer) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_Src) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_PTP1b) | v_EGFR_EGFR_TGFa_PM))
+v_CALM, v_PIP2_45
+v_CHIP, (v_AG & v_Hsp90)
+v_CIN85, v_Cbl_RTK
+v_Ca, (v_IP3R1 & !v_ExtPump)
+v_CaM, v_Ca
+v_CaMK, (v_CaMKK & v_CaM)
+v_CaMKK, v_CaM
+v_Cas, ((v_Src & v_Fak) & !(v_PTPPEST & v_Cas))
+v_Cbl_ErbB2, (v_Trastuzumab & ((v_ErbB2_ErbB3 | v_EGFR_ErbB2) | v_ErbB2_ErbB4))
+v_Cbl_FA, ((v_Src & (v_Cdc42 & v_Pix_Cool)) & !v_Cbl_RTK)
+v_Cbl_RTK, (((v_EGFR_Y1045 & v_Src) & !((v_CIN85 & v_Spry2) | v_EGFR_T654)) | ((v_Grb2 & v_Src) & !((v_CIN85 & v_Spry2) | v_EGFR_T654)))
+v_Cbp, (v_Src & !v_SHP2)
+v_Cdc42, (((v_Pix_Cool & (((v_Gbg_i & v_PAK) & !v_Rac) | v_Cdc42)) & !(v_RhoGDI & v_Src)) | ((v_Cdc42 & (v_IQGAP1 & ((!v_RalBP1 & !v_p190RhoGAP) & !v_Graf))) & !(v_RhoGDI & v_Src)))
+v_Clathrin, ((((((v_Hip1R | v_ESCRT_0) | v_Src) | v_GAK) | (v_Epsin & v_PIP2_45)) | (v_CALM & v_PIP2_45)) | v_AP2)
+v_Cortactin, (((((((((v_Rac | v_Erk) | v_Rac) | v_PAK) | v_Actin) | v_Hip1R) | v_Dynamin) | v_Src) | v_Fer) | v_Src)
+v_Crk, ((v_Cas & (v_Fak | v_Src)) & !v_PTPPEST)
+v_Csk, ((v_Cbp & ((((v_PKA | v_Gbg_i) | v_Gbg_1213) | v_Gbg_q) | ((((!v_PKA & !v_Gbg_i) & !v_Gbg_1213) & !v_Gbg_q) & !v_SHP2))) | ((v_Fak & (v_Src & v_Cbp)) & !v_SHP2))
+v_DAG, ((((v_PLC_g & v_PIP2_45) & !(v_DGK & v_DAG)) | ((v_PLC_B & v_PIP2_45) & !(v_DGK & v_DAG))) | (v_DAG & !v_DGK))
+v_DGK, ((((((((((((((v_EGFR_ErbB3 | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_MVB) | (v_PKC & v_DAG)) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_EGFR) | (v_Src & (v_Ca & v_PA))) | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_TGFa_PM)
+v_DOCK180, (v_Crk & (v_PIP3_345 & v_Cas))
+v_Dynamin, ((((v_Grb2 | v_PIP2_45) | v_EGFR_EGFR_EGF_PM) | v_Endophilin) | v_EGFR_EGFR_TGFa_PM)
+v_ECM, v_ECM
+v_EEA1, (v_Rab5 & v_PIP3_345)
+v_EGF, v_EGF
+v_EGFR_Contr, v_EGFR_Contr
+v_EGFR_EGFR, (((v_alpha_1213R & ((v_EGFR_T654 & v_EGFR_Free) & v_Ca)) | (v_alpha_qR & ((v_Ca & v_EGFR_T654) & v_EGFR_Free))) | (v_alpha_iR & ((v_EGFR_Free & v_EGFR_T654) & v_Ca)))
+v_EGFR_EGFR_EGF_CCP, (((((v_Eps15 & ((((v_PIP2_45 & v_Cbl_RTK) & v_Clathrin) & v_EGFR_EGFR_EGF_PM) & v_Rab5)) & !v_EGFR_EGFR_EGF_CCV) | ((v_AP2 & ((((v_Cbl_RTK & v_EGFR_EGFR_EGF_PM) & v_PIP2_45) & v_Rab5) & v_Clathrin)) & !v_EGFR_EGFR_EGF_CCV)) | (v_EGFR_EGFR_EGF_CCP & !v_EGFR_EGFR_EGF_CCV)) | ((v_Epsin & ((((v_EGFR_EGFR_EGF_PM & v_Rab5) & v_Cbl_RTK) & v_Clathrin) & v_PIP2_45)) & !v_EGFR_EGFR_EGF_CCV))
+v_EGFR_EGFR_EGF_CCV, ((v_EGFR_EGFR_EGF_CCV & !v_EGFR_EGFR_EGF_End) | ((v_EGFR_EGFR_EGF_CCP & (v_Actin & v_Dynamin)) & !v_EGFR_EGFR_EGF_End))
+v_EGFR_EGFR_EGF_End, (((v_EGFR_EGFR_EGF_CCV & (((((v_EEA1 & v_PIP3_345) & v_Rabaptin_5) & v_GAK) & v_Hsc70) & v_Rab5)) & !v_EGFR_EGFR_EGF_MVB) | (v_EGFR_EGFR_EGF_End & !v_EGFR_EGFR_EGF_MVB))
+v_EGFR_EGFR_EGF_Lysosome, ((v_ESCRT_III & ((v_Alix & (v_VPS4 | v_Eps15)) & v_Rab7)) | (v_EGFR_EGFR_EGF_MVB & ((v_Alix & (v_VPS4 | v_Eps15)) & v_Rab7)))
+v_EGFR_EGFR_EGF_MVB, ((v_EGFR_EGFR_EGF_MVB & !v_EGFR_EGFR_EGF_Lysosome) | v_EGFR_EGFR_EGF_End)
+v_EGFR_EGFR_EGF_PM, ((v_EGFR_EGFR_EGF_PM & !v_EGFR_EGFR_EGF_CCP) | ((v_EGFR_Free & (v_EGF & !v_EGFR_T654)) & !(v_ErbB2_Free | v_EGFR_EGFR_EGF_CCP)))
+v_EGFR_EGFR_EGF_SR, (v_EGFR_EGFR_EGF_MVB & v_AMSH)
+v_EGFR_EGFR_TGFa_CCP, ((((v_EGFR_EGFR_TGFa_CCP & !v_EGFR_EGFR_TGFa_CCV) | (v_Epsin & (((v_Clathrin & v_PIP2_45) & v_Rab5) & v_EGFR_EGFR_TGFa_PM))) | (v_AP2 & ((v_EGFR_EGFR_TGFa_PM & (v_Clathrin & v_PIP2_45)) & v_Rab5))) | (v_Eps15 & (((v_Clathrin & v_PIP2_45) & v_EGFR_EGFR_TGFa_PM) & v_Rab5)))
+v_EGFR_EGFR_TGFa_CCV, ((v_EGFR_EGFR_TGFa_CCV & !v_EGFR_EGFR_TGFa_End) | (v_EGFR_EGFR_TGFa_CCP & (((v_GAK | v_Clathrin) & (v_AP2 & v_PIP2_45)) & (v_Actin & v_Dynamin))))
+v_EGFR_EGFR_TGFa_End, ((v_EGFR_EGFR_TGFa_End & !v_EGFR_Free) | ((v_EGFR_EGFR_TGFa_CCV & (((v_EEA1 & v_PIP3_345) & v_Hsc70) & v_Rab5)) & (v_Rabaptin_5 | v_GAK)))
+v_EGFR_EGFR_TGFa_PM, (((v_EGFR_Free & (!v_EGFR_T654 & v_TGFa)) & !(v_EGFR_EGFR_TGFa_CCP | v_ErbB2_Free)) | (v_EGFR_EGFR_TGFa_PM & !v_EGFR_EGFR_TGFa_CCP))
+v_EGFR_ErbB2, ((((v_EGF & (((((v_ErbB2_Free & v_EGFR_Free) & !v_EGFR_ErbB2) & (!v_NRG | !v_ErbB3_Free)) & !v_EGFR_T654) & !v_EGFR_ErbB2)) & !v_Pertuzumab) | (v_Pertuzumab & v_EGFR_ErbB2)) | (v_EGFR_ErbB2 & !(v_Trastuzumab | (v_ErbB2Deg_Contr & v_EGFR_ErbB2))))
+v_EGFR_ErbB3, (v_EGF & ((((v_NRG & v_ErbB3_Free) & !v_ErbB2_Free) & v_EGFR_Free) & !v_EGFR_T654))
+v_EGFR_ErbB4, (v_EGF & (((((!v_EGFR_T654 & v_ErbB4_Free) & v_EGFR_Free) & v_NRG) & !v_ErbB3_Free) & !v_ErbB2_Free))
+v_EGFR_Free, (((v_EGFR_EGFR_TGFa_End & !(v_EGFR_Free & ((((v_EGFR_EGFR | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_ErbB3))) | (v_EGFR_Free & !(v_EGFR_Free & ((((v_EGFR_EGFR | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_ErbB3)))) | (v_EGFR_Contr & !(v_EGFR_Free & ((((v_EGFR_EGFR | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_ErbB3))))
+v_EGFR_T654, v_PKC
+v_EGFR_T669, v_Erk
+v_EGFR_Ub, (((v_EGFR_EGFR_EGF_PM & v_Cbl_RTK) & !(v_EGFR_EGFR_EGF_CCP | v_EGFR_EGFR_TGFa_CCP)) | ((v_EGFR_EGFR_TGFa_PM & v_Cbl_RTK) & !(v_EGFR_EGFR_EGF_CCP | v_EGFR_EGFR_TGFa_CCP)))
+v_EGFR_Y1045, (((((v_EGFR_EGFR_TGFa_PM | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB4) | v_EGFR_EGFR) | v_EGFR_ErbB3)
+v_EGFR_Y1068, (((((v_EGFR_EGFR | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB4)
+v_EGFR_Y1086, (((((v_EGFR_EGFR_EGF_PM | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_ErbB2) | v_EGFR_EGFR) | v_EGFR_ErbB4)
+v_EGFR_Y1101, v_Src
+v_EGFR_Y1148, (((((v_EGFR_ErbB3 | v_EGFR_EGFR_TGFa_PM) | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB2) | v_EGFR_ErbB4) | v_EGFR_EGFR)
+v_EGFR_Y1173, (((((v_EGFR_ErbB3 | v_EGFR_EGFR) | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_ErbB4)
+v_EGFR_Y845, ((v_Src & v_EGFR_EGFR_EGF_PM) | (v_EGFR_Free & ((v_Cas & v_Integrins) & v_Src)))
+v_EGFR_Y891, v_Src
+v_EGFR_Y920, (v_Src & v_EGFR_EGFR_EGF_PM)
+v_EGFR_Y992, (((((((v_EGFR_EGFR_TGFa_PM & !(v_SHP2 & v_EGFR_Y992)) | (v_EGFR_EGFR & !(v_SHP2 & v_EGFR_Y992))) | (v_EGFR_Y992 & !(v_SHP2 & v_EGFR_Y992))) | (v_EGFR_EGFR_EGF_PM & !(v_SHP2 & v_EGFR_Y992))) | (v_EGFR_ErbB4 & !(v_SHP2 & v_EGFR_Y992))) | (v_EGFR_ErbB2 & !(v_SHP2 & v_EGFR_Y992))) | (v_EGFR_ErbB3 & !(v_SHP2 & v_EGFR_Y992)))
+v_ESCRT_0, (v_EGFR_EGFR_EGF_End & v_PIP3_345)
+v_ESCRT_I, v_ESCRT_0
+v_ESCRT_II, v_ESCRT_I
+v_ESCRT_III, (v_ESCRT_I | v_ESCRT_II)
+v_E_cadherin, ((v_B_catenin & v_ExtE_cadherin) & !((v_IQGAP1 & (!v_Rac & !v_Cdc42)) | (v_Hakai & !v_p120_catenin)))
+v_Endophilin, ((((v_Endophilin & v_PIP2_45) | v_CIN85) | v_Eps15) | v_Epsin)
+v_Eps15, ((v_EGFR_Ub | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_TGFa_PM)
+v_Epsin, (((v_PIP2_45 | v_EGFR_EGFR_TGFa_PM) | v_EGFR_Ub) | v_EGFR_EGFR_EGF_PM)
+v_ErbB2Deg_Contr, v_ErbB2Deg_Contr
+v_ErbB2_Contr, v_ErbB2_Contr
+v_ErbB2_ErbB3, (((v_NRG & (v_ErbB2_Free & v_ErbB3_Free)) & !(v_Pertuzumab | (v_ErbB2_Lysosome & v_ErbB2_ErbB3))) | (v_ErbB2_ErbB3 & !(v_ErbB2_Lysosome & v_ErbB2_ErbB3)))
+v_ErbB2_ErbB4, ((v_NRG & (v_ErbB2_Free & v_ErbB4_Free)) & !v_ErbB3_Free)
+v_ErbB2_Free, ((v_ErbB2_Contr & !v_Trastuzumab) | (v_ErbB2_Free & !(((v_Trastuzumab | v_ErbB2_ErbB3) | v_ErbB2_ErbB4) | v_EGFR_ErbB2)))
+v_ErbB2_Lysosome, ((v_ErbB2_Ub & !v_ErbB2Deg_Contr) | (v_ErbB2_ErbB3 & v_ErbB2Deg_Contr))
+v_ErbB2_Ub, (v_CHIP | (v_Cbl_ErbB2 & !v_Hsp90))
+v_ErbB2_Y1023, ((v_EGFR_ErbB2 | v_ErbB2_ErbB3) | v_ErbB2_ErbB4)
+v_ErbB2_Y1139, ((v_ErbB2_ErbB3 | v_EGFR_ErbB2) | v_ErbB2_ErbB4)
+v_ErbB2_Y1196, ((v_ErbB2_ErbB3 | v_ErbB2_ErbB4) | v_EGFR_ErbB2)
+v_ErbB2_Y1221_22, ((v_EGFR_ErbB2 | v_ErbB2_ErbB3) | v_ErbB2_ErbB4)
+v_ErbB2_Y1248, ((v_ErbB2_ErbB4 | v_ErbB2_ErbB3) | v_EGFR_ErbB2)
+v_ErbB3_Contr, v_ErbB3_Contr
+v_ErbB3_ErbB4, ((v_NRG & (v_ErbB4_Free & v_ErbB3_Free)) & !v_ErbB2_Free)
+v_ErbB3_Free, (v_ErbB3_Contr | (v_ErbB3_Free & !((v_ErbB3_ErbB4 | v_ErbB2_ErbB3) | v_EGFR_ErbB3)))
+v_ErbB3_Y1035, ((v_ErbB2_ErbB3 | v_EGFR_ErbB3) | v_ErbB3_ErbB4)
+v_ErbB3_Y1178, ((v_EGFR_ErbB3 | v_ErbB2_ErbB3) | v_ErbB3_ErbB4)
+v_ErbB3_Y1180, ((v_ErbB3_ErbB4 | v_EGFR_ErbB3) | v_ErbB2_ErbB3)
+v_ErbB3_Y1203_05, ((v_EGFR_ErbB3 | v_ErbB2_ErbB3) | v_ErbB3_ErbB4)
+v_ErbB3_Y1241, ((v_ErbB2_ErbB3 | v_ErbB3_ErbB4) | v_EGFR_ErbB3)
+v_ErbB3_Y1243, ((v_EGFR_ErbB3 | v_ErbB2_ErbB3) | v_ErbB3_ErbB4)
+v_ErbB3_Y1257, ((v_ErbB3_ErbB4 | v_ErbB2_ErbB3) | v_EGFR_ErbB3)
+v_ErbB3_Y1270, ((v_ErbB2_ErbB3 | v_EGFR_ErbB3) | v_ErbB3_ErbB4)
+v_ErbB3_Y1309, ((v_EGFR_ErbB3 | v_ErbB2_ErbB3) | v_ErbB3_ErbB4)
+v_ErbB4_Contr, v_ErbB4_Contr
+v_ErbB4_ErbB4, ((v_NRG & v_ErbB4_Free) & !v_ErbB2_Free)
+v_ErbB4_Free, (v_ErbB4_Contr | (v_ErbB4_Free & !(((v_EGFR_ErbB4 | v_ErbB2_ErbB4) | v_ErbB3_ErbB4) | v_ErbB4_ErbB4)))
+v_ErbB4_Y1056, (((v_ErbB3_ErbB4 | v_ErbB2_ErbB4) | v_EGFR_ErbB4) | v_ErbB4_ErbB4)
+v_ErbB4_Y1188, (((v_EGFR_ErbB4 | v_ErbB3_ErbB4) | v_ErbB2_ErbB4) | v_ErbB4_ErbB4)
+v_ErbB4_Y1242, (((v_EGFR_ErbB4 | v_ErbB3_ErbB4) | v_ErbB2_ErbB4) | v_ErbB4_ErbB4)
+v_Erk, ((v_Erk & !(v_PP2A | v_MKPs)) | v_Mek)
+v_ExtE_cadherin, v_ExtE_cadherin
+v_ExtPump, v_ExtPump
+v_Fak, (((v_Integrins & v_Talin) & !(v_PTEN & v_Fak)) | ((v_Src & v_Fak) & !(v_PTEN & v_Fak)))
+v_Fer, (v_E_cadherin & v_p120_catenin)
+v_GAK, (((v_EGFR_EGFR_EGF_CCP & ((v_AP2 | v_Dynamin) | v_Clathrin)) | (v_GAK & (v_EGFR_EGFR_EGF_CCV | v_EGFR_EGFR_TGFa_CCV))) | (v_EGFR_EGFR_TGFa_CCP & ((v_AP2 | v_Dynamin) | v_Clathrin)))
+v_GCK, v_Trafs
+v_GRK, ((((((v_Gbg_1213 & v_PIP2_45) & !(v_Erk | v_RKIP)) | ((v_Gbg_s & v_PIP2_45) & !(v_Erk | v_RKIP))) | ((v_Gbg_i & v_PIP2_45) & !(v_Erk | v_RKIP))) | ((v_B_Arrestin & v_Src) & !(v_Erk | v_RKIP))) | ((v_Gbg_q & v_PIP2_45) & !(v_Erk | v_RKIP)))
+v_Ga_1213, ((v_alpha_1213R & (!v_Gbg_1213 & !v_Ga_1213)) | (v_Ga_1213 & (!v_p115RhoGEF & v_Gbg_1213)))
+v_Gab1, (((v_Grb2 & (!v_Gab1 & ((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM))) & !v_SHP2) | ((v_Gab1 & (v_PIP3_345 & ((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM))) & !v_SHP2))
+v_Gai, (((v_alpha_iR & (!v_Gbg_i & !v_Gai)) | (v_Gbg_i & (v_Gai & !v_RGS))) | (v_PKA & (((!v_alpha_sR & !v_Gbg_i) & !v_Gai) & v_alpha_sL)))
+v_Gaq, ((v_Gaq & ((!v_PLC_B & !v_RGS) & v_Gbg_q)) | ((v_alpha_qR & !v_Gaq) & !v_Gbg_q))
+v_Gas, ((v_Gbg_s & (!v_RGS & v_Gas)) | (v_alpha_sR & ((!v_Gbg_s & !v_Gas) & !v_PKA)))
+v_Gbg_1213, (v_Ga_1213 | (v_alpha_1213R & (!v_Ga_1213 & !v_Gbg_1213)))
+v_Gbg_i, ((v_alpha_iR & (!v_Gai & !v_Gbg_i)) | v_Gai)
+v_Gbg_q, (v_Gaq | (v_alpha_qR & (!v_Gbg_q & !v_Gaq)))
+v_Gbg_s, (v_Gas | (v_alpha_sR & (!v_Gbg_s & !v_Gas)))
+v_Graf, (v_Fak & v_Src)
+v_Grb2, ((((v_EGFR_Y1068 | v_EGFR_Y1086) | v_Shc) | v_ErbB2_Y1139) | (v_Src & v_Fak))
+v_Hakai, (v_Src & (!v_Ca & v_E_cadherin))
+v_Hip1R, (v_Clathrin | v_CIN85)
+v_Hsc70, (v_GAK | v_Dynamin)
+v_Hsp90, (((v_EGFR_ErbB2 & !(v_CHIP & v_Hsp90)) | (v_ErbB2_ErbB4 & !(v_CHIP & v_Hsp90))) | (v_ErbB2_ErbB3 & !(v_CHIP & v_Hsp90)))
+v_IL1_TNF, v_IL1_TNF
+v_IL1_TNFR, v_IL1_TNF
+v_ILK, v_PIP3_345
+v_IP3, ((v_PLC_g & v_PIP2_45) | (v_PLC_B & v_PIP2_45))
+v_IP3R1, ((((v_IP3 & v_Ca) & !((v_CaM & (v_IP3R1 & v_Ca)) | (v_Ca & (!v_IP3 & v_IP3R1)))) | (v_PKA & !(((v_PP2A & v_IP3R1) | (v_CaM & (v_IP3R1 & v_Ca))) | (v_Ca & (!v_IP3 & v_IP3R1))))) | (v_Gbg_i & !(((v_CaM & (v_IP3R1 & v_Ca)) | (v_Ca & (!v_IP3 & v_IP3R1))) | (v_IP3R1 & ((((!v_PKA & !v_IP3) & !v_Ca) & !v_PP2A) & (v_CaM & v_Gbg_i))))))
+v_IQGAP1, (!(v_CaM & v_Ca) | !(v_CaM | v_Ca))
+v_Integrins, ((((v_Integrins & (!v_Src & !v_ILK)) | (v_Src & ((((!v_Integrins & !v_Talin) & !v_ECM) & !v_PP2A) & !v_ILK))) | (v_PP2A & (!v_Integrins & ((v_Talin & v_ECM) & v_ILK)))) | (v_Talin & ((!v_Integrins & !v_ILK) & v_ECM)))
+v_MKK3, ((((((((((v_TAK1 & v_ASK1) | (v_Tpl2 & v_ASK1)) | (v_Mekk2 & v_ASK1)) | (v_TAO_12 & v_ASK1)) | (v_MLK2 & v_ASK1)) | (v_MLK1 & v_ASK1)) | (v_Mekk3 & v_ASK1)) | (v_Mekk4 & v_ASK1)) | (v_MLK3 & v_ASK1)) | (v_PAK & v_ASK1))
+v_MKK6, ((((((v_Mekk4 & v_ASK1) | (v_TAO_12 & v_ASK1)) | (v_MLK3 & v_ASK1)) | (v_PAK & v_ASK1)) | (v_TAK1 & v_ASK1)) | (v_Tpl2 & v_ASK1))
+v_MKK7, (((((((v_Mekk4 & v_ASK1) | (v_MLK2 & v_ASK1)) | (v_Mekk3 & v_ASK1)) | (v_MLK1 & v_ASK1)) | (v_Mekk2 & v_ASK1)) | (v_Mekk1 & v_ASK1)) | (v_MLK3 & v_ASK1))
+v_MKPs, (((v_p38 & v_cAMP) | (v_Erk & v_cAMP)) | (v_SAPK & v_cAMP))
+v_MLCK, (((v_CaM & (!v_PAK & !v_PKA)) & !(v_PKA | v_PAK)) | ((v_Erk & (!v_PKA & !v_PAK)) & !(v_PKA | v_PAK)))
+v_MLCP, (((v_PKA & v_RhoK) & !(((v_Raf | v_PAK) | v_ILK) | v_PKC)) | !(((((v_Raf | v_PKA) | v_PAK) | v_RhoK) | v_PKC) | v_ILK))
+v_MLK1, (v_Cdc42 | v_Rac)
+v_MLK2, ((v_Cdc42 & v_SAPK) | (v_Rac & v_SAPK))
+v_MLK3, ((v_Cdc42 | v_Rac) | v_IL1_TNFR)
+v_Mek, (((((((v_Mekk2 & v_Raf) & !(v_PP2A & v_Mek)) | ((v_PAK & v_Tpl2) & !(v_PP2A & v_Mek))) | ((v_Mekk3 & v_Raf) & !(v_PP2A & v_Mek))) | (v_Tpl2 & !(v_PP2A & v_Mek))) | ((v_Raf & v_Tpl2) & !(v_PP2A & v_Mek))) | ((v_Mekk1 & v_Raf) & !(v_PP2A & v_Mek)))
+v_Mekk1, (((((((v_Trafs | v_GCK) | (v_Grb2 & v_Shc)) | v_Rac) | v_Cdc42) | v_Ras) | (v_Rho & (v_Shc | v_Grb2))) | (v_NIK & (v_Shc | v_Grb2)))
+v_Mekk2, (((((v_Grb2 & (((((((((((v_EGFR_EGFR_EGF_CCP | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP)) & !v_Mekk2) | ((v_Src & (((((((((((v_EGFR_EGFR_EGF_CCP | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP)) & !v_Mekk2)) | ((v_PI3K & (((((((((((v_EGFR_EGFR_EGF_CCP | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP)) & !v_Mekk2)) | ((v_PLC_g & (((((((((((v_EGFR_EGFR_EGF_CCP | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP)) & !v_Mekk2))
+v_Mekk3, (((v_Rac & !v_Gab1) | (v_Trafs & !v_Gab1)) | (v_IL1_TNFR & !v_Gab1))
+v_Mekk4, (v_Rac | v_Cdc42)
+v_Myosin, (((((((v_MLCK & (v_CaM & !v_MLCP)) & !(v_MLCP & v_Myosin)) | ((v_RhoK & (!v_Myosin | !v_MLCP)) & !(v_MLCP & v_Myosin))) | ((v_CaM & (!v_Myosin & v_MLCK)) & !(v_MLCP & v_Myosin))) | ((v_Myosin & !v_MLCP) & !(v_MLCP & v_Myosin))) | ((v_ILK & (!v_MLCP | !v_Myosin)) & !(v_MLCP & v_Myosin))) | ((v_PAK & (!v_MLCP | !v_Myosin)) & !(v_MLCP & v_Myosin)))
+v_NIK, (v_Nck | v_TAK1)
+v_NRG, v_NRG
+v_Nck, (((((((((((((v_EGFR_EGFR_EGF_End | v_EGFR_ErbB2) | v_Cas) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_ErbB3) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_EGFR_EGF_PM) | v_EGFR_ErbB4) | v_EGFR_EGFR_EGF_CCP)
+v_PA, v_PLD
+v_PAK, ((((v_Cdc42 & (v_Grb2 | (v_Nck & !v_Akt))) & !v_PKA) | ((v_Rac & ((v_Nck & !v_Akt) | v_Grb2)) & !v_PKA)) | (((v_Src & v_PAK) & (v_Rac | v_Cdc42)) & !(v_PKA | v_PTP1b)))
+v_PDE4, ((v_PKA & v_B_Arrestin) | (v_B_Arrestin & !v_Erk))
+v_PDK1, (v_p90RSK | v_Src)
+v_PI3K, ((((((((((((((((v_Gbg_i & !v_PI3K_I) | (v_ErbB3_Y1203_05 & !v_PI3K_I)) | (v_Ras & !v_PI3K_I)) | (v_Fak & !v_PI3K_I)) | (v_ErbB4_Y1056 & !v_PI3K_I)) | (v_Gab1 & !v_PI3K_I)) | (v_ErbB3_Y1035 & !v_PI3K_I)) | (v_ErbB3_Y1270 & !v_PI3K_I)) | (v_ErbB3_Y1178 & !v_PI3K_I)) | (v_EGFR_Y845 & !v_PI3K_I)) | (v_ErbB3_Y1257 & !v_PI3K_I)) | (v_Crk & !v_PI3K_I)) | (v_EGFR_Y920 & !v_PI3K_I)) | (v_ErbB3_Y1241 & !v_PI3K_I)) | ((v_Src & v_Cbl_RTK) & !v_PI3K_I)) | (v_E_cadherin & !v_PI3K_I))
+v_PI3K_I, v_PI3K_I
+v_PI4K, ((((v_Gaq | v_Gai) | v_ARF) | v_PKC) | v_Rho)
+v_PI5K, ((((v_PA | v_RhoK) | (v_PI5K & v_Talin)) | v_ARF) | (v_Src & ((v_Fak & !v_Talin) & !v_PI5K)))
+v_PIP2_34, ((v_PI4K & (!v_PIP2_34 & v_PI3K)) | (v_PIP2_34 & (!v_PTEN & !v_PI5K)))
+v_PIP2_45, (((v_PIP2_45 & !(v_PI3K & v_PIP2_45)) | (v_PI4K & v_PI5K)) | (v_PTEN & v_PIP3_345))
+v_PIP3_345, (((v_PI5K & v_PIP2_34) & !(v_PTEN & v_PIP3_345)) | ((v_PI3K & v_PIP2_45) & !(v_PTEN & v_PIP3_345)))
+v_PIP_4, ((((v_PI4K & !v_PIP_4) & !((v_PI3K & v_PIP_4) | (v_PI5K & v_PIP_4))) | ((v_PTEN & (!v_PIP_4 & v_PIP2_34)) & !((v_PI3K & v_PIP_4) | (v_PI5K & v_PIP_4)))) | ((v_PIP_4 & (!v_PI3K & !v_PI5K)) & !((v_PI3K & v_PIP_4) | (v_PI5K & v_PIP_4))))
+v_PKA, (((v_PKA & v_cAMP) & !(v_PP2A & v_PKA)) | ((v_PDK1 & v_cAMP) & !(v_PP2A & v_PKA)))
+v_PKC, ((((v_AA & (v_Ca & v_PKC_primed)) & !(v_Trx & v_PKC)) | ((v_PKC & (!v_Trx & !v_PP2A)) & !(v_Trx & v_PKC))) | ((v_DAG & (v_PKC_primed & v_Ca)) & !(v_Trx & v_PKC)))
+v_PKC_primed, (((v_PDK1 & !v_PKC) | (v_PKC & (v_PDK1 & !v_PKC_primed))) | (v_PKC_primed & !v_PKC))
+v_PLA2, ((((v_PIP3_345 & (v_CaMK & v_PIP2_45)) | (v_Erk & v_Ca)) | (v_CaMK & v_Ca)) | (v_PIP2_45 & (v_Erk & v_PIP3_345)))
+v_PLC_B, (v_Gaq | ((v_Gbg_i & v_PLC_B) & !(v_PKA & !v_Gaq)))
+v_PLC_g, ((((v_EGFR_Y1068 & ((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) | (v_EGFR_Y1173 & ((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM))) | (v_EGFR_Y992 & ((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM))) | v_AA)
+v_PLD, (((((v_Cdc42 & (!v_ARF & (v_Actin & (v_PIP3_345 | v_PIP2_45)))) | (v_ARF & (v_PIP2_45 | v_PIP3_345))) | (v_Rac & (!v_ARF & (v_Actin & (v_PIP2_45 | v_PIP3_345))))) | (v_PKC & (!v_ARF & (v_Actin & (v_PIP2_45 | v_PIP3_345))))) | (v_Rho & (!v_ARF & (v_Actin & (v_PIP2_45 | v_PIP3_345)))))
+v_PP2A, (((((((((((((((v_EGFR_EGFR_EGF_End & !v_PP2A) | (v_EGFR_ErbB2 & !v_PP2A)) | (v_EGFR_EGFR_EGF_PM & !v_PP2A)) | (v_EGFR_EGFR_EGF_CCP & !v_PP2A)) | (v_EGFR_EGFR_EGF_CCV & !v_PP2A)) | (v_EGFR_EGFR & !v_PP2A)) | (v_EGFR_EGFR_TGFa_PM & !v_PP2A)) | (v_EGFR_ErbB4 & !v_PP2A)) | (v_EGFR_EGFR_EGF_MVB & !v_PP2A)) | (v_EGFR_EGFR_TGFa_CCV & !v_PP2A)) | (v_EGFR_EGFR_TGFa_End & !v_PP2A)) | (v_EGFR_ErbB3 & !v_PP2A)) | (v_EGFR_EGFR_TGFa_CCP & !v_PP2A)) | (v_PP2A & ((((((((((((!v_EGFR_EGFR & !v_EGFR_EGFR_TGFa_CCV) & !v_EGFR_ErbB4) & !v_EGFR_ErbB2) & !v_EGFR_EGFR_EGF_MVB) & !v_EGFR_ErbB3) & !v_EGFR_EGFR_TGFa_CCP) & !v_EGFR_EGFR_EGF_CCP) & !v_EGFR_EGFR_EGF_CCV) & !v_EGFR_EGFR_TGFa_End) & !v_EGFR_EGFR_EGF_PM) & !v_EGFR_EGFR_EGF_End) & !v_EGFR_EGFR_TGFa_PM))) | !(((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB2) | v_EGFR_ErbB4) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_End) | v_PP2A) | v_EGFR_EGFR_TGFa_PM))
+v_PTEN, ((v_Stress & !v_PTEN_I) | ((v_Pix_Cool & ((v_PI3K & v_Rho) & v_Cdc42)) & !v_PTEN_I))
+v_PTEN_I, v_PTEN_I
+v_PTP1b, (!((((((((((((v_EGFR_ErbB3 | v_EGFR_EGFR_EGF_PM) | v_Stress) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_ErbB2) | v_EGFR_ErbB4) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_EGFR) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_EGF_CCV) | !((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB2) | v_EGFR_ErbB4) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_EGFR_EGFR_EGF_CCP) | v_Stress) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM))
+v_PTPPEST, ((v_Integrins & v_ECM) & !(v_PKA | v_PKC))
+v_PTPa, v_PKC
+v_Palpha_1213R, (v_alpha_1213R & v_GRK)
+v_Palpha_iR, (v_alpha_iR & v_GRK)
+v_Palpha_qR, (v_alpha_qR & v_GRK)
+v_Palpha_sR, (v_alpha_sR & v_GRK)
+v_Pertuzumab, v_Pertuzumab
+v_Pix_Cool, ((v_PIP2_34 & v_B_Parvin) | (v_PIP3_345 & v_B_Parvin))
+v_RGS, (v_CaM & v_PIP3_345)
+v_RIN, v_Ras
+v_RKIP, v_PKC
+v_Rab5, ((((((v_Rab5 & !(v_Rab7 & v_Rab5)) | (v_p120RasGAP & !(v_Rab7 & v_Rab5))) | (v_RIN & !(v_Rab7 & v_Rab5))) | (v_EGFR_EGFR_EGF_PM & !(v_Rab7 & v_Rab5))) | (v_EGFR_EGFR_TGFa_PM & !(v_Rab7 & v_Rab5))) | (v_Rabex_5 & !(v_Rab7 & v_Rab5)))
+v_Rab7, v_Rab5
+v_Rabaptin_5, v_Rab5
+v_Rabenosyn_5, (v_Rab5 & v_PIP3_345)
+v_Rabex_5, v_Rabaptin_5
+v_Rac, ((((((v_RasGRF_GRP & (v_Integrins & v_ECM)) & !(v_RalBP1 & v_Rac)) | (v_Pix_Cool & (((!v_Gbg_i & ((v_Cdc42 & (v_Integrins & v_ECM)) & !v_Rac)) | ((v_Gbg_i & v_PAK) & (!v_Rac & (v_Integrins & v_ECM)))) | (!v_PAK & (((((!v_Tiam & !v_Rac) & !v_RasGRF_GRP) & !v_DOCK180) & v_Cdc42) & (v_Integrins & v_ECM)))))) | ((v_Tiam & (v_Integrins & v_ECM)) & !(v_RalBP1 & v_Rac))) | ((v_DOCK180 & (v_Integrins & v_ECM)) & !(v_RalBP1 & v_Rac))) | ((v_Rac & !v_RalBP1) & !(v_RalBP1 & v_Rac)))
+v_Raf, ((((v_PAK & (((!v_Ras & !v_Akt) & !v_Erk) & v_Raf)) | (v_Raf & ((!v_PKA & !v_Akt) & !v_Erk))) | (v_Ras & v_Raf)) | (v_Src & (!v_Raf & ((v_Raf_Loc & v_RKIP) & v_PAK))))
+v_Raf_DeP, ((v_PP2A & (v_Raf_Rest & !v_Raf_DeP)) | (v_Raf_DeP & !v_Raf_Loc))
+v_Raf_Loc, ((v_Raf_Loc & !v_Raf) | (v_Ras & (v_Raf_DeP & !v_Raf_Loc)))
+v_Raf_Rest, (((v_Raf_Rest & !v_Raf_DeP) | (v_Raf_DeP & (!v_Raf_Rest & !v_Raf))) | !((v_Raf_Rest | v_Raf_DeP) | v_Raf))
+v_Ral, ((v_AND_34 | v_CaM) | v_RalGDS)
+v_RalBP1, v_Ral
+v_RalGDS, (((((v_alpha_1213R & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1)))) | ((v_alpha_qR & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1))))) | ((v_alpha_iR & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1))))) | ((v_alpha_sR & v_B_Arrestin) & !(v_PKC | (v_Ras & (v_PIP3_345 & v_PDK1)))))
+v_Rap1, ((v_CaMK & ((!v_Rap1 | !v_Gai) & (v_cAMP & v_Src))) | (v_PKA & ((v_cAMP & v_Src) & (!v_Rap1 | !v_Gai))))
+v_Ras, ((v_RasGRF_GRP | v_Sos) | v_SHP2)
+v_RasGRF_GRP, ((v_CaM & v_Cdc42) | (v_DAG & v_Cdc42))
+v_Rho, ((v_p115RhoGEF & (v_p120_catenin & (!v_RhoGDI & !v_Rho))) | (v_Rho & ((!v_PKA & !v_p190RhoGAP) & !v_Graf)))
+v_RhoGDI, (!((v_PKC | v_PIP2_45) | v_AA) | !((v_PKC | v_AA) | v_PIP2_45))
+v_RhoK, v_Rho
+v_SAPK, ((v_MKK7 & !((v_MKPs & v_SAPK) | (v_PP2A & v_SAPK))) | (v_Sek1 & !((v_MKPs & v_SAPK) | (v_PP2A & v_SAPK))))
+v_SHP2, v_Gab1
+v_Sek1, (((((((((v_Mekk4 & v_ASK1) | (v_MLK2 & v_ASK1)) | (v_Mekk1 & v_ASK1)) | (v_TAK1 & v_ASK1)) | (v_MLK1 & v_ASK1)) | (v_Mekk2 & v_ASK1)) | (v_Mekk3 & v_ASK1)) | (v_MLK3 & v_ASK1)) | (v_Tpl2 & v_ASK1))
+v_Shc, ((((((((((((v_ErbB4_Y1188 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN) | ((v_EGFR_Y992 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN)) | ((v_ErbB3_Y1309 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN)) | ((v_ErbB2_Y1221_22 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN)) | ((v_ErbB2_Y1196 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN)) | (v_Fak & !v_PTEN)) | ((v_ErbB4_Y1242 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN)) | ((v_EGFR_Y1173 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN)) | ((v_ErbB2_Y1248 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN)) | (v_Src & !v_PTEN)) | ((v_EGFR_Y1148 & ((((((((((((((v_EGFR_EGFR | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | v_EGFR_ErbB2) | v_EGFR_EGFR_EGF_MVB) | v_EGFR_ErbB3) | v_EGFR_EGFR_TGFa_CCP) | v_ErbB3_ErbB4) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_EGFR_EGF_CCV) | v_ErbB2_ErbB4) | v_EGFR_EGFR_TGFa_End) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_EGF_End) | v_EGFR_EGFR_TGFa_PM)) & !v_PTEN))
+v_Sos, (((v_Crk & ((((!v_Nck & !v_Erk) & !v_PIP2_45) & v_PIP3_345) & v_Grb2)) | ((v_Grb2 & v_PIP3_345) & !v_Cbl_RTK)) | (v_Nck & (v_PIP3_345 & v_Crk)))
+v_Spry2, (((((((((((((v_EGFR_ErbB3 & !v_Cbl_RTK) | (v_EGFR_EGFR_TGFa_PM & !v_Cbl_RTK)) | (v_EGFR_EGFR_EGF_End & !v_Cbl_RTK)) | (v_EGFR_EGFR_TGFa_End & !v_Cbl_RTK)) | (v_EGFR_EGFR_TGFa_CCV & !v_Cbl_RTK)) | (v_EGFR_ErbB4 & !v_Cbl_RTK)) | (v_EGFR_EGFR_EGF_CCP & !v_Cbl_RTK)) | (v_EGFR_ErbB2 & !v_Cbl_RTK)) | (v_EGFR_EGFR_EGF_PM & !v_Cbl_RTK)) | (v_EGFR_EGFR_EGF_CCV & !v_Cbl_RTK)) | (v_EGFR_EGFR_TGFa_CCP & !v_Cbl_RTK)) | (v_EGFR_EGFR_EGF_MVB & !v_Cbl_RTK)) | (v_EGFR_EGFR & !v_Cbl_RTK))
+v_Src, (((((((((v_EGFR_Y1148 & !(v_Csk & v_Src)) | ((v_Fak & v_PTP1b) & !(v_Csk & v_Src))) | ((v_Gai & v_B_Arrestin) & !(v_Csk & v_Src))) | ((v_PTPa & !v_Src) & !(v_Csk & v_Src))) | (v_EGFR_Y1086 & !(v_Csk & v_Src))) | ((v_Cas & v_PTP1b) & !(v_Csk & v_Src))) | ((v_Gas & v_B_Arrestin) & !(v_Csk & v_Src))) | (v_EGFR_Y992 & !(v_Csk & v_Src))) | ((v_alpha_sR & v_B_Arrestin) & !(v_Csk & v_Src)))
+v_Stress, v_Stress
+v_TAK1, v_Tab_12
+v_TAO_12, v_Stress
+v_TGFa, v_TGFa
+v_Tab_12, (v_Trafs & !v_p38)
+v_Talin, ((v_Talin & !v_Src) | (v_PIP2_45 & !v_Talin))
+v_Tiam, (((v_PKC & (((v_Rap1 | v_Ras) | v_PIP2_45) & (v_PIP3_345 | v_PIP2_34))) | (v_Src & ((v_PIP3_345 | v_PIP2_34) & ((v_Rap1 | v_Ras) | v_PIP2_45)))) | (v_CaMK & ((v_PIP3_345 | v_PIP2_34) & ((v_Rap1 | v_Ras) | v_PIP2_45))))
+v_Tpl2, v_Trafs
+v_Trafs, v_IL1_TNFR
+v_Trastuzumab, v_Trastuzumab
+v_Trx, (v_Stress | v_Trafs)
+v_UBPY, ((v_ESCRT_I | v_Alix) | v_ESCRT_III)
+v_VPS4, v_ESCRT_III
+v_Vinc, ((v_Actin & ((v_Talin & v_Vinc) & !v_PIP2_45)) | (v_Talin & v_Src))
+v_WASP, ((((v_Cdc42 & (((!v_PTPPEST & !v_Crk) & ((v_Nck | v_Grb2) | v_PIP2_45)) & (v_Fak | v_Src))) & !v_PTPPEST) | ((v_Fak & ((v_Crk & v_Cdc42) & ((v_Nck | v_Grb2) | v_PIP2_45))) & !v_PTPPEST)) | ((v_Src & (((v_Nck | v_Grb2) | v_PIP2_45) & (v_Crk & v_Cdc42))) & !v_PTPPEST))
+v_alpha_1213L, v_alpha_1213L
+v_alpha_1213R, (((v_alpha_1213L & !(v_B_Arrestin & (((!v_alpha_1213L & !v_alpha_1213R) & !v_Palpha_1213R) | v_Palpha_1213R))) | ((v_Palpha_1213R & !v_B_Arrestin) & !(v_B_Arrestin & (((!v_alpha_1213L & !v_alpha_1213R) & !v_Palpha_1213R) | v_Palpha_1213R)))) | (v_alpha_1213R & !(v_B_Arrestin & (((!v_alpha_1213L & !v_alpha_1213R) & !v_Palpha_1213R) | v_Palpha_1213R))))
+v_alpha_catenin, v_B_catenin
+v_alpha_iL, v_alpha_iL
+v_alpha_iR, ((((v_Palpha_iR & !v_B_Arrestin) & !(v_B_Arrestin & (v_Palpha_iR | ((!v_Palpha_iR & !v_alpha_iR) & !v_alpha_iL)))) | (v_alpha_iR & !(v_B_Arrestin & (v_Palpha_iR | ((!v_Palpha_iR & !v_alpha_iR) & !v_alpha_iL))))) | (v_alpha_iL & !(v_B_Arrestin & (v_Palpha_iR | ((!v_Palpha_iR & !v_alpha_iR) & !v_alpha_iL)))))
+v_alpha_qL, v_alpha_qL
+v_alpha_qR, (((v_alpha_qL & !(v_B_Arrestin & (((!v_alpha_qL & !v_Palpha_iR) & !v_alpha_qR) | v_Palpha_iR))) | ((v_Palpha_iR & !v_B_Arrestin) & !(v_B_Arrestin & (((!v_alpha_qL & !v_Palpha_iR) & !v_alpha_qR) | v_Palpha_iR)))) | (v_alpha_qR & !(v_B_Arrestin & (((!v_alpha_qL & !v_Palpha_iR) & !v_alpha_qR) | v_Palpha_iR))))
+v_alpha_sL, v_alpha_sL
+v_alpha_sR, (((v_alpha_sR & !(v_B_Arrestin & (v_Palpha_sR | ((!v_alpha_sL & !v_alpha_sR) & !v_Palpha_sR)))) | (v_alpha_sL & !(v_B_Arrestin & (v_Palpha_sR | ((!v_alpha_sL & !v_alpha_sR) & !v_Palpha_sR))))) | ((v_Palpha_sR & !v_B_Arrestin) & !(v_B_Arrestin & (v_Palpha_sR | ((!v_alpha_sL & !v_alpha_sR) & !v_Palpha_sR)))))
+v_cAMP, ((v_cAMP & !v_PDE4) | (v_AC & !v_PDE4))
+v_p115RhoGEF, (v_Ga_1213 & v_PIP3_345)
+v_p120RasGAP, ((((v_PIP3_345 & !(v_Src | v_Fak)) | (v_PIP2_45 & !(v_Src | v_Fak))) | (v_EGFR_Y992 & !(v_Src | v_Fak))) | (v_PIP2_34 & !(v_Src | v_Fak)))
+v_p120_catenin, ((((((((((((((v_EGFR_EGFR_EGF_End | v_EGFR_EGFR_EGF_MVB) | v_EGFR_EGFR_EGF_CCV) | v_EGFR_EGFR_TGFa_CCV) | v_EGFR_ErbB4) | (v_Rho & !v_Fer)) | v_EGFR_EGFR) | v_EGFR_EGFR_TGFa_End) | v_Src) | v_EGFR_EGFR_EGF_PM) | v_EGFR_EGFR_TGFa_PM) | v_EGFR_EGFR_EGF_CCP) | v_EGFR_ErbB3) | v_EGFR_ErbB2) | v_EGFR_EGFR_TGFa_CCP)
+v_p190RhoGAP, ((v_Fak & v_Src) | (v_Src & ((!v_p120RasGAP | !v_p190RhoGAP) | v_Fak)))
+v_p38, (((v_Sek1 & !(v_PP2A | v_MKPs)) | (v_MKK3 & !(v_PP2A | v_MKPs))) | (v_MKK6 & !(v_PP2A | v_MKPs)))
+v_p90RSK, (v_Erk & (!v_p90RSK & v_PDK1))

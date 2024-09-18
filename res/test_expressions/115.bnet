@@ -1,0 +1,36 @@
+targets,factors
+v_ASIC1, v_H__ion
+v_ASIC1_trimer_H__STOML3_complex, ((v_ASIC1 & v_STOML3) & !v_E_cell)
+v_ATP1A_ATP1B_FXYDs_complex, !v_E_cell
+v_Activity_of_sodium_channels_phenotype, ((v_ATP1A_ATP1B_FXYDs_complex | !v_STOML3) | v_ASIC1_trimer_H__STOML3_complex)
+v_BRD2, ((v_BRD2 & !v_JQ_1_simple_molecule) & !v_E_nucleus)
+v_BRD4, (v_BRD4 & !v_E_nucleus)
+v_CCNT1, v_CCNT1
+v_CDK9, v_CDK9
+v_CRB3, v_CRB3
+v_CRB3_PALS1_PATJ_complex_complex, ((v_MPP5 & v_CRB3) & v_PATJ)
+v_Chromatin_organization_phenotype, v_csa1_histone_complex_nucleus
+v_E_PALS1_complex, (v_MPP5 & v_E_cell)
+v_E_cell, v_E_cell
+v_E_nucleus, v_E_nucleus
+v_H2A, v_H2A
+v_H2BC21, v_H2BC21
+v_H3C1, v_H3C1
+v_H3C15, v_H3C15
+v_H4C1, v_H4C1
+v_H4C14, v_H4C14
+v_H4C9, v_H4C9
+v_H4_16, v_H4_16
+v_H__ion, v_H__ion
+v_JQ_1_simple_molecule, v_JQ_1_simple_molecule
+v_K__ion, v_ATP1A_ATP1B_FXYDs_complex
+v_MPP5, v_MPP5
+v_Maintenance_of_tight_junction_phenotype, (v_CRB3_PALS1_PATJ_complex_complex | v_E_PALS1_complex)
+v_Na__ion, v_ATP1A_ATP1B_FXYDs_complex
+v_PATJ, v_PATJ
+v_P_TEFb_complex, ((v_CDK9 & v_BRD4) | (v_CCNT1 & v_BRD4))
+v_RNA_Polymerase_II_dependent_Transcription__phenotype, v_P_TEFb_complex
+v_STOML3, v_STOML3
+v_TBP, (v_TBP & v_BRD2)
+v_csa1_histone_complex_nucleus, ((v_BRD4 | v_BRD2) & v_csa2_histone_complex_nucleus)
+v_csa2_histone_complex_nucleus, (((((((v_H4C14 & v_H4_16) & v_H4C1) & v_H3C15) & v_H3C1) & v_H4C9) & v_H2BC21) & v_H2A)

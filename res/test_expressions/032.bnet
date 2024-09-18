@@ -1,0 +1,41 @@
+targets,factors
+v_AP1, (v_Fos & v_Jun)
+v_CD45, v_CD45
+v_CD8, v_CD8
+v_CRE, v_CREB
+v_CREB, v_Rsk
+v_Ca, v_IP3
+v_Calcin, v_Ca
+v_DAG, v_PLCg_act
+v_ERK, v_MEK
+v_Fos, v_ERK
+v_Fyn, ((v_CD45 & v_Lck) | (v_TCRbind & v_CD45))
+v_Gads, v_LAT
+v_Grb2Sos, v_LAT
+v_IKKbeta, v_PKCth
+v_IP3, v_PLCg_act
+v_IkB, !v_IKKbeta
+v_Itk, (v_ZAP70 & v_SLP76)
+v_JNK, v_SEK
+v_Jun, v_JNK
+v_LAT, v_ZAP70
+v_Lck, ((v_CD45 & v_CD8) & !v_PAGCsk)
+v_MEK, v_Raf
+v_NFAT, v_Calcin
+v_Nfkb, !v_IkB
+v_PAGCsk, v_Fyn
+v_PKCth, v_DAG
+v_PLCg_act, ((v_ZAP70 & ((v_Rlk & v_SLP76) & v_PLCg_bind)) | (v_Itk & ((v_SLP76 & v_ZAP70) & v_PLCg_bind)))
+v_PLCg_bind, v_LAT
+v_Raf, v_Ras
+v_Ras, (v_RasGRP1 | v_Grb2Sos)
+v_RasGRP1, (v_PKCth & v_DAG)
+v_Rlk, v_Lck
+v_Rsk, v_ERK
+v_SEK, v_PKCth
+v_SLP76, v_Gads
+v_TCRbind, (v_TCRlig & !v_cCbl)
+v_TCRlig, v_TCRlig
+v_TCRphos, v_Fyn
+v_ZAP70, ((v_TCRphos & v_Lck) & !v_cCbl)
+v_cCbl, v_ZAP70

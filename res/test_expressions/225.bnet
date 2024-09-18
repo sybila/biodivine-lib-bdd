@@ -1,0 +1,92 @@
+targets,factors
+v_ACK1, v_HSP90
+v_ADAM17, v_ADAM17
+v_AKT, (!(v_EBP1 & (v_INPP4B & v_Fkbp5)) & !(!v_HSP90 & (!v_PKA_C & (!v_CXCL1 & (!v_TNFa & !v_PI3K)))))
+v_AR, ((v_FOXH1 & (v_ERBB2 & (v_EGFR & (v_FOXO1 & (v_CDKN2A & (v_DAB2IP & (v_EBP1 & !(v_SIAH2 & v_NCOR)))))))) & !(!v_AKT & (!v_Androgen & (!v_EP300 & (!(v_Cdc37 & v_Vav3) & (!v_MED1 & (!v_FHL2 & (!v_CACNA1D & (!v_NFKB & (!v_Vav3 & !v_IL_6))))))))))
+v_AT2R, v_MTUS1
+v_Androgen, v_CACNA1D
+v_BAK, !v_Bcl_XL
+v_BCL_2, v_NFKB
+v_BMP_6, v_NFKB
+v_Bcl_XL, !(!v_AR & !v_BCL_2)
+v_Bmi1, !(v_PTEN & !v_E2F1)
+v_CACNA1D, (v_TMPRSS2 & v_ERG)
+v_CASP3, !((!v_NKX3_1 & v_CDKN1B) & !v_JNK)
+v_CCND, !(!v_AR & (!v_ERBB2 & (!v_IL_8 & !(v_WHSC1 & v_NFKB))))
+v_CDKN1A, (!(v_RAC1 & v_HOXB13) & !(!v_SMAD3 & !v_SMAD4))
+v_CDKN1B, !v_SKP2
+v_CDKN2A, !v_Bmi1
+v_CK2, v_CK2
+v_CXCL1, v_NFKB
+v_Cdc37, v_Cdc37
+v_DAB2IP, v_Wnt
+v_E2F1, !(!v_CDKN1A & !v_IKKa)
+v_EBP1, v_EBP1
+v_EGF, !v_AT2R
+v_EGFR, !(!v_ADAM17 & !v_EGF)
+v_EGR_1, v_IGF_1
+v_ELK, v_RSK
+v_EP300, !(!v_IL_4 & !v_E2F1)
+v_ERBB2, !(!v_HSP90 & !v_EGF)
+v_ERG, v_ERG
+v_ERK, !(!v_PAR1 & (!v_TNFa & (!v_TGFB & !v_MEK)))
+v_EpCAM, v_EpCAM
+v_FHL2, v_FHL2
+v_FOXA1, v_MED1
+v_FOXH1, !(v_SMAD2 & v_SMAD4)
+v_FOXO1, (!v_SIRT1 & v_PTEN)
+v_Fkbp5, v_AR
+v_HOXB13, !v_ZnT4
+v_HSP27, !v_HSP90
+v_HSP90, v_Cdc37
+v_IGF_1, !(!v_DAB2IP & v_SOCS2)
+v_IKKa, v_AKT
+v_IL_4, v_IL_4
+v_IL_6, !(!v_MAPK & (!(v_WHSC1 & v_NFKB) & !v_BMP_6))
+v_IL_8, !(!v_ERK & (!v_EGR_1 & !v_NFKB))
+v_INPP4B, (v_AR & v_NCOR)
+v_JAK2, !(!v_IL_6 & v_SOCS2)
+v_JNK, v_MAPK
+v_KAT5, v_KAT5
+v_MAPK, !(!v_ERK & (!v_Androgen & (!v_EGF & (!v_TGFB & !v_TNFa))))
+v_MED1, !(!v_ERK & !v_AKT)
+v_MED15, v_MED15
+v_MEK, !(!v_Raf & (!v_IGF_1 & !v_EGFR))
+v_MMP_9, !(!v_MAPK & (!v_TGFB & !v_PDEF))
+v_MTUS1, v_MTUS1
+v_NCOR, !v_CK2
+v_NFKB, (!v_IKKa & !(!v_EGR_1 & (!v_TNFSF11 & (!v_WHSC1 & (!v_IL_6 & (!v_TNFa & (!v_HOXB13 & (!v_Wnt & (!v_RhoGAP & !v_AKT)))))))))
+v_NKX3_1, !v_CDKN2A
+v_PAR1, v_TRAP6
+v_PDEF, !(!v_KAT5 & v_HOXB13)
+v_PI3K, !(!v_EGF & (!v_IL_4 & (v_PTEN & (!v_TGFB & (!v_EpCAM & (!v_KAT5 & !v_Vav3))))))
+v_PKA_C, v_PKIB
+v_PKIB, v_PKIB
+v_PSA, !(!v_NFKB & v_CDKN2A)
+v_PTEN, v_PTEN
+v_RAC1, v_RAC1
+v_RSK, v_ERK
+v_Raf, (!v_AKT & !(!v_HSP90 & !v_Ras))
+v_Ras, v_EGFR
+v_RhoGAP, v_RhoGAP
+v_SIAH2, v_SIAH2
+v_SIRT1, v_FHL2
+v_SKIP, v_SKIP
+v_SKP2, !(!v_c_Myc & !v_mTOR)
+v_SMAD2, v_TGFB
+v_SMAD3, !(!v_TGFB & !v_MED15)
+v_SMAD4, v_TGFB
+v_SOCS2, v_Androgen
+v_STAT3, v_IL_6
+v_TGFB, !(!v_AR & (!v_SKIP & !v_MED15))
+v_TMPRSS2, v_TMPRSS2
+v_TNFSF11, v_TGFB
+v_TNFa, v_NKX3_1
+v_TRAP6, v_TRAP6
+v_UBE2C, v_MED1
+v_Vav3, v_Vav3
+v_WHSC1, v_AR
+v_Wnt, v_Wnt
+v_ZnT4, v_ZnT4
+v_c_Myc, v_AR
+v_mTOR, v_AKT

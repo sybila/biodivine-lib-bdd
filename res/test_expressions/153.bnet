@@ -1,0 +1,19 @@
+targets,factors
+v_AKT, v_PIP3
+v_E2F, !v_Rb
+v_EIF4F, v_mTORC1
+v_FOXO3, (!v_MAPK | (v_MAPK & !v_AKT))
+v_GFs, v_GFs
+v_MAPK, ((!v_RAS & v_PIP3) | v_RAS)
+v_PI3K, ((!v_RTK & v_RAS) | v_RTK)
+v_PIP3, v_PI3K
+v_PRAS40, !v_AKT
+v_Proliferation_b1, ((((((!v_E2F & !v_EIF4F) & v_Proliferation_b1) & v_Proliferation_b2) | ((((!v_E2F & v_EIF4F) & !v_S6K) & v_Proliferation_b1) & v_Proliferation_b2)) | ((!v_E2F & v_EIF4F) & v_S6K)) | v_E2F)
+v_Proliferation_b2, (((v_E2F & v_EIF4F) & v_S6K) & v_Proliferation_b1)
+v_RAS, v_RTK
+v_RTK, (((((!v_MAPK & !v_FOXO3) & !v_S6K) & v_GFs) | ((!v_MAPK & v_FOXO3) & v_GFs)) | ((v_MAPK & v_FOXO3) & v_GFs))
+v_Rb, !v_cycE
+v_S6K, v_mTORC1
+v_TSC, (!v_MAPK & !v_AKT)
+v_cycE, ((((!v_FOXO3 & !v_AKT) & v_E2F) | (!v_FOXO3 & v_AKT)) | (v_FOXO3 & v_E2F))
+v_mTORC1, (!v_TSC & !v_PRAS40)

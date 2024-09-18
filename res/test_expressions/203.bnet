@@ -1,0 +1,41 @@
+targets,factors
+v_AKT, (((((((!v_DDR_Activation & !v_BMI1) & !v_mTORC2) & !v_PTEN) | ((!v_DDR_Activation & !v_BMI1) & v_mTORC2)) | (!v_DDR_Activation & v_BMI1)) | ((v_DDR_Activation & !v_BMI1) & v_mTORC2)) | (v_DDR_Activation & v_BMI1))
+v_AMPK, (((!v_DDR_Activation & v_ATM) & !v_ULK1) | (v_DDR_Activation & !v_ULK1))
+v_APOPTOSIS, (((!v_Caspase3 & v_DRAM1) & !v_ULK1) | (v_Caspase3 & !v_ULK1))
+v_ATM, ((v_DDR_Activation & !v_Wip1) | ((v_DDR_Activation & v_Wip1) & !v_HVPE6))
+v_AUTOPHAGY, v_ULK1
+v_BAX, ((!v_Wip1 & !v_BCL2) & v_DRAM1)
+v_BCL2, (((((!v_miR16 & !v_miR34a) & !v_miR449a) & !v_MAPK) & !v_PUMA) & !v_DRAM1)
+v_BMI1, (((!v_miR16 & !v_Myc) & v_E2F1) | (!v_miR16 & v_Myc))
+v_Beclin1, ((v_ATM & !v_BCL2) & v_ULK1)
+v_CDK2_CycE, (((((!v_miR16 & !v_miR34a) & !v_miR449a) & !v_p21) & v_Cdc25A) & v_E2F1)
+v_CDK46_CycD, ((((!v_miR16 & !v_miR34a) & !v_miR449a) & !v_p21) & v_Cdc25A)
+v_Caspase3, (((!v_p21 & !v_BCL2) | ((!v_p21 & v_BCL2) & v_BAX)) | (v_p21 & v_BAX))
+v_Cdc25A, (((!v_miR16 & !v_miR34a) & !v_miR449a) & !v_ATM)
+v_DDR_Activation, ((((v_Transfected_miRNA & !v_Wip1) | ((v_Transfected_miRNA & v_Wip1) & !v_Cdc25A)) | (((v_Transfected_miRNA & v_Wip1) & v_Cdc25A) & !v_BMI1)) | ((((v_Transfected_miRNA & v_Wip1) & v_Cdc25A) & v_BMI1) & !v_PACS1))
+v_DRAM1, v_p53_K
+v_E2F1, ((((((((((!v_miR34a & !v_Myc) & !v_RB) | (!v_miR34a & v_Myc)) | (((v_miR34a & !v_miR449a) & !v_Myc) & !v_RB)) | ((v_miR34a & !v_miR449a) & v_Myc)) | (((((v_miR34a & v_miR449a) & !v_ATM) & !v_Myc) & !v_Sirt1) & !v_RB)) | (((v_miR34a & v_miR449a) & !v_ATM) & v_Myc)) | ((((((v_miR34a & v_miR449a) & v_ATM) & !v_Myc) & !v_Cdc25A) & !v_Sirt1) & !v_RB)) | (((((v_miR34a & v_miR449a) & v_ATM) & !v_Myc) & v_Cdc25A) & !v_RB)) | (((v_miR34a & v_miR449a) & v_ATM) & v_Myc))
+v_HIV1_Nef, ((!v_Transfected_miRNA & !v_miR16) & !v_DDR_Activation)
+v_HVPE6, !v_DDR_Activation
+v_MAPK, (((!v_DDR_Activation & v_ATM) & !v_ULK1) | (v_DDR_Activation & !v_ULK1))
+v_Mdm2, ((((!v_ATM & !v_p53_A) & !v_Wip1) & v_AKT) | ((!v_ATM & v_p53_A) & v_AKT))
+v_Myc, ((((((!v_miR34a & !v_miR449a) & !v_MAPK) & !v_p21) & !v_RB) & v_E2F1) | ((((!v_miR34a & !v_miR449a) & v_MAPK) & !v_p21) & !v_RB))
+v_PACS1, (((!v_miR34a & !v_miR449a) & !v_DDR_Activation) & v_HIV1_Nef)
+v_PROLIFERATION, v_E2F1
+v_PTEN, (v_p53_K & !v_BMI1)
+v_PUMA, v_p53_K
+v_RB, (((!v_CDK46_CycD & !v_CDK2_CycE) | ((!v_CDK46_CycD & v_CDK2_CycE) & !v_HVPE6)) | (v_CDK46_CycD & !v_HVPE6))
+v_SENESCENCE, ((!v_p53_A & v_p21) | v_p53_A)
+v_Sirt1, ((!v_miR34a & !v_miR449a) & v_E2F1)
+v_Transfected_miRNA, v_Transfected_miRNA
+v_ULK1, ((((((!v_AMPK & !v_MAPK) & !v_mTORC2) & !v_mTORC1) & v_DRAM1) | (((!v_AMPK & v_MAPK) & !v_mTORC2) & !v_mTORC1)) | ((v_AMPK & !v_mTORC2) & !v_mTORC1))
+v_Wip1, (!v_miR16 & v_p53_A)
+v_mTORC1, (((((!v_miR16 & v_AKT) | ((v_miR16 & !v_AMPK) & v_AKT)) | (((v_miR16 & v_AMPK) & !v_MAPK) & v_AKT)) | ((((v_miR16 & v_AMPK) & v_MAPK) & v_AKT) & !v_DRAM1)) | (((((v_miR16 & v_AMPK) & v_MAPK) & v_AKT) & v_DRAM1) & !v_ULK1))
+v_mTORC2, (((((((((((((!v_miR16 & !v_miR34a) | (((((((!v_miR16 & v_miR34a) & !v_AMPK) & !v_MAPK) & !v_mTORC1) & !v_Sirt1) & !v_AKT) & !v_DRAM1)) | ((((((!v_miR16 & v_miR34a) & !v_AMPK) & !v_MAPK) & !v_mTORC1) & !v_Sirt1) & v_AKT)) | ((((((!v_miR16 & v_miR34a) & !v_AMPK) & !v_MAPK) & !v_mTORC1) & v_Sirt1) & v_AKT)) | (((((!v_miR16 & v_miR34a) & !v_AMPK) & !v_MAPK) & v_mTORC1) & v_AKT)) | ((((!v_miR16 & v_miR34a) & !v_AMPK) & v_MAPK) & v_AKT)) | (((!v_miR16 & v_miR34a) & v_AMPK) & v_AKT)) | ((((((v_miR16 & !v_AMPK) & !v_MAPK) & !v_mTORC1) & !v_Sirt1) & !v_AKT) & !v_DRAM1)) | (((((v_miR16 & !v_AMPK) & !v_MAPK) & !v_mTORC1) & !v_Sirt1) & v_AKT)) | (((((v_miR16 & !v_AMPK) & !v_MAPK) & !v_mTORC1) & v_Sirt1) & v_AKT)) | ((((v_miR16 & !v_AMPK) & !v_MAPK) & v_mTORC1) & v_AKT)) | (((v_miR16 & !v_AMPK) & v_MAPK) & v_AKT)) | ((v_miR16 & v_AMPK) & v_AKT))
+v_miR16, (v_Transfected_miRNA & v_ATM)
+v_miR34a, (v_Transfected_miRNA & v_ATM)
+v_miR449a, (((v_Transfected_miRNA & !v_DDR_Activation) & v_E2F1) | (v_Transfected_miRNA & v_DDR_Activation))
+v_p21, (((((!v_p53_A & !v_Myc) & !v_BMI1) & !v_AKT) & !v_Caspase3) | v_p53_A)
+v_p53INP1, ((!v_p53_A & v_p53_K) | v_p53_A)
+v_p53_A, (((((((((!v_ATM & !v_AMPK) & !v_p53INP1) & !v_p53_K) & !v_Sirt1) | (((((!v_ATM & v_AMPK) & !v_MAPK) & !v_p53INP1) & !v_p53_K) & !v_Sirt1)) | ((((((!v_ATM & v_AMPK) & v_MAPK) & !v_Mdm2) & !v_p53INP1) & !v_p53_K) & !v_Sirt1)) | ((((((((!v_ATM & v_AMPK) & v_MAPK) & !v_Mdm2) & v_p53INP1) & !v_p53_K) & !v_Wip1) & !v_Sirt1) & !v_HVPE6)) | ((((((!v_ATM & v_AMPK) & v_MAPK) & v_Mdm2) & !v_p53INP1) & !v_p53_K) & !v_Sirt1)) | ((v_ATM & !v_p53_K) & !v_Sirt1))
+v_p53_K, (((((v_ATM & !v_Mdm2) & !v_p53_A) & !v_Wip1) & !v_HVPE6) | (((((v_ATM & !v_Mdm2) & !v_p53_A) & v_Wip1) & !v_Sirt1) & !v_HVPE6))

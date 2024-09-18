@@ -1,0 +1,38 @@
+targets,factors
+v_AKT, v_PDPK1
+v_ATM, v_ATM
+v_BRAF, (!v_AKT & v_RAS)
+v_CRAF, v_RAS
+v_EGF, v_EGF
+v_EGFR, ((!v_ERK_b1 & v_EGF) & !v_FOXD3)
+v_ERBB2, v_EGFR
+v_ERBB3, v_FOXD3
+v_ERK_b1, (((!v_ERK_b1 & v_MEK_b1) | ((v_ERK_b1 & !v_ERK_b2) & v_MEK_b1)) | (v_ERK_b1 & v_ERK_b2))
+v_ERK_b2, ((v_ERK_b1 & v_MEK_b1) & v_MEK_b2)
+v_FGF, v_FGF
+v_FGFR2, v_FGF
+v_FOXD3, (!v_ERK_b1 & v_SOX10)
+v_FRS2, v_FGFR2
+v_GAB1, (((((!v_ERK_b1 & !v_GRB2) & v_MET) | (((!v_ERK_b1 & v_GRB2) & !v_EGFR) & v_MET)) | ((!v_ERK_b1 & v_GRB2) & v_EGFR)) | (v_ERK_b1 & v_MET))
+v_GRB2, (((((((!v_SPRY & !v_EGFR) & !v_MET) & !v_FRS2) & v_ERBB3) | (((!v_SPRY & !v_EGFR) & !v_MET) & v_FRS2)) | ((!v_SPRY & !v_EGFR) & v_MET)) | (!v_SPRY & v_EGFR))
+v_HGF, v_HGF
+v_MDM2, ((v_AKT & !v_ATM) & v_p53)
+v_MEK_b1, ((((((!v_MEK_b1 & !v_BRAF) & v_CRAF) | (!v_MEK_b1 & v_BRAF)) | (((v_MEK_b1 & !v_MEK_b2) & !v_BRAF) & v_CRAF)) | ((v_MEK_b1 & !v_MEK_b2) & v_BRAF)) | (v_MEK_b1 & v_MEK_b2))
+v_MEK_b2, (v_MEK_b1 & v_BRAF)
+v_MET, v_HGF
+v_PDPK1, v_PI3K
+v_PI3K, (((((((!v_PTEN & !v_RAS) & !v_GAB1) & v_ERBB3) | ((!v_PTEN & !v_RAS) & v_GAB1)) | ((((!v_PTEN & v_RAS) & !v_SOS) & !v_GAB1) & v_ERBB3)) | (((!v_PTEN & v_RAS) & !v_SOS) & v_GAB1)) | ((!v_PTEN & v_RAS) & v_SOS))
+v_PTEN, v_p53
+v_Proliferation_b1, (((((((((((!v_p70_b1 & !v_ERK_b1) & v_Proliferation_b1) & v_Proliferation_b2) | ((((!v_p70_b1 & v_ERK_b1) & !v_ERK_b2) & v_Proliferation_b1) & v_Proliferation_b2)) | ((((!v_p70_b1 & v_ERK_b1) & v_ERK_b2) & !v_Proliferation_b1) & !v_p21)) | (((((!v_p70_b1 & v_ERK_b1) & v_ERK_b2) & v_Proliferation_b1) & !v_Proliferation_b2) & !v_p21)) | ((((!v_p70_b1 & v_ERK_b1) & v_ERK_b2) & v_Proliferation_b1) & v_Proliferation_b2)) | (((v_p70_b1 & !v_ERK_b1) & v_Proliferation_b1) & v_Proliferation_b2)) | (((v_p70_b1 & v_ERK_b1) & !v_Proliferation_b1) & !v_p21)) | ((((v_p70_b1 & v_ERK_b1) & v_Proliferation_b1) & !v_Proliferation_b2) & !v_p21)) | (((v_p70_b1 & v_ERK_b1) & v_Proliferation_b1) & v_Proliferation_b2))
+v_Proliferation_b2, ((((v_p70_b1 & v_p70_b2) & v_ERK_b1) & v_Proliferation_b1) & !v_p21)
+v_RAS, v_SOS
+v_RHEB, !v_TSC2
+v_SOS, (v_GRB2 & !v_SPRY)
+v_SOX10, v_SOX10
+v_SPRY, v_ERK_b1
+v_TSC2, !v_AKT
+v_mTOR, v_RHEB
+v_p21, (!v_AKT & v_p53)
+v_p53, (v_ATM & !v_MDM2)
+v_p70_b1, (((((!v_PDPK1 & !v_p70_b1) & v_mTOR) | (((!v_PDPK1 & v_p70_b1) & !v_p70_b2) & v_mTOR)) | ((!v_PDPK1 & v_p70_b1) & v_p70_b2)) | v_PDPK1)
+v_p70_b2, ((v_PDPK1 & v_p70_b1) & v_mTOR)

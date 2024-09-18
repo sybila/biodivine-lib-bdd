@@ -1,0 +1,27 @@
+targets,factors
+v_Bcatenin_H, !v_GSK3B_H
+v_Bcatenin_M, !((v_GSK3B_M | v_FoxO3a_M) | v_NfkB_M)
+v_CXCL12_M, (v_Cx43_M & !((v_Bcatenin_M | v_GCSF) | v_NfkB_M))
+v_CXCR4_H, (v_CXCL12_M & !((v_CXCR7_H | v_Gfi1_H) | v_GCSF))
+v_CXCR7_H, (v_CXCL12_M & v_NfkB_H)
+v_Cx43_M, v_Cx43_M
+v_ERK_H, ((((((v_CXCR7_H & !(v_GSK3B_H | v_FoxO3a_H)) | ((v_CXCR4_H & v_PI3KAkt_H) & !(v_GSK3B_H | v_FoxO3a_H))) | (v_VLA4_H & !(v_GSK3B_H | v_FoxO3a_H))) | (v_GCSF & !(v_GSK3B_H | v_FoxO3a_H))) | (v_Gfi1_H & !(v_GSK3B_H | v_FoxO3a_H))) | (v_ROS_H & !(v_GSK3B_H | v_FoxO3a_H)))
+v_ERK_M, ((v_ROS_M | v_GCSF) | v_TLR_M)
+v_FoxO3a_H, ((v_Bcatenin_H & !(v_PI3KAkt_H | v_ERK_H)) | (v_ROS_H & !(v_PI3KAkt_H | v_ERK_H)))
+v_FoxO3a_M, ((v_Bcatenin_M & !(v_ERK_M | v_PI3KAkt_M)) | (v_ROS_M & !(v_ERK_M | v_PI3KAkt_M)))
+v_GCSF, v_IL1
+v_GSK3B_H, !v_PI3KAkt_H
+v_GSK3B_M, !v_PI3KAkt_M
+v_Gfi1_H, ((v_TLR_H & !v_Gfi1_H) | (v_GCSF & !v_Gfi1_H))
+v_IL1, ((((v_ROS_M & !v_PI3KAkt_M) | (v_NfkB_M & !v_PI3KAkt_M)) | (v_NfkB_H & !v_PI3KAkt_H)) | (v_ROS_H & !v_PI3KAkt_H))
+v_NfkB_H, (((v_ROS_H & !v_FoxO3a_H) | (v_TLR_H & !v_FoxO3a_H)) | ((v_IL1 & v_PI3KAkt_H) & !v_FoxO3a_H))
+v_NfkB_M, (((v_IL1 & v_PI3KAkt_M) | (v_ROS_M & v_ERK_M)) | v_TLR_M)
+v_PI3KAkt_H, (((((v_VLA4_H & !v_FoxO3a_H) | (v_ROS_H & !v_FoxO3a_H)) | ((v_CXCR4_H & v_CXCR7_H) & !v_FoxO3a_H)) | (v_TLR_H & !v_FoxO3a_H)) | (v_GCSF & !v_FoxO3a_H))
+v_PI3KAkt_M, ((v_TLR_M | v_ROS_M) | v_GCSF)
+v_ROS_H, ((v_IL1 & v_TLR_H) & !v_FoxO3a_H)
+v_ROS_M, ((v_IL1 & v_TLR_M) & !v_FoxO3a_M)
+v_TLR_H, v_lTLR
+v_TLR_M, v_lTLR
+v_VCAM1_M, ((v_NfkB_M | v_PI3KAkt_M) | !((v_NfkB_M | v_Bcatenin_M) | v_PI3KAkt_M))
+v_VLA4_H, (v_VCAM1_M & v_CXCR4_H)
+v_lTLR, v_lTLR

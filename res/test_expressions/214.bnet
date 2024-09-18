@@ -1,0 +1,71 @@
+targets,factors
+v_14_3_3_neuron, (v_14_3_3_neuron & v_MAPK8)
+v_AKT1_phosphorylated, v_AKT1_phosphorylated
+v_AMPK_complex_neuron, v_AMPK_complex_neuron
+v_AMPK_complex_nucleus, v_AMPK_complex_nucleus
+v_ATG12_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_BBC3_rna, (v_csa1503_TF_space_FOXO3_complex_nucleus | v_TF_space_CHOP_FOXO_complex)
+v_BCL2L11_rna, (v_TF_space_CHOP_FOXO_complex | v_csa1503_TF_space_FOXO3_complex_nucleus)
+v_BECN1_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_BNIP3L_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_BNIP3_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_CAT_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_CEBPB_rna, v_TF_space_AP_1_complex
+v_CLPP, v_CLPP
+v_DDIT3, v_DDIT3
+v_DDIT3_rna, v_TF_space_AP_1_complex
+v_DNM1L_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_EIF4EBP1_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_FASLG_rna, v_csa1503_TF_space_FOXO3_complex_nucleus
+v_FIS1_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_FOXO3_acetylated_phosphorylated_phosphorylated, (v_FOXO3_acetylated_phosphorylated_phosphorylated_phosphorylated & v_14_3_3_neuron)
+v_FOXO3_acetylated_phosphorylated_phosphorylated_phosphorylated, (v_csa1501_TF_space_FOXO3_complex_nucleus & v_AKT1_phosphorylated)
+v_FOXO3_mitochondrial_space_matrix, v_SIRT3
+v_FOXO3_neuron, v_AMPK_complex_neuron
+v_FOXO3_nucleus, (v_FOXO3_mitochondrial_space_matrix | v_SIRT3)
+v_Fission_Fusion_phenotype, ((v_MFN2_rna | v_FIS1_rna) | v_DNM1L_rna)
+v_GABARAPL1_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_GPX1_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_HSPD1, v_HSPD1
+v_HSPE1, v_HSPE1
+v_HTRA2, v_HTRA2
+v_JUN, v_JUN
+v_LONP1, v_LONP1
+v_MAP1LC3A_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_MAP3K5, v_ROS_simple_molecule_neuron
+v_MAPK14_phosphorylated, v_MAP3K5
+v_MAPK8, v_MAPK8
+v_MAPK9_mitochondrial_space_matrix, v_mt_space_UPR_phenotype
+v_MAPK9_nucleus, v_MAPK9_mitochondrial_space_matrix
+v_MAPK9_phosphorylated, (v_MAP3K5 | v_mtUPR_phenotype)
+v_MFN2_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_MUL1_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_PINK1, v_PINK1
+v_PINK1_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_PPARGC1A_phosphorylated, v_PPARGC1A_phosphorylated
+v_PPARGC1A_rna, ((v_csa1501_TF_space_FOXO3_complex_nucleus | !v_SNCA) | v_csa1502_TF_space_FOXO3_complex_nucleus)
+v_RICTOR_rna, v_csa1501_TF_space_FOXO3_complex_nucleus
+v_ROS_simple_molecule_mitochondrial_space_matrix, v_ROS_simple_molecule_mitochondrial_space_matrix
+v_ROS_simple_molecule_neuron, v_ROS_simple_molecule_neuron
+v_SESN3_rna, v_csa1501_TF_space_FOXO3_complex_nucleus
+v_SIRT1, v_PINK1
+v_SIRT2, v_SIRT2
+v_SIRT3, ((v_sa9315_generic_space_protein_mitochondrial_space_matrix | v_ROS_simple_molecule_mitochondrial_space_matrix) & v_SIRT3)
+v_SNCA, v_SNCA
+v_SOD2_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_TFAM_rna, v_csa1502_TF_space_FOXO3_complex_nucleus
+v_TF_space_AP_1_complex, (v_JUN & v_MAPK9_nucleus)
+v_TF_space_CHOP_FOXO_complex, (v_FOXO3_nucleus & v_DDIT3)
+v_TXNIP_rna, v_csa1503_TF_space_FOXO3_complex_nucleus
+v_apoptosis_phenotype, (((((v_FASLG_rna | v_BBC3_rna) | v_TXNIP_rna) | v_BCL2L11_rna) | v_BCL2L11_rna) | v_BBC3_rna)
+v_autophagy_phenotype, ((((((v_MAP1LC3A_rna | v_BNIP3_rna) | v_BNIP3L_rna) | v_ATG12_rna) | v_BECN1_rna) | v_MUL1_rna) | v_GABARAPL1_rna)
+v_csa1501_TF_space_FOXO3_complex_nucleus, (((v_SIRT2 | v_SIRT1) & v_FOXO3_acetylated_phosphorylated_phosphorylated_phosphorylated) | v_FOXO3_neuron)
+v_csa1502_TF_space_FOXO3_complex_nucleus, (v_csa1501_TF_space_FOXO3_complex_nucleus & v_PPARGC1A_phosphorylated)
+v_csa1503_TF_space_FOXO3_complex_nucleus, ((v_AMPK_complex_nucleus | v_MAPK9_phosphorylated) & v_csa1501_TF_space_FOXO3_complex_nucleus)
+v_mitochondrial_space_biogenesis_phenotype, (v_TFAM_rna | v_PPARGC1A_rna)
+v_mtUPR_phenotype, v_mtUPR_phenotype
+v_mt_space_UPR_phenotype, ((v_CLPP | v_LONP1) & v_sa9315_generic_space_protein_mitochondrial_space_matrix)
+v_response_space_to_space_oxidative_space_stress_phenotype, ((v_SOD2_rna | v_CAT_rna) | v_GPX1_rna)
+v_sa9314_generic_space_protein_mitochondrial_space_matrix, ((v_HSPE1 | v_HSPD1) & v_sa9315_generic_space_protein_mitochondrial_space_matrix)
+v_sa9315_generic_space_protein_mitochondrial_space_matrix, !v_HTRA2
+v_translation_phenotype, !v_EIF4EBP1_rna

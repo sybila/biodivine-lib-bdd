@@ -1,0 +1,25 @@
+targets,factors
+v_Boi, v_Boi
+v_CK1a, v_CK1a
+v_Ci_act, !((v_Cos & (v_Slmb & v_SuFu)) & ((v_Sgg | v_CK1a) | v_Pka))
+v_Ci_rep, (v_CK1a & ((((v_Sgg & v_Slmb) & v_Cos) & v_SuFu) & v_Pka))
+v_Cos, !(v_Fu & v_Smo)
+v_Dally, v_Ttv
+v_Disp, v_Disp
+v_Dlp, v_Ttv
+v_Fu, v_Smo
+v_Gprk2, v_Gprk2
+v_Hh, (v_iHog & ((((((v_Shf & v_Lipophorin) & v_Dally) & v_Disp) & v_Rasp) & v_Dlp) & v_Boi))
+v_Lipophorin, v_Lipophorin
+v_Pka, v_Pka
+v_Ptc, !v_Hh
+v_Rasp, v_Rasp
+v_Sgg, v_Sgg
+v_Shf, v_Shf
+v_Slmb, v_Slmb
+v_Smo, (v_Gprk2 & !(v_Ptc & v_Tow))
+v_SuFu, !v_Fu
+v_Targets, (v_Ci_act & !v_Ci_rep)
+v_Tow, v_Tow
+v_Ttv, v_Ttv
+v_iHog, v_iHog

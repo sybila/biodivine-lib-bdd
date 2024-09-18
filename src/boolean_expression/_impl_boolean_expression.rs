@@ -2,6 +2,7 @@ use super::super::{Bdd, BddVariableSet};
 use super::BooleanExpression;
 use super::BooleanExpression::*;
 use super::_impl_parser::parse_boolean_expression;
+use std::collections::HashSet;
 use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
 
@@ -28,6 +29,32 @@ impl Display for BooleanExpression {
                 write!(f, "({} ? {} : {})", cond, then_expr, else_expr)
             }
         }
+    }
+}
+
+impl BooleanExpression {
+    pub fn support_set(&self) -> HashSet<String> {
+        fn _rec(e: &BooleanExpression, set: &mut HashSet<String>) {
+            match e {
+                Const(_) => (),
+                Variable(x) => {
+                    set.insert(x.clone());
+                }
+                Not(inner) => _rec(inner, set),
+                And(a, b) | Or(a, b) | Xor(a, b) | Imp(a, b) | Iff(a, b) => {
+                    _rec(a, set);
+                    _rec(b, set);
+                }
+                Cond(a, b, c) => {
+                    _rec(a, set);
+                    _rec(b, set);
+                    _rec(c, set);
+                }
+            }
+        }
+        let mut result = HashSet::new();
+        _rec(self, &mut result);
+        result
     }
 }
 

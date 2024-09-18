@@ -1,0 +1,23 @@
+targets,factors
+v_Cat1_2, (v_Yap1 & !v_HapX)
+v_CccA, !v_HapX
+v_EstB, !v_SreA
+v_FCminusFe, v_SidA
+v_FCplusFe, (v_FCminusFe & v_LIP)
+v_HapX, (v_hapX & !v_LIP)
+v_ICP, ((v_VAC & !v_HapX) | (v_FCplusFe & !v_HapX))
+v_LIP, ((v_RIA & v__Iron) | (v_TAFC & (v_MirB & v_EstB)))
+v_MirB, (v_HapX & !v_SreA)
+v_RIA, !v_SreA
+v_ROS, (((v_Superoxide & !(v_SOD2_3 & (v_ThP & v_Cat1_2))) | (v_ROS & !(v_SOD2_3 & (v_ThP | v_Cat1_2)))) | v_LIP)
+v_SOD2_3, v_Yap1
+v_SidA, (v_HapX & !v_SreA)
+v_SreA, (v_LIP & v_sreA)
+v_Superoxide, v_Superoxide
+v_TAFC, v_SidA
+v_ThP, v_Yap1
+v_VAC, (v_CccA & v_LIP)
+v_Yap1, v_ROS
+v__Iron, v__Iron
+v_hapX, !v_SreA
+v_sreA, !v_HapX

@@ -1,0 +1,24 @@
+targets,factors
+v_GATA3, ((v_STAT6 & !v_Tbet) | (v_GATA3 & !v_Tbet))
+v_IFNb, v_IFNb
+v_IFNbR, v_IFNb
+v_IFNg, ((((v_Tbet & !v_STAT3) | (v_STAT4 & !v_STAT3)) | (v_IRAK & !v_STAT3)) | (v_NFAT & !v_STAT3))
+v_IFNgR, v_IFNg
+v_IL10, v_GATA3
+v_IL10R, v_IL10
+v_IL12, v_IL12
+v_IL12R, v_IL12
+v_IL18, v_IL18
+v_IL18R, (v_IL18 & !v_STAT6)
+v_IL4, (v_GATA3 & !v_STAT1)
+v_IL4R, (v_IL4 & !v_SOCS1)
+v_IRAK, v_IL18R
+v_JAK1, (v_IFNgR & !v_SOCS1)
+v_NFAT, v_TCR
+v_SOCS1, (v_STAT1 | v_Tbet)
+v_STAT1, (v_JAK1 | v_IFNbR)
+v_STAT3, v_IL10R
+v_STAT4, (v_IL12R & !v_GATA3)
+v_STAT6, v_IL4R
+v_TCR, v_TCR
+v_Tbet, ((v_Tbet & !v_GATA3) | (v_STAT1 & !v_GATA3))

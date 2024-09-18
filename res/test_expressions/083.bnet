@@ -1,0 +1,134 @@
+targets,factors
+v_AKT, (((!v_HSPs & v_PIP3) & !v_PTCH1) | (v_HSPs & !v_PTCH1))
+v_AMPK, ((((((((!v_AMP_ATP & !v_ATM) & !v_ATR) & !v_EGFR) & !v_FGFR3) & v_HIF1) | ((((!v_AMP_ATP & !v_ATM) & v_ATR) & !v_EGFR) & !v_FGFR3)) | (((!v_AMP_ATP & v_ATM) & !v_EGFR) & !v_FGFR3)) | ((v_AMP_ATP & !v_EGFR) & !v_FGFR3))
+v_AMP_ATP, !v_Nutrients
+v_APAF1, (((((((((((!v_AKT & !v_Bak) & !v_BAX) & !v_BCL2) & !v_Bcl_XL) & !v_Caspase8) & !v_HSPs) & v_p53) | ((((((!v_AKT & !v_Bak) & !v_BAX) & !v_BCL2) & !v_Bcl_XL) & !v_Caspase8) & v_HSPs)) | (((((!v_AKT & !v_Bak) & !v_BAX) & !v_BCL2) & !v_Bcl_XL) & v_Caspase8)) | ((((!v_AKT & !v_Bak) & v_BAX) & !v_BCL2) & !v_Bcl_XL)) | (((!v_AKT & v_Bak) & !v_BCL2) & !v_Bcl_XL))
+v_AR, (((((((((((((((((((v_Androgen & !v_EP300) & !v_EZH2) & !v_GLI) & !v_HSPs) & !v_MDM2) & !v_NCOA3) & !v_NCOR1) & !v_NCOR2) & !v_PKC) & !v_PTEN) & !v_SMAD) & v_NKX3_1) | (((((((((((v_Androgen & !v_EP300) & !v_EZH2) & !v_GLI) & !v_HSPs) & !v_MDM2) & !v_NCOA3) & !v_NCOR1) & !v_NCOR2) & !v_PKC) & !v_PTEN) & v_SMAD)) | ((((((((((v_Androgen & !v_EP300) & !v_EZH2) & !v_GLI) & !v_HSPs) & !v_MDM2) & !v_NCOA3) & !v_NCOR1) & !v_NCOR2) & v_PKC) & !v_PTEN)) | (((((((((v_Androgen & !v_EP300) & !v_EZH2) & !v_GLI) & !v_HSPs) & !v_MDM2) & v_NCOA3) & !v_NCOR1) & !v_NCOR2) & !v_PTEN)) | ((((((((v_Androgen & !v_EP300) & !v_EZH2) & !v_GLI) & v_HSPs) & !v_MDM2) & !v_NCOR1) & !v_NCOR2) & !v_PTEN)) | (((((((v_Androgen & !v_EP300) & !v_EZH2) & v_GLI) & !v_MDM2) & !v_NCOR1) & !v_NCOR2) & !v_PTEN)) | ((((((v_Androgen & !v_EP300) & v_EZH2) & !v_MDM2) & !v_NCOR1) & !v_NCOR2) & !v_PTEN)) | (((((v_Androgen & v_EP300) & !v_MDM2) & !v_NCOR1) & !v_NCOR2) & !v_PTEN))
+v_AR_ERG, (v_AR & v_fused_event)
+v_ATM, v_DNA_Damage
+v_ATR, ((!v_DNA_Damage & v_p14ARF) | v_DNA_Damage)
+v_AXIN1, v_GSK3
+v_Acidosis, v_Acidosis
+v_Androgen, v_Androgen
+v_Apoptosis, ((((!v_Caspase8 & !v_Caspase9) & v_Caspase3) | (!v_Caspase8 & v_Caspase9)) | v_Caspase8)
+v_BAD, ((((!v_AKT & !v_HIF1) & !v_p90RSK) & !v_RAF) & !v_YWHAZ)
+v_BAX, ((((((!v_BCL2 & !v_ETS1) & !v_HIF1) & !v_JNK) & v_p53) & !v_YWHAZ) | ((((!v_BCL2 & !v_ETS1) & !v_HIF1) & v_JNK) & !v_YWHAZ))
+v_BCL2, ((((((((!v_BAD & !v_BAX) & !v_DAXX) & !v_HSPs) & !v_NF_kB) & !v_p53) & v_RUNX2) | (((((!v_BAD & !v_BAX) & !v_DAXX) & !v_HSPs) & v_NF_kB) & !v_p53)) | ((((!v_BAD & !v_BAX) & !v_DAXX) & v_HSPs) & !v_p53))
+v_BIRC5, (v_HSPs & !v_p53)
+v_BMP2, (((!v_FGFR3 & v_GLI) & v_TGFBR) | (v_FGFR3 & v_GLI))
+v_BRCA1, ((((((!v_ATM & !v_ATR) & !v_CyclinD) & v_E2F1) & !v_Caspase3) | (((!v_ATM & v_ATR) & !v_CyclinD) & !v_Caspase3)) | ((v_ATM & !v_CyclinD) & !v_Caspase3))
+v_BRCA2, ((v_ATM & v_ATR) & v_EP300)
+v_Bak, v_Caspase8
+v_Bcl_XL, ((v_AR & !v_BAD) & !v_p53)
+v_CDH2, v_TWIST1
+v_CHK1_2, ((v_ATM & v_ATR) & v_BRCA1)
+v_COX4I2, v_HIF1
+v_Carcinogen, v_Carcinogen
+v_Caspase3, ((!v_Caspase8 & v_Caspase9) | v_Caspase8)
+v_Caspase8, (!v_cFLAR & v_FADD)
+v_Caspase9, (((((!v_AKT & !v_BIRC5) & v_CytoC) & v_APAF1) & v_PTCH1) | (((!v_AKT & v_BIRC5) & v_CytoC) & v_APAF1))
+v_CyclinB, (v_E2F1 & !v_p21)
+v_CyclinD, (((((((((!v_FOXO & !v_GLI) & !v_GSK3) & v_MYC_MAX) & !v_NF_kB) & !v_p15) & !v_p21) & v_TCF) | ((((((!v_FOXO & !v_GLI) & !v_GSK3) & v_MYC_MAX) & v_NF_kB) & !v_p15) & !v_p21)) | (((((!v_FOXO & v_GLI) & !v_GSK3) & v_MYC_MAX) & !v_p15) & !v_p21))
+v_CytoC, (((((((((!v_AKT & !v_Bak) & !v_BAX) & !v_BCL2) & !v_Bcl_XL) & !v_Caspase8) & v_p53) | (((((!v_AKT & !v_Bak) & !v_BAX) & !v_BCL2) & !v_Bcl_XL) & v_Caspase8)) | ((((!v_AKT & !v_Bak) & v_BAX) & !v_BCL2) & !v_Bcl_XL)) | (((!v_AKT & v_Bak) & !v_BCL2) & !v_Bcl_XL))
+v_DAXX, ((!v_ATM & !v_ATR) & !v_SPOP)
+v_DNA_Damage, (v_Carcinogen & !v_SPOP)
+v_DNA_Repair, ((((((v_ATM & v_ATR) & !v_BRCA1) & !v_BRCA2) & v_p14ARF) | (((v_ATM & v_ATR) & !v_BRCA1) & v_BRCA2)) | ((v_ATM & v_ATR) & v_BRCA1))
+v_Dsh, v_WNT
+v_E2F1, ((v_AR & !v_MXI1) & !v_RB1)
+v_EGF, v_EGF
+v_EGFR, ((((!v_Androgen & v_EGF) & !v_FRS2) & !v_TGFBR) | ((v_Androgen & !v_FRS2) & !v_TGFBR))
+v_EMT, ((v_CDH2 & !v_E_cadherin) & !v_FOXA1)
+v_EP300, v_AKT
+v_ERG, v_ERK
+v_ERK, ((!v_MEK1_2 & v_RAF) | v_MEK1_2)
+v_ETS1, (((!v_ERK & !v_p53) & v_RTK) | (v_ERK & !v_p53))
+v_ETV1, ((!v_ETS1 & v_MEK1_2) | v_ETS1)
+v_EZH2, ((((v_AKT & v_E2F1) & !v_ERG) & v_AR_ERG) | ((v_AKT & v_E2F1) & v_ERG))
+v_E_cadherin, ((((((!v_beta_catenin & !v_ERG) & !v_NF_kB) & !v_Slug) & !v_Snail) & v_AR_ERG) | ((((v_beta_catenin & !v_ERG) & !v_NF_kB) & !v_Slug) & !v_Snail))
+v_FADD, ((((!v_MAP3K1_3 & !v_PTCH1) & !v_SHH) & v_TNFalpha) | ((!v_MAP3K1_3 & v_PTCH1) & !v_SHH))
+v_FGF, v_FGF
+v_FGFR3, (((v_FGF & !v_FRS2) & !v_PKC) & !v_TGFBR)
+v_FOS, ((((!v_AR & !v_ERK) & v_ETS1) | (!v_AR & v_ERK)) | v_AR)
+v_FOXA1, v_FOXO
+v_FOXO, (!v_AKT & v_JNK)
+v_FRS2, ((((!v_ERK & v_EGFR) & v_FGFR3) & !v_FRS2) & !v_TGFBR)
+v_GADD45, ((!v_p53 & v_SMAD) | v_p53)
+v_GLI, (((!v_SMO & !v_SPOP) & v_WNT) | (v_SMO & !v_SPOP))
+v_GLUT1, (((((!v_AKT & !v_HIF1) & v_MYC_MAX) & v_Nutrients) | ((!v_AKT & v_HIF1) & v_Nutrients)) | (v_AKT & v_Nutrients))
+v_GSH, ((((!v_MYC_MAX & !v_NF_kB) & v_p21) | (!v_MYC_MAX & v_NF_kB)) | v_MYC_MAX)
+v_GSK3, ((((!v_AKT & !v_Dsh) & v_MEK1_2) & !v_mTORC2) & !v_p90RSK)
+v_HIF1, ((((((((((((!v_FOXO & !v_HSPs) & !v_Hypoxia) & !v_mTORC2) & !v_MYC_MAX) & !v_p53) & !v_PHDs) & !v_VHL) & v_mTORC1) | (((((((!v_FOXO & !v_HSPs) & !v_Hypoxia) & !v_mTORC2) & v_MYC_MAX) & !v_p53) & !v_PHDs) & !v_VHL)) | ((((((!v_FOXO & !v_HSPs) & !v_Hypoxia) & v_mTORC2) & !v_p53) & !v_PHDs) & !v_VHL)) | (((((!v_FOXO & !v_HSPs) & v_Hypoxia) & !v_p53) & !v_PHDs) & !v_VHL)) | ((((!v_FOXO & v_HSPs) & !v_p53) & !v_PHDs) & !v_VHL))
+v_HSPs, (((((((!v_AKT & !v_BRCA1) & !v_Carcinogen) & !v_E2F1) & !v_FOXA1) & v_PKC) | ((((!v_AKT & !v_BRCA1) & !v_Carcinogen) & !v_E2F1) & v_FOXA1)) | (((!v_AKT & !v_BRCA1) & v_Carcinogen) & !v_E2F1))
+v_Hypoxia, v_Hypoxia
+v_IDH1, ((((!v_FOXA1 & !v_mTORC2) & v_SMAD) | (!v_FOXA1 & v_mTORC2)) | v_FOXA1)
+v_IKK, (((((((((((!v_AKT & !v_ETS1) & v_mTORC2) & !v_p53) & !v_PHDs) & !v_PKC) & v_TAK1) | (((((!v_AKT & !v_ETS1) & v_mTORC2) & !v_p53) & !v_PHDs) & v_PKC)) | ((((!v_AKT & v_ETS1) & v_mTORC2) & !v_p53) & !v_PHDs)) | (((((v_AKT & !v_ETS1) & !v_p53) & !v_PHDs) & !v_PKC) & v_TAK1)) | ((((v_AKT & !v_ETS1) & !v_p53) & !v_PHDs) & v_PKC)) | (((v_AKT & v_ETS1) & !v_p53) & !v_PHDs))
+v_Invasion, (((!v_beta_catenin & v_CDH2) & v_SMAD) | v_beta_catenin)
+v_JNK, ((((((((!v_ATM & !v_ERK) & !v_GADD45) & !v_MAP3K1_3) & !v_p38) & v_TAK1) | ((((!v_ATM & !v_ERK) & !v_GADD45) & v_MAP3K1_3) & !v_p38)) | (((!v_ATM & !v_ERK) & v_GADD45) & !v_p38)) | ((v_ATM & !v_ERK) & !v_p38))
+v_JUN, ((((!v_AR & !v_ETS1) & v_JNK) | (!v_AR & v_ETS1)) | v_AR)
+v_LDHA, ((((!v_HIF1 & !v_IDH1) & v_MYC_MAX) | (!v_HIF1 & v_IDH1)) | v_HIF1)
+v_Lactic_acid, v_LDHA
+v_MAP3K1_3, ((((!v_FOS & !v_JUN) & !v_JNK) & !v_p38) & v_RAS)
+v_MDM2, ((((((!v_AKT & !v_ATM) & !v_ATR) & v_DAXX) & !v_p14ARF) & v_p53) | ((((v_AKT & !v_ATM) & !v_ATR) & v_DAXX) & !v_p14ARF))
+v_MED12, !v_GLI
+v_MEK1_2, ((((!v_MAP3K1_3 & !v_PDK1) & v_RAF) | (!v_MAP3K1_3 & v_PDK1)) | v_MAP3K1_3)
+v_MXI1, v_HIF1
+v_MYC, ((((((((((((((((((((((((((((((((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & !v_p38) & !v_SHH) & !v_TCF) & v_AR_ERG) & v_mTORC1) | (((((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & !v_p38) & !v_SHH) & v_TCF) & v_mTORC1)) | ((((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & !v_p38) & v_SHH) & v_mTORC1)) | (((((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & v_p38) & !v_SHH) & !v_TCF) & v_AR_ERG)) | ((((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & v_p38) & !v_SHH) & v_TCF)) | (((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & v_p38) & v_SHH)) | (((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & v_NF_kB) & !v_p38) & v_mTORC1)) | ((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & v_NF_kB) & v_p38)) | ((((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & v_GLI) & !v_HIF1) & !v_p38) & v_mTORC1)) | (((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & v_GLI) & !v_HIF1) & v_p38)) | (((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & v_JUN) & !v_HIF1) & !v_p38) & v_mTORC1)) | ((((((!v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & v_JUN) & !v_HIF1) & v_p38)) | ((((((!v_E2F1 & !v_ERG) & !v_ERK) & v_FOS) & !v_HIF1) & !v_p38) & v_mTORC1)) | (((((!v_E2F1 & !v_ERG) & !v_ERK) & v_FOS) & !v_HIF1) & v_p38)) | (((((!v_E2F1 & !v_ERG) & v_ERK) & !v_HIF1) & !v_p38) & v_mTORC1)) | ((((!v_E2F1 & !v_ERG) & v_ERK) & !v_HIF1) & v_p38)) | ((((!v_E2F1 & v_ERG) & !v_HIF1) & !v_p38) & v_mTORC1)) | (((!v_E2F1 & v_ERG) & !v_HIF1) & v_p38)) | ((((((((((v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & !v_SHH) & !v_TCF) & v_AR_ERG)) | (((((((((v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & !v_SHH) & v_TCF)) | ((((((((v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & !v_NF_kB) & v_SHH)) | (((((((v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & !v_GLI) & !v_HIF1) & v_NF_kB)) | ((((((v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & !v_JUN) & v_GLI) & !v_HIF1)) | (((((v_E2F1 & !v_ERG) & !v_ERK) & !v_FOS) & v_JUN) & !v_HIF1)) | ((((v_E2F1 & !v_ERG) & !v_ERK) & v_FOS) & !v_HIF1)) | (((v_E2F1 & !v_ERG) & v_ERK) & !v_HIF1)) | ((v_E2F1 & v_ERG) & !v_HIF1))
+v_MYC_MAX, (((!v_MXI1 & v_MYC) & !v_SMAD) & !v_TGFBR)
+v_Metastasis, (v_Migration & v_AR_ERG)
+v_Migration, ((((((!v_AKT & v_AR) & v_EMT) & v_Invasion) | (((((v_AKT & !v_AR) & v_EMT) & !v_ERK) & v_ETV1) & v_Invasion)) | ((((v_AKT & !v_AR) & v_EMT) & v_ERK) & v_Invasion)) | (((v_AKT & v_AR) & v_EMT) & v_Invasion))
+v_NCOA3, (v_p38 & !v_SPOP)
+v_NCOR1, !v_AKT
+v_NCOR2, (!v_AKT & !v_FOXO)
+v_NF1, !v_PKC
+v_NF_kB, (((((((((((((!v_DNA_Damage & !v_E_cadherin) & v_IKK) & !v_NCOA3) & !v_PIP3) & v_Snail) | ((((!v_DNA_Damage & !v_E_cadherin) & v_IKK) & !v_NCOA3) & v_PIP3)) | (((!v_DNA_Damage & !v_E_cadherin) & v_IKK) & v_NCOA3)) | ((((!v_DNA_Damage & v_E_cadherin) & !v_NCOA3) & !v_PIP3) & v_Snail)) | (((!v_DNA_Damage & v_E_cadherin) & !v_NCOA3) & v_PIP3)) | ((!v_DNA_Damage & v_E_cadherin) & v_NCOA3)) | (((v_DNA_Damage & !v_NCOA3) & !v_PIP3) & v_Snail)) | ((v_DNA_Damage & !v_NCOA3) & v_PIP3)) | (v_DNA_Damage & v_NCOA3))
+v_NKX3_1, (((v_AR & !v_ERG) & v_PKC) & !v_AR_ERG)
+v_Nutrients, v_Nutrients
+v_PDK1, ((((!v_HIF1 & !v_MYC_MAX) & v_PIP3) | (!v_HIF1 & v_MYC_MAX)) | v_HIF1)
+v_PHDs, (!v_Hypoxia & v_ROS)
+v_PI3K, ((((!v_EGFR & !v_FRS2) & v_TGFBR) | (!v_EGFR & v_FRS2)) | v_EGFR)
+v_PIP3, (!v_p53 & v_PI3K)
+v_PKC, (v_RTK & v_WNT)
+v_PTCH1, (v_GLI & !v_SHH)
+v_PTEN, ((!v_NF_kB & v_p53) & !v_Snail)
+v_Proliferation, ((!v_CyclinB & v_CyclinD) | v_CyclinB)
+v_RAF, ((!v_EZH2 & v_RAS) | v_EZH2)
+v_RAGS, (!v_Hypoxia & v_Nutrients)
+v_RAS, ((((!v_EGFR & !v_FRS2) & v_RTK) | (!v_EGFR & v_FRS2)) | v_EGFR)
+v_RB1, ((((!v_AMPK & v_CHK1_2) & !v_CyclinB) & !v_CyclinD) & !v_p53)
+v_ROS, (((!v_COX4I2 & !v_GSH) & v_Hypoxia) | (v_COX4I2 & !v_GSH))
+v_RTK, ((!v_EGFR & v_FGFR3) | v_EGFR)
+v_RUNX2, (((((!v_ETS1 & !v_FOXO) & !v_p38) & v_SMAD) | ((!v_ETS1 & !v_FOXO) & v_p38)) | (v_ETS1 & !v_FOXO))
+v_Rheb, !v_TSC1_2
+v_SHH, !v_ATR
+v_SMAD, (((!v_AR & !v_TGFBR) & v_TNFalpha) | (!v_AR & v_TGFBR))
+v_SMO, (!v_PTCH1 & v_SHH)
+v_SPOP, v_SPOP
+v_Slug, (((((!v_DAXX & !v_MDM2) & !v_NF_kB) & !v_p53) & v_TCF) | (((!v_DAXX & !v_MDM2) & v_NF_kB) & !v_p53))
+v_Snail, ((((((!v_beta_catenin & !v_GLI) & !v_GSK3) & !v_NF_kB) & v_SMAD) | (((!v_beta_catenin & !v_GLI) & !v_GSK3) & v_NF_kB)) | ((!v_beta_catenin & v_GLI) & !v_GSK3))
+v_TAK1, ((!v_TGFBR & v_TNFalpha) | v_TGFBR)
+v_TCF, (((((!v_beta_catenin & !v_ERG) & !v_TAK1) & v_AR_ERG) | ((!v_beta_catenin & v_ERG) & !v_TAK1)) | (v_beta_catenin & !v_TAK1))
+v_TERT, ((((((((((((((!v_AKT & !v_eEF2) & !v_GLI) & !v_HIF1) & !v_ZBTB17) & !v_MYC_MAX) & !v_NF1) & v_NF_kB) & !v_p53) & !v_SMAD) | ((((((((!v_AKT & !v_eEF2) & !v_GLI) & !v_HIF1) & !v_ZBTB17) & !v_MYC_MAX) & v_NF1) & !v_p53) & !v_SMAD)) | (((((((!v_AKT & !v_eEF2) & !v_GLI) & !v_HIF1) & !v_ZBTB17) & v_MYC_MAX) & !v_p53) & !v_SMAD)) | ((((((!v_AKT & !v_eEF2) & !v_GLI) & v_HIF1) & !v_ZBTB17) & !v_p53) & !v_SMAD)) | (((((!v_AKT & !v_eEF2) & v_GLI) & !v_ZBTB17) & !v_p53) & !v_SMAD)) | ((((v_AKT & !v_eEF2) & !v_ZBTB17) & !v_p53) & !v_SMAD))
+v_TGFBR, (!v_MED12 & v_TGFb)
+v_TGFb, v_TGFb
+v_TNFalpha, v_TNFalpha
+v_TSC1_2, ((((((((((((((((((((((((((((((((((((((((!v_AKT & !v_AMPK) & !v_ERK) & !v_HIF1) & !v_p53) & !v_p90RSK) & !v_RAF) | (((((!v_AKT & !v_AMPK) & !v_ERK) & !v_HIF1) & v_p53) & !v_p90RSK)) | ((((((!v_AKT & !v_AMPK) & !v_ERK) & !v_HIF1) & v_p53) & v_p90RSK) & !v_RAF)) | (((((!v_AKT & !v_AMPK) & !v_ERK) & v_HIF1) & !v_p53) & !v_p90RSK)) | ((((((!v_AKT & !v_AMPK) & !v_ERK) & v_HIF1) & !v_p53) & v_p90RSK) & !v_RAF)) | ((((!v_AKT & !v_AMPK) & !v_ERK) & v_HIF1) & v_p53)) | ((((((!v_AKT & !v_AMPK) & v_ERK) & !v_HIF1) & v_p53) & !v_p90RSK) & !v_RAF)) | ((((((!v_AKT & !v_AMPK) & v_ERK) & v_HIF1) & !v_p53) & !v_p90RSK) & !v_RAF)) | (((((!v_AKT & !v_AMPK) & v_ERK) & v_HIF1) & v_p53) & !v_p90RSK)) | ((((((!v_AKT & !v_AMPK) & v_ERK) & v_HIF1) & v_p53) & v_p90RSK) & !v_RAF)) | (((((!v_AKT & v_AMPK) & !v_ERK) & !v_HIF1) & !v_p53) & !v_p90RSK)) | ((((((!v_AKT & v_AMPK) & !v_ERK) & !v_HIF1) & !v_p53) & v_p90RSK) & !v_RAF)) | ((((!v_AKT & v_AMPK) & !v_ERK) & !v_HIF1) & v_p53)) | (((!v_AKT & v_AMPK) & !v_ERK) & v_HIF1)) | ((((((!v_AKT & v_AMPK) & v_ERK) & !v_HIF1) & !v_p53) & !v_p90RSK) & !v_RAF)) | (((((!v_AKT & v_AMPK) & v_ERK) & !v_HIF1) & v_p53) & !v_p90RSK)) | ((((((!v_AKT & v_AMPK) & v_ERK) & !v_HIF1) & v_p53) & v_p90RSK) & !v_RAF)) | (((((!v_AKT & v_AMPK) & v_ERK) & v_HIF1) & !v_p53) & !v_p90RSK)) | ((((((!v_AKT & v_AMPK) & v_ERK) & v_HIF1) & !v_p53) & v_p90RSK) & !v_RAF)) | ((((!v_AKT & v_AMPK) & v_ERK) & v_HIF1) & v_p53)) | ((((((v_AKT & !v_AMPK) & !v_ERK) & !v_HIF1) & v_p53) & !v_p90RSK) & !v_RAF)) | ((((((v_AKT & !v_AMPK) & !v_ERK) & v_HIF1) & !v_p53) & !v_p90RSK) & !v_RAF)) | (((((v_AKT & !v_AMPK) & !v_ERK) & v_HIF1) & v_p53) & !v_p90RSK)) | ((((((v_AKT & !v_AMPK) & !v_ERK) & v_HIF1) & v_p53) & v_p90RSK) & !v_RAF)) | ((((((v_AKT & !v_AMPK) & v_ERK) & v_HIF1) & v_p53) & !v_p90RSK) & !v_RAF)) | ((((((v_AKT & v_AMPK) & !v_ERK) & !v_HIF1) & !v_p53) & !v_p90RSK) & !v_RAF)) | (((((v_AKT & v_AMPK) & !v_ERK) & !v_HIF1) & v_p53) & !v_p90RSK)) | ((((((v_AKT & v_AMPK) & !v_ERK) & !v_HIF1) & v_p53) & v_p90RSK) & !v_RAF)) | (((((v_AKT & v_AMPK) & !v_ERK) & v_HIF1) & !v_p53) & !v_p90RSK)) | ((((((v_AKT & v_AMPK) & !v_ERK) & v_HIF1) & !v_p53) & v_p90RSK) & !v_RAF)) | ((((v_AKT & v_AMPK) & !v_ERK) & v_HIF1) & v_p53)) | ((((((v_AKT & v_AMPK) & v_ERK) & !v_HIF1) & v_p53) & !v_p90RSK) & !v_RAF)) | ((((((v_AKT & v_AMPK) & v_ERK) & v_HIF1) & !v_p53) & !v_p90RSK) & !v_RAF)) | (((((v_AKT & v_AMPK) & v_ERK) & v_HIF1) & v_p53) & !v_p90RSK)) | ((((((v_AKT & v_AMPK) & v_ERK) & v_HIF1) & v_p53) & v_p90RSK) & !v_RAF))
+v_TWIST1, ((!v_beta_catenin & v_Snail) | v_beta_catenin)
+v_VEGF, (v_HIF1 & v_MYC_MAX)
+v_VHL, (!v_Hypoxia & !v_ROS)
+v_WNT, (((!v_ERG & !v_p53) & v_AR_ERG) | (v_ERG & !v_p53))
+v_YWHAZ, v_AR
+v_ZBTB17, (v_AR & !v_MYC_MAX)
+v_beta_catenin, (((((!v_AXIN1 & !v_EZH2) & !v_GSK3) & !v_p53) & v_YWHAZ) | (((!v_AXIN1 & v_EZH2) & !v_GSK3) & !v_p53))
+v_cFLAR, (((!v_AKT & v_AR) & !v_JNK) | (v_AKT & !v_JNK))
+v_eEF2, !v_eEF2K
+v_eEF2K, ((!v_p70S6kab & v_p90RSK) | v_p70S6kab)
+v_fused_event, v_fused_event
+v_mTORC1, ((v_AKT & !v_AMPK) & !v_TSC1_2)
+v_mTORC2, ((((((!v_AKT & !v_AMPK) & v_RAGS) & v_Rheb) | (((v_AKT & !v_AMPK) & !v_RAGS) & v_Rheb)) | ((v_AKT & !v_AMPK) & v_RAGS)) | (((v_AKT & v_AMPK) & v_RAGS) & v_Rheb))
+v_p14ARF, ((v_E2F1 & v_MYC_MAX) & v_RAS)
+v_p15, v_ZBTB17
+v_p21, (((((((((((!v_AKT & !v_ERK) & !v_HIF1) & !v_MDM2) & !v_ZBTB17) & !v_MYC_MAX) & !v_p53) & v_SMAD) & !v_TERT) | (((((((!v_AKT & !v_ERK) & !v_HIF1) & !v_MDM2) & !v_ZBTB17) & !v_MYC_MAX) & v_p53) & !v_TERT)) | ((((((!v_AKT & !v_ERK) & !v_HIF1) & !v_MDM2) & v_ZBTB17) & !v_MYC_MAX) & !v_TERT)) | (((((!v_AKT & !v_ERK) & v_HIF1) & !v_MDM2) & !v_MYC_MAX) & !v_TERT))
+v_p38, ((!v_ERK & !v_GADD45) & v_MAP3K1_3)
+v_p53, (((((((((((!v_Acidosis & !v_BCL2) & !v_CHK1_2) & !v_HIF1) & !v_HSPs) & !v_MDM2) & !v_p14ARF) & v_p38) | ((((((!v_Acidosis & !v_BCL2) & !v_CHK1_2) & !v_HIF1) & !v_HSPs) & !v_MDM2) & v_p14ARF)) | (((((!v_Acidosis & !v_BCL2) & !v_CHK1_2) & v_HIF1) & !v_HSPs) & !v_MDM2)) | ((((!v_Acidosis & !v_BCL2) & v_CHK1_2) & !v_HSPs) & !v_MDM2)) | (((v_Acidosis & !v_BCL2) & !v_HSPs) & !v_MDM2))
+v_p70S6kab, ((!v_mTORC2 & v_PDK1) | v_mTORC2)
+v_p90RSK, ((!v_ERK & v_PDK1) | v_ERK)

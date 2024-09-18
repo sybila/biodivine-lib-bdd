@@ -1,0 +1,21 @@
+targets,factors
+v_BuddingCP, v_BuddingCP
+v_Cdc14, (v_MEN & v_FEAR)
+v_Cdc20, (v_SpindleCP & (v_Clb2 & v_SFF))
+v_Cdh1, (v_Cdc14 | !(((v_Clb5 | v_Cdc14) | v_Clb2) | v_Cln2))
+v_Clb2, ((v_SFF & !(((v_Cdh1 & v_Cdc20) | (v_Cdc20 & v_Cdh1)) | v_Swe1)) | !((((v_Swe1 | v_SFF) | v_Cdh1) | v_Cdc20) | v_Sic1))
+v_Clb5, (v_SMBF & !(v_Sic1 | v_Cdc20))
+v_Cln2, (v_SMBF & v_Start)
+v_Cln3, (v_Size & !v_Yhp1)
+v_FEAR, v_Cdc20
+v_MEN, (v_FEAR & v_Clb2)
+v_SFF, v_Clb2
+v_SMBF, (!(v_Clb2 | v_Whi5) | !(v_Whi5 | v_Clb2))
+v_Sic1, (((v_Swi5 & !(((v_Clb5 & !v_Cdc14) | (v_Clb2 & !v_Cdc14)) | (v_Cln2 & !v_Cdc14))) | (v_Sic1 & !(((v_Clb5 & !v_Cdc14) | (v_Clb2 & !v_Cdc14)) | (v_Cln2 & !v_Cdc14)))) | !(((((v_Swi5 | v_Clb5) | v_Cdc14) | v_Clb2) | v_Cln2) | v_Sic1))
+v_Size, v_Size
+v_SpindleCP, v_SpindleCP
+v_Start, v_Start
+v_Swe1, (!v_BuddingCP | !v_BuddingCP)
+v_Swi5, ((v_Cdc14 & (v_SFF & !v_Swi5)) & !v_Clb2)
+v_Whi5, (!((v_Cln2 & v_Start) | (v_Cln3 & v_Start)) | !((v_Start | v_Cln3) | v_Cln2))
+v_Yhp1, v_SMBF

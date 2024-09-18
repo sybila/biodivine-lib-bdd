@@ -1,0 +1,85 @@
+targets,factors
+v_14_3_3_neuron, v_14_3_3_neuron
+v_4EBP1_AGO2_complex, ((v_EIF4EBP1_phosphorylated & v_AGO2) & v_sa11179_LRRK2_neuron)
+v_AGO2, v_AGO2
+v_AKT1, (((v_PHLPP1 | v_DDIT3) & v_AKT1_phosphorylated) & !v_ATP_simple_molecule)
+v_AKT1_phosphorylated, ((((v_PDPK1 | v_mTORC2_complex) | v_Akt_space_pathway_phenotype) & v_AKT1) & !v_ROCK2)
+v_AMPK_complex, v_AMPK_complex
+v_ATP_simple_molecule, v_ATP_simple_molecule
+v_Akt_space_pathway_phenotype, (v_RET_GFRA1_GDNF_complex | !v_SNCA)
+v_CCN4, v_CCN4
+v_Ca2__ion, (v_MCOLN1 | v_EIF2AK3)
+v_Calcineurin_complex, (v_Ca2__ion | v_Ca2__ion)
+v_DDIT3, v_DDIT3
+v_E2F1, v_E2F1
+v_EIF2AK3, v_ER_space_stress_phenotype
+v_EIF2A_phosphorylated, v_ER_space_stress_phenotype
+v_EIF4E, v_EIF4E
+v_EIF4EBP1, v_EIF4EBP1
+v_EIF4EBP1_EIF4E_complex, (v_EIF4E & v_EIF4EBP1)
+v_EIF4EBP1_phosphorylated, ((v_sa11179_LRRK2_neuron | v_csa1820_mTORC1_complex_neuron) & v_EIF4EBP1)
+v_ERK1_space_and_space_ERK2_space_cascade_phenotype, (!v_SNCA | v_RET_GFRA1_GDNF_complex)
+v_ER_space_stress_phenotype, v_ER_space_stress_phenotype
+v_GDNF, v_GDNF
+v_GFRA1, v_GFRA1
+v_GFRA1_GDNF_complex, (v_GFRA1 & v_GDNF)
+v_GPCR_space_activity_phenotype, v_GPCR_space_activity_phenotype
+v_GSK3B, !v_PRKCD
+v_IDE_SNCA_space_protofibril_complex, (v_IDE_neuron & v_protofibril_complex)
+v_IDE_endocytic_space_vesicle, v_IDE_SNCA_space_protofibril_complex
+v_IDE_neuron, v_IDE_neuron
+v_IGF1, v_IGF1
+v_IGF1R, (((!v_NEDD4 | !v_ROS_simple_molecule_default_compartment) | v_INS_default_compartment) | v_IGF1)
+v_INSR, v_INSR_INS_complex_endocytic_space_vesicle
+v_INSR_INS_complex_endocytic_space_vesicle, v_INSR_INS_complex_neuron
+v_INSR_INS_complex_neuron, (v_INSR & v_INS_default_compartment)
+v_INS_default_compartment, v_INS_default_compartment
+v_INS_endocytic_space_vesicle, v_INSR_INS_complex_endocytic_space_vesicle
+v_IRS1_phosphorylated, ((v_IGF1R | v_INSR_INS_complex_neuron) | ((((v_MAPK14_phosphorylated | v_RPS6KB1_phosphorylated) | v_protofibril_complex) & v_IRS1_phosphorylated) & !v_PP2A_complex))
+v_LYNUS_phenotype, v_LYNUS_phenotype
+v_Let7_rna, v_Let7_rna
+v_MAPK1, v_MAPK1
+v_MAPK14_phosphorylated, v_MAPK14_phosphorylated
+v_MCOLN1, (v_caloric_space_restriction_phenotype | v_ROS_simple_molecule_neuron)
+v_NEDD4, v_NEDD4
+v_NGF, v_NGF
+v_NGF_space_receptor_complex, (v_NGF & v_NTRK1)
+v_NTRK1, v_NTRK1
+v_PDPK1, v_PI3K_space_cascade_phenotype
+v_PHLPP1, v_PHLPP1
+v_PI3K_space_cascade_phenotype, (((((((v_NGF_space_receptor_complex | v_IRS1_phosphorylated) | v_cytosolic_space_calcium_space_ion_space_homeostasis_phenotype) | v_CCN4) | v_RET_GFRA1_GDNF_complex) | v_RTK_space_activity_phenotype) | !v_PTEN) | v_GPCR_space_activity_phenotype)
+v_PP2A_complex, !v_protofibril_complex
+v_PRKCD, v_PRKCD
+v_PTEN, v_PTEN
+v_RET, v_RET
+v_RET_GFRA1_GDNF_complex, (v_GFRA1_GDNF_complex & v_RET)
+v_RISC_complex, (((v_AGO2 & v_mir_184__rna) & v_Let7_rna) & !v_sa11179_LRRK2_neuron)
+v_ROCK2, v_ROCK2
+v_ROS_simple_molecule_default_compartment, v_ROS_simple_molecule_default_compartment
+v_ROS_simple_molecule_neuron, v_ROS_simple_molecule_neuron
+v_RPS15_phosphorylated, v_sa11179_LRRK2_neuron
+v_RPS6KB1, v_RPS6KB1
+v_RPS6KB1_phosphorylated, (!v_PP2A_complex | (v_RPS6KB1 & v_csa1820_mTORC1_complex_neuron))
+v_RTK_space_activity_phenotype, (v_RET_GFRA1_GDNF_complex | v_IGF1R)
+v_Ragulator_SLC38A9_complex, v_v_ATPase_complex
+v_SNCA, v_SNCA
+v_TFDP1, v_TFDP1
+v_TFEB_14_3_3_complex, ((v_TFEB_phosphorylated & v_14_3_3_neuron) & v_GSK3B)
+v_TFEB_SNCA_complex, (v_SNCA & v_TFEB_phosphorylated)
+v_TFEB_phosphorylated, ((v_csa1820_mTORC1_complex_neuron | v_MAPK1) & !v_Calcineurin_complex)
+v_amino_space_acid_simple_molecule, v_autophagy_phenotype
+v_autophagy_phenotype, (v_AMPK_complex | v_sa11192_LRRK2_neuron)
+v_caloric_space_restriction_phenotype, v_caloric_space_restriction_phenotype
+v_csa1820_mTORC1_complex_neuron, ((((v_AKT1_phosphorylated | v_amino_space_acid_simple_molecule) | !v_rapamycin_drug) | !v_AMPK_complex) | (v_csa1832_mTORC1_complex_neuron & v_Ragulator_SLC38A9_complex))
+v_csa1832_mTORC1_complex_neuron, (v_csa1820_mTORC1_complex_neuron & v_LYNUS_phenotype)
+v_cytosolic_space_calcium_space_ion_space_homeostasis_phenotype, v_cytosolic_space_calcium_space_ion_space_homeostasis_phenotype
+v_mTORC2_complex, !v_RPS6KB1
+v_mir_184__rna, v_mir_184__rna
+v_neuron_space_death_phenotype, (!v_rapamycin_drug | v_translation_phenotype)
+v_proteolysis_phenotype, v_sa11192_LRRK2_neuron
+v_protofibril_complex, v_SNCA
+v_rapamycin_drug, v_rapamycin_drug
+v_sa11179_LRRK2_neuron, ((v_sa11192_LRRK2_neuron | v_sa11192_LRRK2_neuron) | v_sa11192_LRRK2_neuron)
+v_sa11192_LRRK2_neuron, v_sa11192_LRRK2_neuron
+v_translation_phenotype, (((((v_RPS15_phosphorylated | v_EIF4E) | v_RPS6KB1_phosphorylated) | !v_EIF2A_phosphorylated) | v_E2F1) | v_TFDP1)
+v_v_ATPase_complex, v_v_ATPase_complex

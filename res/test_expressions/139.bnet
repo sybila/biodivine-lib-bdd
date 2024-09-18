@@ -1,0 +1,20 @@
+targets,factors
+v_FOXP3, ((v_IL2 & (v_TGFB | v_FOXP3)) & !(v_IL21 | v_RORGT))
+v_GATA3, (((v_IL2 & v_IL4) | v_GATA3) & !(((v_TBET | v_TGFB) | v_IL21) | v_IFNG))
+v_IFNG, ((v_IFNGe | ((v_IFNG | v_TBET) & !(v_GATA3 | v_TGFB))) & !((v_IL21 | v_IL4) | v_IL10))
+v_IFNGe, v_IFNGe
+v_IL10, (v_IL10e | ((v_IL10 & ((((v_IFNG | v_IL21) | v_TGFB) | v_GATA3) | v_IL27e)) & !v_INSULIN))
+v_IL10e, v_IL10e
+v_IL12e, v_IL12e
+v_IL2, ((v_IL2e | (v_IL2 & !v_FOXP3)) & !((v_IFNG | v_IL21) | (v_IL10 & !v_FOXP3)))
+v_IL21, (((v_IL21e | v_IL21) | v_RORGT) & !(((v_IFNG | v_IL4) | v_IL10) | v_IL2))
+v_IL21e, v_IL21e
+v_IL27e, v_IL27e
+v_IL2e, v_IL2e
+v_IL4, ((v_IL4e | ((v_GATA3 & (v_IL2 | v_IL4)) & !v_TBET)) & !(v_IFNG | v_IL21))
+v_IL4e, v_IL4e
+v_INSULIN, v_INSULIN
+v_RORGT, ((v_IL21 & v_TGFB) & !((v_TBET | v_FOXP3) | v_GATA3))
+v_TBET, (((v_IFNG | (v_IL12e & !((v_IL21 | v_IL4) | v_IL10))) | v_TBET) & !((v_IL4 | v_GATA3) | v_IL21))
+v_TGFB, (v_TGFBe | ((v_TGFB | v_FOXP3) & !v_IL21))
+v_TGFBe, v_TGFBe

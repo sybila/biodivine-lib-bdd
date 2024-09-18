@@ -1,0 +1,18 @@
+targets,factors
+v_CIA, ((v_hh_external & v_CI_protein) | (v_CI_protein & !v_PTC_protein))
+v_CIR, ((v_CI_protein & v_PTC_protein) & !v_hh_external)
+v_CI_protein, v_ci
+v_EN_protein, v_en
+v_HH_protein, v_hh
+v_PH, (v_PTC_protein & v_hh_external)
+v_PTC_protein, ((v_PTC_protein & !v_hh_external) | v_ptc)
+v_SLP, v_SLP
+v_SMO, (v_hh_external | !(v_hh_external | v_PTC_protein))
+v_WG_external, v_WG_external
+v_WG_protein, v_wg
+v_ci, !v_EN_protein
+v_en, (v_WG_external & !v_SLP)
+v_hh, (v_EN_protein & !v_CIR)
+v_hh_external, v_hh_external
+v_ptc, (v_CIA & !(v_CIR | v_EN_protein))
+v_wg, (((v_wg & (v_SLP | v_CIA)) & !v_CIR) | ((v_CIA & v_SLP) & !v_CIR))

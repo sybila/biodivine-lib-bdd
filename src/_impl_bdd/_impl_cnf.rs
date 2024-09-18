@@ -1,6 +1,4 @@
-use crate::{Bdd, BddNode, BddPartialValuation, BddPointer, BddVariable};
-use fxhash::FxBuildHasher;
-use std::collections::HashMap;
+use crate::{Bdd, BddPartialValuation, BddPointer, BddVariable, BddVariableSet};
 
 impl Bdd {
     /// **(internal)** A specialized algorithm for constructing BDDs from CNFs. It builds the BDD
@@ -8,7 +6,53 @@ impl Bdd {
     /// memory copying. The disadvantage is that when the number of variables is high and the
     /// number of clauses low, this could be slightly slower due to all the recursion. However,
     /// it definitely needs to be tested at some point.
-    pub(crate) fn mk_cnf(num_vars: u16, cnf: &[BddPartialValuation]) -> Bdd {
+    pub(crate) fn mk_cnf(ctx: &BddVariableSet, cnf: &[BddPartialValuation]) -> Bdd {
+        fn _rec(mut var: u16, ctx: &BddVariableSet, cnf: &[&BddPartialValuation]) -> Bdd {
+            loop {
+                if cnf.is_empty() {
+                    return ctx.mk_true();
+                }
+                if cnf.len() == 1 {
+                    return ctx.mk_disjunctive_clause(cnf[0]);
+                }
+
+                // If we ever get to this point, the dnf should be always either empty,
+                // or consists of a single clause.
+                assert!(var < ctx.num_vars);
+
+                let variable = BddVariable(var);
+                let should_branch = cnf.iter().any(|val| val.has_value(variable));
+                if !should_branch {
+                    var += 1;
+                    continue;
+                }
+
+                let mut dont_care = Vec::new();
+                let mut has_true = Vec::new();
+                let mut has_false = Vec::new();
+
+                for c in cnf {
+                    match c.get_value(BddVariable(var)) {
+                        None => dont_care.push(*c),
+                        Some(true) => has_true.push(*c),
+                        Some(false) => has_false.push(*c),
+                    }
+                }
+
+                let dont_care = _rec(var + 1, ctx, &dont_care);
+                let has_true = _rec(var + 1, ctx, &has_true);
+                let has_false = _rec(var + 1, ctx, &has_false);
+
+                return dont_care.and(&has_true).and(&has_false);
+            }
+        }
+
+        let cnf_internal = Vec::from_iter(cnf.iter());
+        _rec(0, ctx, &cnf_internal)
+
+        /* TODO:
+            This has the same problem as the DNF algorithm.
+
         // This is essentially a "dual" algorithm to the DNF implementation. Relevant explanation
         // can be found there.
 
@@ -84,7 +128,7 @@ impl Bdd {
             Bdd::mk_false(num_vars)
         } else {
             result
-        }
+        }*/
     }
 
     /// Construct a CNF representation of this BDD.
