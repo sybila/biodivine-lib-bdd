@@ -10,6 +10,8 @@ readme = "README.md"
 keywords = ["bdd", "boolean-expression", "symbolic"]
 categories = ["data-structures", "mathematics", "science"]
 license = "MIT"
+# Don't publish the test data with the package.
+exclude = [ "res/test_expressions/*", "res/test_results/*" ]
 
 [badges]
 travis-ci = { repository = "sybila/biodivine-lib-bdd" }
