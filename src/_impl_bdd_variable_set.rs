@@ -182,7 +182,7 @@ impl BddVariableSet {
     /// a conjunction of such clauses. Effectively, this constructs a formula based on its
     /// conjunctive normal form.
     pub fn mk_cnf(&self, cnf: &[BddPartialValuation]) -> Bdd {
-        Bdd::mk_cnf(self.num_vars, cnf)
+        Bdd::mk_cnf(self, cnf)
     }
 
     /// Interpret each `BddPartialValuation` in `dnf` as a conjunctive clause, and produce

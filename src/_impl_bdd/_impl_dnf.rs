@@ -1,6 +1,5 @@
-use crate::{Bdd, BddNode, BddPartialValuation, BddPointer, BddVariable};
-use fxhash::FxBuildHasher;
-use std::collections::HashMap;
+use crate::{Bdd, BddPartialValuation, BddPointer, BddVariable};
+use num_bigint::BigInt;
 
 impl Bdd {
     /// **(internal)** A specialized algorithm for constructing BDDs from DNFs. It builds the BDD
@@ -9,13 +8,58 @@ impl Bdd {
     /// number of clauses low, this could be slightly slower due to all the recursion. However,
     /// it definitely needs to be tested at some point.
     pub(crate) fn mk_dnf(num_vars: u16, dnf: &[BddPartialValuation]) -> Bdd {
-        if dnf.is_empty() {
+        fn _rec(mut var: u16, num_vars: u16, dnf: &[&BddPartialValuation]) -> Bdd {
+            loop {
+                if dnf.is_empty() {
+                    return Bdd::mk_false(num_vars);
+                }
+                if dnf.len() == 1 {
+                    return Bdd::mk_partial_valuation(num_vars, dnf[0]);
+                }
+
+                // If we ever get to this point, the dnf should be always either empty,
+                // or consists of a single clause.
+                assert!(var < num_vars);
+
+                let variable = BddVariable(var);
+                let should_branch = dnf.iter().any(|val| val.has_value(variable));
+                if !should_branch {
+                    var += 1;
+                    continue;
+                }
+
+                let mut dont_care = Vec::new();
+                let mut has_true = Vec::new();
+                let mut has_false = Vec::new();
+
+                for c in dnf {
+                    match c.get_value(BddVariable(var)) {
+                        None => dont_care.push(*c),
+                        Some(true) => has_true.push(*c),
+                        Some(false) => has_false.push(*c),
+                    }
+                }
+
+                let dont_care = _rec(var + 1, num_vars, &dont_care);
+                let has_true = _rec(var + 1, num_vars, &has_true);
+                let has_false = _rec(var + 1, num_vars, &has_false);
+
+                return dont_care.or(&has_true).or(&has_false);
+            }
+        }
+
+        let dnf_internal = Vec::from_iter(dnf.iter());
+        _rec(0, num_vars, &dnf_internal)
+        // TODO:
+        //  This algorithm works fine with fully specified clauses, but it can "explode"
+        //  with partial clauses because a clause can be used by both recursive paths.
+        //  This means every node in the BDD is actually created as many times as it is
+        //  visited (i.e. the complexity equates the number of paths in the BDD, which may
+        //  be much larger than the size of the DNF).
+        /*if dnf.is_empty() {
             return Bdd::mk_false(num_vars);
         }
 
-        // TODO:
-        //  Can we turn the algorithm into a normal loop to prevent stack overflow in
-        //  extreme cases?
         fn build_recursive(
             num_vars: u16,
             mut variable: u16,
@@ -36,8 +80,10 @@ impl Bdd {
                     return BddPointer::zero();
                 }
 
+                assert!(variable < num_vars);
+
                 let var = BddVariable(variable);
-                let should_branch = dnf.iter().any(|val| val.get_value(var).is_some());
+                let should_branch = dnf.iter().any(|val| val.has_value(var));
                 if !should_branch {
                     variable += 1;
                     continue;
@@ -82,7 +128,7 @@ impl Bdd {
         let dnf = Vec::from_iter(dnf.iter());
         build_recursive(num_vars, 0, &dnf, &mut result, &mut node_cache);
 
-        result
+        result*/
     }
 
     /// Construct a DNF representation of this BDD. This is equivalent to collecting all results
@@ -145,14 +191,18 @@ impl Bdd {
     /// on-the-fly. But it should be relatively straightforward, so if you need it, please get
     /// in touch.
     pub fn to_optimized_dnf(&self) -> Vec<BddPartialValuation> {
-        self._to_optimized_dnf(&|| Ok::<(), ()>(())).unwrap()
+        self._to_optimized_dnf(&|_dnf| Ok::<(), ()>(())).unwrap()
     }
 
-    /// A cancellable variant of [Bdd::to_optimized_dnf].
-    pub fn _to_optimized_dnf<E, I: Fn() -> Result<(), E>>(
+    /// The `interrupt` takes as an argument the computed DNF. This can be used to terminate
+    /// early if the DNF is too large.
+    pub fn _to_optimized_dnf<E, I: Fn(&[BddPartialValuation]) -> Result<(), E>>(
         &self,
         interrupt: &I,
     ) -> Result<Vec<BddPartialValuation>, E> {
+        let target = self.exact_clause_cardinality();
+        let target = usize::try_from(target).unwrap_or(usize::MAX);
+
         if self.is_false() {
             return Ok(Vec::new());
         }
@@ -160,54 +210,247 @@ impl Bdd {
             return Ok(vec![BddPartialValuation::empty()]);
         }
 
-        fn _rec<E, I: Fn() -> Result<(), E>>(
+        fn _rec<E, I: Fn(&[BddPartialValuation]) -> Result<(), E>>(
+            target: usize,
             bdd: &Bdd,
-            clause: &mut BddPartialValuation,
+            partial_clause: &mut BddPartialValuation,
             results: &mut Vec<BddPartialValuation>,
             interrupt: &I,
-        ) -> Result<(), E> {
-            if bdd.is_false() {
-                return Ok(());
+        ) -> Result<bool, E> {
+            if results.len() >= target {
+                // Larger than the naive DNF.
+                return Ok(false);
             }
 
+            if bdd.is_false() {
+                return Ok(true);
+            }
             if bdd.is_true() {
-                results.push(clause.clone());
-                return Ok(());
+                results.push(partial_clause.clone());
+                return Ok(true);
             }
 
             let mut support = Vec::from_iter(bdd.support_set());
             support.sort();
-
             assert!(!support.is_empty());
+
+            // First, check if there is a variable that once eliminated leaves a "common core"
+            // which does not depend on said variable. We can then first solve the "common core"
+            // without considering that variable at all.
+
+            // Find the largest common core.
+            let zero = BigInt::from(0);
+            let mut best_core = (support[0], zero.clone());
+            for var in &support {
+                interrupt(results)?;
+
+                let core = bdd.var_for_all(*var);
+                let core_cardinality = core.exact_cardinality();
+                if core_cardinality > best_core.1 {
+                    best_core = (*var, core_cardinality);
+                }
+            }
+
+            // Solve the common core first.
+            let bdd = if best_core.1 != zero {
+                let best_core = bdd.var_for_all(best_core.0);
+                _rec(target, &best_core, partial_clause, results, interrupt)?;
+                let mut remaining = bdd.and_not(&best_core);
+
+                // Remaining can be false only if the BDD does not depend on the core var
+                // at all, which is not possible.
+                assert!(!remaining.is_false());
+
+                let mut core_support = Vec::from_iter(best_core.support_set());
+                core_support.sort();
+
+                // Remove variables that were used by the common core and the remaining
+                // formula does not depend on them at all.
+                for var in core_support {
+                    let simplified = remaining.var_exists(var);
+                    if &simplified.or(&best_core) == bdd {
+                        remaining = simplified;
+                    }
+                }
+
+                remaining
+            } else {
+                bdd.clone()
+            };
 
             let mut best = (support[0], usize::MAX);
 
-            for var in support {
-                interrupt()?;
-
-                let bdd_t = bdd.var_restrict(var, true);
-                let bdd_f = bdd.var_restrict(var, false);
+            for var in &support {
+                interrupt(results)?;
+                let bdd_t = bdd.var_restrict(*var, true);
+                let bdd_f = bdd.var_restrict(*var, false);
                 let size = bdd_t.size() + bdd_f.size();
                 if size < best.1 {
-                    best = (var, size);
+                    best = (*var, size);
                 }
             }
 
             let (var, _) = best;
 
-            clause[var] = Some(true);
-            _rec(&bdd.var_restrict(var, true), clause, results, interrupt)?;
-            clause[var] = Some(false);
-            _rec(&bdd.var_restrict(var, false), clause, results, interrupt)?;
-            clause[var] = None;
+            partial_clause[var] = Some(true);
+            let ok_true = _rec(
+                target,
+                &bdd.var_restrict(var, true),
+                partial_clause,
+                results,
+                interrupt,
+            )?;
+            partial_clause[var] = Some(false);
+            let ok_false = _rec(
+                target,
+                &bdd.var_restrict(var, false),
+                partial_clause,
+                results,
+                interrupt,
+            )?;
+            partial_clause[var] = None;
 
-            Ok(())
+            Ok(ok_true && ok_false)
         }
 
         let mut buffer = BddPartialValuation::empty();
         let mut results = Vec::new();
-        _rec(self, &mut buffer, &mut results, interrupt)?;
+        let ok = _rec(target, self, &mut buffer, &mut results, interrupt)?;
 
-        Ok(results)
+        if ok {
+            Ok(results)
+        } else {
+            // In rare cases, the optimization can actually produce a bigger DNF than the naive
+            // approach, in which case we revert back to the naive approach.
+            Ok(self.to_dnf())
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::boolean_expression::BooleanExpression;
+    use crate::{bdd, Bdd, BddPartialValuation, BddVariable, BddVariableSet};
+
+    fn test_syntactic_monotonicity(var: BddVariable, dnf: &[BddPartialValuation]) -> Option<bool> {
+        let mut has_positive = false;
+        let mut has_negative = false;
+        for c in dnf {
+            if c[var] == Some(true) {
+                has_positive = true;
+            }
+            if c[var] == Some(false) {
+                has_negative = true;
+            }
+        }
+
+        match (has_positive, has_negative) {
+            (true, false) => Some(true),
+            (false, true) => Some(false),
+            (true, true) => None,
+            (false, false) => unreachable!(),
+        }
+    }
+
+    fn test_symbolic_monotonicity(
+        ctx: &BddVariableSet,
+        var: BddVariable,
+        fn_is_true: &Bdd,
+    ) -> Option<bool> {
+        let input_is_true = ctx.mk_var(var);
+        let input_is_false = ctx.mk_not_var(var);
+        let fn_is_false = fn_is_true.not();
+        let fn_x1_to_0 = bdd!(fn_is_false & input_is_true).var_exists(var);
+        let fn_x0_to_1 = bdd!(fn_is_true & input_is_false).var_exists(var);
+        let is_positive = bdd!(fn_x0_to_1 & fn_x1_to_0)
+            .exists(&ctx.variables())
+            .not()
+            .is_true();
+
+        let fn_x0_to_0 = bdd!(fn_is_false & input_is_false).var_exists(var);
+        let fn_x1_to_1 = bdd!(fn_is_true & input_is_true).var_exists(var);
+        let is_negative = bdd!(fn_x0_to_0 & fn_x1_to_1)
+            .exists(&ctx.variables())
+            .not()
+            .is_true();
+
+        match (is_positive, is_negative) {
+            (true, false) => Some(true),
+            (false, true) => Some(false),
+            (true, true) => unreachable!(),
+            (false, false) => None,
+        }
+    }
+
+    #[test]
+    pub fn comprehensive_dnf_test() {
+        for file in std::fs::read_dir("res/test_expressions").unwrap() {
+            let file = file.unwrap();
+            let name = file.file_name().into_string().unwrap();
+            if !name.ends_with(".bnet") {
+                continue;
+            }
+
+            println!("Testing {}", name);
+
+            let mut total_monotonicity_tests = 0usize;
+            let mut failed_monotonicity_tests = 0usize;
+
+            let file_contents = std::fs::read_to_string(file.path()).unwrap();
+            for line in file_contents.lines() {
+                // Technically, this will also consider the targets,factors header as an expression,
+                // but that's fine here.
+                let line = line.trim();
+                if line.is_empty() || line.starts_with('#') {
+                    continue;
+                }
+
+                let expr_string = Vec::from_iter(line.split(","))[1].to_string();
+                let expr = BooleanExpression::try_from(expr_string.as_str()).unwrap();
+                let mut support = Vec::from_iter(expr.support_set());
+                support.sort();
+                let ctx = BddVariableSet::from(support);
+                let expr_bdd = ctx.eval_expression(&expr);
+
+                // Test that we can build the DNF and that it matches the original function.
+                let dnf = expr_bdd.to_optimized_dnf();
+                let mut reconstructed = ctx.mk_false();
+                for c in &dnf {
+                    reconstructed = reconstructed.or(&ctx.mk_conjunctive_clause(&c));
+                }
+                assert_eq!(reconstructed, expr_bdd);
+
+                // Test that the DNF can be (mostly) used to detect monotonicity of functions.
+                for var in expr_bdd.support_set() {
+                    let syntactic = test_syntactic_monotonicity(var, &dnf);
+                    let semantic = test_symbolic_monotonicity(&ctx, var, &expr_bdd);
+                    if semantic.is_some() {
+                        total_monotonicity_tests += 1;
+                    }
+                    if syntactic != semantic {
+                        failed_monotonicity_tests += 1;
+                    }
+                }
+            }
+            println!(
+                "{} / {}",
+                failed_monotonicity_tests, total_monotonicity_tests
+            );
+        }
+    }
+
+    #[test]
+    pub fn bad_mk_dnf() {
+        let ctx = BddVariableSet::new_anonymous(60);
+        let variables = ctx.variables();
+        let mut clauses = Vec::new();
+        for i in 0..30 {
+            let mut c = BddPartialValuation::empty();
+            c[variables[2 * i]] = Some(true);
+            c[variables[2 * i + 1]] = Some(true);
+            clauses.push(c);
+        }
+
+        assert_eq!(ctx.mk_dnf(&clauses).size(), 62);
     }
 }
