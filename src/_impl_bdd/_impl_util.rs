@@ -690,6 +690,81 @@ impl Bdd {
 
         Ok(Bdd(data.to_vec()))
     }
+
+    /// Check that this BDD is structurally sound.
+    ///
+    /// In particular, all nodes reference existing children and there are no unreachable nodes.
+    ///
+    /// This does not check that the nodes are sorted in DFS post-order, since this should not
+    /// be required to correctly interpret the BDD. Also note that the method can loop forever
+    /// if the BDD contains a loop (which it normally shouldn't).
+    ///
+    /// You can use this to validate the BDD after deserialization.
+    pub fn validate(&self) -> Result<(), String> {
+        // Check constants.
+        if self.0.is_empty() {
+            return Err("No nodes".to_string());
+        }
+        if self.0.len() == 1 {
+            return if self != &Bdd::mk_false(self.num_vars()) {
+                Err("Malformed false BDD.".to_string())
+            } else {
+                Ok(())
+            };
+        }
+        if self.0.len() == 2 {
+            return if self != &Bdd::mk_true(self.num_vars()) {
+                Err("Malformed true BDD.".to_string())
+            } else {
+                Ok(())
+            };
+        }
+
+        // Check that all references in nodes are valid.
+        let num_vars = self.num_vars();
+        for node_pointer in self.pointers().skip(2) {
+            let node = &self.0[node_pointer.to_index()];
+            if node.var.0 >= num_vars {
+                return Err(format!("Found invalid variable: {:?}.", node.var));
+            }
+            if node.low_link.0 >= (self.0.len() as u32) {
+                return Err(format!("Found invalid low-link: {:?}.", node.low_link));
+            }
+            if node.high_link.0 >= (self.0.len() as u32) {
+                return Err(format!("Found invalid high-link: {:?}.", node.high_link));
+            }
+        }
+
+        let mut visited = vec![false; self.0.len()];
+        // Mark terminals as visited.
+        visited[0] = true;
+        visited[1] = true;
+        let mut stack = vec![self.root_pointer()];
+
+        // Check reachability and sorted-ness.
+        while let Some(top) = stack.pop() {
+            if visited[top.to_index()] {
+                continue;
+            }
+            visited[top.to_index()] = true;
+            let node = &self.0[top.to_index()];
+            let low_child = &self.0[node.low_link.to_index()];
+            let high_child = &self.0[node.high_link.to_index()];
+
+            if low_child.var <= node.var || high_child.var <= node.var {
+                return Err(format!("Found broken child ordering in node {:?}.", top));
+            }
+
+            stack.push(node.low_link);
+            stack.push(node.high_link);
+        }
+
+        if !visited.into_iter().all(|it| it) {
+            return Err("BDD has unreachable nodes.".to_string());
+        }
+
+        Ok(())
+    }
 }
 
 #[cfg(test)]
@@ -699,6 +774,31 @@ mod tests {
     use crate::*;
     use num_bigint::BigInt;
     use std::convert::TryFrom;
+
+    #[test]
+    fn test_validate_bdd() {
+        let bdd = mk_small_test_bdd();
+        assert!(bdd.validate().is_ok());
+
+        let malformed_false = "|3,1,0|";
+        assert!(Bdd::from_string(malformed_false).validate().is_err());
+        let malformed_true = "|3,0,0|3,0,0|";
+        assert!(Bdd::from_string(malformed_true).validate().is_err());
+        let malformed_invalid_var = "|3,0,0|3,1,1|4,0,1|";
+        assert!(Bdd::from_string(malformed_invalid_var).validate().is_err());
+        let malformed_invalid_low = "|3,0,0|3,1,1|2,0,5|";
+        assert!(Bdd::from_string(malformed_invalid_low).validate().is_err());
+        let malformed_invalid_high = "|3,0,0|3,1,1|2,5,0|";
+        assert!(Bdd::from_string(malformed_invalid_high).validate().is_err());
+        let malformed_invalid_low = "|3,0,0|3,1,1|2,0,5|";
+        assert!(Bdd::from_string(malformed_invalid_low).validate().is_err());
+        let malformed_broken_ordering = "|3,0,0|3,1,1|1,0,1|2,2,0|";
+        assert!(Bdd::from_string(malformed_broken_ordering)
+            .validate()
+            .is_err());
+        let malformed_unreachable = "|3,0,0|3,1,1|1,0,1|1,1,0|";
+        assert!(Bdd::from_string(malformed_unreachable).validate().is_err());
+    }
 
     #[test]
     fn node_conversion() {
