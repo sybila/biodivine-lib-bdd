@@ -18,6 +18,7 @@ impl Bdd {
     pub fn read_as_string(input: &mut dyn Read) -> Result<Bdd, String> {
         let mut data = String::new();
         lift_err(input.read_to_string(&mut data))?;
+        data.retain(|c| !c.is_whitespace()); // Ignore whitespace when parsing.
         let mut result = Vec::new();
         for node_string in data.split('|').filter(|s| !s.is_empty()) {
             let node_items: Vec<&str> = node_string.split(',').collect();
@@ -106,6 +107,16 @@ mod tests {
     use crate::*;
     use std::fs::File;
     use std::io::{BufReader, BufWriter};
+
+    #[test]
+    fn read_bdd_with_whitespace() {
+        let bdd = mk_small_test_bdd();
+        let mut bdd_string = bdd.to_string();
+        bdd_string = bdd_string.replace("|", "\t|");
+        bdd_string = format!("\n\t\n{bdd_string}\n");
+        let bdd2 = Bdd::from_string(bdd_string.as_str());
+        assert_eq!(bdd, bdd2);
+    }
 
     #[test]
     fn bdd_to_string() {
