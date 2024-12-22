@@ -26,8 +26,8 @@ impl BddVariableSet {
     ///
     /// *Panics:* `vars` must contain unique names which are allowed as variable names.
     pub fn new(vars: &[&str]) -> BddVariableSet {
-        let num_vars = vars.len() as u16;
-        if num_vars >= u16::MAX - 1 {
+        let num_vars = vars.len();
+        if num_vars >= ((u16::MAX - 1) as usize) {
             panic!(
                 "Too many BDD variables. There can be at most {} variables.",
                 u16::MAX - 1
@@ -55,7 +55,7 @@ impl BddVariableSet {
             panic!("Existing duplicated BDD variable.");
         }
         BddVariableSet {
-            num_vars,
+            num_vars: num_vars as u16,
             var_names,
             var_index_mapping,
         }
