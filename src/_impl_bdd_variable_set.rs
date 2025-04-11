@@ -77,6 +77,20 @@ impl BddVariableSet {
         (0..self.num_vars).map(BddVariable).collect()
     }
 
+    /// Provides a vector of all variable names in this set, in the same order as
+    /// given by [BddVariableSet::variables].
+    pub fn variable_names(&self) -> Vec<String> {
+        self.var_names.clone()
+    }
+
+    /// Provides a mapping from [BddVariable] objects to variable names.
+    pub fn variable_name_assignment(&self) -> HashMap<BddVariable, String> {
+        self.variables()
+            .into_iter()
+            .zip(self.variable_names())
+            .collect()
+    }
+
     /// Obtain the name of a specific `BddVariable`.
     pub fn name_of(&self, variable: BddVariable) -> String {
         self.var_names[variable.0 as usize].clone()
@@ -617,6 +631,17 @@ mod tests {
     #[test]
     fn bdd_variable_set_print() {
         let ctx = BddVariableSet::new(&["a", "b", "x", "c", "y"]);
+        let names = vec!["a", "b", "x", "c", "y"]
+            .into_iter()
+            .map(String::from)
+            .collect::<Vec<_>>();
+        assert_eq!(names, ctx.variable_names());
+        let mapping = ctx
+            .variables()
+            .into_iter()
+            .zip(names.into_iter())
+            .collect::<HashMap<_, _>>();
+        assert_eq!(mapping, ctx.variable_name_assignment());
         assert_eq!("[a,b,x,c,y]", ctx.to_string());
         let ctx = BddVariableSet::new(&[]);
         assert_eq!("[]", ctx.to_string());
