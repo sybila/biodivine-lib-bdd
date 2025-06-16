@@ -6,7 +6,7 @@ use std::io::{ErrorKind, Read, Write};
 /// Serialisation and deserialization methods for `Bdd`s.
 impl Bdd {
     /// Write this `Bdd` into the given `output` writer using a simple string format.
-    pub fn write_as_string(&self, output: &mut dyn Write) -> Result<(), io::Error> {
+    pub fn write_as_string<W: Write>(&self, output: &mut W) -> Result<(), io::Error> {
         write!(output, "|")?;
         for node in self.nodes() {
             write!(output, "{},{},{}|", node.var, node.low_link, node.high_link)?;
@@ -15,7 +15,7 @@ impl Bdd {
     }
 
     /// Read a `Bdd` from the given `input` reader, assuming a simple string format.
-    pub fn read_as_string(input: &mut dyn Read) -> Result<Bdd, String> {
+    pub fn read_as_string<R: Read>(input: &mut R) -> Result<Bdd, String> {
         let mut data = String::new();
         lift_err(input.read_to_string(&mut data))?;
         data.retain(|c| !c.is_whitespace()); // Ignore whitespace when parsing.
@@ -33,7 +33,7 @@ impl Bdd {
     }
 
     /// Write this `Bdd` into the given `output` writer using a simple little-endian binary encoding.
-    pub fn write_as_bytes(&self, output: &mut dyn Write) -> Result<(), io::Error> {
+    pub fn write_as_bytes<W: Write>(&self, output: &mut W) -> Result<(), io::Error> {
         for node in self.nodes() {
             output.write_all(&node.var.to_le_bytes())?;
             output.write_all(&node.low_link.to_le_bytes())?;
@@ -43,7 +43,7 @@ impl Bdd {
     }
 
     /// Read a `Bdd` from a given `input` reader using a simple little-endian binary encoding.
-    pub fn read_as_bytes(input: &mut dyn Read) -> Result<Bdd, io::Error> {
+    pub fn read_as_bytes<R: Read>(input: &mut R) -> Result<Bdd, io::Error> {
         let mut result = Vec::new();
         let mut buf = [0u8; 10];
         loop {
