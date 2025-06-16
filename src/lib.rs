@@ -187,7 +187,7 @@ pub struct ValuationsOfClauseIterator {
 
 /// Maintains the set of variables that can appear in a `Bdd`.
 /// Used to create new `Bdd`s for basic formulas.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BddVariableSet {
     num_vars: u16,
