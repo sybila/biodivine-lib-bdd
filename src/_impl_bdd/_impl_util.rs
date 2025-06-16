@@ -175,7 +175,7 @@ impl Bdd {
             }
         }
         let last_var = self.0.last().unwrap().var.0;
-        cache.last().cloned().flatten().unwrap() * (one << last_var)
+        cache.pop().flatten().unwrap() * (one << last_var)
     }
 
     /// Approximately computes the number of valuations satisfying the formula given
@@ -261,7 +261,7 @@ impl Bdd {
                 }
             }
         }
-        cache.last().cloned().flatten().unwrap()
+        cache.pop().flatten().unwrap()
     }
 
     /// If the `Bdd` is satisfiable, return some `BddValuation` that satisfies the `Bdd`.
@@ -366,7 +366,7 @@ impl Bdd {
             results.push(expression);
         }
 
-        results.last().unwrap().clone()
+        results.pop().unwrap()
     }
 
     /// Pointer to the root of the decision diagram.
