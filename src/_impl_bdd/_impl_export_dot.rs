@@ -9,9 +9,9 @@ impl Bdd {
     ///
     /// If `zero_pruned` is true, edges leading to `zero` are not shown. This can greatly
     /// simplify the graph without losing information.
-    pub fn write_as_dot_string(
+    pub fn write_as_dot_string<W: Write>(
         &self,
-        output: &mut dyn Write,
+        output: &mut W,
         variables: &BddVariableSet,
         zero_pruned: bool,
     ) -> Result<(), std::io::Error> {
@@ -33,8 +33,8 @@ impl Bdd {
 /// custom names for individual variables. If `pruned` is true, the output will only
 /// contain edges leading to the `1` terminal node (this is often much easier to read
 /// than the full graph while preserving all the information).
-fn write_bdd_as_dot(
-    output: &mut dyn Write,
+fn write_bdd_as_dot<W: Write>(
+    output: &mut W,
     bdd: &Bdd,
     var_names: &[String],
     zero_pruned: bool,
