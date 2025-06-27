@@ -573,23 +573,48 @@ mod tests {
             .chain(universe.mk_conjunctive_clause(&c2).sat_valuations())
             .chain(universe.mk_conjunctive_clause(&c3).sat_valuations())
             .collect();
+        let formula_ref = &[&c1, &c2, &c3];
+        assert_eq!(cnf_expected, universe.mk_cnf_ref(formula_ref));
+        assert_eq!(dnf_expected, universe.mk_dnf_ref(formula_ref));
         let formula = &[c1, c2, c3];
         assert_eq!(cnf_expected, universe.mk_cnf(formula));
-        assert_eq!(cnf_expected, universe.mk_cnf_valuation(&formula_valuations));
         assert_eq!(dnf_expected, universe.mk_dnf(formula));
+        assert_eq!(cnf_expected, universe.mk_cnf_valuation(&formula_valuations));
         assert_eq!(dnf_expected, universe.mk_dnf_valuation(&formula_valuations));
+        let formula_valuations_ref: Vec<&BddValuation> = formula_valuations.iter().collect();
+        assert_eq!(
+            cnf_expected,
+            universe.mk_cnf_valuation_ref(&formula_valuations_ref)
+        );
+        assert_eq!(
+            dnf_expected,
+            universe.mk_dnf_valuation_ref(&formula_valuations_ref)
+        );
 
         assert_eq!(universe.mk_false(), universe.mk_dnf(&[]));
+        assert_eq!(universe.mk_false(), universe.mk_dnf_ref(&[]));
         assert_eq!(universe.mk_false(), universe.mk_dnf_valuation(&[]));
+        assert_eq!(universe.mk_false(), universe.mk_dnf_valuation_ref(&[]));
         assert_eq!(
             universe.mk_true(),
             universe.mk_dnf(&[BddPartialValuation::empty()])
         );
+        assert_eq!(
+            universe.mk_true(),
+            universe.mk_dnf_ref(&[&BddPartialValuation::empty()])
+        );
+
         assert_eq!(universe.mk_true(), universe.mk_cnf(&[]));
+        assert_eq!(universe.mk_true(), universe.mk_cnf_ref(&[]));
         assert_eq!(universe.mk_true(), universe.mk_cnf_valuation(&[]));
+        assert_eq!(universe.mk_true(), universe.mk_cnf_valuation_ref(&[]));
         assert_eq!(
             universe.mk_false(),
             universe.mk_cnf(&[BddPartialValuation::empty()])
+        );
+        assert_eq!(
+            universe.mk_false(),
+            universe.mk_cnf_ref(&[&BddPartialValuation::empty()])
         );
 
         // x | !x = true
