@@ -79,21 +79,21 @@ impl BddVariableSet {
 
     /// Provides a vector of all variable names in this set, in the same order as
     /// given by [BddVariableSet::variables].
-    pub fn variable_names(&self) -> Vec<String> {
-        self.var_names.clone()
+    pub fn variable_names(&self) -> &Vec<String> {
+        &self.var_names
     }
 
     /// Provides a mapping from [BddVariable] objects to variable names.
     pub fn variable_name_assignment(&self) -> HashMap<BddVariable, String> {
         self.variables()
             .into_iter()
-            .zip(self.variable_names())
+            .zip(self.variable_names().iter().cloned())
             .collect()
     }
 
     /// Obtain the name of a specific `BddVariable`.
-    pub fn name_of(&self, variable: BddVariable) -> String {
-        self.var_names[variable.0 as usize].clone()
+    pub fn name_of(&self, variable: BddVariable) -> &str {
+        &self.var_names[variable.0 as usize]
     }
 
     /// Create a `Bdd` corresponding to the `true` formula.
@@ -226,14 +226,59 @@ impl BddVariableSet {
     /// a conjunction of such clauses. Effectively, this constructs a formula based on its
     /// conjunctive normal form.
     pub fn mk_cnf(&self, cnf: &[BddPartialValuation]) -> Bdd {
+        let cnf_internal = Vec::from_iter(cnf.iter());
+        Bdd::mk_cnf(self, &cnf_internal)
+    }
+
+    /// Interpret each `&BddPartialValuation` in `cnf` as a disjunctive clause, and produce
+    /// a conjunction of such clauses. Effectively, this constructs a formula based on its
+    /// conjunctive normal form.
+    pub fn mk_cnf_ref(&self, cnf: &[&BddPartialValuation]) -> Bdd {
         Bdd::mk_cnf(self, cnf)
+    }
+
+    /// Interpret each `BddValuation` in `cnf` as a disjunctive clause, and produce
+    /// a conjunction of such clauses. Effectively, this constructs a formula based on its
+    /// conjunctive normal form.
+    pub fn mk_cnf_valuation(&self, cnf: &[BddValuation]) -> Bdd {
+        let cnf_internal = Vec::from_iter(cnf.iter());
+        Bdd::mk_cnf_valuation(self, &cnf_internal)
+    }
+
+    /// Interpret each `&BddValuation` in `cnf` as a disjunctive clause, and produce
+    /// a conjunction of such clauses. Effectively, this constructs a formula based on its
+    /// conjunctive normal form.
+    pub fn mk_cnf_valuation_ref(&self, cnf: &[&BddValuation]) -> Bdd {
+        Bdd::mk_cnf_valuation(self, cnf)
     }
 
     /// Interpret each `BddPartialValuation` in `dnf` as a conjunctive clause, and produce
     /// a disjunction of such clauses. Effectively, this constructs a formula based on its
     /// disjunctive normal form.
     pub fn mk_dnf(&self, dnf: &[BddPartialValuation]) -> Bdd {
+        let dnf_internal = Vec::from_iter(dnf.iter());
+        Bdd::mk_dnf(self.num_vars, &dnf_internal)
+    }
+    /// Interpret each `&BddPartialValuation` in `dnf` as a conjunctive clause, and produce
+    /// a disjunction of such clauses. Effectively, this constructs a formula based on its
+    /// disjunctive normal form.
+    pub fn mk_dnf_ref(&self, dnf: &[&BddPartialValuation]) -> Bdd {
         Bdd::mk_dnf(self.num_vars, dnf)
+    }
+
+    /// Interpret each `BddPartial` in `dnf` as a conjunctive clause, and produce
+    /// a disjunction of such clauses. Effectively, this constructs a formula based on its
+    /// disjunctive normal form.
+    pub fn mk_dnf_valuation(&self, dnf: &[BddValuation]) -> Bdd {
+        let dnf_internal = Vec::from_iter(dnf.iter());
+        Bdd::mk_dnf_valuation(self.num_vars, &dnf_internal)
+    }
+
+    /// Interpret each `&BddValuation` in `dnf` as a conjunctive clause, and produce
+    /// a disjunction of such clauses. Effectively, this constructs a formula based on its
+    /// disjunctive normal form.
+    pub fn mk_dnf_valuation_ref(&self, dnf: &[&BddValuation]) -> Bdd {
+        Bdd::mk_dnf_valuation(self.num_vars, dnf)
     }
 
     /// Build a BDD that is satisfied by all valuations where *up to* $k$ `variables` are `true`.
@@ -332,7 +377,7 @@ impl BddVariableSet {
         let mut new_support_set = Vec::new();
         for var in &old_support_set {
             let name = ctx.name_of(*var);
-            let Some(id) = self.var_by_name(name.as_str()) else {
+            let Some(id) = self.var_by_name(name) else {
                 // The variable does not exist in the new context.
                 return None;
             };
@@ -522,16 +567,26 @@ mod tests {
             (variables[0], false),
         ]);
         let c3 = BddPartialValuation::from_values(&[(variables[2], true)]);
+        let formula_valuations: Vec<BddValuation> = universe
+            .mk_conjunctive_clause(&c1)
+            .sat_valuations()
+            .chain(universe.mk_conjunctive_clause(&c2).sat_valuations())
+            .chain(universe.mk_conjunctive_clause(&c3).sat_valuations())
+            .collect();
         let formula = &[c1, c2, c3];
         assert_eq!(cnf_expected, universe.mk_cnf(formula));
+        assert_eq!(cnf_expected, universe.mk_cnf_valuation(&formula_valuations));
         assert_eq!(dnf_expected, universe.mk_dnf(formula));
+        assert_eq!(dnf_expected, universe.mk_dnf_valuation(&formula_valuations));
 
         assert_eq!(universe.mk_false(), universe.mk_dnf(&[]));
+        assert_eq!(universe.mk_false(), universe.mk_dnf_valuation(&[]));
         assert_eq!(
             universe.mk_true(),
             universe.mk_dnf(&[BddPartialValuation::empty()])
         );
         assert_eq!(universe.mk_true(), universe.mk_cnf(&[]));
+        assert_eq!(universe.mk_true(), universe.mk_cnf_valuation(&[]));
         assert_eq!(
             universe.mk_false(),
             universe.mk_cnf(&[BddPartialValuation::empty()])
@@ -635,7 +690,7 @@ mod tests {
             .into_iter()
             .map(String::from)
             .collect::<Vec<_>>();
-        assert_eq!(names, ctx.variable_names());
+        assert_eq!(&names, ctx.variable_names());
         let mapping = ctx
             .variables()
             .into_iter()
