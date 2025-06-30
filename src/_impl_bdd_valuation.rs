@@ -1,12 +1,13 @@
 use super::{Bdd, BddValuation, BddVariable};
 use crate::{BddNode, BddPartialValuation, BddPointer, ValuationsOfClauseIterator};
+use std::borrow::Borrow;
 use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
 use std::ops::{Index, IndexMut};
 
 impl BddValuation {
     /// Create a new valuation from a vector of variables.
-    pub fn new(values: Vec<bool>) -> BddValuation {
+    pub const fn new(values: Vec<bool>) -> BddValuation {
         BddValuation(values)
     }
 
@@ -248,6 +249,12 @@ impl Iterator for super::BddValuationIterator {
 
     fn next(&mut self) -> Option<Self::Item> {
         self.0.next()
+    }
+}
+
+impl Borrow<[bool]> for BddValuation {
+    fn borrow(&self) -> &[bool] {
+        &self.0
     }
 }
 
