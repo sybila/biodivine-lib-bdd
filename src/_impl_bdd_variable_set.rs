@@ -76,7 +76,13 @@ impl BddVariableSet {
 
     /// Provides a vector of all variable names in this set, in the same order as
     /// given by [BddVariableSet::variables].
-    pub fn variable_names(&self) -> &Vec<String> {
+    pub fn variable_names(&self) -> Vec<String> {
+        self.var_names.clone()
+    }
+
+    /// Provides a vector of all variable names in this set, in the same order as
+    /// given by [BddVariableSet::variables].
+    pub fn variable_names_ref(&self) -> &[String] {
         &self.var_names
     }
 
@@ -89,7 +95,12 @@ impl BddVariableSet {
     }
 
     /// Obtain the name of a specific `BddVariable`.
-    pub fn name_of(&self, variable: BddVariable) -> &str {
+    pub fn name_of(&self, variable: BddVariable) -> String {
+        self.var_names[variable.0 as usize].clone()
+    }
+
+    /// Obtain the name of a specific `BddVariable`.
+    pub fn name_of_str(&self, variable: BddVariable) -> &str {
         &self.var_names[variable.0 as usize]
     }
 
@@ -373,7 +384,7 @@ impl BddVariableSet {
         // Equivalent variable IDs in the "new" context.
         let mut new_support_set = Vec::new();
         for var in &old_support_set {
-            let name = ctx.name_of(*var);
+            let name = ctx.name_of_str(*var);
             let Some(id) = self.var_by_name(name) else {
                 // The variable does not exist in the new context.
                 return None;
@@ -712,7 +723,7 @@ mod tests {
             .into_iter()
             .map(String::from)
             .collect::<Vec<_>>();
-        assert_eq!(&names, ctx.variable_names());
+        assert_eq!(names, ctx.variable_names());
         let mapping = ctx
             .variables()
             .into_iter()
