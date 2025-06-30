@@ -41,7 +41,7 @@ impl BddValuation {
     pub fn set_value(&mut self, variable: BddVariable, value: bool) {
         self.0[variable.0 as usize] = value;
     }
-    
+
     /// Convert the valuation to its underlying vector.
     #[deprecated = "use `as_vector` or `into_vector` instead"]
     pub fn vector(self) -> Vec<bool> {
@@ -57,7 +57,6 @@ impl BddValuation {
     pub fn into_vector(self) -> Vec<bool> {
         self.0
     }
-
 
     /// Convert [BddValuation] to a vector of tagged values in the way that is compatible
     /// with [BddPartialValuation] representation.
