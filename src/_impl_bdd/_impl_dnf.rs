@@ -439,7 +439,7 @@ mod tests {
                 continue;
             }
 
-            println!("Testing {}", name);
+            println!("Testing {name}");
 
             let mut total_monotonicity_tests = 0usize;
             let mut failed_monotonicity_tests = 0usize;
@@ -464,7 +464,7 @@ mod tests {
                 let dnf = expr_bdd.to_optimized_dnf();
                 let mut reconstructed = ctx.mk_false();
                 for c in &dnf {
-                    reconstructed = reconstructed.or(&ctx.mk_conjunctive_clause(&c));
+                    reconstructed = reconstructed.or(&ctx.mk_conjunctive_clause(c));
                 }
                 assert_eq!(reconstructed, expr_bdd);
 
@@ -480,10 +480,7 @@ mod tests {
                     }
                 }
             }
-            println!(
-                "{} / {}",
-                failed_monotonicity_tests, total_monotonicity_tests
-            );
+            println!("{failed_monotonicity_tests} / {total_monotonicity_tests}");
         }
     }
 

@@ -216,8 +216,7 @@ fn terminal(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
         Ok(Box::new(Not(terminal(&data[1..])?)))
     } else if data.len() > 1 {
         Err(format!(
-            "Expected variable name or (...), but found {:?}.",
-            data
+            "Expected variable name or (...), but found {data:?}."
         ))
     } else {
         match &data[0] {

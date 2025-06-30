@@ -106,18 +106,12 @@ impl Bdd {
         let high = max(old_id.0, new_id.0);
         for i in (low + 1)..high {
             if support_set.contains(&BddVariable(i)) {
-                panic!(
-                    "Cannot rename {} to {} due to the presence of {}.",
-                    old_id, new_id, i
-                );
+                panic!("Cannot rename {old_id} to {new_id} due to the presence of {i}.");
             }
         }
 
         if support_set.contains(&new_id) {
-            panic!(
-                "Cannot rename {} to {} due to the presence of {}.",
-                old_id, new_id, new_id
-            );
+            panic!("Cannot rename {old_id} to {new_id} due to the presence of {new_id}.");
         }
 
         for node in &mut self.0 {
@@ -750,7 +744,7 @@ impl Bdd {
             let high_child = &self.0[node.high_link.to_index()];
 
             if low_child.var <= node.var || high_child.var <= node.var {
-                return Err(format!("Found broken child ordering in node {:?}.", top));
+                return Err(format!("Found broken child ordering in node {top:?}."));
             }
 
             stack.push(node.low_link);

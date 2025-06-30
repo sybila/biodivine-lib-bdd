@@ -27,13 +27,10 @@ impl BddVariableSetBuilder {
             )
         }
         if self.var_names_set.contains(name) {
-            panic!("BDD variable {} already exists.", name);
+            panic!("BDD variable {name} already exists.");
         }
         if name.chars().any(|c| NOT_IN_VAR_NAME.contains(&c)) {
-            panic!(
-                "Variable name {} is invalid. Cannot use {:?}",
-                name, NOT_IN_VAR_NAME
-            );
+            panic!("Variable name {name} is invalid. Cannot use {NOT_IN_VAR_NAME:?}");
         }
         self.var_names_set.insert(name.to_string());
         self.var_names.push(name.to_string());
@@ -81,7 +78,7 @@ mod tests {
     fn bdd_variables_builder_too_large() {
         let mut builder = BddVariableSetBuilder::new();
         for i in 0..u16::MAX {
-            builder.make_variable(&format!("v{}", i));
+            builder.make_variable(&format!("v{i}"));
         }
     }
 

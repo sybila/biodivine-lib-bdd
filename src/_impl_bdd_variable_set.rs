@@ -16,8 +16,8 @@ impl BddVariableSet {
         }
         BddVariableSet {
             num_vars,
-            var_names: (0..num_vars).map(|i| format!("x_{}", i)).collect(),
-            var_index_mapping: (0..num_vars).map(|i| (format!("x_{}", i), i)).collect(),
+            var_names: (0..num_vars).map(|i| format!("x_{i}")).collect(),
+            var_index_mapping: (0..num_vars).map(|i| (format!("x_{i}"), i)).collect(),
         }
     }
 
@@ -37,10 +37,7 @@ impl BddVariableSet {
             .iter()
             .map(|name| {
                 if name.chars().any(|c| NOT_IN_VAR_NAME.contains(&c)) {
-                    panic!(
-                        "Variable name {} is invalid. Cannot use {:?}",
-                        name, NOT_IN_VAR_NAME
-                    );
+                    panic!("Variable name {name} is invalid. Cannot use {NOT_IN_VAR_NAME:?}");
                 }
                 name.to_string()
             })
@@ -138,7 +135,7 @@ impl BddVariableSet {
     pub fn mk_var_by_name(&self, var: &str) -> Bdd {
         self.var_by_name(var)
             .map(|var| self.mk_var(var))
-            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var))
+            .unwrap_or_else(|| panic!("Variable {var} is not known in this set."))
     }
 
     /// Create a BDD corresponding to the $\neg v$ formula where `v` is a variable in this set.
@@ -147,7 +144,7 @@ impl BddVariableSet {
     pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
         self.var_by_name(var)
             .map(|var| self.mk_not_var(var))
-            .unwrap_or_else(|| panic!("Variable {} is not known in this set.", var))
+            .unwrap_or_else(|| panic!("Variable {var} is not known in this set."))
     }
 
     /// Create a `Bdd` corresponding to the conjunction of literals in the given
@@ -719,7 +716,7 @@ mod tests {
         let mapping = ctx
             .variables()
             .into_iter()
-            .zip(names.into_iter())
+            .zip(names)
             .collect::<HashMap<_, _>>();
         assert_eq!(mapping, ctx.variable_name_assignment());
         assert_eq!("[a,b,x,c,y]", ctx.to_string());

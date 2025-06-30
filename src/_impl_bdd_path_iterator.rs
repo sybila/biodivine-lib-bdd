@@ -184,7 +184,7 @@ fn make_clause(bdd: &Bdd, path: &[BddPointer]) -> BddPartialValuation {
         } else if bdd.high_link_of(this_node) == next_node {
             result.set_value(var, true);
         } else {
-            panic!("Path {:?} is not valid in BDD {:?}", path, bdd);
+            panic!("Path {path:?} is not valid in BDD {bdd:?}");
         }
     }
 

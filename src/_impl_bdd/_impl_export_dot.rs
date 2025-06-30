@@ -76,16 +76,16 @@ fn write_bdd_as_dot<W: Write>(
     for node_pointer in bdd.pointers().skip(2) {
         // write the node itself
         let var_name = &var_names[bdd.var_of(node_pointer).0 as usize];
-        writeln!(output, "{}[label=\"{}\"];", node_pointer, var_name)?;
+        writeln!(output, "{node_pointer}[label=\"{var_name}\"];")?;
         let high_link = bdd.high_link_of(node_pointer);
         if !zero_pruned || !high_link.is_zero() {
             // write "high" link
-            writeln!(output, "{} -> {} [style=filled];", node_pointer, high_link)?;
+            writeln!(output, "{node_pointer} -> {high_link} [style=filled];")?;
         }
         let low_link = bdd.low_link_of(node_pointer);
         if !zero_pruned || !low_link.is_zero() {
             // write "low" link
-            writeln!(output, "{} -> {} [style=dotted];", node_pointer, low_link)?;
+            writeln!(output, "{node_pointer} -> {low_link} [style=dotted];")?;
         }
     }
     writeln!(output, "}}")?;

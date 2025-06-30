@@ -384,10 +384,7 @@ where
 fn check_flip_bounds(num_vars: u16, var: Option<BddVariable>) {
     if let Some(BddVariable(var)) = var {
         if var >= num_vars {
-            panic!(
-                "Cannot flip variable {} in Bdd with {} variables.",
-                var, num_vars
-            );
+            panic!("Cannot flip variable {var} in Bdd with {num_vars} variables.");
         }
     }
 }

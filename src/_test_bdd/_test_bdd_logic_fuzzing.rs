@@ -162,8 +162,7 @@ fn fuzz_test(num_vars: u16, tree_height: u8, seed: u64) -> bool {
         assert_eq!(
             op_tree.eval_in_valuation(&valuation),
             eval.eval_in(&valuation),
-            "Error in valuation {:?}",
-            valuation
+            "Error in valuation {valuation:?}"
         );
     }
 
