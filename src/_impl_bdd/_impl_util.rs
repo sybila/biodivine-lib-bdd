@@ -535,13 +535,12 @@ impl Bdd {
 
     /// Return the set of all variables that actually appear as decision variables in this BDD.
     pub fn support_set(&self) -> HashSet<BddVariable> {
-        let mut result = HashSet::new();
+        self.nodes().skip(2).map(|node| node.var).collect()
+    }
 
-        for node in self.nodes().skip(2) {
-            result.insert(node.var);
-        }
-
-        result
+    /// Return whether the variable actually appears as decision variables in this BDD.
+    pub fn support_set_contains(&self, variable: &BddVariable) -> bool {
+        self.nodes().skip(2).any(|node| &node.var == variable)
     }
 
     /// Return the BDD which represents a function where variable `var` was substituted for
@@ -571,8 +570,7 @@ impl Bdd {
             return self.clone();
         }
 
-        let sub_inputs = function.support_set();
-        if !sub_inputs.contains(&var) {
+        if !function.support_set_contains(&var) {
             // This is a "safe" substitution, because `var` does not appear in `function`
             // and hence can be fully eliminated.
             let var_bdd = Bdd::mk_literal(self.num_vars(), var, true);
@@ -851,6 +849,11 @@ mod tests {
             HashSet::from([BddVariable(2), BddVariable(3)]),
             bdd.support_set()
         );
+        assert!(!bdd.support_set_contains(&BddVariable(0)));
+        assert!(!bdd.support_set_contains(&BddVariable(1)));
+        assert!(bdd.support_set_contains(&BddVariable(2)));
+        assert!(bdd.support_set_contains(&BddVariable(3)));
+        assert!(!bdd.support_set_contains(&BddVariable(4)));
         assert_eq!(
             HashMap::from([(BddVariable(2), 1), (BddVariable(3), 1)]),
             bdd.size_per_variable()
