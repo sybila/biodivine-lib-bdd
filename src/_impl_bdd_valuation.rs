@@ -1,12 +1,13 @@
 use super::{Bdd, BddValuation, BddVariable};
 use crate::{BddNode, BddPartialValuation, BddPointer, ValuationsOfClauseIterator};
+use std::borrow::Borrow;
 use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};
 use std::ops::{Index, IndexMut};
 
 impl BddValuation {
     /// Create a new valuation from a vector of variables.
-    pub fn new(values: Vec<bool>) -> BddValuation {
+    pub const fn new(values: Vec<bool>) -> BddValuation {
         BddValuation(values)
     }
 
@@ -42,7 +43,18 @@ impl BddValuation {
     }
 
     /// Convert the valuation to its underlying vector.
+    #[deprecated = "use `as_vector` or `into_vector` instead"]
     pub fn vector(self) -> Vec<bool> {
+        self.0
+    }
+
+    /// Convert the valuation to its underlying vector.
+    pub fn as_vector(&self) -> &[bool] {
+        &self.0
+    }
+
+    /// Convert the valuation to its underlying vector.
+    pub fn into_vector(self) -> Vec<bool> {
         self.0
     }
 
@@ -59,6 +71,11 @@ impl BddValuation {
                 (BddVariable(i), *v)
             })
             .collect::<Vec<_>>()
+    }
+
+    /// Convert `&BddValuation` to `BddPartialValuation`
+    pub fn to_partial_valuation(&self) -> BddPartialValuation {
+        BddPartialValuation(self.0.iter().map(|b| Some(*b)).collect::<Vec<_>>())
     }
 
     /// Get a value of a specific BDD variable in this valuation.
@@ -86,6 +103,27 @@ impl BddValuation {
         }
 
         true
+    }
+
+    /// Convert a `BddValuation` to a `Bdd` with, well, exactly that one valuation.
+    pub fn mk_bdd(&self) -> Bdd {
+        let mut bdd = Bdd::mk_true(self.num_vars());
+        for i_var in (0..self.num_vars()).rev() {
+            let var = BddVariable(i_var);
+            let is_true = self.value(var);
+            let low_link = if is_true {
+                BddPointer::zero()
+            } else {
+                bdd.root_pointer()
+            };
+            let high_link = if is_true {
+                bdd.root_pointer()
+            } else {
+                BddPointer::zero()
+            };
+            bdd.push_node(BddNode::mk_node(var, low_link, high_link));
+        }
+        bdd
     }
 
     /// **(internal)** "Increment" this valuation if possible. Interpret the valuation as bit-vector and
@@ -181,23 +219,7 @@ impl Bdd {
 /// Convert a BddValuation to a Bdd with, well, exactly that one valuation.
 impl From<BddValuation> for Bdd {
     fn from(valuation: BddValuation) -> Self {
-        let mut bdd = Bdd::mk_true(valuation.num_vars());
-        for i_var in (0..valuation.num_vars()).rev() {
-            let var = BddVariable(i_var);
-            let is_true = valuation.value(var);
-            let low_link = if is_true {
-                BddPointer::zero()
-            } else {
-                bdd.root_pointer()
-            };
-            let high_link = if is_true {
-                bdd.root_pointer()
-            } else {
-                BddPointer::zero()
-            };
-            bdd.push_node(BddNode::mk_node(var, low_link, high_link));
-        }
-        bdd
+        valuation.mk_bdd()
     }
 }
 
@@ -238,6 +260,12 @@ impl Iterator for super::BddValuationIterator {
 
     fn next(&mut self) -> Option<Self::Item> {
         self.0.next()
+    }
+}
+
+impl Borrow<[bool]> for BddValuation {
+    fn borrow(&self) -> &[bool] {
+        &self.0
     }
 }
 

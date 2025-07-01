@@ -22,6 +22,6 @@ pub fn mk_5_variable_set() -> BddVariableSet {
 }
 
 pub fn load_expected_results(test_name: &str) -> String {
-    std::fs::read_to_string(format!("res/test_results/{}", test_name))
+    std::fs::read_to_string(format!("res/test_results/{test_name}"))
         .expect("Cannot open result file.")
 }

@@ -115,7 +115,7 @@ impl Default for BddPartialValuation {
 
 impl From<BddValuation> for BddPartialValuation {
     fn from(value: BddValuation) -> Self {
-        BddPartialValuation(value.0.into_iter().map(Some).collect::<Vec<_>>())
+        value.to_partial_valuation()
     }
 }
 

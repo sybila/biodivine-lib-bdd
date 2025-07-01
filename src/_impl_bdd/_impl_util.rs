@@ -106,18 +106,12 @@ impl Bdd {
         let high = max(old_id.0, new_id.0);
         for i in (low + 1)..high {
             if support_set.contains(&BddVariable(i)) {
-                panic!(
-                    "Cannot rename {} to {} due to the presence of {}.",
-                    old_id, new_id, i
-                );
+                panic!("Cannot rename {old_id} to {new_id} due to the presence of {i}.");
             }
         }
 
         if support_set.contains(&new_id) {
-            panic!(
-                "Cannot rename {} to {} due to the presence of {}.",
-                old_id, new_id, new_id
-            );
+            panic!("Cannot rename {old_id} to {new_id} due to the presence of {new_id}.");
         }
 
         for node in &mut self.0 {
@@ -535,13 +529,12 @@ impl Bdd {
 
     /// Return the set of all variables that actually appear as decision variables in this BDD.
     pub fn support_set(&self) -> HashSet<BddVariable> {
-        let mut result = HashSet::new();
+        self.nodes().skip(2).map(|node| node.var).collect()
+    }
 
-        for node in self.nodes().skip(2) {
-            result.insert(node.var);
-        }
-
-        result
+    /// Return whether the variable actually appears as decision variables in this BDD.
+    pub fn support_set_contains(&self, variable: &BddVariable) -> bool {
+        self.nodes().skip(2).any(|node| &node.var == variable)
     }
 
     /// Return the BDD which represents a function where variable `var` was substituted for
@@ -571,8 +564,7 @@ impl Bdd {
             return self.clone();
         }
 
-        let sub_inputs = function.support_set();
-        if !sub_inputs.contains(&var) {
+        if !function.support_set_contains(&var) {
             // This is a "safe" substitution, because `var` does not appear in `function`
             // and hence can be fully eliminated.
             let var_bdd = Bdd::mk_literal(self.num_vars(), var, true);
@@ -752,7 +744,7 @@ impl Bdd {
             let high_child = &self.0[node.high_link.to_index()];
 
             if low_child.var <= node.var || high_child.var <= node.var {
-                return Err(format!("Found broken child ordering in node {:?}.", top));
+                return Err(format!("Found broken child ordering in node {top:?}."));
             }
 
             stack.push(node.low_link);
@@ -851,6 +843,11 @@ mod tests {
             HashSet::from([BddVariable(2), BddVariable(3)]),
             bdd.support_set()
         );
+        assert!(!bdd.support_set_contains(&BddVariable(0)));
+        assert!(!bdd.support_set_contains(&BddVariable(1)));
+        assert!(bdd.support_set_contains(&BddVariable(2)));
+        assert!(bdd.support_set_contains(&BddVariable(3)));
+        assert!(!bdd.support_set_contains(&BddVariable(4)));
         assert_eq!(
             HashMap::from([(BddVariable(2), 1), (BddVariable(3), 1)]),
             bdd.size_per_variable()

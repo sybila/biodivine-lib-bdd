@@ -1,4 +1,4 @@
-use crate::{Bdd, BddPartialValuation, BddPointer, BddVariable};
+use crate::{Bdd, BddPartialValuation, BddPointer, BddValuation, BddVariable};
 use num_bigint::BigInt;
 
 impl Bdd {
@@ -7,7 +7,7 @@ impl Bdd {
     /// memory copying. The disadvantage is that when the number of variables is high and the
     /// number of clauses low, this could be slightly slower due to all the recursion. However,
     /// it definitely needs to be tested at some point.
-    pub(crate) fn mk_dnf(num_vars: u16, dnf: &[BddPartialValuation]) -> Bdd {
+    pub(crate) fn mk_dnf(num_vars: u16, dnf: &[&BddPartialValuation]) -> Bdd {
         fn _rec(mut var: u16, num_vars: u16, dnf: &[&BddPartialValuation]) -> Bdd {
             loop {
                 if dnf.is_empty() {
@@ -53,8 +53,7 @@ impl Bdd {
             }
         }
 
-        let dnf_internal = Vec::from_iter(dnf.iter());
-        _rec(0, num_vars, &dnf_internal)
+        _rec(0, num_vars, dnf)
         // TODO:
         //  This algorithm works fine with fully specified clauses, but it can "explode"
         //  with partial clauses because a clause can be used by both recursive paths.
@@ -134,6 +133,52 @@ impl Bdd {
         build_recursive(num_vars, 0, &dnf, &mut result, &mut node_cache);
 
         result*/
+    }
+
+    /// [BddValuation] version of [Bdd::mk_dnf]
+    pub(crate) fn mk_dnf_valuation(num_vars: u16, dnf: &[&BddValuation]) -> Bdd {
+        fn _rec(mut var: u16, num_vars: u16, dnf: &[&BddValuation]) -> Bdd {
+            loop {
+                if dnf.is_empty() {
+                    return Bdd::mk_false(num_vars);
+                }
+                if var == num_vars || dnf.len() == 1 {
+                    let c = dnf[0];
+                    // At this point, all remaining clauses should just be duplicates.
+                    for cx in &dnf[1..] {
+                        assert_eq!(*cx, c);
+                    }
+                    return c.mk_bdd();
+                }
+
+                // If we ever get to this point, the dnf should be always either empty,
+                // or consists of a single clause.
+                assert!(var < num_vars);
+
+                let variable = BddVariable(var);
+                let should_branch = dnf.iter().any(|val| val.value(variable));
+                if !should_branch {
+                    var += 1;
+                    continue;
+                }
+
+                let mut has_true = Vec::new();
+                let mut has_false = Vec::new();
+
+                for c in dnf {
+                    match c.value(BddVariable(var)) {
+                        true => has_true.push(*c),
+                        false => has_false.push(*c),
+                    }
+                }
+
+                let has_true = _rec(var + 1, num_vars, &has_true);
+                let has_false = _rec(var + 1, num_vars, &has_false);
+
+                return has_true.or(&has_false);
+            }
+        }
+        _rec(0, num_vars, dnf)
     }
 
     /// Construct a DNF representation of this BDD. This is equivalent to collecting all results
@@ -394,7 +439,7 @@ mod tests {
                 continue;
             }
 
-            println!("Testing {}", name);
+            println!("Testing {name}");
 
             let mut total_monotonicity_tests = 0usize;
             let mut failed_monotonicity_tests = 0usize;
@@ -419,7 +464,7 @@ mod tests {
                 let dnf = expr_bdd.to_optimized_dnf();
                 let mut reconstructed = ctx.mk_false();
                 for c in &dnf {
-                    reconstructed = reconstructed.or(&ctx.mk_conjunctive_clause(&c));
+                    reconstructed = reconstructed.or(&ctx.mk_conjunctive_clause(c));
                 }
                 assert_eq!(reconstructed, expr_bdd);
 
@@ -435,10 +480,7 @@ mod tests {
                     }
                 }
             }
-            println!(
-                "{} / {}",
-                failed_monotonicity_tests, total_monotonicity_tests
-            );
+            println!("{failed_monotonicity_tests} / {total_monotonicity_tests}");
         }
     }
 

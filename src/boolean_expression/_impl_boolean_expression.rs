@@ -17,16 +17,16 @@ impl TryFrom<&str> for BooleanExpression {
 impl Display for BooleanExpression {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         match self {
-            Const(value) => write!(f, "{}", value),
-            Variable(name) => write!(f, "{}", name),
-            Not(inner) => write!(f, "!{}", inner),
-            And(l, r) => write!(f, "({} & {})", l, r),
-            Or(l, r) => write!(f, "({} | {})", l, r),
-            Xor(l, r) => write!(f, "({} ^ {})", l, r),
-            Imp(l, r) => write!(f, "({} => {})", l, r),
-            Iff(l, r) => write!(f, "({} <=> {})", l, r),
+            Const(value) => write!(f, "{value}"),
+            Variable(name) => write!(f, "{name}"),
+            Not(inner) => write!(f, "!{inner}"),
+            And(l, r) => write!(f, "({l} & {r})"),
+            Or(l, r) => write!(f, "({l} | {r})"),
+            Xor(l, r) => write!(f, "({l} ^ {r})"),
+            Imp(l, r) => write!(f, "({l} => {r})"),
+            Iff(l, r) => write!(f, "({l} <=> {r})"),
             Cond(cond, then_expr, else_expr) => {
-                write!(f, "({} ? {} : {})", cond, then_expr, else_expr)
+                write!(f, "({cond} ? {then_expr} : {else_expr})")
             }
         }
     }
