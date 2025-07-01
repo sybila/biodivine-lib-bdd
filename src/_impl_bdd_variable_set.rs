@@ -90,7 +90,7 @@ impl BddVariableSet {
     pub fn variable_name_assignment(&self) -> HashMap<BddVariable, String> {
         self.variables()
             .into_iter()
-            .zip(self.variable_names().iter().cloned())
+            .zip(self.variable_names())
             .collect()
     }
 
