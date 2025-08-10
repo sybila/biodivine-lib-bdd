@@ -1,7 +1,7 @@
 use crate::{Bdd, BddPartialValuation, BddPathIterator, BddPointer, OwnedBddPathIterator};
 
 impl BddPathIterator<'_> {
-    pub fn new(bdd: &Bdd) -> BddPathIterator {
+    pub fn new(bdd: &Bdd) -> BddPathIterator<'_> {
         if bdd.is_false() {
             BddPathIterator {
                 bdd,

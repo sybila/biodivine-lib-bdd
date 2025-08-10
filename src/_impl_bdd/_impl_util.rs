@@ -444,7 +444,7 @@ impl Bdd {
     }
 
     /// **(internal)** Create an iterator over all nodes of the `Bdd` (including terminals).
-    pub(crate) fn nodes(&self) -> Iter<BddNode> {
+    pub(crate) fn nodes(&self) -> Iter<'_, BddNode> {
         self.0.iter()
     }
 
