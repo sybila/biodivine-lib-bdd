@@ -439,7 +439,7 @@ impl Bdd {
     ///
     /// The iteration order is the same as the underlying representation, so you can expect
     /// terminals to be the first two nodes.
-    pub(crate) fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
+    pub fn pointers(&self) -> Map<Range<usize>, fn(usize) -> BddPointer> {
         (0..self.size()).map(BddPointer::from_index)
     }
 
