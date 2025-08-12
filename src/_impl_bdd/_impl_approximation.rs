@@ -221,6 +221,12 @@ impl Bdd {
         if target_size >= self.size() {
             return self.clone();
         }
+        if target_size <= 2 {
+            return Bdd::mk_false(self.num_vars());
+        }
+
+        let to_cut = self.size() - target_size + 1;
+        assert!(to_cut > 0 && to_cut < self.size());
 
         // Compute the number of valuations going through each node and sort them.
         let mut weights = self
@@ -229,10 +235,10 @@ impl Bdd {
             .zip(self.pointers())
             .collect::<Vec<_>>();
         weights.sort_by(|(x, px), (y, py)| {
-            // Smallest weights go last; if equal, biggest pointers go last.
+            // Smallest weights go first; if equal, biggest pointers go last.
             x.cmp(y).then(px.cmp(py).reverse())
         });
-        let weights = Vec::from_iter(weights.into_iter().map(|(_, x)| x));
+        let weights = Vec::from_iter(weights.into_iter().take(to_cut).map(|(_, x)| x));
 
         // Binary-search for the number of nodes that bring us the closest to the target size.
         let mut start = 0;
@@ -409,6 +415,10 @@ mod tests {
         let bdd_under_6 = bdd.underapproximate_to_size(6);
         let bdd_under_5 = bdd.underapproximate_to_size(5);
         let bdd_under_4 = bdd.underapproximate_to_size(4);
+        assert!(bdd_under_7.size() <= 7);
+        assert!(bdd_under_6.size() <= 6);
+        assert!(bdd_under_5.size() <= 5);
+        assert!(bdd_under_4.size() <= 4);
         assert_eq!(bdd, bdd_under_7);
         assert_eq!(bdd_under_6.exact_cardinality(), BigInt::from(4));
         assert_eq!(bdd_under_5.exact_cardinality(), BigInt::from(2));
@@ -419,16 +429,20 @@ mod tests {
     fn test_overapproximate_to_size() {
         let set = BddVariableSet::new(&["a", "b", "c", "d"]);
         let bdd = set.eval_expression_string("(a => ((b & c) | (!b & d))) & (!a => (b & d))");
-        let bdd_under_7 = bdd.overapproximate_to_size(7);
-        let bdd_under_6 = bdd.overapproximate_to_size(6);
-        let bdd_under_5 = bdd.overapproximate_to_size(5);
-        let bdd_under_4 = bdd.overapproximate_to_size(4);
-        let bdd_under_3 = bdd.overapproximate_to_size(3);
-        assert_eq!(bdd, bdd_under_7);
-        assert_eq!(bdd_under_6.exact_cardinality(), BigInt::from(8));
-        assert_eq!(bdd_under_5.exact_cardinality(), BigInt::from(10));
-        assert_eq!(bdd_under_4.exact_cardinality(), BigInt::from(12));
-        assert_eq!(bdd_under_3, set.mk_true());
+        let bdd_over_7 = bdd.overapproximate_to_size(7);
+        let bdd_over_6 = bdd.overapproximate_to_size(6);
+        let bdd_over_5 = bdd.overapproximate_to_size(5);
+        let bdd_over_4 = bdd.overapproximate_to_size(4);
+        let bdd_over_3 = bdd.overapproximate_to_size(3);
+        assert!(bdd_over_7.size() <= 7);
+        assert!(bdd_over_6.size() <= 6);
+        assert!(bdd_over_5.size() <= 5);
+        assert!(bdd_over_4.size() <= 4);
+        assert_eq!(bdd, bdd_over_7);
+        assert_eq!(bdd_over_6.exact_cardinality(), BigInt::from(8));
+        assert_eq!(bdd_over_5.exact_cardinality(), BigInt::from(10));
+        assert_eq!(bdd_over_4.exact_cardinality(), BigInt::from(12));
+        assert_eq!(bdd_over_3, set.mk_true());
     }
 
     #[test]
