@@ -54,6 +54,11 @@ impl BddValuation {
     }
 
     /// Convert the valuation to its underlying vector.
+    pub fn as_vector_mut(&mut self) -> &mut Vec<bool> {
+        &mut self.0
+    }
+
+    /// Convert the valuation to its underlying vector.
     pub fn into_vector(self) -> Vec<bool> {
         self.0
     }
