@@ -300,13 +300,13 @@ impl Bdd {
         let mut results: Vec<BooleanExpression> = Vec::with_capacity(self.0.len());
         results.push(BooleanExpression::Const(false)); // fake terminals
         results.push(BooleanExpression::Const(true)); // never used
-        for node in 2..self.0.len() {
+        for node in self.0.iter().skip(2) {
             // skip terminals
-            let node_var = self.0[node].var;
+            let node_var = node.var;
             let var_name = variables.var_names[node_var.0 as usize].clone();
 
-            let low_link = self.0[node].low_link;
-            let high_link = self.0[node].high_link;
+            let low_link = node.low_link;
+            let high_link = node.high_link;
             let expression = if low_link.is_terminal() && high_link.is_terminal() {
                 // Both links are terminal, which means this is an exactly determined variable
                 if high_link.is_one() && low_link.is_zero() {
@@ -314,7 +314,7 @@ impl Bdd {
                 } else if high_link.is_zero() && low_link.is_one() {
                     BooleanExpression::Not(Box::new(Variable(var_name)))
                 } else {
-                    panic!("Invalid node {:?} in bdd {:?}.", self.0[node], self.0);
+                    panic!("Invalid node {:?} in bdd {:?}.", node, self.0);
                 }
             } else if low_link.is_terminal() {
                 if low_link.is_zero() {
@@ -352,7 +352,7 @@ impl Bdd {
                         Box::new(results[high_link.0 as usize].clone()),
                     )),
                     Box::new(BooleanExpression::And(
-                        Box::new(BooleanExpression::Not(Box::new(Variable(var_name.clone())))),
+                        Box::new(BooleanExpression::Not(Box::new(Variable(var_name)))),
                         Box::new(results[low_link.0 as usize].clone()),
                     )),
                 )
