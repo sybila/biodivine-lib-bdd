@@ -50,15 +50,16 @@ impl BddVariableSetBuilder {
 
     /// Convert this builder to an actual variable set.
     pub fn build(self) -> BddVariableSet {
-        let mut mapping: HashMap<String, u16> = HashMap::new();
-        for name_index in 0..self.var_names.len() {
-            let name = self.var_names[name_index].clone();
-            mapping.insert(name, name_index as u16);
-        }
+        let var_index_mapping: HashMap<String, u16> = self
+            .var_names
+            .iter()
+            .enumerate()
+            .map(|(name_index, name)| (name.clone(), name_index as u16))
+            .collect();
         BddVariableSet {
             num_vars: self.var_names.len() as u16,
             var_names: self.var_names,
-            var_index_mapping: mapping,
+            var_index_mapping,
         }
     }
 }
