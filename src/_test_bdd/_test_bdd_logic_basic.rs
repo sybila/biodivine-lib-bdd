@@ -23,6 +23,7 @@ fn bdd_not_preserves_equivalence() {
     let not_b = variables.mk_not_var(v2());
     assert_eq!(a.not(), not_a);
     assert_eq!(bdd!(!(a & not_b)), bdd!(not_a | b));
+    assert_eq!(a.into_not(), not_a);
 }
 
 #[test]

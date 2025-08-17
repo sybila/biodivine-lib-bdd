@@ -1,5 +1,5 @@
 use crate::_test_util::{mk_5_variable_set, mk_small_test_bdd};
-use crate::{Bdd, BddVariable};
+use crate::{Bdd, BddPartialValuation, BddVariable};
 use rand::rngs::StdRng;
 use rand::SeedableRng;
 
@@ -42,6 +42,25 @@ fn bdd_restrict() {
         .restrict(&[(var_a, true), (var_b, false)])
         .is_false());
     assert!(a_or_b.restrict(&[(var_a, true), (var_b, false)]).is_true());
+
+    assert!(a_xor_b
+        .restrict_valuation(&BddPartialValuation::from_values(&[
+            (var_a, true),
+            (var_b, false)
+        ]))
+        .is_true());
+    assert!(a_and_b
+        .restrict_valuation(&BddPartialValuation::from_values(&[
+            (var_a, true),
+            (var_b, false)
+        ]))
+        .is_false());
+    assert!(a_or_b
+        .restrict_valuation(&BddPartialValuation::from_values(&[
+            (var_a, true),
+            (var_b, false)
+        ]))
+        .is_true());
 }
 
 #[test]
@@ -128,12 +147,22 @@ fn bdd_projection_trivial() {
         assert_eq!(tt, tt.exists(&vars[0..k]));
         assert_eq!(ff, ff.for_all(&vars[0..k]));
         assert_eq!(tt, tt.for_all(&vars[0..k]));
+
+        assert_eq!(ff, ff.exists_trigger(|var| var.to_index() <= k));
+        assert_eq!(tt, tt.exists_trigger(|var| var.to_index() <= k));
+        assert_eq!(ff, ff.for_all_trigger(|var| var.to_index() <= k));
+        assert_eq!(tt, tt.for_all_trigger(|var| var.to_index() <= k));
     }
 
     assert_eq!(bdd, bdd.exists(&[]));
     assert_eq!(bdd, bdd.for_all(&[]));
     assert_eq!(tt, bdd.exists(&vars));
     assert_eq!(ff, bdd.for_all(&vars));
+
+    assert_eq!(bdd, bdd.exists_trigger(|_| false));
+    assert_eq!(bdd, bdd.for_all_trigger(|_| false));
+    assert_eq!(tt, bdd.exists_trigger(|_| true));
+    assert_eq!(ff, bdd.for_all_trigger(|_| true));
 }
 
 #[test]
@@ -146,6 +175,10 @@ fn bdd_projection_simple() {
         let project_exists = variables.eval_expression_string("(v1 <=> v2)");
         assert_eq!(project_exists, bdd.exists(&[v4, v5]));
         assert_eq!(bdd.exists(&[v3, v4, v5]), bdd.exists(&[v4, v5]));
+        assert_eq!(
+            bdd.exists_trigger(|var| [v3, v4, v5].contains(&var)),
+            bdd.exists_trigger(|var| [v4, v5].contains(&var))
+        );
 
         #[allow(deprecated)]
         {
@@ -157,6 +190,10 @@ fn bdd_projection_simple() {
         // It holds that $(\exists x . \phi)$ is equivalent to $(\neg \for_all x . \neg \phi)$
         assert_eq!(project_exists.not(), not_bdd.for_all(&[v4, v5]));
         assert_eq!(not_bdd.for_all(&[v3, v4, v5]), not_bdd.for_all(&[v3, v4]));
+        assert_eq!(
+            not_bdd.for_all_trigger(|var| [v3, v4, v5].contains(&var)),
+            not_bdd.for_all_trigger(|var| [v4, v5].contains(&var))
+        );
     }
     {
         let bdd = variables.eval_expression_string("(v4 => (v1 & v2)) & (!v4 => (!v1 & v3))");
@@ -247,6 +284,40 @@ fn bdd_pick_random() {
         assert!(picked_01.and(&picked_11).is_false());
         assert!(picked_10.and(&picked_11).is_false());
     }
+
+    for _ in 0..100 {
+        let picked = bdd.pick_random(&[v2, v3], &mut random);
+        assert_eq!(picked.and(&bdd), picked);
+
+        let picked_00 = picked
+            .select_valuation(&BddPartialValuation::from_values(&[
+                (v2, false),
+                (v3, false),
+            ]))
+            .exists(&[v2, v3]);
+        let picked_01 = picked
+            .select_valuation(&BddPartialValuation::from_values(&[
+                (v2, false),
+                (v3, true),
+            ]))
+            .exists(&[v2, v3]);
+        let picked_10 = picked
+            .select_valuation(&BddPartialValuation::from_values(&[
+                (v2, true),
+                (v3, false),
+            ]))
+            .exists(&[v2, v3]);
+        let picked_11 = picked
+            .select_valuation(&BddPartialValuation::from_values(&[(v2, true), (v3, true)]))
+            .exists(&[v2, v3]);
+
+        assert!(picked_00.and(&picked_01).is_false());
+        assert!(picked_00.and(&picked_10).is_false());
+        assert!(picked_00.and(&picked_11).is_false());
+        assert!(picked_01.and(&picked_10).is_false());
+        assert!(picked_01.and(&picked_11).is_false());
+        assert!(picked_10.and(&picked_11).is_false());
+    }
 }
 
 #[test]
@@ -258,5 +329,21 @@ fn bdd_select() {
     assert_eq!(
         expected,
         bdd.select(&[(v1, true), (v4, false), (v3, false)])
+    );
+}
+
+#[test]
+fn bdd_select_valuation() {
+    let variables = mk_5_variable_set();
+    let bdd = variables.eval_expression_string("(v1 => (v4 <=> v5)) & (!v1 => !(v4 <=> v5))");
+    let expected = variables.eval_expression_string("v1 & !v3 & !v4 & !v5");
+    let (v1, _, v3, v4, _) = vars();
+    assert_eq!(
+        expected,
+        bdd.select_valuation(&BddPartialValuation::from_values(&[
+            (v1, true),
+            (v4, false),
+            (v3, false)
+        ]))
     );
 }

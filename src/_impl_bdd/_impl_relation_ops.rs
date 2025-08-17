@@ -58,11 +58,31 @@ impl Bdd {
         Bdd::binary_op_with_exists(self, self, crate::op_function::and, variables)
     }
 
+    /// Eliminate all variables that `trigger(var) = true` from the `Bdd` using existential projection.
+    ///
+    /// This can be used to implement operations like `domain` and `range` for
+    /// a specific relation.
+    ///
+    /// Note that this method should be faster than repeated calls to `var_exists` once
+    /// the size of `variables` is non-trivial, but it has a higher overhead. So for very small
+    /// instances the performance advantage may not be very high.
+    pub fn exists_trigger<Trigger: Fn(BddVariable) -> bool>(&self, trigger: Trigger) -> Bdd {
+        // x & x is simply identity
+        Bdd::binary_op_with_exists_trigger(self, self, trigger, crate::op_function::and)
+    }
+
     /// Eliminate all given `variables` from the `Bdd` using universal projection.
     ///
     /// Same performance characteristics as `Bdd::exists`.
     pub fn for_all(&self, variables: &[BddVariable]) -> Bdd {
         Bdd::binary_op_with_for_all(self, self, crate::op_function::and, variables)
+    }
+
+    /// Eliminate all variables that `trigger(var) = true` from the `Bdd` using universal projection.
+    ///
+    /// Same performance characteristics as `Bdd::exists_trigger`.
+    pub fn for_all_trigger<Trigger: Fn(BddVariable) -> bool>(&self, trigger: Trigger) -> Bdd {
+        Bdd::binary_op_with_for_all_trigger(self, self, trigger, crate::op_function::and)
     }
 
     /// Picks one valuation for the given `BddVariable`.
@@ -147,7 +167,16 @@ impl Bdd {
     /// specify all variables.
     pub fn select(&self, variables: &[(BddVariable, bool)]) -> Bdd {
         let valuation = BddPartialValuation::from_values(variables);
-        let valuation_bdd = Bdd::mk_partial_valuation(self.num_vars(), &valuation);
+        self.select_valuation(&valuation)
+    }
+
+    /// Generalized operation to `var_select`, allows effectively fixing multiple variables to
+    /// the given values. Similar to `BddValuation.into::<Bdd>()`, but here you don't have to
+    /// specify all variables.
+    ///
+    /// `BddPartialValuation` version of `Bdd::select`
+    pub fn select_valuation(&self, valuation: &BddPartialValuation) -> Bdd {
+        let valuation_bdd = Bdd::mk_partial_valuation(self.num_vars(), valuation);
         self.and(&valuation_bdd)
     }
 
@@ -164,7 +193,14 @@ impl Bdd {
     /// eliminating them at the same time.
     pub fn restrict(&self, variables: &[(BddVariable, bool)]) -> Bdd {
         let valuation = BddPartialValuation::from_values(variables);
-        restriction(self, &valuation)
+        self.restrict_valuation(&valuation)
+    }
+    /// Generalized operation to `var_restrict`. Allows fixing multiple Bdd variables and
+    /// eliminating them at the same time.
+    ///
+    /// `BddPartialValuation` version of `Bdd::restrict`
+    pub fn restrict_valuation(&self, valuation: &BddPartialValuation) -> Bdd {
+        restriction(self, valuation)
     }
 }
 
