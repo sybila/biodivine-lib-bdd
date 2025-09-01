@@ -37,7 +37,7 @@ impl BddPartialValuation {
     /// any uniqueness checking. If the slice contains multiple copies of the same variable,
     /// the last value is accepted.
     pub fn from_values(values: &[(BddVariable, bool)]) -> BddPartialValuation {
-        Self::from_values_iter(values.into_iter().copied())
+        Self::from_values_iter(values.iter().copied())
     }
 
     /// Create a partial valuation from a list of variables and values.
