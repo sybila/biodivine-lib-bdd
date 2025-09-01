@@ -121,6 +121,17 @@ impl Bdd {
         }
     }
 
+    /// If this `Bdd` is a constant, convert it to `bool`, otherwise return `None`.
+    pub fn as_bool(&self) -> Option<bool> {
+        if self.is_true() {
+            Some(true)
+        } else if self.is_false() {
+            Some(false)
+        } else {
+            None
+        }
+    }
+
     /// True if this `Bdd` is exactly the `true` formula.
     pub fn is_true(&self) -> bool {
         self.0.len() == 2
@@ -1111,6 +1122,7 @@ mod tests {
         let x_1 = vars.var_by_name("x_1").unwrap();
         let substituted = original.substitute(x_1, &to_swap);
         assert!(expected.iff(&substituted).is_true());
+        assert_eq!(expected.iff(&substituted).as_bool(), Some(true));
     }
 
     #[test]
