@@ -25,6 +25,25 @@ impl Bdd {
         }
     }
 
+    /// Convert self into a `Bdd` corresponding to the $\neg \phi$ formula, where $\phi$ is this `Bdd`.
+    /// Same to `Bdd::not`, but save one clone overhead.
+    pub fn into_not(mut self) -> Bdd {
+        if self.is_true() {
+            Bdd::mk_false(self.num_vars())
+        } else if self.is_false() {
+            Bdd::mk_true(self.num_vars())
+        } else {
+            // Note that this does not break DFS order of the graph because
+            // we are only flipping terminals, which already have special positions.
+            for node in self.0.iter_mut().skip(2) {
+                // skip terminals
+                node.high_link.flip_if_terminal();
+                node.low_link.flip_if_terminal();
+            }
+            self
+        }
+    }
+
     /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
     /// are the two given `Bdd`s.
     pub fn and(&self, right: &Bdd) -> Bdd {
@@ -319,10 +338,10 @@ where
             // Try to solve the tasks using terminal lookup table or from cache.
             let new_low = terminal_lookup(l_low.as_bool(), r_low.as_bool())
                 .map(BddPointer::from_bool)
-                .or_else(|| finished.get(&comp_low).cloned());
+                .or_else(|| finished.get(&comp_low).copied());
             let new_high = terminal_lookup(l_high.as_bool(), r_high.as_bool())
                 .map(BddPointer::from_bool)
-                .or_else(|| finished.get(&comp_high).cloned());
+                .or_else(|| finished.get(&comp_high).copied());
 
             // If both values are computed, mark this task as resolved.
             if let (Some(new_low), Some(new_high)) = (new_low, new_high) {

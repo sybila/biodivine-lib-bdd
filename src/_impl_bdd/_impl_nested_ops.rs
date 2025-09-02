@@ -17,9 +17,24 @@ impl Bdd {
         F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
         let set: HashSet<BddVariable, FxBuildHasher> =
-            HashSet::from_iter(variables.iter().cloned());
+            HashSet::from_iter(variables.iter().copied());
         let trigger = |var: BddVariable| set.contains(&var);
 
+        Bdd::binary_op_with_for_all_trigger(left, right, trigger, op)
+    }
+
+    /// Performs a logical operation (`op`) on two BDDs while performing a **universal projection**
+    /// on the given `variables` in the result BDD.
+    pub fn binary_op_with_for_all_trigger<F, Trigger>(
+        left: &Bdd,
+        right: &Bdd,
+        trigger: Trigger,
+        op: F,
+    ) -> Bdd
+    where
+        Trigger: Fn(BddVariable) -> bool,
+        F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    {
         Bdd::binary_op_nested(left, right, trigger, op, crate::op_function::and)
     }
 
@@ -35,9 +50,24 @@ impl Bdd {
         F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
     {
         let set: HashSet<BddVariable, FxBuildHasher> =
-            HashSet::from_iter(variables.iter().cloned());
+            HashSet::from_iter(variables.iter().copied());
         let trigger = |var: BddVariable| set.contains(&var);
 
+        Bdd::binary_op_with_exists_trigger(left, right, trigger, op)
+    }
+
+    /// Performs a logical operation (`op`) on two BDDs while performing an
+    /// **existential projection** on the given `variables` in the result BDD.
+    pub fn binary_op_with_exists_trigger<F, Trigger>(
+        left: &Bdd,
+        right: &Bdd,
+        trigger: Trigger,
+        op: F,
+    ) -> Bdd
+    where
+        Trigger: Fn(BddVariable) -> bool,
+        F: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    {
         Bdd::binary_op_nested(left, right, trigger, op, crate::op_function::or)
     }
 

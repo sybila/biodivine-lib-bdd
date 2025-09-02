@@ -85,7 +85,8 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
             }
             _ => {
                 // start of a variable name
-                let mut name = vec![c];
+                let mut name = String::new();
+                name.push(c);
                 while let Some(c) = data.peek() {
                     if c.is_whitespace() || NOT_IN_VAR_NAME.contains(c) {
                         break;
@@ -94,7 +95,7 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
                         data.next(); // advance iterator
                     }
                 }
-                output.push(ExprToken::Id(name.into_iter().collect()));
+                output.push(ExprToken::Id(name));
             }
         }
     }

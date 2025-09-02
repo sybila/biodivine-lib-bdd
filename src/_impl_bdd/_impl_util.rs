@@ -121,6 +121,17 @@ impl Bdd {
         }
     }
 
+    /// If this `Bdd` is a constant, convert it to `bool`, otherwise return `None`.
+    pub fn as_bool(&self) -> Option<bool> {
+        if self.is_true() {
+            Some(true)
+        } else if self.is_false() {
+            Some(false)
+        } else {
+            None
+        }
+    }
+
     /// True if this `Bdd` is exactly the `true` formula.
     pub fn is_true(&self) -> bool {
         self.0.len() == 2
@@ -300,13 +311,13 @@ impl Bdd {
         let mut results: Vec<BooleanExpression> = Vec::with_capacity(self.0.len());
         results.push(BooleanExpression::Const(false)); // fake terminals
         results.push(BooleanExpression::Const(true)); // never used
-        for node in 2..self.0.len() {
+        for node in self.0.iter().skip(2) {
             // skip terminals
-            let node_var = self.0[node].var;
+            let node_var = node.var;
             let var_name = variables.var_names[node_var.0 as usize].clone();
 
-            let low_link = self.0[node].low_link;
-            let high_link = self.0[node].high_link;
+            let low_link = node.low_link;
+            let high_link = node.high_link;
             let expression = if low_link.is_terminal() && high_link.is_terminal() {
                 // Both links are terminal, which means this is an exactly determined variable
                 if high_link.is_one() && low_link.is_zero() {
@@ -314,7 +325,7 @@ impl Bdd {
                 } else if high_link.is_zero() && low_link.is_one() {
                     BooleanExpression::Not(Box::new(Variable(var_name)))
                 } else {
-                    panic!("Invalid node {:?} in bdd {:?}.", self.0[node], self.0);
+                    panic!("Invalid node {:?} in bdd {:?}.", node, self.0);
                 }
             } else if low_link.is_terminal() {
                 if low_link.is_zero() {
@@ -352,7 +363,7 @@ impl Bdd {
                         Box::new(results[high_link.0 as usize].clone()),
                     )),
                     Box::new(BooleanExpression::And(
-                        Box::new(BooleanExpression::Not(Box::new(Variable(var_name.clone())))),
+                        Box::new(BooleanExpression::Not(Box::new(Variable(var_name)))),
                         Box::new(results[low_link.0 as usize].clone()),
                     )),
                 )
@@ -1111,6 +1122,7 @@ mod tests {
         let x_1 = vars.var_by_name("x_1").unwrap();
         let substituted = original.substitute(x_1, &to_swap);
         assert!(expected.iff(&substituted).is_true());
+        assert_eq!(expected.iff(&substituted).as_bool(), Some(true));
     }
 
     #[test]

@@ -37,9 +37,20 @@ impl BddPartialValuation {
     /// any uniqueness checking. If the slice contains multiple copies of the same variable,
     /// the last value is accepted.
     pub fn from_values(values: &[(BddVariable, bool)]) -> BddPartialValuation {
+        Self::from_values_iter(values.iter().copied())
+    }
+
+    /// Create a partial valuation from a list of variables and values.
+    ///
+    /// The order of variables in the slice can be arbitrary. The operation does not perform
+    /// any uniqueness checking. If the slice contains multiple copies of the same variable,
+    /// the last value is accepted.
+    pub fn from_values_iter<I: Iterator<Item = (BddVariable, bool)>>(
+        values: I,
+    ) -> BddPartialValuation {
         let mut result = Self::empty();
         for (id, value) in values {
-            result.set_value(*id, *value)
+            result.set_value(id, value)
         }
         result
     }
