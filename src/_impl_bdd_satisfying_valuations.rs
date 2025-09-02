@@ -8,7 +8,7 @@ impl Bdd {
     ///
     /// Note that the number of such valuations can be substantial and can be approximated
     /// using `Bdd.cardinality`.
-    pub fn sat_valuations(&self) -> BddSatisfyingValuations {
+    pub fn sat_valuations(&self) -> BddSatisfyingValuations<'_> {
         let mut path_iter = BddPathIterator::new(self);
         let val_iter = if let Some(first) = path_iter.next() {
             ValuationsOfClauseIterator::new(first, self.num_vars())
@@ -47,7 +47,7 @@ impl Bdd {
     ///
     /// The whole formula represented by a `Bdd` can be then seen as a disjunction of these
     /// clauses/paths.
-    pub fn sat_clauses(&self) -> BddPathIterator {
+    pub fn sat_clauses(&self) -> BddPathIterator<'_> {
         BddPathIterator::new(self)
     }
 
