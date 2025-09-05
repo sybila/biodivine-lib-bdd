@@ -395,8 +395,8 @@ impl Bdd {
 
 #[cfg(test)]
 mod tests {
-    use crate::BddVariableSet;
     use crate::_test_util::mk_small_test_bdd;
+    use crate::{BddPointer, BddVariable, BddVariableSet};
     use num_bigint::{BigInt, BigUint};
     use num_traits::Zero;
 
@@ -451,6 +451,46 @@ mod tests {
     }
 
     #[test]
+    fn test_base_methods() {
+        let set = BddVariableSet::new(&["a", "b", "c", "d"]);
+        let bdd = set.eval_expression_string("(a => ((b & c) | (!b & d))) & (!a => (b & d))");
+
+        println!("{:?}", bdd);
+        let x1 = BddPointer::from_index(6);
+        let x2 = BddPointer::from_index(4);
+        let x3 = BddPointer::from_index(5);
+        let x4 = BddPointer::from_index(3);
+        let x5 = BddPointer::from_index(2);
+
+        assert!(bdd.overapproximate(&[x1]).is_true());
+        assert!(bdd.underapproximate(&[x1]).is_false());
+
+        // We completely cut off the last level of the BDD.
+        let bdd_under = bdd.underapproximate(&[x4, x5]);
+        assert!(bdd_under.is_false());
+
+        // We completely cut off the top level of the BDD.
+        let bdd_over = bdd.overapproximate(&[x2, x3]);
+        assert!(bdd_over.is_true());
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_over_terminals() {
+        let set = BddVariableSet::new(&["a", "b", "c", "d"]);
+        let bdd = set.eval_expression_string("(a => ((b & c) | (!b & d))) & (!a => (b & d))");
+        let _ = bdd.overapproximate(&[BddPointer::zero()]);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_under_terminals() {
+        let set = BddVariableSet::new(&["a", "b", "c", "d"]);
+        let bdd = set.eval_expression_string("(a => ((b & c) | (!b & d))) & (!a => (b & d))");
+        let _ = bdd.overapproximate(&[BddPointer::one()]);
+    }
+
+    #[test]
     fn test_underapproximate_to_cardinality() {
         let set = BddVariableSet::new(&["a", "b", "c", "d"]);
         let bdd = set.eval_expression_string("(a => ((b & c) | (!b & d))) & (!a => (b & d))");
@@ -471,6 +511,17 @@ mod tests {
     #[test]
     fn test_underapproximate_to_size() {
         let set = BddVariableSet::new(&["a", "b", "c", "d"]);
+
+        // Atomic cases:
+        assert_eq!(set.mk_true().underapproximate_to_size(1), set.mk_false());
+        assert_eq!(set.mk_true().underapproximate_to_size(2), set.mk_true());
+        assert_eq!(
+            set.mk_var(BddVariable::from_index(1))
+                .underapproximate_to_size(2),
+            set.mk_false()
+        );
+
+        // Complex case:
         let bdd = set.eval_expression_string("(a => ((b & c) | (!b & d))) & (!a => (b & d))");
         let bdd_under_7 = bdd.underapproximate_to_size(7);
         let bdd_under_6 = bdd.underapproximate_to_size(6);
