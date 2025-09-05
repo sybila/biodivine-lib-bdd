@@ -483,8 +483,8 @@ impl Bdd {
 #[cfg(test)]
 mod tests {
     use crate::{BddPartialValuation, BddValuation, BddVariableSet};
-    use rand::prelude::StdRng;
     use rand::SeedableRng;
+    use rand::prelude::StdRng;
 
     #[test]
     fn first_last_valuation() {

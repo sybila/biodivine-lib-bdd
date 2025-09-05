@@ -76,7 +76,7 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
                     Ok(output)
                 } else {
                     Err("Unexpected ')'.".to_string())
-                }
+                };
             }
             '(' => {
                 // start a nested token group

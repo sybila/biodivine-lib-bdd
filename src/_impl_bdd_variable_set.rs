@@ -653,11 +653,7 @@ mod tests {
     #[test]
     fn bdd_mk_sat_k() {
         fn factorial(x: usize) -> usize {
-            if x == 0 {
-                1
-            } else {
-                x * factorial(x - 1)
-            }
+            if x == 0 { 1 } else { x * factorial(x - 1) }
         }
 
         fn binomial(n: usize, k: usize) -> usize {

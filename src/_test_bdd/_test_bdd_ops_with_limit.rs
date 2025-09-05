@@ -1,6 +1,6 @@
 use crate::_test_util::mk_5_variable_set;
 use crate::op_function::and;
-use crate::{bdd, Bdd, BddVariable};
+use crate::{Bdd, BddVariable, bdd};
 
 fn v1() -> BddVariable {
     BddVariable(0)

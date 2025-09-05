@@ -162,11 +162,7 @@ impl BddValuation {
             } // No need to continue incrementing.
         }
 
-        if carry {
-            None
-        } else {
-            Some(result)
-        }
+        if carry { None } else { Some(result) }
     }
 }
 
@@ -277,7 +273,7 @@ impl Borrow<[bool]> for BddValuation {
 #[cfg(test)]
 mod tests {
     use super::super::{BddValuation, BddVariableSet};
-    use crate::{bdd, Bdd, BddPartialValuation, BddVariable};
+    use crate::{Bdd, BddPartialValuation, BddVariable, bdd};
     use num_bigint::BigInt;
 
     #[test]
