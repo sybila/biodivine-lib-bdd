@@ -2,7 +2,7 @@ use crate::{Bdd, BddPointer, BddVariable};
 use num_bigint::{BigInt, BigUint};
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
-use std::collections::{BinaryHeap, HashSet};
+use std::collections::HashSet;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 struct BfsPointer(BddPointer, BddVariable);
@@ -15,7 +15,7 @@ impl PartialOrd for BfsPointer {
 
 impl Ord for BfsPointer {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.1.cmp(&other.1).reverse()
+        self.1.cmp(&other.1)
     }
 }
 
@@ -28,46 +28,46 @@ impl Bdd {
     /// the value is always equal to [`Bdd::exact_cardinality`], and for terminal node `0`,
     /// the value is always also `0`.
     pub fn node_valuation_weights(&self) -> Vec<BigUint> {
-        let mut expanded: Vec<bool> = vec![false; self.0.len()];
-        let mut incoming_vals: Vec<BigUint> = vec![BigUint::zero(); self.0.len()];
-        let mut outgoing_vals: Vec<Option<BigUint>> = vec![None; self.0.len()];
+        let node_count = self.size();
         let root = self.root_pointer();
         let root_var = self.var_of(root);
 
+        // First, compute `outgoing_vals` using DFS. This is the same as cardinality computation.
+
+        // The number of satisfying valuations of the function defined by the corresponding node.
+        // The `Some`/`None` option encodes whether the node has been already fully processed or
+        // not. Due to DFS ordering and acyclicity, we know that the node cannot be visited again
+        // until it is fully processed.
+
+        let mut outgoing_vals: Vec<Option<BigUint>> = vec![None; node_count];
         outgoing_vals[0] = Some(BigUint::zero());
         outgoing_vals[1] = Some(BigUint::one());
 
-        expanded[0] = true;
-        expanded[1] = true;
-
-        incoming_vals[root.to_index()] = BigUint::one();
-
-        // First, compute `outgoing_vals` using DFS. This is the same as cardinality computation.
         let mut stack: Vec<BddPointer> = vec![root];
         while let Some(node) = stack.pop() {
             if outgoing_vals[node.to_index()].is_some() {
-                // This node already has outgoing paths computed. Incoming paths can still
-                // increase, but that is not computed here.
+                // This node already has outgoing paths computed.
                 continue;
             } else {
                 let var = self.var_of(node);
                 let low = self.low_link_of(node);
                 let high = self.high_link_of(node);
 
-                let low_var = self.var_of(low);
-                let high_var = self.var_of(high);
-
-                let low_multiplier = BigUint::one() << ((low_var.to_index() - var.to_index()) - 1);
-                let high_multiplier =
-                    BigUint::one() << ((high_var.to_index() - var.to_index()) - 1);
-
                 // Now, if both low and high have outgoing paths computed, we can use them
-                // to compute outgoing paths for this node as well:
+                // to compute outgoing paths for this node as well. Otherwise, simply push
+                // all those nodes that are not processed yet.
                 match (
                     &outgoing_vals[low.to_index()],
                     &outgoing_vals[high.to_index()],
                 ) {
                     (Some(low_val), Some(high_val)) => {
+                        let low_var = self.var_of(low);
+                        let high_var = self.var_of(high);
+                        let low_var_change = (low_var.to_index() - var.to_index()) - 1;
+                        let high_var_change = (high_var.to_index() - var.to_index()) - 1;
+                        let low_multiplier = BigUint::one() << low_var_change;
+                        let high_multiplier = BigUint::one() << high_var_change;
+
                         let outgoing = low_val * &low_multiplier + high_val * &high_multiplier;
                         outgoing_vals[node.to_index()] = Some(outgoing);
                     }
@@ -88,59 +88,76 @@ impl Bdd {
             }
         }
 
-        // Second, compute `incoming_vals` using BFS.
-        let mut queue: BinaryHeap<BfsPointer> = BinaryHeap::from([BfsPointer(root, root_var)]);
-        while let Some(BfsPointer(node, var)) = queue.pop() {
-            if !expanded[node.to_index()] {
-                // If this is the first time we are expanding the node, we must
-                // propagate its incoming paths to its children. (we might expand a node
-                // more than one time, because it can be discovered from multiple parents)
-                expanded[node.to_index()] = true;
-
-                let low = self.low_link_of(node);
-                let high = self.high_link_of(node);
-
-                let low_var = self.var_of(low);
-                let high_var = self.var_of(high);
-
-                let low_multiplier = BigUint::one() << ((low_var.to_index() - var.to_index()) - 1);
-                let high_multiplier =
-                    BigUint::one() << ((high_var.to_index() - var.to_index()) - 1);
-
-                let node_incoming = incoming_vals[node.to_index()].clone();
-
-                incoming_vals[low.to_index()] += &node_incoming * &low_multiplier;
-                incoming_vals[high.to_index()] += &node_incoming * &high_multiplier;
-
-                queue.push(BfsPointer(low, low_var));
-                queue.push(BfsPointer(high, high_var));
-            }
-        }
-
-        // All nodes must be expanded, and all outgoing valuation counts are computed.
-        debug_assert!(expanded.iter().all(|&b| b));
+        // All outgoing valuation counts are computed.
         debug_assert!(outgoing_vals.iter().all(|x| x.is_some()));
-        let outgoing_vals: Vec<BigUint> =
-            Vec::from_iter(outgoing_vals.into_iter().map(|it| it.unwrap()));
+
+        // Second, compute `incoming vals` using BFS-like search. This is the number of valuations
+        // that reaches the given node. It is computed "level-by-level", where each level consists
+        // of nodes conditioning on one BDD variable. This ensures that once a node is being
+        // processed, all of its parent nodes are already fully computed (`BfsPointer` implements
+        // this ordering). To do this, we first pre-sort the BDD pointers based on this "level",
+        // and then process them in-order.
+
+        let mut queue = self
+            .pointers()
+            .skip(2) // Ignore terminal nodes.
+            .map(|pointer| BfsPointer(pointer, self.var_of(pointer)))
+            .collect::<Vec<_>>();
+        queue.sort();
+
+        let mut incoming_vals: Vec<BigUint> = vec![BigUint::zero(); node_count];
+        // Need to account for "missing" variables that appear "above" the root.
+        incoming_vals[root.to_index()] = BigUint::one();
+
+        for BfsPointer(node, var) in queue {
+            // At this point, the iteration order guarantees that all parents have been processed
+            // and the number of incoming valuations is final for this node.
+
+            let low = self.low_link_of(node);
+            let high = self.high_link_of(node);
+
+            let low_var = self.var_of(low);
+            let high_var = self.var_of(high);
+            let low_var_change = (low_var.to_index() - var.to_index()) - 1;
+            let high_var_change = (high_var.to_index() - var.to_index()) - 1;
+            let low_multiplier = BigUint::one() << low_var_change;
+            let high_multiplier = BigUint::one() << high_var_change;
+
+            let node_incoming = incoming_vals[node.to_index()].clone();
+
+            incoming_vals[low.to_index()] += &node_incoming * &low_multiplier;
+            incoming_vals[high.to_index()] += &node_incoming * &high_multiplier;
+        }
 
         // The number of outgoing valuations from the root must be the same as the number
         // incoming to one.
-        debug_assert_eq!(&incoming_vals[1], &outgoing_vals[root.to_index()]);
+        debug_assert_eq!(
+            &incoming_vals[1],
+            outgoing_vals[root.to_index()].as_ref().unwrap()
+        );
 
         let root_multiplier = BigUint::one() << root_var.to_index();
-        self.pointers()
-            .map(|it| {
-                &incoming_vals[it.to_index()] * &outgoing_vals[it.to_index()] * &root_multiplier
+        incoming_vals
+            .into_iter()
+            .zip(outgoing_vals)
+            .map(|(incoming, outgoing)| {
+                &root_multiplier
+                    * incoming
+                    * outgoing.expect("Invariant violation: Missing outgoing valuation count.")
             })
-            .collect::<Vec<_>>()
+            .collect()
     }
 
-    /**
-    Compute a new BDD `over` which overapproximates `self` BDD by re-routing the `to_eliminate`
-    nodes to `1` and removing all nodes that become unreachable due to this operation.
-
-    The BDD `over` is guaranteed to be smaller than `self` in terms of node count.
-    */
+    /// Compute a new BDD `over` which overapproximates `self` BDD by re-routing the `to_eliminate`
+    /// nodes to `1` and removing all nodes that become unreachable due to this operation.
+    ///
+    /// The BDD `over` is guaranteed to be smaller than `self` in terms of node count and greater
+    /// in terms of valuation count.
+    ///
+    /// *The given pointers do not need to be sorted in any specific way or be unique, but
+    /// keep in mind that the complexity grows with the list length, so it probably should not
+    /// contain duplicates if this can be easily avoided. The pointers must be valid within
+    /// this BDD and must not be terminal.*
     pub fn overapproximate(&self, to_eliminate: &[BddPointer]) -> Bdd {
         let to_eliminate: HashSet<BddPointer> = HashSet::from_iter(to_eliminate.iter().cloned());
         if to_eliminate.contains(&self.root_pointer()) {
@@ -148,8 +165,12 @@ impl Bdd {
             return Bdd::mk_true(self.num_vars());
         }
 
+        if to_eliminate.contains(&BddPointer::zero()) || to_eliminate.contains(&BddPointer::one()) {
+            panic!("Precondition violation: Cannot eliminate terminal node.");
+        }
+
         let mut copy = self.clone();
-        for node in copy.pointers() {
+        for node in copy.pointers().skip(2) {
             let low = self.low_link_of(node);
             let high = self.high_link_of(node);
             if to_eliminate.contains(&low) {
@@ -165,12 +186,16 @@ impl Bdd {
         copy.and(&copy)
     }
 
-    /**
-    Compute a new BDD `under` which underapproximates `self` BDD by re-routing the `to_eliminate`
-    nodes to `0` and removing all nodes that become unreachable due to this operation.
-
-    The BDD `under` is guaranteed to be smaller than `self` in terms of node count.
-    */
+    /// Compute a new BDD `under` which underapproximates `self` BDD by re-routing the `to_eliminate`
+    /// nodes to `0` and removing all nodes that become unreachable due to this operation.
+    ///
+    /// The BDD `under` is guaranteed to be smaller than `self` in terms of node count and smaller
+    /// in terms of valuation count.
+    ///
+    /// *The given pointers do not need to be sorted in any specific way or be unique, but
+    /// keep in mind that the complexity grows with the list length, so it probably should not
+    /// contain duplicates if this can be easily avoided. The pointers must be valid within
+    /// this BDD and must not be terminal.*
     pub fn underapproximate(&self, to_eliminate: &[BddPointer]) -> Bdd {
         let to_eliminate: HashSet<BddPointer> = HashSet::from_iter(to_eliminate.iter().cloned());
         if to_eliminate.contains(&self.root_pointer()) {
@@ -178,8 +203,12 @@ impl Bdd {
             return Bdd::mk_false(self.num_vars());
         }
 
+        if to_eliminate.contains(&BddPointer::zero()) || to_eliminate.contains(&BddPointer::one()) {
+            panic!("Precondition violation: Cannot eliminate terminal node.");
+        }
+
         let mut copy = self.clone();
-        for node in copy.pointers() {
+        for node in copy.pointers().skip(2) {
             let low = self.low_link_of(node);
             let high = self.high_link_of(node);
             if to_eliminate.contains(&low) {
@@ -195,131 +224,150 @@ impl Bdd {
         copy.and(&copy)
     }
 
-    /**
-    Compute a new [`Bdd`] `over` for which it holds that `over.size() <= target_size` and it
-    holds that `self.implies(over)` (i.e. each valuation that satisfies `self` also
-    satisfies `over`). Consequently, it holds that `over.cardinality() >= self.cardinality()`.
-
-    The algorithm works by greedily re-routing BDD nodes to `1` which have the least amount
-    of paths going through them, until the target size is achieved.
-    */
+    /// Compute a new [`Bdd`] `over` for which it holds that `over.size() <= target_size` and it
+    /// holds that `self.implies(over)` (i.e. each valuation that satisfies `self` also
+    /// satisfies `over`). Consequently, it holds that `over.cardinality() >= self.cardinality()`.
+    ///
+    /// See also [`Bdd::overapproximate`].
     pub fn overapproximate_to_size(&self, target_size: usize) -> Bdd {
-        let negation = self.not();
-        let under_negation = negation.underapproximate_to_size(target_size);
-        under_negation.not()
+        /*
+           For the overapproximation, I actually want to under-approximate the negation
+           of the function, because our greedy metric selects the nodes that *remove* the least
+           amount of valuations from the BDD. Hence, to achieve the best over-approximation,
+           we want to remove the least amount of valuations from the negation and then negate
+           the BDD back (relying on the fact that negation does not change node count).
+        */
+        self.not().underapproximate_to_size(target_size).not()
     }
 
-    /**
-    Compute a new [`Bdd`] `under` for which it holds that `under.size() <= target_size` and it
-    holds that `under.implies(self)` (i.e. each valuation that satisfies `under` also
-    satisfies `self`). Consequently, it holds that `under.cardinality() <= self.cardinality()`.
-
-    The algorithm works by greedily re-routing BDD nodes to `0` which have the least amount
-    of paths going through them, until the target size is achieved.
-    */
+    /// Compute a new [`Bdd`] `under` for which it holds that `under.size() <= target_size` and it
+    /// holds that `under.implies(self)` (i.e. each valuation that satisfies `under` also
+    /// satisfies `self`). Consequently, it holds that `under.cardinality() <= self.cardinality()`.
+    ///
+    /// See also [`Bdd::underapproximate`].
     pub fn underapproximate_to_size(&self, target_size: usize) -> Bdd {
+        /* Check extreme cases: */
+
+        if target_size <= 1 {
+            return Bdd::mk_false(self.num_vars());
+        }
+
+        if target_size == 2 {
+            return if self.is_true() {
+                Bdd::mk_true(self.num_vars())
+            } else {
+                Bdd::mk_false(self.num_vars())
+            };
+        }
+
         if target_size >= self.size() {
             return self.clone();
         }
-        if target_size <= 2 {
-            return Bdd::mk_false(self.num_vars());
-        }
 
-        let to_cut = self.size() - target_size + 1;
+        /* Compute the nodes that should be removed: */
+
+        let to_cut = self.size() - target_size;
         assert!(to_cut > 0 && to_cut < self.size());
 
         // Compute the number of valuations going through each node and sort them.
-        let mut weights = self
-            .node_valuation_weights()
-            .into_iter()
-            .zip(self.pointers())
-            .collect::<Vec<_>>();
-        weights.sort_by(|(x, px), (y, py)| {
+        let mut weights: Vec<(BddPointer, BigUint)> = self
+            .pointers()
+            .zip(self.node_valuation_weights())
+            .skip(2) // Do not remove terminal nodes...
+            .collect();
+        weights.sort_by(|(px, x), (py, y)| {
             // Smallest weights go first; if equal, biggest pointers go last.
             x.cmp(y).then(px.cmp(py).reverse())
         });
-        let weights = Vec::from_iter(weights.into_iter().take(to_cut).map(|(_, x)| x));
+
+        let priorities: Vec<BddPointer> =
+            weights.into_iter().take(to_cut).map(|(x, _)| x).collect();
 
         // Binary-search for the number of nodes that bring us the closest to the target size.
-        let mut start = 0;
-        let mut stop = weights.len();
+
+        let mut start = 0; // Index of the first valid search position.
+        let mut stop = to_cut; // Index after the last valid position.
         loop {
             if start >= stop {
-                let result = self.underapproximate(&weights[..stop]);
+                let result = self.underapproximate(&priorities[..stop]);
                 return result;
             }
             let check = (start + stop) / 2;
-            let maybe_result = self.underapproximate(&weights[..check]);
-            if maybe_result.size() == target_size {
-                return maybe_result;
-            } else if maybe_result.size() < target_size {
-                // We don't have to cut as many nodes...
-                stop = check;
-            } else {
-                // We need to cut more nodes...
-                start = check + 1;
+            let maybe_result = self.underapproximate(&priorities[..check]);
+            match maybe_result.size().cmp(&target_size) {
+                Ordering::Equal => {
+                    return maybe_result;
+                }
+                Ordering::Less => {
+                    // We don't have to cut as many nodes...
+                    stop = check;
+                }
+                Ordering::Greater => {
+                    // We need to cut more nodes...
+                    start = check + 1;
+                }
             }
         }
     }
 
-    /**
-    Compute a new [`Bdd`] `over` for which it holds that `over.cardinality() >= target_cardinality`
-    and it holds that `self.implies(over)` (i.e. each valuation that satisfies `self` also
-    satisfies `over`). Consequently, it holds that `over.cardinality() >= self.cardinality()`.
-
-    The algorithm works by greedily re-routing BDD nodes to `1` which have the least amount
-    of paths going through them, until the target cardinality is achieved.
-    */
+    /// Compute a new [`Bdd`] `over` for which it holds that `over.cardinality() >= target_cardinality`
+    /// and it holds that `self.implies(over)` (i.e. each valuation that satisfies `self` also
+    /// satisfies `over`). Consequently, it holds that `over.cardinality() >= self.cardinality()`.
+    ///
+    /// See also [`Bdd::overapproximate`].
     pub fn overapproximate_to_cardinality(&self, target_cardinality: &BigUint) -> Bdd {
-        let target_cardinality_int = BigInt::from(target_cardinality.clone());
-        let self_cardinality = self.exact_cardinality();
-        if self_cardinality >= target_cardinality_int {
+        let self_cardinality = self
+            .exact_cardinality()
+            .to_biguint()
+            .expect("Invariant violation: Exact cardinality must be non-negative.");
+        if &self_cardinality >= target_cardinality {
             return self.clone();
         }
 
+        // The same principle as in `overapproximate_to_size`.
+
         let negation = self.not();
-        let difference = target_cardinality_int - self_cardinality;
-        let inverse_target = negation.exact_cardinality() - difference;
-        let inverse_target_uint = inverse_target.to_biguint().unwrap_or(BigUint::zero());
-        let under_negation = negation.underapproximate_to_cardinality(&inverse_target_uint);
+        let negation_cardinality = negation
+            .exact_cardinality()
+            .to_biguint()
+            .expect("Invariant violation: Exact cardinality must be non-negative.");
+        let inverse_target = negation_cardinality - (target_cardinality - self_cardinality);
+        let under_negation = negation.underapproximate_to_cardinality(&inverse_target);
         under_negation.not()
     }
 
-    /**
-    Compute a new [`Bdd`] `under` for which it holds that `under.cardinality() <= target_cardinality`
-    and it holds that `under.implies(self)` (i.e. each valuation that satisfies `under` also
-    satisfies `self`). Consequently, it holds that `under.cardinality() <= self.cardinality()`.
-
-    The algorithm works by greedily re-routing BDD nodes to `0` which have the least amount
-    of paths going through them, until the target cardinality is achieved.
-    */
+    /// Compute a new [`Bdd`] `under` for which it holds that `under.cardinality() <= target_cardinality`
+    /// and it holds that `under.implies(self)` (i.e. each valuation that satisfies `under` also
+    /// satisfies `self`). Consequently, it holds that `under.cardinality() <= self.cardinality()`.
     pub fn underapproximate_to_cardinality(&self, target_cardinality: &BigUint) -> Bdd {
-        let mut result = self.clone();
         let target_cardinality = BigInt::from(target_cardinality.clone());
-        if target_cardinality == BigInt::zero() {
+        let self_cardinality = self.exact_cardinality();
+
+        if target_cardinality <= BigInt::zero() {
             return Bdd::mk_false(self.num_vars());
         }
 
-        loop {
-            let result_cardinality = result.exact_cardinality();
-            if result_cardinality <= target_cardinality {
-                return result;
-            }
-            // Compute the number of valuations going through each node and sort them.
-            let mut weights = result
-                .node_valuation_weights()
-                .into_iter()
-                .zip(result.pointers())
-                .collect::<Vec<_>>();
-            weights.sort_by(|(x, px), (y, py)| {
-                // Smallest weights go last; if equal, biggest pointers go last.
-                x.cmp(y).reverse().then(px.cmp(py))
-            });
+        if self_cardinality <= target_cardinality {
+            return self.clone();
+        }
 
-            // Keep saving pointers until we cover the desired cardinality.
-            let mut to_remove = &result_cardinality - &target_cardinality;
-            let mut to_eliminate: Vec<BddPointer> = Vec::new();
-            while let Some((weight, pointer)) = weights.pop() {
+        // Compute the number of valuations going through each node and sort them.
+        let mut weights: Vec<(BddPointer, BigUint)> = self
+            .pointers()
+            .zip(self.node_valuation_weights())
+            .skip(2) // Do not remove terminal nodes...
+            .collect();
+        weights.sort_by(|(px, x), (py, y)| {
+            // Smallest weights go last; if equal, biggest pointers go last.
+            x.cmp(y).reverse().then(px.cmp(py))
+        });
+
+        let mut to_eliminate: Vec<BddPointer> = Vec::new();
+        let mut to_remove = &self_cardinality - &target_cardinality;
+        loop {
+            // Move enough pointers between `weights` and `to_eliminate` to cover at least
+            // `to_remove` valuations.
+            while let Some((pointer, weight)) = weights.pop() {
                 to_eliminate.push(pointer);
                 to_remove -= BigInt::from(weight);
                 if to_remove <= BigInt::zero() {
@@ -327,7 +375,20 @@ impl Bdd {
                 }
             }
 
-            result = result.underapproximate(&to_eliminate);
+            let result = self.underapproximate(&to_eliminate);
+            let result_cardinality = result.exact_cardinality();
+
+            // This actually may not eliminate *enough* valuations because nodes will cover the
+            // same valuations. E.g. if we select two nodes, each covering two valuations, it
+            // may very well happen that this only removes three (or even two) valuations, assuming
+            // the valuation visits both removed nodes.
+
+            if result_cardinality <= target_cardinality {
+                return result;
+            } else {
+                // In the next iteration, we need to remove at least this many valuations.
+                to_remove = &result_cardinality - &target_cardinality;
+            }
         }
     }
 }
