@@ -41,6 +41,8 @@ pub mod _impl_cnf;
 /// **(internal)** Implements various sorting criteria for BDD objects.
 pub mod _impl_sort;
 
+pub mod _impl_approximation;
+
 /// **(internal)** Task is a pair of BDD pointers. These are usually pointers from two distinct
 /// BDDs (standard apply algorithm), but it can also be two pointers from the same BDD ("inner"
 /// apply in nested apply algorithm).
