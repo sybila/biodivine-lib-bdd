@@ -100,11 +100,10 @@ impl BddValuation {
     pub fn extends(&self, valuation: &BddPartialValuation) -> bool {
         for var_id in 0..self.num_vars() {
             let var = BddVariable(var_id);
-            if let Some(value) = valuation.get_value(var) {
-                if value != self.value(var) {
+            if let Some(value) = valuation.get_value(var)
+                && value != self.value(var) {
                     return false;
                 }
-            }
         }
 
         true
