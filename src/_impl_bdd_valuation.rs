@@ -101,9 +101,10 @@ impl BddValuation {
         for var_id in 0..self.num_vars() {
             let var = BddVariable(var_id);
             if let Some(value) = valuation.get_value(var)
-                && value != self.value(var) {
-                    return false;
-                }
+                && value != self.value(var)
+            {
+                return false;
+            }
         }
 
         true
