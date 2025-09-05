@@ -70,9 +70,11 @@ impl Bdd {
 
         // Safety check: Every new variable is valid, and the variables will be still
         // sorted after the permutation.
-        assert!(vars_after_permutation
-            .iter()
-            .all(|it| it.0 < self.num_vars()));
+        assert!(
+            vars_after_permutation
+                .iter()
+                .all(|it| it.0 < self.num_vars())
+        );
         for i in 0..(vars_after_permutation.len() - 1) {
             assert!(vars_after_permutation[i] < vars_after_permutation[i + 1]);
         }
@@ -223,11 +225,7 @@ impl Bdd {
             }
         }
         let r = cache.last().unwrap().unwrap() * 2.0_f64.powi(self.0.last().unwrap().var.0 as i32);
-        if r.is_nan() {
-            f64::INFINITY
-        } else {
-            r
-        }
+        if r.is_nan() { f64::INFINITY } else { r }
     }
 
     /// Computes the number of satisfying clauses that are represented within this BDD.
@@ -796,9 +794,11 @@ mod tests {
         let malformed_invalid_low = "|3,0,0|3,1,1|2,0,5|";
         assert!(Bdd::from_string(malformed_invalid_low).validate().is_err());
         let malformed_broken_ordering = "|3,0,0|3,1,1|1,0,1|2,2,0|";
-        assert!(Bdd::from_string(malformed_broken_ordering)
-            .validate()
-            .is_err());
+        assert!(
+            Bdd::from_string(malformed_broken_ordering)
+                .validate()
+                .is_err()
+        );
         let malformed_unreachable = "|3,0,0|3,1,1|1,0,1|1,1,0|";
         assert!(Bdd::from_string(malformed_unreachable).validate().is_err());
     }

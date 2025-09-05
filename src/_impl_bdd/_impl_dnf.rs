@@ -363,7 +363,7 @@ impl Bdd {
 #[cfg(test)]
 mod tests {
     use crate::boolean_expression::BooleanExpression;
-    use crate::{bdd, Bdd, BddPartialValuation, BddVariable, BddVariableSet};
+    use crate::{Bdd, BddPartialValuation, BddVariable, BddVariableSet, bdd};
 
     fn test_syntactic_monotonicity(var: BddVariable, dnf: &[BddPartialValuation]) -> Option<bool> {
         let mut has_positive = false;

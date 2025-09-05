@@ -1,7 +1,7 @@
 use crate::_test_util::{mk_5_variable_set, mk_small_test_bdd};
 use crate::{Bdd, BddPartialValuation, BddVariable};
-use rand::rngs::StdRng;
 use rand::SeedableRng;
+use rand::rngs::StdRng;
 
 fn vars() -> (
     BddVariable,
@@ -38,29 +38,37 @@ fn bdd_restrict() {
     assert!(a_and_b.var_restrict(var_b, false).is_false());
 
     assert!(a_xor_b.restrict(&[(var_a, true), (var_b, false)]).is_true());
-    assert!(a_and_b
-        .restrict(&[(var_a, true), (var_b, false)])
-        .is_false());
+    assert!(
+        a_and_b
+            .restrict(&[(var_a, true), (var_b, false)])
+            .is_false()
+    );
     assert!(a_or_b.restrict(&[(var_a, true), (var_b, false)]).is_true());
 
-    assert!(a_xor_b
-        .restrict_valuation(&BddPartialValuation::from_values(&[
-            (var_a, true),
-            (var_b, false)
-        ]))
-        .is_true());
-    assert!(a_and_b
-        .restrict_valuation(&BddPartialValuation::from_values(&[
-            (var_a, true),
-            (var_b, false)
-        ]))
-        .is_false());
-    assert!(a_or_b
-        .restrict_valuation(&BddPartialValuation::from_values(&[
-            (var_a, true),
-            (var_b, false)
-        ]))
-        .is_true());
+    assert!(
+        a_xor_b
+            .restrict_valuation(&BddPartialValuation::from_values(&[
+                (var_a, true),
+                (var_b, false)
+            ]))
+            .is_true()
+    );
+    assert!(
+        a_and_b
+            .restrict_valuation(&BddPartialValuation::from_values(&[
+                (var_a, true),
+                (var_b, false)
+            ]))
+            .is_false()
+    );
+    assert!(
+        a_or_b
+            .restrict_valuation(&BddPartialValuation::from_values(&[
+                (var_a, true),
+                (var_b, false)
+            ]))
+            .is_true()
+    );
 }
 
 #[test]

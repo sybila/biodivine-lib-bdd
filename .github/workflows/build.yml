@@ -1,12 +1,14 @@
 name: build
 
-# This should ensure that the workflow won't run on `dev-*` branches, but will
+# This should ensure that the workflow won't run on `feat/*`, `fix/*` and `chore/*` branches, but will
 # otherwise execute on any other branch and any pull request (including PRs
 # from dev branches).
 on:
   push:
     branches-ignore:
-      - 'dev-*'
+      - '**/feat/*'
+      - '**/fix/*'
+      - '**/chore/*'
   pull_request:
     branches:
       - '*'
@@ -15,14 +17,16 @@ env:
   # A fixed version used for testing, so that the builds don't
   # spontaneously break after a few years.
   # Make sure to update this from time to time.
-  RUST_VERSION: "1.72.0"
+  RUST_VERSION: "1.89.0"
+  MIN_RUST_VERSION: "1.88.0"
+  RUSTFLAGS: "-D warnings"
+  RUSTDOCFLAGS: "-D warnings"
+
 jobs:
   # Checks syntax formatting.
   fmt:
     name: Rustfmt
     runs-on: ubuntu-latest
-    env:
-      RUSTFLAGS: "-D warnings"
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -31,13 +35,22 @@ jobs:
           components: rustfmt
       - run: cargo fmt --all -- --check
 
+  # Check docs
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+      - run: cargo doc --all-features
+
   # Run basic code validity check.
   check:
     needs: fmt
     name: Check
     runs-on: ubuntu-latest
-    env:
-      RUSTFLAGS: "-D warnings"
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -50,14 +63,11 @@ jobs:
     needs: check
     name: Test Suite (linux)
     runs-on: ubuntu-latest
-    env:
-      RUSTFLAGS: "-D warnings"
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ env.RUST_VERSION }}
-          components: rustfmt
       - run: cargo test --all-features
 
   # Checks code style.
@@ -65,8 +75,6 @@ jobs:
     needs: check
     name: Clippy
     runs-on: ubuntu-latest
-    env:
-      RUSTFLAGS: "-D warnings"
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -75,13 +83,29 @@ jobs:
           components: clippy
       - run: cargo clippy --all-features
 
+  # Validate minimum supported Rust version declared in Cargo.toml.
+  minimum-supported:
+    name: Minimum supported version - Check and Test
+    needs: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.MIN_RUST_VERSION }}
+      - run: cargo check --all-features
+      - run: cargo test --all-features
+
   # Compute code coverage
   codecov:
     needs: test
     name: Code coverage
     runs-on: ubuntu-latest
+    env:
+      CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout.
+        uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ env.RUST_VERSION }}
@@ -92,8 +116,9 @@ jobs:
       - run: cargo tarpaulin --verbose --lib --examples --all-features --out xml
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v4
+        if: ${{ env.CODECOV_TOKEN != '' }}
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ env.CODECOV_TOKEN }}
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
         with:

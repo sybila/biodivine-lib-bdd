@@ -114,8 +114,8 @@
 //! value of a variable. However, the outcome is slightly different:
 //!
 //! Say that `V` and `V'` are both satisfying valuations of a BDD `B`, and they are equivalent
-//! except that `V(x) = true` and `V(x) = false`. Then, if `B' = B.var_pick(x)`, `V'` will be
-//! a satisfying valuation of `B'`, but not `V`. That is, `B'` just *picked* one of the two
+//! except that `V(x) = true` and `V(x) = false`. Then, if `B_2 = B.var_pick(x)`, `V'` will be
+//! a satisfying valuation of `B_2`, but not `V`. That is, `B_2` just *picked* one of the two
 //! valuations. If only one of `V_1` and `V_2` satisfies `B`, the operation will retain the one
 //! satisfying valuation (i.e. again, *picks* the appropriate satisfying valuation out of the two).
 //!
