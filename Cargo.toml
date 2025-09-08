@@ -1,6 +1,6 @@
 [package]
 name = "biodivine-lib-bdd"
-version = "0.5.27"
+version = "0.6.0"
 authors = ["Samuel Pastva <daemontus@gmail.com>"]
 edition = "2024"
 rust-version = "1.88.0"
