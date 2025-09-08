@@ -29,6 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.MIN_RUST_VERSION }}
       - name: cargo login
         run: |-
           echo "${{ secrets.CRATES_IO_API_TOKEN }}" | cargo login
@@ -37,6 +39,7 @@ jobs:
           cargo publish
           
   generate-notes:
+    name: Generate release notes (gemini)
     runs-on: ubuntu-latest
     needs:
       - minimum-supported
@@ -45,6 +48,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.MIN_RUST_VERSION }}
+      - name: Install cargo public API
+        run: |
+          cargo install cargo-public-api
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
