@@ -1,6 +1,6 @@
 use super::*;
 
-/// A small BDD over variables $v_1, v_2, v_3, v_4, v_5$ corresponding to the formula $(v_3 \land \neg v_4)$
+/// A small BDD over variables `v_1, v_2, v_3, v_4, v_5` corresponding to the formula `(v_3 \land \neg v_4)`
 pub fn mk_small_test_bdd() -> Bdd {
     let mut bdd = Bdd::mk_true(5);
     bdd.push_node(BddNode::mk_node(
@@ -16,7 +16,7 @@ pub fn mk_small_test_bdd() -> Bdd {
     bdd
 }
 
-/// Make a new `BddVariableSet` with variables $v_1, v_2, v_3, v_4, v_5$.
+/// Make a new `BddVariableSet` with variables `v_1, v_2, v_3, v_4, v_5`.
 pub fn mk_5_variable_set() -> BddVariableSet {
     BddVariableSet::new(&["v1", "v2", "v3", "v4", "v5"])
 }

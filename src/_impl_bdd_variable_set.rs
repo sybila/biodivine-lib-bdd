@@ -5,7 +5,7 @@ use std::{
 };
 
 impl BddVariableSet {
-    /// Create a new `BddVariableSet` with anonymous variables $(x_0, \ldots, x_n)$ where $n$ is
+    /// Create a new `BddVariableSet` with anonymous variables `(x_0, ..., x_{n-1})` where `n` is
     /// the `num_vars` parameter.
     pub fn new_anonymous(num_vars: u16) -> BddVariableSet {
         if num_vars >= (u16::MAX - 1) {
@@ -114,7 +114,7 @@ impl BddVariableSet {
         Bdd::mk_false(self.num_vars)
     }
 
-    /// Create a `Bdd` corresponding to the $v$ formula where `v` is a specific variable in
+    /// Create a `Bdd` corresponding to the `v` formula where `v` is a specific variable in
     /// this set.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
@@ -123,7 +123,7 @@ impl BddVariableSet {
         Bdd::mk_var(self.num_vars, var)
     }
 
-    /// Create a BDD corresponding to the $\neg v$ formula where `v` is a specific variable in
+    /// Create a BDD corresponding to the `!v` formula where `v` is a specific variable in
     /// this set.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
@@ -132,7 +132,7 @@ impl BddVariableSet {
         Bdd::mk_not_var(self.num_vars, var)
     }
 
-    /// Create a BDD corresponding to the $v <=> \texttt{value}$ formula.
+    /// Create a BDD corresponding to the `v <=> value` formula.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_literal(&self, var: BddVariable, value: bool) -> Bdd {
@@ -140,7 +140,7 @@ impl BddVariableSet {
         Bdd::mk_literal(self.num_vars, var, value)
     }
 
-    /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this set.
+    /// Create a BDD corresponding to the `v` formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_var_by_name(&self, var: &str) -> Bdd {
@@ -149,7 +149,7 @@ impl BddVariableSet {
             .unwrap_or_else(|| panic!("Variable {var} is not known in this set."))
     }
 
-    /// Create a BDD corresponding to the $\neg v$ formula where `v` is a variable in this set.
+    /// Create a BDD corresponding to the `!v` formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
@@ -289,9 +289,9 @@ impl BddVariableSet {
         Bdd::mk_dnf_valuation(self.num_vars, dnf)
     }
 
-    /// Build a BDD that is satisfied by all valuations where *up to* $k$ `variables` are `true`.
+    /// Build a BDD that is satisfied by all valuations where *up to* `k` `variables` are `true`.
     ///
-    /// Intuitively, this implements a "threshold function" $f(x) = (\sum_{i} x_i \leq k)$
+    /// Intuitively, this implements a "threshold function" `f(x) = (k <= \sum_{i} x_i)`
     /// over the given `variables`.
     pub fn mk_sat_up_to_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
         // This is the same as sat_exactly_k, we just carry the k-1 result over to the next round.
@@ -320,9 +320,9 @@ impl BddVariableSet {
         result
     }
 
-    /// Build a BDD that is satisfied by all valuations where *exactly* $k$ `variables` are `true`.
+    /// Build a BDD that is satisfied by all valuations where *exactly* `k` `variables` are `true`.
     ///
-    /// Intuitively, this implements an "equality function" $f(x) = (\sum_{i} x_i = k)$
+    /// Intuitively, this implements an "equality function" `f(x) = (k == \sum_{i} x_i)`
     /// over the given `variables`.
     pub fn mk_sat_exactly_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
         // This is based on the recursion SAT_k = \cup_{v} SAT_{k-1}[flip v].

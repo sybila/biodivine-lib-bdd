@@ -195,7 +195,7 @@ fn bdd_projection_simple() {
             assert_eq!(bdd.project(&[v3, v4, v5]), bdd.project(&[v4, v5]));
         }
 
-        // It holds that $(\exists x . \phi)$ is equivalent to $(\neg \for_all x . \neg \phi)$
+        // It holds that `(\exists x . \phi)` is equivalent to `(\neg \for_all x . \neg \phi)`
         assert_eq!(project_exists.not(), not_bdd.for_all(&[v4, v5]));
         assert_eq!(not_bdd.for_all(&[v3, v4, v5]), not_bdd.for_all(&[v3, v4]));
         assert_eq!(

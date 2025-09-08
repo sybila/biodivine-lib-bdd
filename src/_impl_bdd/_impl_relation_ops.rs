@@ -15,7 +15,7 @@ impl Bdd {
     /// Eliminates one given variable from the `Bdd` using **existential projection**.
     ///
     /// If we see the Bdd as a set of bitvectors, this is essentially existential quantification:
-    /// $\exists x_i : (x_1, ..., x_i, ..., x_n) \in BDD$.
+    /// `\exists x_i : (x_1, ..., x_i, ..., x_n) \in BDD`.
     pub fn var_exists(&self, variable: BddVariable) -> Bdd {
         Bdd::fused_binary_flip_op(
             (self, None),
@@ -28,7 +28,7 @@ impl Bdd {
     /// Eliminates one given variable from the `Bdd` using **universal projection**.
     ///
     /// If we see the Bdd as a set of bitvectors, this is essentially universal quantification:
-    /// $\forall x_i : (x_1, ..., x_i, ..., x_n) \in BDD$.
+    /// `\forall x_i : (x_1, ..., x_i, ..., x_n) \in BDD`.
     pub fn var_for_all(&self, variable: BddVariable) -> Bdd {
         Bdd::fused_binary_flip_op(
             (self, None),
@@ -88,9 +88,9 @@ impl Bdd {
     /// Picks one valuation for the given `BddVariable`.
     ///
     /// Essentially, what this means is that
-    /// $(x_1, ..., x_i, ..., x_n) \in B \Leftrightarrow (x_1, ..., \neg x_i, ..., x_n) \not\in B$.
-    /// That is, each valuation (without $x_i$) can be present only with either $x_i = 1$ or
-    /// $x_i = 0$, but not both.
+    /// `(x_1, ..., x_i, ..., x_n) \in B <=> (x_1, ..., !x_i, ..., x_n) \not\in B`.
+    /// That is, each valuation (without `x_i`) can be present only with either `x_i = 1` or
+    /// `x_i = 0`, but not both.
     ///
     /// WARNING! `var_pick` is a bit troublesome in terms of composition: `B.var_pick(x).var_pick(y)`
     /// is probably not what you think. So make sure to prove and test thoroughly.
@@ -127,7 +127,7 @@ impl Bdd {
     /// in the result, which was also in the original `Bdd`.
     ///
     /// This can be used to implement non-trivial element picking on relations (for example,
-    /// for $A \times B$, picking one $b \in B$ for every $a \in A$).
+    /// for `A x B`, picking one `b \in B` for every `a \in A`).
     pub fn pick(&self, variables: &[BddVariable]) -> Bdd {
         fn r_pick(set: &Bdd, variables: &[BddVariable]) -> Bdd {
             if let Some((last_var, rest)) = variables.split_last() {
@@ -157,7 +157,7 @@ impl Bdd {
     }
 
     /// Fix the value of a specific `BddVariable` to the given `value`. This is just a shorthand
-    /// for $B \land (x \Leftrightarrow \texttt{value})$.
+    /// for `B & (x <=> value)`.
     pub fn var_select(&self, variable: BddVariable, value: bool) -> Bdd {
         self.and(&Bdd::mk_literal(self.num_vars(), variable, value))
     }
