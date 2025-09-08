@@ -274,7 +274,7 @@ impl Borrow<[bool]> for BddValuation {
 mod tests {
     use super::super::{BddValuation, BddVariableSet};
     use crate::{Bdd, BddPartialValuation, BddVariable, bdd};
-    use num_bigint::BigInt;
+    use num_bigint::BigUint;
 
     #[test]
     fn bdd_universe_eval() {
@@ -323,7 +323,7 @@ mod tests {
         let bdd = Bdd::from(valuation);
 
         assert!(bdd.is_valuation());
-        assert_eq!(bdd.exact_cardinality(), BigInt::from(1));
+        assert_eq!(bdd.exact_cardinality(), BigUint::from(1u32));
 
         let variables = BddVariableSet::new_anonymous(4);
         let bdd_2 = variables.eval_expression_string("x_0 & !x_1 & x_2 & !x_3");

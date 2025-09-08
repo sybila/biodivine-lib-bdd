@@ -464,7 +464,7 @@ impl From<Vec<&str>> for BddVariableSet {
 mod tests {
     use super::_test_util::mk_5_variable_set;
     use super::*;
-    use num_bigint::BigInt;
+    use num_bigint::BigUint;
 
     #[test]
     fn bdd_universe_anonymous() {
@@ -665,20 +665,20 @@ mod tests {
 
         assert_eq!(
             vars.mk_sat_exactly_k(0, &variables).exact_cardinality(),
-            BigInt::from(1)
+            BigUint::from(1u32)
         );
         assert_eq!(
             vars.mk_sat_exactly_k(1, &variables).exact_cardinality(),
-            BigInt::from(variables.len())
+            BigUint::from(variables.len())
         );
 
         let bdd = vars.mk_sat_exactly_k(3, &vars.variables());
         // The number of such valuations is exactly the binomial coefficient.
-        assert_eq!(bdd.exact_cardinality(), BigInt::from(binomial(5, 3)));
+        assert_eq!(bdd.exact_cardinality(), BigUint::from(binomial(5, 3)));
 
         let bdd = vars.mk_sat_up_to_k(3, &vars.variables());
         let expected = binomial(5, 3) + binomial(5, 2) + binomial(5, 1) + binomial(5, 0);
-        assert_eq!(bdd.exact_cardinality(), BigInt::from(expected));
+        assert_eq!(bdd.exact_cardinality(), BigUint::from(expected));
     }
 
     #[test]

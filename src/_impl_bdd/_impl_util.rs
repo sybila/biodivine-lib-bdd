@@ -1,7 +1,7 @@
 use crate::boolean_expression::BooleanExpression;
 use crate::boolean_expression::BooleanExpression::Variable;
 use crate::*;
-use num_bigint::BigInt;
+use num_bigint::BigUint;
 use std::cmp::{max, min};
 use std::iter::Map;
 use std::ops::Range;
@@ -144,9 +144,9 @@ impl Bdd {
         self.0.len() == 1
     }
 
-    pub fn exact_cardinality(&self) -> BigInt {
-        let zero = BigInt::from(0);
-        let one = BigInt::from(1);
+    pub fn exact_cardinality(&self) -> BigUint {
+        let zero = BigUint::from(0u32);
+        let one = BigUint::from(1u32);
         if self.is_false() {
             return zero;
         }
@@ -232,9 +232,9 @@ impl Bdd {
     ///
     /// The result should correspond to the number of items returned by the [Bdd::sat_clauses]
     /// iterator.
-    pub fn exact_clause_cardinality(&self) -> BigInt {
-        let zero = BigInt::from(0);
-        let one = BigInt::from(1);
+    pub fn exact_clause_cardinality(&self) -> BigUint {
+        let zero = BigUint::from(0u32);
+        let one = BigUint::from(1u32);
         if self.is_false() {
             return zero;
         }
@@ -773,7 +773,7 @@ mod tests {
     use crate::_test_util::mk_small_test_bdd;
     use crate::boolean_expression::BooleanExpression;
     use crate::*;
-    use num_bigint::BigInt;
+    use num_bigint::BigUint;
     use std::convert::TryFrom;
 
     #[test]
@@ -895,18 +895,18 @@ mod tests {
     fn bdd_exact_cardinality() {
         // 5 variables, v3 & !v4
         let bdd = mk_small_test_bdd();
-        assert_eq!(BigInt::from(8), bdd.exact_cardinality());
+        assert_eq!(BigUint::from(8u32), bdd.exact_cardinality());
     }
 
     #[test]
     fn bdd_exact_clause_cardinality() {
         // 5 variables, v3 & !v4
         let bdd = mk_small_test_bdd();
-        assert_eq!(BigInt::from(1), bdd.exact_clause_cardinality());
+        assert_eq!(BigUint::from(1u32), bdd.exact_clause_cardinality());
         let vars = BddVariableSet::new_anonymous(5);
         let bdd = vars.eval_expression_string("x_0 & (x_1 | x_2) & (x_0 => x_4)");
         assert_eq!(
-            BigInt::from(bdd.sat_clauses().count()),
+            BigUint::from(bdd.sat_clauses().count()),
             bdd.exact_clause_cardinality()
         );
     }
