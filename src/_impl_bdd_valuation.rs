@@ -100,10 +100,10 @@ impl BddValuation {
     pub fn extends(&self, valuation: &BddPartialValuation) -> bool {
         for var_id in 0..self.num_vars() {
             let var = BddVariable(var_id);
-            if let Some(value) = valuation.get_value(var) {
-                if value != self.value(var) {
-                    return false;
-                }
+            if let Some(value) = valuation.get_value(var)
+                && value != self.value(var)
+            {
+                return false;
             }
         }
 
@@ -162,11 +162,7 @@ impl BddValuation {
             } // No need to continue incrementing.
         }
 
-        if carry {
-            None
-        } else {
-            Some(result)
-        }
+        if carry { None } else { Some(result) }
     }
 }
 
@@ -277,8 +273,8 @@ impl Borrow<[bool]> for BddValuation {
 #[cfg(test)]
 mod tests {
     use super::super::{BddValuation, BddVariableSet};
-    use crate::{bdd, Bdd, BddPartialValuation, BddVariable};
-    use num_bigint::BigInt;
+    use crate::{Bdd, BddPartialValuation, BddVariable, bdd};
+    use num_bigint::BigUint;
 
     #[test]
     fn bdd_universe_eval() {
@@ -327,7 +323,7 @@ mod tests {
         let bdd = Bdd::from(valuation);
 
         assert!(bdd.is_valuation());
-        assert_eq!(bdd.exact_cardinality(), BigInt::from(1));
+        assert_eq!(bdd.exact_cardinality(), BigUint::from(1u32));
 
         let variables = BddVariableSet::new_anonymous(4);
         let bdd_2 = variables.eval_expression_string("x_0 & !x_1 & x_2 & !x_3");

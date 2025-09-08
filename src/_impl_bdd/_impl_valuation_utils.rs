@@ -318,14 +318,14 @@ impl Bdd {
             let var = BddVariable(i_var);
             if self.var_of(node) != var {
                 // Just pick random.
-                valuation.set_value(var, rng.gen_bool(0.5));
+                valuation.set_value(var, rng.random_bool(0.5));
             } else {
                 let child = if self.low_link_of(node).is_zero() {
                     true
                 } else if self.high_link_of(node).is_zero() {
                     false
                 } else {
-                    rng.gen_bool(0.5)
+                    rng.random_bool(0.5)
                 };
 
                 valuation.set_value(var, child);
@@ -358,7 +358,7 @@ impl Bdd {
             } else if self.high_link_of(node).is_zero() {
                 false
             } else {
-                rng.gen_bool(0.5)
+                rng.random_bool(0.5)
             };
 
             path.set_value(self.var_of(node), child);
@@ -483,8 +483,8 @@ impl Bdd {
 #[cfg(test)]
 mod tests {
     use crate::{BddPartialValuation, BddValuation, BddVariableSet};
-    use rand::prelude::StdRng;
     use rand::SeedableRng;
+    use rand::prelude::StdRng;
 
     #[test]
     fn first_last_valuation() {

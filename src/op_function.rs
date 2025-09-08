@@ -1,7 +1,7 @@
 //! Contains simple functions that can be used with `apply` and `fused_flip_apply` to
 //! implement basic logical operations.
 
-/// Partial operator function corresponding to $x \land y$.
+/// Partial operator function corresponding to `x & y`.
 pub fn and(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     match (l, r) {
         (Some(true), Some(true)) => Some(true),
@@ -11,7 +11,7 @@ pub fn and(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     }
 }
 
-/// Partial operator function corresponding to $x \lor y$.
+/// Partial operator function corresponding to `x | y`.
 pub fn or(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     match (l, r) {
         (Some(false), Some(false)) => Some(false),
@@ -21,7 +21,7 @@ pub fn or(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     }
 }
 
-/// Partial operator function corresponding to $x \Leftarrow y$.
+/// Partial operator function corresponding to `x => y`.
 pub fn imp(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     match (l, r) {
         (Some(true), Some(false)) => Some(false),
@@ -31,7 +31,7 @@ pub fn imp(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     }
 }
 
-/// Partial operator function corresponding to $x \Leftrightarrow y$.
+/// Partial operator function corresponding to `x <=> y`.
 pub fn iff(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     match (l, r) {
         (Some(l), Some(r)) => Some(l == r),
@@ -39,7 +39,7 @@ pub fn iff(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     }
 }
 
-/// Partial operator function corresponding to $x \not\Leftrightarrow y$.
+/// Partial operator function corresponding to `x ^ y`.
 pub fn xor(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     match (l, r) {
         (Some(l), Some(r)) => Some(l ^ r),
@@ -47,7 +47,7 @@ pub fn xor(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     }
 }
 
-/// Partial operator function corresponding to $x \land \neg y$.
+/// Partial operator function corresponding to `x & !y`.
 pub fn and_not(l: Option<bool>, r: Option<bool>) -> Option<bool> {
     match (l, r) {
         (Some(false), _) => Some(false),

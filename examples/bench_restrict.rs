@@ -19,7 +19,7 @@ fn main() {
         support.shuffle(&mut rng);
 
         for var in &support[0..k] {
-            reduction[*var] = Some(rng.gen_bool(0.5));
+            reduction[*var] = Some(rng.random_bool(0.5));
         }
 
         // Run restriction.

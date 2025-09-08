@@ -1,7 +1,7 @@
 use super::super::{Bdd, BddVariableSet};
+use super::_impl_parser::parse_boolean_expression;
 use super::BooleanExpression;
 use super::BooleanExpression::*;
-use super::_impl_parser::parse_boolean_expression;
 use std::collections::HashSet;
 use std::convert::TryFrom;
 use std::fmt::{Display, Error, Formatter};

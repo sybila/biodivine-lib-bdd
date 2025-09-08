@@ -1,5 +1,5 @@
 use crate::{Bdd, BddPointer, BddVariable};
-use num_bigint::{BigInt, BigUint};
+use num_bigint::BigUint;
 use num_traits::{One, Zero};
 use std::cmp::Ordering;
 use std::collections::HashSet;
@@ -316,10 +316,7 @@ impl Bdd {
     ///
     /// See also [`Bdd::overapproximate`].
     pub fn overapproximate_to_cardinality(&self, target_cardinality: &BigUint) -> Bdd {
-        let self_cardinality = self
-            .exact_cardinality()
-            .to_biguint()
-            .expect("Invariant violation: Exact cardinality must be non-negative.");
+        let self_cardinality = self.exact_cardinality();
         if &self_cardinality >= target_cardinality {
             return self.clone();
         }
@@ -327,10 +324,7 @@ impl Bdd {
         // The same principle as in `overapproximate_to_size`.
 
         let negation = self.not();
-        let negation_cardinality = negation
-            .exact_cardinality()
-            .to_biguint()
-            .expect("Invariant violation: Exact cardinality must be non-negative.");
+        let negation_cardinality = negation.exact_cardinality();
         let inverse_target = negation_cardinality - (target_cardinality - self_cardinality);
         let under_negation = negation.underapproximate_to_cardinality(&inverse_target);
         under_negation.not()
@@ -340,14 +334,13 @@ impl Bdd {
     /// and it holds that `under.implies(self)` (i.e. each valuation that satisfies `under` also
     /// satisfies `self`). Consequently, it holds that `under.cardinality() <= self.cardinality()`.
     pub fn underapproximate_to_cardinality(&self, target_cardinality: &BigUint) -> Bdd {
-        let target_cardinality = BigInt::from(target_cardinality.clone());
         let self_cardinality = self.exact_cardinality();
 
-        if target_cardinality <= BigInt::zero() {
+        if target_cardinality <= &BigUint::zero() {
             return Bdd::mk_false(self.num_vars());
         }
 
-        if self_cardinality <= target_cardinality {
+        if &self_cardinality <= target_cardinality {
             return self.clone();
         }
 
@@ -363,16 +356,18 @@ impl Bdd {
         });
 
         let mut to_eliminate: Vec<BddPointer> = Vec::new();
-        let mut to_remove = &self_cardinality - &target_cardinality;
+        // Note that this operation does not underflow, because we check
+        // that self_cardinality > target_cardinality.
+        let mut to_remove = &self_cardinality - target_cardinality;
         loop {
             // Move enough pointers between `weights` and `to_eliminate` to cover at least
             // `to_remove` valuations.
             while let Some((pointer, weight)) = weights.pop() {
                 to_eliminate.push(pointer);
-                to_remove -= BigInt::from(weight);
-                if to_remove <= BigInt::zero() {
+                if weight >= to_remove {
                     break;
                 }
+                to_remove -= weight;
             }
 
             let result = self.underapproximate(&to_eliminate);
@@ -383,11 +378,11 @@ impl Bdd {
             // may very well happen that this only removes three (or even two) valuations, assuming
             // the valuation visits both removed nodes.
 
-            if result_cardinality <= target_cardinality {
+            if &result_cardinality <= target_cardinality {
                 return result;
             } else {
                 // In the next iteration, we need to remove at least this many valuations.
-                to_remove = &result_cardinality - &target_cardinality;
+                to_remove = &result_cardinality - target_cardinality;
             }
         }
     }
@@ -397,7 +392,7 @@ impl Bdd {
 mod tests {
     use crate::_test_util::mk_small_test_bdd;
     use crate::{BddPointer, BddVariable, BddVariableSet};
-    use num_bigint::{BigInt, BigUint};
+    use num_bigint::BigUint;
     use num_traits::Zero;
 
     #[test]
@@ -405,7 +400,7 @@ mod tests {
         // v3 & !v4 over variables v1,...,v5
         let bdd = mk_small_test_bdd();
         let weights = bdd.node_valuation_weights();
-        let valuations = bdd.exact_cardinality().to_biguint().unwrap();
+        let valuations = bdd.exact_cardinality();
 
         // The BDD is a single linear path, meaning each node actually has the same
         // number of paths passing through it.
@@ -433,7 +428,7 @@ mod tests {
         let set = BddVariableSet::new(&["a", "b", "c", "d"]);
         let bdd = set.eval_expression_string("(a => ((b & c) | (!b & d))) & (!a => (b & d))");
 
-        assert_eq!(bdd.exact_cardinality(), BigInt::from(6));
+        assert_eq!(bdd.exact_cardinality(), BigUint::from(6u32));
         assert_eq!(bdd.size(), 7);
 
         let weights = bdd.node_valuation_weights();
@@ -501,9 +496,9 @@ mod tests {
         let bdd_under_2 = bdd.underapproximate_to_cardinality(&BigUint::from(2u8));
         let bdd_under_1 = bdd.underapproximate_to_cardinality(&BigUint::from(1u8));
         assert_eq!(bdd, bdd_under_6);
-        assert_eq!(bdd_under_5.exact_cardinality(), BigInt::from(4));
+        assert_eq!(bdd_under_5.exact_cardinality(), BigUint::from(4u32));
         assert_eq!(bdd_under_4, bdd_under_5);
-        assert_eq!(bdd_under_3.exact_cardinality(), BigInt::from(2));
+        assert_eq!(bdd_under_3.exact_cardinality(), BigUint::from(2u32));
         assert_eq!(bdd_under_2, bdd_under_3);
         assert_eq!(bdd_under_1, set.mk_false());
     }
@@ -532,8 +527,8 @@ mod tests {
         assert!(bdd_under_5.size() <= 5);
         assert!(bdd_under_4.size() <= 4);
         assert_eq!(bdd, bdd_under_7);
-        assert_eq!(bdd_under_6.exact_cardinality(), BigInt::from(4));
-        assert_eq!(bdd_under_5.exact_cardinality(), BigInt::from(2));
+        assert_eq!(bdd_under_6.exact_cardinality(), BigUint::from(4u32));
+        assert_eq!(bdd_under_5.exact_cardinality(), BigUint::from(2u32));
         assert_eq!(bdd_under_4, set.mk_false());
     }
 
@@ -551,9 +546,9 @@ mod tests {
         assert!(bdd_over_5.size() <= 5);
         assert!(bdd_over_4.size() <= 4);
         assert_eq!(bdd, bdd_over_7);
-        assert_eq!(bdd_over_6.exact_cardinality(), BigInt::from(8));
-        assert_eq!(bdd_over_5.exact_cardinality(), BigInt::from(10));
-        assert_eq!(bdd_over_4.exact_cardinality(), BigInt::from(12));
+        assert_eq!(bdd_over_6.exact_cardinality(), BigUint::from(8u32));
+        assert_eq!(bdd_over_5.exact_cardinality(), BigUint::from(10u32));
+        assert_eq!(bdd_over_4.exact_cardinality(), BigUint::from(12u32));
         assert_eq!(bdd_over_3, set.mk_true());
     }
 
@@ -573,11 +568,11 @@ mod tests {
         let bdd_over_15 = bdd.overapproximate_to_cardinality(&BigUint::from(15u8));
         let bdd_over_16 = bdd.overapproximate_to_cardinality(&BigUint::from(16u8));
         assert_eq!(bdd, bdd_over_6);
-        assert_eq!(bdd_over_7.exact_cardinality(), BigInt::from(8));
+        assert_eq!(bdd_over_7.exact_cardinality(), BigUint::from(8u32));
         assert_eq!(bdd_over_7, bdd_over_8);
-        assert_eq!(bdd_over_9.exact_cardinality(), BigInt::from(10));
+        assert_eq!(bdd_over_9.exact_cardinality(), BigUint::from(10u32));
         assert_eq!(bdd_over_9, bdd_over_10);
-        assert_eq!(bdd_over_11.exact_cardinality(), BigInt::from(12));
+        assert_eq!(bdd_over_11.exact_cardinality(), BigUint::from(12u32));
         assert_eq!(bdd_over_11, bdd_over_12);
         assert!(bdd_over_13.is_true());
         assert!(bdd_over_14.is_true());

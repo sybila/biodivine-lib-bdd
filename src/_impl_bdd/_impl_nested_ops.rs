@@ -412,7 +412,7 @@ where
 #[cfg(test)]
 mod tests {
     use crate::_impl_bdd::_impl_nested_ops::{fix_bdd_alignment, inner_apply};
-    use crate::{bdd, Bdd, BddNode, BddPointer, BddVariable, BddVariableSet};
+    use crate::{Bdd, BddNode, BddPointer, BddVariable, BddVariableSet, bdd};
     use fxhash::FxBuildHasher;
     use std::collections::HashMap;
 

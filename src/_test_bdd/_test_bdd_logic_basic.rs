@@ -303,32 +303,40 @@ fn invert_input() {
     let invert_v2: Bdd = bdd!(!(v1 & ((!v2) & (!v3))));
     let invert_v3: Bdd = bdd!(!(v1 & (v2 & v3)));
 
-    assert!(Bdd::fused_binary_flip_op(
-        (&invert_v1, None),
-        (&original, Some(var1)),
-        None,
-        op_function::iff
-    )
-    .is_true());
-    assert!(Bdd::fused_binary_flip_op(
-        (&original, Some(var2)),
-        (&invert_v2, None),
-        None,
-        op_function::iff
-    )
-    .is_true());
-    assert!(Bdd::fused_binary_flip_op(
-        (&invert_v3, None),
-        (&original, Some(var3)),
-        None,
-        op_function::iff
-    )
-    .is_true());
-    assert!(Bdd::fused_binary_flip_op(
-        (&original, Some(var4)),
-        (&original, None),
-        None,
-        op_function::iff
-    )
-    .is_true());
+    assert!(
+        Bdd::fused_binary_flip_op(
+            (&invert_v1, None),
+            (&original, Some(var1)),
+            None,
+            op_function::iff
+        )
+        .is_true()
+    );
+    assert!(
+        Bdd::fused_binary_flip_op(
+            (&original, Some(var2)),
+            (&invert_v2, None),
+            None,
+            op_function::iff
+        )
+        .is_true()
+    );
+    assert!(
+        Bdd::fused_binary_flip_op(
+            (&invert_v3, None),
+            (&original, Some(var3)),
+            None,
+            op_function::iff
+        )
+        .is_true()
+    );
+    assert!(
+        Bdd::fused_binary_flip_op(
+            (&original, Some(var4)),
+            (&original, None),
+            None,
+            op_function::iff
+        )
+        .is_true()
+    );
 }

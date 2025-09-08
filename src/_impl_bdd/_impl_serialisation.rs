@@ -57,7 +57,7 @@ impl Bdd {
                         Ok(Bdd(result))
                     } else {
                         Err(e)
-                    }
+                    };
                 }
             }
 

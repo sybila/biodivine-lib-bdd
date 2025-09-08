@@ -1,0 +1,81 @@
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+name: Publish to crates.io and generate release info
+
+env:
+  MIN_RUST_VERSION: "1.88.0"
+
+jobs:
+  # Validate minimum supported Rust version declared in Cargo.toml.
+  minimum-supported:
+    name: Minimum supported version - Check and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.MIN_RUST_VERSION }}
+      - run: cargo check --all-features
+      - run: cargo test --all-features
+
+  crates_io_publish:
+    name: Publish (crates.io)
+    needs:
+      - minimum-supported
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: cargo login
+        run: |-
+          echo "${{ secrets.CRATES_IO_API_TOKEN }}" | cargo login
+      - name: "cargo publish"
+        run: |-
+          cargo publish
+          
+  generate-notes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # required to create a release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install llm-release-notes
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install git+https://github.com/daemontus/llm-release-notes.git
+
+      - name: Determine version
+        id: version
+        run: |
+          TAG_REF="${GITHUB_REF#refs/tags/}"
+          echo "tag=${TAG_REF}" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          source .venv/bin/activate
+          python -m llm_release_notes.cli --verbose synthesize \
+            --repo ${{ github.repositoryUrl }} \
+            --version ${{ steps.version.outputs.tag }} \
+            --output release-notes.md \
+            --config .releasenotes.yml
+
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          draft: true
+          body_path: release-notes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

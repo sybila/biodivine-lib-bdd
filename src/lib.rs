@@ -220,14 +220,14 @@ pub struct BddPointer(u32);
 /// **(internal)** Representation of individual vertices of the `Bdd` directed acyclic graph.
 ///
 /// A `BddNode` can be a terminal, in which case it is either `0` or `1`, or a decision node,
-/// in which case it contains a variable $v_i$ which it conditions upon and two pointers
+/// in which case it contains a variable `v_i` which it conditions upon and two pointers
 /// (`low` and `high`) to other nodes in the same `Bdd`:
 ///
 /// ```mermaid
 /// graph LR
-///     id1($v_i$)
-///     id2($v_j$)
-///     id3($v_k$)
+///     id1(`v_i`)
+///     id2(`v_j`)
+///     id3(`v_k`)
 ///     id1 -->|low| id2
 ///     id1 -->|high| id3
 /// ```

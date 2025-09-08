@@ -217,9 +217,9 @@ where
 
 /// **(internal)** A simple utility method for checking bounds of a flip variable.
 fn check_flip_bounds(num_vars: u16, var: Option<BddVariable>) {
-    if let Some(BddVariable(var)) = var {
-        if var >= num_vars {
-            panic!("Cannot flip variable {var} in Bdd with {num_vars} variables.");
-        }
+    if let Some(BddVariable(var)) = var
+        && var >= num_vars
+    {
+        panic!("Cannot flip variable {var} in Bdd with {num_vars} variables.");
     }
 }

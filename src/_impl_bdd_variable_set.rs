@@ -5,7 +5,7 @@ use std::{
 };
 
 impl BddVariableSet {
-    /// Create a new `BddVariableSet` with anonymous variables $(x_0, \ldots, x_n)$ where $n$ is
+    /// Create a new `BddVariableSet` with anonymous variables `(x_0, ..., x_{n-1})` where `n` is
     /// the `num_vars` parameter.
     pub fn new_anonymous(num_vars: u16) -> BddVariableSet {
         if num_vars >= (u16::MAX - 1) {
@@ -114,7 +114,7 @@ impl BddVariableSet {
         Bdd::mk_false(self.num_vars)
     }
 
-    /// Create a `Bdd` corresponding to the $v$ formula where `v` is a specific variable in
+    /// Create a `Bdd` corresponding to the `v` formula where `v` is a specific variable in
     /// this set.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
@@ -123,7 +123,7 @@ impl BddVariableSet {
         Bdd::mk_var(self.num_vars, var)
     }
 
-    /// Create a BDD corresponding to the $\neg v$ formula where `v` is a specific variable in
+    /// Create a BDD corresponding to the `!v` formula where `v` is a specific variable in
     /// this set.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
@@ -132,7 +132,7 @@ impl BddVariableSet {
         Bdd::mk_not_var(self.num_vars, var)
     }
 
-    /// Create a BDD corresponding to the $v <=> \texttt{value}$ formula.
+    /// Create a BDD corresponding to the `v <=> value` formula.
     ///
     /// *Panics:* `var` must be a valid variable in this set.
     pub fn mk_literal(&self, var: BddVariable, value: bool) -> Bdd {
@@ -140,7 +140,7 @@ impl BddVariableSet {
         Bdd::mk_literal(self.num_vars, var, value)
     }
 
-    /// Create a BDD corresponding to the $v$ formula where `v` is a variable in this set.
+    /// Create a BDD corresponding to the `v` formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_var_by_name(&self, var: &str) -> Bdd {
@@ -149,7 +149,7 @@ impl BddVariableSet {
             .unwrap_or_else(|| panic!("Variable {var} is not known in this set."))
     }
 
-    /// Create a BDD corresponding to the $\neg v$ formula where `v` is a variable in this set.
+    /// Create a BDD corresponding to the `!v` formula where `v` is a variable in this set.
     ///
     /// *Panics:* `var` must be a name of a valid variable in this set.
     pub fn mk_not_var_by_name(&self, var: &str) -> Bdd {
@@ -289,9 +289,9 @@ impl BddVariableSet {
         Bdd::mk_dnf_valuation(self.num_vars, dnf)
     }
 
-    /// Build a BDD that is satisfied by all valuations where *up to* $k$ `variables` are `true`.
+    /// Build a BDD that is satisfied by all valuations where *up to* `k` `variables` are `true`.
     ///
-    /// Intuitively, this implements a "threshold function" $f(x) = (\sum_{i} x_i \leq k)$
+    /// Intuitively, this implements a "threshold function" `f(x) = (k <= \sum_{i} x_i)`
     /// over the given `variables`.
     pub fn mk_sat_up_to_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
         // This is the same as sat_exactly_k, we just carry the k-1 result over to the next round.
@@ -320,9 +320,9 @@ impl BddVariableSet {
         result
     }
 
-    /// Build a BDD that is satisfied by all valuations where *exactly* $k$ `variables` are `true`.
+    /// Build a BDD that is satisfied by all valuations where *exactly* `k` `variables` are `true`.
     ///
-    /// Intuitively, this implements an "equality function" $f(x) = (\sum_{i} x_i = k)$
+    /// Intuitively, this implements an "equality function" `f(x) = (k == \sum_{i} x_i)`
     /// over the given `variables`.
     pub fn mk_sat_exactly_k(&self, k: usize, variables: &[BddVariable]) -> Bdd {
         // This is based on the recursion SAT_k = \cup_{v} SAT_{k-1}[flip v].
@@ -464,7 +464,7 @@ impl From<Vec<&str>> for BddVariableSet {
 mod tests {
     use super::_test_util::mk_5_variable_set;
     use super::*;
-    use num_bigint::BigInt;
+    use num_bigint::BigUint;
 
     #[test]
     fn bdd_universe_anonymous() {
@@ -653,11 +653,7 @@ mod tests {
     #[test]
     fn bdd_mk_sat_k() {
         fn factorial(x: usize) -> usize {
-            if x == 0 {
-                1
-            } else {
-                x * factorial(x - 1)
-            }
+            if x == 0 { 1 } else { x * factorial(x - 1) }
         }
 
         fn binomial(n: usize, k: usize) -> usize {
@@ -669,20 +665,20 @@ mod tests {
 
         assert_eq!(
             vars.mk_sat_exactly_k(0, &variables).exact_cardinality(),
-            BigInt::from(1)
+            BigUint::from(1u32)
         );
         assert_eq!(
             vars.mk_sat_exactly_k(1, &variables).exact_cardinality(),
-            BigInt::from(variables.len())
+            BigUint::from(variables.len())
         );
 
         let bdd = vars.mk_sat_exactly_k(3, &vars.variables());
         // The number of such valuations is exactly the binomial coefficient.
-        assert_eq!(bdd.exact_cardinality(), BigInt::from(binomial(5, 3)));
+        assert_eq!(bdd.exact_cardinality(), BigUint::from(binomial(5, 3)));
 
         let bdd = vars.mk_sat_up_to_k(3, &vars.variables());
         let expected = binomial(5, 3) + binomial(5, 2) + binomial(5, 1) + binomial(5, 0);
-        assert_eq!(bdd.exact_cardinality(), BigInt::from(expected));
+        assert_eq!(bdd.exact_cardinality(), BigUint::from(expected));
     }
 
     #[test]

@@ -46,13 +46,13 @@
 //! > available (`Bdd.exists`).
 //!
 //! First, a "logical" approach says that a projection of a BDD through variable `x` is equivalent
-//! to existential quantification in first order logic. So, if `B` is a BDD, and $\varphi$ is
+//! to existential quantification in first order logic. So, if `B` is a BDD, and `phi` is
 //! a formula that is represented by `B`, then `B' = B.var_exists(x)` represents a formula
-//! $\varphi' = \exists x. \varphi$. Consequently, `B'` does not depend on variable `x` in any
+//! `phi' = \exists x. phi`. Consequently, `B'` does not depend on variable `x` in any
 //! way. Which leads us to the second explanation.
 //!
 //! A "relational" approach says that projection is elimination. If we see the BDD `B` as
-//! a collection of valuations that satisfy $\varphi$, then projection *eliminates* `x` from
+//! a collection of valuations that satisfy `phi`, then projection *eliminates* `x` from
 //! each valuation. For example, if `B` is satisfied for `(x=true, y=true, z=false)`, then
 //! `B.var_exists(x)` is satisfied for `(y=true, z=false)`, regardless of `x`. However, since
 //! the variable is *not* removed from the overall `BddVariableSet`, the satisfying valuations
@@ -74,7 +74,7 @@
 //! ```
 //!
 //! Furthermore, for every *existential* projection, there is also a *universal* variant (i.e.
-//! `Bdd.var_for_all` and `Bdd.for_all`). With these, you can implement $\forall$ or universal
+//! `Bdd.var_for_all` and `Bdd.for_all`). With these, you can implement `\forall` or universal
 //! variable elimination.
 //!
 //! ### Combining projection with logical operations
@@ -114,8 +114,8 @@
 //! value of a variable. However, the outcome is slightly different:
 //!
 //! Say that `V` and `V'` are both satisfying valuations of a BDD `B`, and they are equivalent
-//! except that `V(x) = true` and `V(x) = false`. Then, if `B' = B.var_pick(x)`, `V'` will be
-//! a satisfying valuation of `B'`, but not `V`. That is, `B'` just *picked* one of the two
+//! except that `V(x) = true` and `V(x) = false`. Then, if `B_2 = B.var_pick(x)`, `V'` will be
+//! a satisfying valuation of `B_2`, but not `V`. That is, `B_2` just *picked* one of the two
 //! valuations. If only one of `V_1` and `V_2` satisfies `B`, the operation will retain the one
 //! satisfying valuation (i.e. again, *picks* the appropriate satisfying valuation out of the two).
 //!

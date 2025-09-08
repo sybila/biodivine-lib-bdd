@@ -76,7 +76,7 @@ fn tokenize_group(data: &mut Peekable<Chars>, top_level: bool) -> Result<Vec<Exp
                     Ok(output)
                 } else {
                     Err("Unexpected ')'.".to_string())
-                }
+                };
             }
             '(' => {
                 // start a nested token group
@@ -148,11 +148,11 @@ fn imp(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {
 
 /// **(internal)** Recursive parsing step 3: extract `cond ? then_expr : else_expr` operators.
 ///
-/// + Vaild: `(cond1 ? then_expr1 : else_expr1) + (cond2 ? then_expr2 : else_expr2)`
+/// + Valid: `(cond1 ? then_expr1 : else_expr1) + (cond2 ? then_expr2 : else_expr2)`
 ///
-/// + Vaild: `(cond1 ? then_expr1 : else_expr1) + cond2 ? then_expr2 : else_expr2`
+/// + Valid: `(cond1 ? then_expr1 : else_expr1) + cond2 ? then_expr2 : else_expr2`
 ///
-/// + Vaild: `cond1 ? then_expr1 : else_expr1 + (cond2 ? then_expr2 : else_expr2)`
+/// + Valid: `cond1 ? then_expr1 : else_expr1 + (cond2 ? then_expr2 : else_expr2)`
 ///
 /// + Invalid: `cond1 ? then_expr1 : cond2 ? then_expr2 : else_expr2`
 fn cond(data: &[ExprToken]) -> Result<Box<BooleanExpression>, String> {

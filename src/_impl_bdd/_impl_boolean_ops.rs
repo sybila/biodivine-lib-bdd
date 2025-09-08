@@ -4,9 +4,9 @@ use fxhash::FxBuildHasher;
 use std::cmp::{max, min};
 
 /// Basic boolean logical operations for `Bdd`s:
-/// $\neg, \land, \lor, \Rightarrow, \Leftrightarrow, \oplus$.
+/// Negation, conjunction, disjunction, implication, equivalence and xor.
 impl Bdd {
-    /// Create a `Bdd` corresponding to the $\neg \phi$ formula, where $\phi$ is this `Bdd`.
+    /// Create a `Bdd` corresponding to the `!f` formula, where `f` is this `Bdd`.
     pub fn not(&self) -> Bdd {
         if self.is_true() {
             Bdd::mk_false(self.num_vars())
@@ -25,7 +25,7 @@ impl Bdd {
         }
     }
 
-    /// Convert self into a `Bdd` corresponding to the $\neg \phi$ formula, where $\phi$ is this `Bdd`.
+    /// Convert self into a `Bdd` corresponding to the `!f` formula, where `f` is this `Bdd`.
     /// Same to `Bdd::not`, but save one clone overhead.
     pub fn into_not(mut self) -> Bdd {
         if self.is_true() {
@@ -44,44 +44,44 @@ impl Bdd {
         }
     }
 
-    /// Create a `Bdd` corresponding to the $\phi \land \psi$ formula, where $\phi$ and $\psi$
+    /// Create a `Bdd` corresponding to the `f & g` formula, where `f` and `g`
     /// are the two given `Bdd`s.
     pub fn and(&self, right: &Bdd) -> Bdd {
         apply(self, right, op_function::and)
     }
 
-    /// Create a `Bdd` corresponding to the $\phi \lor \psi$ formula, where $\phi$ and $\psi$
+    /// Create a `Bdd` corresponding to the `f | g` formula, where `f` and `g`
     /// are the two given `Bdd`s.
     pub fn or(&self, right: &Bdd) -> Bdd {
         apply(self, right, op_function::or)
     }
 
-    /// Create a `Bdd` corresponding to the $\phi \Rightarrow \psi$ formula, where $\phi$ and $\psi$
+    /// Create a `Bdd` corresponding to the `f => g` formula, where `f` and `g`
     /// are the two given `Bdd`s.
     pub fn imp(&self, right: &Bdd) -> Bdd {
         apply(self, right, op_function::imp)
     }
 
-    /// Create a `Bdd` corresponding to the $\phi \Leftrightarrow \psi$ formula, where $\phi$ and $\psi$
+    /// Create a `Bdd` corresponding to the `f <=> g` formula, where `f` and `g`
     /// are the two given `Bdd`s.
     pub fn iff(&self, right: &Bdd) -> Bdd {
         apply(self, right, op_function::iff)
     }
 
-    /// Create a `Bdd` corresponding to the $\phi \oplus \psi$ formula, where $\phi$ and $\psi$
+    /// Create a `Bdd` corresponding to the `f ^ g` formula, where `f` and `g`
     /// are the two given `Bdd`s.
     pub fn xor(&self, right: &Bdd) -> Bdd {
         apply(self, right, op_function::xor)
     }
 
-    /// Create a `Bdd` corresponding to the $\phi \land \neg \psi$ formula, where $\phi$ and $\psi$
+    /// Create a `Bdd` corresponding to the `f & !g` formula, where `f` and `g`
     /// are the two given `Bdd`s.
     pub fn and_not(&self, right: &Bdd) -> Bdd {
         apply(self, right, op_function::and_not)
     }
 
     /// A standard "if-then-else" ternary operation. It is equivalent to
-    /// $(a \land b) \lor (\neg a \land c)$.
+    /// `(a & b) | (!a & c)`.
     ///
     /// Additional non-standard ternary operators are available through `Bdd::ternary_op`.
     pub fn if_then_else(a: &Bdd, b: &Bdd, c: &Bdd) -> Bdd {
@@ -401,10 +401,10 @@ where
 
 /// **(internal)** A simple utility method for checking bounds of a flip variable.
 fn check_flip_bounds(num_vars: u16, var: Option<BddVariable>) {
-    if let Some(BddVariable(var)) = var {
-        if var >= num_vars {
-            panic!("Cannot flip variable {var} in Bdd with {num_vars} variables.");
-        }
+    if let Some(BddVariable(var)) = var
+        && var >= num_vars
+    {
+        panic!("Cannot flip variable {var} in Bdd with {num_vars} variables.");
     }
 }
 

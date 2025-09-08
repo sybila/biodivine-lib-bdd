@@ -1,7 +1,7 @@
 use crate::_test_util::{mk_5_variable_set, mk_small_test_bdd};
 use crate::{Bdd, BddPartialValuation, BddVariable};
-use rand::rngs::StdRng;
 use rand::SeedableRng;
+use rand::rngs::StdRng;
 
 fn vars() -> (
     BddVariable,
@@ -38,29 +38,37 @@ fn bdd_restrict() {
     assert!(a_and_b.var_restrict(var_b, false).is_false());
 
     assert!(a_xor_b.restrict(&[(var_a, true), (var_b, false)]).is_true());
-    assert!(a_and_b
-        .restrict(&[(var_a, true), (var_b, false)])
-        .is_false());
+    assert!(
+        a_and_b
+            .restrict(&[(var_a, true), (var_b, false)])
+            .is_false()
+    );
     assert!(a_or_b.restrict(&[(var_a, true), (var_b, false)]).is_true());
 
-    assert!(a_xor_b
-        .restrict_valuation(&BddPartialValuation::from_values(&[
-            (var_a, true),
-            (var_b, false)
-        ]))
-        .is_true());
-    assert!(a_and_b
-        .restrict_valuation(&BddPartialValuation::from_values(&[
-            (var_a, true),
-            (var_b, false)
-        ]))
-        .is_false());
-    assert!(a_or_b
-        .restrict_valuation(&BddPartialValuation::from_values(&[
-            (var_a, true),
-            (var_b, false)
-        ]))
-        .is_true());
+    assert!(
+        a_xor_b
+            .restrict_valuation(&BddPartialValuation::from_values(&[
+                (var_a, true),
+                (var_b, false)
+            ]))
+            .is_true()
+    );
+    assert!(
+        a_and_b
+            .restrict_valuation(&BddPartialValuation::from_values(&[
+                (var_a, true),
+                (var_b, false)
+            ]))
+            .is_false()
+    );
+    assert!(
+        a_or_b
+            .restrict_valuation(&BddPartialValuation::from_values(&[
+                (var_a, true),
+                (var_b, false)
+            ]))
+            .is_true()
+    );
 }
 
 #[test]
@@ -187,7 +195,7 @@ fn bdd_projection_simple() {
             assert_eq!(bdd.project(&[v3, v4, v5]), bdd.project(&[v4, v5]));
         }
 
-        // It holds that $(\exists x . \phi)$ is equivalent to $(\neg \for_all x . \neg \phi)$
+        // It holds that `(\exists x . \phi)` is equivalent to `(\neg \for_all x . \neg \phi)`
         assert_eq!(project_exists.not(), not_bdd.for_all(&[v4, v5]));
         assert_eq!(not_bdd.for_all(&[v3, v4, v5]), not_bdd.for_all(&[v3, v4]));
         assert_eq!(

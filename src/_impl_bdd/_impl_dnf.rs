@@ -1,5 +1,5 @@
 use crate::{Bdd, BddPartialValuation, BddPointer, BddValuation, BddVariable};
-use num_bigint::BigInt;
+use num_bigint::BigUint;
 
 impl Bdd {
     /// **(internal)** A specialized algorithm for constructing BDDs from DNFs. It builds the BDD
@@ -280,7 +280,7 @@ impl Bdd {
             // without considering that variable at all.
 
             // Find the largest common core.
-            let zero = BigInt::from(0);
+            let zero = BigUint::from(0u32);
             let mut best_core = (support[0], zero.clone());
             for var in &support {
                 interrupt(results)?;
@@ -363,7 +363,7 @@ impl Bdd {
 #[cfg(test)]
 mod tests {
     use crate::boolean_expression::BooleanExpression;
-    use crate::{bdd, Bdd, BddPartialValuation, BddVariable, BddVariableSet};
+    use crate::{Bdd, BddPartialValuation, BddVariable, BddVariableSet, bdd};
 
     fn test_syntactic_monotonicity(var: BddVariable, dnf: &[BddPartialValuation]) -> Option<bool> {
         let mut has_positive = false;
