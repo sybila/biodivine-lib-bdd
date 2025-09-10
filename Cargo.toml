@@ -24,6 +24,7 @@ fxhash = "0.2.1"
 rand = "0.8" # TODO: Can't update `rand` until supported by `num-bigint`.
 num-bigint = {  version = "0.4.6", features = ["rand"] }
 num-traits = "0.2.19"
+num-rational = "0.4.2"
 serde = { version = "1.0", optional = true, features = ["derive"] }
 
 # Enable rich docs for some online docs autogen services.

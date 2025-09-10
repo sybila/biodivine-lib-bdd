@@ -306,7 +306,9 @@ impl Bdd {
     /// generator.
     ///
     /// Note that the random distribution with which the valuations are picked depends
-    /// on the structure of the `Bdd` and is not necessarily uniform.
+    /// on the structure of the `Bdd` and is not necessarily uniform. To implement true
+    /// uniform valuation sampling, see [`Bdd::random_valuation_sample`] and
+    /// [`Bdd::mk_uniform_valuation_sampler`]
     pub fn random_valuation<R: Rng>(&self, rng: &mut R) -> Option<BddValuation> {
         if self.is_false() {
             return None;
