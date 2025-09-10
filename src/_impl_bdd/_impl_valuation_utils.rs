@@ -306,7 +306,9 @@ impl Bdd {
     /// generator.
     ///
     /// Note that the random distribution with which the valuations are picked depends
-    /// on the structure of the `Bdd` and is not necessarily uniform.
+    /// on the structure of the `Bdd` and is not necessarily uniform. To implement true
+    /// uniform valuation sampling, see [`Bdd::random_valuation_sample`] and
+    /// [`Bdd::mk_uniform_valuation_sampler`]
     pub fn random_valuation<R: Rng>(&self, rng: &mut R) -> Option<BddValuation> {
         if self.is_false() {
             return None;
@@ -318,14 +320,14 @@ impl Bdd {
             let var = BddVariable(i_var);
             if self.var_of(node) != var {
                 // Just pick random.
-                valuation.set_value(var, rng.random_bool(0.5));
+                valuation.set_value(var, rng.gen_bool(0.5));
             } else {
                 let child = if self.low_link_of(node).is_zero() {
                     true
                 } else if self.high_link_of(node).is_zero() {
                     false
                 } else {
-                    rng.random_bool(0.5)
+                    rng.gen_bool(0.5)
                 };
 
                 valuation.set_value(var, child);
@@ -358,7 +360,7 @@ impl Bdd {
             } else if self.high_link_of(node).is_zero() {
                 false
             } else {
-                rng.random_bool(0.5)
+                rng.gen_bool(0.5)
             };
 
             path.set_value(self.var_of(node), child);

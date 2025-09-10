@@ -110,7 +110,7 @@ impl Bdd {
     /// Note that this is not the same as having a random value picked on each path in the `Bdd`.
     /// Instead, there is one "global" value that is preferred on every path.
     pub fn var_pick_random<R: Rng>(&self, variable: BddVariable, rng: &mut R) -> Bdd {
-        let preferred = self.var_select(variable, rng.random_bool(0.5));
+        let preferred = self.var_select(variable, rng.gen_bool(0.5));
         Bdd::fused_binary_flip_op(
             (self, None),
             (&preferred, Some(variable)),

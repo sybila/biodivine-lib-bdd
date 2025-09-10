@@ -1,0 +1,5 @@
+project_type: library
+public_api_command: "cargo public-api --omit blanket-impls,auto-trait-impls,auto-derived-impls"
+gemini_model: "gemini-2.5-pro"
+diff_exclude_paths:
+  - res/**
