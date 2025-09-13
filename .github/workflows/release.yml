@@ -31,12 +31,9 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ env.MIN_RUST_VERSION }}
-      - name: cargo login
-        run: |-
-          echo "${{ secrets.CRATES_IO_API_TOKEN }}" | cargo login
-      - name: "cargo publish"
-        run: |-
-          cargo publish
+      - run: cargo publish --token "${{ env.CRATES_IO_API_TOKEN }}"
+        env:
+          CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
           
   generate-notes:
     name: Generate release notes (gemini)
@@ -70,10 +67,7 @@ jobs:
           TAG_REF="${GITHUB_REF#refs/tags/}"
           echo "tag=${TAG_REF}" >> $GITHUB_OUTPUT
 
-      - name: Generate release notes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Generate release notes        
         run: |
           source .venv/bin/activate
           python -m llm_release_notes.cli --verbose synthesize \
@@ -81,6 +75,9 @@ jobs:
             --version ${{ steps.version.outputs.tag }} \
             --output release-notes.md \
             --config .releasenotes.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Create draft release
         uses: softprops/action-gh-release@v2
