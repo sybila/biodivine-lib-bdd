@@ -33,6 +33,7 @@ pub trait SamplingMethod {
 /// let mut sampling = NaiveSampler::from(rng);
 /// let _ = bdd.random_valuation_sample(&mut sampling);
 /// ```
+#[derive(Debug, Clone)]
 pub struct NaiveSampler<R: Rng + Sized>(R);
 
 impl<R: Rng + Sized> From<R> for NaiveSampler<R> {
@@ -66,6 +67,7 @@ impl<R: Rng + Sized> SamplingMethod for NaiveSampler<R> {
 /// let mut sampling = bdd.mk_uniform_valuation_sampler(rng);
 /// let _ = bdd.random_valuation_sample(&mut sampling);
 /// ```
+#[derive(Debug, Clone)]
 pub struct UniformValuationSampler<R: Rng + Sized> {
     rng: R,
     ratios: Vec<BigRational>,
