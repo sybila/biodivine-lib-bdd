@@ -83,6 +83,19 @@ impl<R: Rng + Sized> SamplingMethod for UniformValuationSampler<R> {
     }
 }
 
+impl<R: Rng + Sized> UniformValuationSampler<R> {
+    /// Create a new instance of [`UniformValuationSampler`] using "raw" random number generator
+    /// and weights for individual BDD nodes.
+    pub fn from_raw_parts(rng: R, ratios: Vec<BigRational>) -> Self {
+        UniformValuationSampler { rng, ratios }
+    }
+
+    /// Extract the weights for individual BDD nodes from this valuation sampler.
+    pub fn into_ratios(self) -> Vec<BigRational> {
+        self.ratios
+    }
+}
+
 impl Bdd {
     /// Build an instance of [`UniformValuationSampler`] specifically for this [`Bdd`].
     pub fn mk_uniform_valuation_sampler<R: Rng + Sized>(
