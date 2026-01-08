@@ -548,9 +548,13 @@ mod tests {
     #[test]
     pub fn monotonic_redundant_dnf() {
         let ctx = BddVariableSet::new(&["a", "b", "c"]);
+        let a = BddVariable::from_index(0);
+        let b = BddVariable::from_index(1);
+        let c = BddVariable::from_index(2);
+
         let fun = ctx.eval_expression_string("(!a&!c)|(b&!c)|(b&!a)");
         let dnf = fun.to_optimized_dnf();
-        for clause in dnf {
+        for clause in &dnf {
             for (var, value) in clause.to_values() {
                 match var.to_index() {
                     0 | 2 => assert!(!value), // `a` and `c` are negatively monotonic
@@ -559,5 +563,14 @@ mod tests {
                 }
             }
         }
+
+        // Check the exact DNF form: (b&!c)|(!a&b)|(!a&!c)
+        let expected = vec![
+            BddPartialValuation::from_values(&[(b, true), (c, false)]),
+            BddPartialValuation::from_values(&[(a, false), (b, true)]),
+            BddPartialValuation::from_values(&[(a, false), (c, false)]),
+        ];
+
+        assert_eq!(expected, dnf);
     }
 }
