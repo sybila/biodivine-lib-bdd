@@ -1,3 +1,4 @@
+use crate::op_function::and;
 use crate::{Bdd, BddPartialValuation, BddPointer, BddValuation, BddVariable};
 use num_bigint::BigUint;
 
@@ -241,13 +242,15 @@ impl Bdd {
     /// on-the-fly. But it should be relatively straightforward, so if you need it, please get
     /// in touch.
     pub fn to_optimized_dnf(&self) -> Vec<BddPartialValuation> {
-        self._to_optimized_dnf(&|_dnf| Ok::<(), ()>(())).unwrap()
+        self._to_optimized_dnf(true, &|_dnf| Ok::<(), ()>(()))
+            .unwrap()
     }
 
     /// The `interrupt` takes as an argument the computed DNF. This can be used to terminate
     /// early if the DNF is too large.
     pub fn _to_optimized_dnf<E, I: Fn(&[BddPartialValuation]) -> Result<(), E>>(
         &self,
+        trim_monotonic: bool,
         interrupt: &I,
     ) -> Result<Vec<BddPartialValuation>, E> {
         if self.is_false() {
@@ -355,6 +358,35 @@ impl Bdd {
         let mut buffer = BddPartialValuation::empty();
         let mut results = Vec::new();
         _rec(self, &mut buffer, &mut results, interrupt)?;
+
+        if trim_monotonic {
+            let self_not = self.not();
+            for var in self.support_set() {
+                let input_is_true = Bdd::mk_literal(self.num_vars(), var, true);
+                let input_is_false = Bdd::mk_literal(self.num_vars(), var, false);
+                let fn_x1_to_0 = Bdd::binary_op_with_exists(&self_not, &input_is_true, and, &[var]);
+                let fn_x1_to_1 = Bdd::binary_op_with_exists(self, &input_is_true, and, &[var]);
+                let fn_x0_to_0 =
+                    Bdd::binary_op_with_exists(&self_not, &input_is_false, and, &[var]);
+                let fn_x0_to_1 = Bdd::binary_op_with_exists(self, &input_is_false, and, &[var]);
+                // Counter-witness to positive monotonicity: f(0, y) = 1 & f(1, y) = 0
+                // If the BDD is false, means there are no counter-witnesses.
+                let is_positive = fn_x0_to_1.and(&fn_x1_to_0).is_false();
+                let is_negative = fn_x0_to_0.and(&fn_x1_to_1).is_false();
+
+                if is_positive || is_negative {
+                    assert!(!(is_positive && is_negative));
+                    // Remove if positive=true and literal=false, or if negative=true and literal=true.
+                    let clear_if = !is_positive;
+
+                    for x in results.iter_mut() {
+                        if x.get_value(var) == Some(clear_if) {
+                            x.unset_value(var);
+                        }
+                    }
+                }
+            }
+        }
 
         Ok(results)
     }
@@ -511,5 +543,34 @@ mod tests {
         ];
 
         assert_eq!(ctx.mk_dnf(&clauses).size(), 4);
+    }
+
+    #[test]
+    pub fn monotonic_redundant_dnf() {
+        let ctx = BddVariableSet::new(&["a", "b", "c"]);
+        let a = BddVariable::from_index(0);
+        let b = BddVariable::from_index(1);
+        let c = BddVariable::from_index(2);
+
+        let fun = ctx.eval_expression_string("(!a&!c)|(b&!c)|(b&!a)");
+        let dnf = fun.to_optimized_dnf();
+        for clause in &dnf {
+            for (var, value) in clause.to_values() {
+                match var.to_index() {
+                    0 | 2 => assert!(!value), // `a` and `c` are negatively monotonic
+                    1 => assert!(value),      // `b` is positively monotonic
+                    _ => unreachable!(),
+                }
+            }
+        }
+
+        // Check the exact DNF form: (b&!c)|(!a&b)|(!a&!c)
+        let expected = vec![
+            BddPartialValuation::from_values(&[(b, true), (c, false)]),
+            BddPartialValuation::from_values(&[(a, false), (b, true)]),
+            BddPartialValuation::from_values(&[(a, false), (c, false)]),
+        ];
+
+        assert_eq!(expected, dnf);
     }
 }
