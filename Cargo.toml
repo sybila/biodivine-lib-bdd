@@ -21,6 +21,7 @@ maintenance = { status = "actively-developed" }
 
 [dependencies]
 fxhash = "0.2.1"
+rayon = "1"
 rand = "0.8" # TODO: Can't update `rand` until supported by `num-bigint`.
 num-bigint = {  version = "0.4.6", features = ["rand"] }
 num-traits = "0.2.19"

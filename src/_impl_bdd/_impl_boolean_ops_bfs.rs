@@ -1,6 +1,10 @@
 use crate::_impl_bdd::_impl_nested_ops::fix_bdd_alignment;
 use crate::*;
+use rayon::prelude::*;
 use std::cmp::min;
+
+/// Minimum level size before using parallel rayon operations.
+const PAR_THRESHOLD: usize = 2048;
 
 /// A pair of BDD pointers representing one apply task `(f, g)`.
 ///
@@ -73,7 +77,7 @@ impl Bdd {
     /// [`Bdd::binary_op`].
     pub fn binary_op_bfs<T>(left: &Bdd, right: &Bdd, op_function: T) -> Bdd
     where
-        T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+        T: Fn(Option<bool>, Option<bool>) -> Option<bool> + Sync,
     {
         apply_bfs(left, right, op_function)
     }
@@ -82,7 +86,7 @@ impl Bdd {
 /// **(internal)** BFS level-by-level binary apply.
 fn apply_bfs<T>(left: &Bdd, right: &Bdd, terminal_lookup: T) -> Bdd
 where
-    T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
+    T: Fn(Option<bool>, Option<bool>) -> Option<bool> + Sync,
 {
     let num_vars = left.num_vars();
     if right.num_vars() != num_vars {
@@ -121,29 +125,74 @@ where
             continue;
         }
 
-        pending[v].sort_unstable();
+        if pending[v].len() >= PAR_THRESHOLD {
+            pending[v].par_sort_unstable();
+        } else {
+            pending[v].sort_unstable();
+        }
         pending[v].dedup();
         unique[v] = std::mem::take(&mut pending[v]);
 
         let var = BddVariable(v as u16);
-        for task in &unique[v] {
-            let (f_low, f_high) = cofactor(left, task.left, var);
-            let (g_low, g_high) = cofactor(right, task.right, var);
+        if unique[v].len() >= PAR_THRESHOLD {
+            let per_task: Vec<((Child, Child), [Option<(usize, Task)>; 2])> = unique[v]
+                .par_iter()
+                .map(|task| {
+                    let (f_low, f_high) = cofactor(left, task.left, var);
+                    let (g_low, g_high) = cofactor(right, task.right, var);
 
-            let low_task = Task {
-                left: f_low,
-                right: g_low,
-            };
-            let high_task = Task {
-                left: f_high,
-                right: g_high,
-            };
+                    let low_task = Task {
+                        left: f_low,
+                        right: g_low,
+                    };
+                    let high_task = Task {
+                        left: f_high,
+                        right: g_high,
+                    };
 
-            let low_child =
-                expand_child(left, right, low_task, var, &terminal_lookup, &mut pending);
-            let high_child =
-                expand_child(left, right, high_task, var, &terminal_lookup, &mut pending);
-            children[v].push((low_child, high_child));
+                    let (low_child, low_sub) =
+                        classify_child(left, right, low_task, var, &terminal_lookup);
+                    let (high_child, high_sub) =
+                        classify_child(left, right, high_task, var, &terminal_lookup);
+
+                    ((low_child, high_child), [low_sub, high_sub])
+                })
+                .collect();
+
+            children[v] = per_task
+                .iter()
+                .map(|((low_child, high_child), _)| (*low_child, *high_child))
+                .collect();
+
+            for (_, subs) in per_task {
+                for sub in subs.into_iter().flatten() {
+                    pending[sub.0].push(sub.1);
+                }
+            }
+        } else {
+            for task in &unique[v] {
+                let (f_low, f_high) = cofactor(left, task.left, var);
+                let (g_low, g_high) = cofactor(right, task.right, var);
+
+                let low_task = Task {
+                    left: f_low,
+                    right: g_low,
+                };
+                let high_task = Task {
+                    left: f_high,
+                    right: g_high,
+                };
+
+                let (low_child, low_sub) =
+                    classify_child(left, right, low_task, var, &terminal_lookup);
+                let (high_child, high_sub) =
+                    classify_child(left, right, high_task, var, &terminal_lookup);
+
+                children[v].push((low_child, high_child));
+                for sub in [low_sub, high_sub].into_iter().flatten() {
+                    pending[sub.0].push(sub.1);
+                }
+            }
         }
     }
 
@@ -160,23 +209,56 @@ where
         result_ids[v] = vec![BddPointer::zero(); unique[v].len()];
         let mut to_materialize: Vec<(usize, BddPointer, BddPointer)> = Vec::new();
 
-        for (k, task_children) in children[v].iter().enumerate() {
-            let low_id = resolve_child(left, right, task_children.0, &unique, &result_ids);
-            let high_id = resolve_child(left, right, task_children.1, &unique, &result_ids);
+        if children[v].len() >= PAR_THRESHOLD {
+            let resolved: Vec<(BddPointer, BddPointer)> = children[v]
+                .par_iter()
+                .map(|task_children| {
+                    let low_id =
+                        resolve_child(left, right, task_children.0, &unique, &result_ids);
+                    let high_id =
+                        resolve_child(left, right, task_children.1, &unique, &result_ids);
+                    (low_id, high_id)
+                })
+                .collect();
 
-            if low_id.is_one() || high_id.is_one() {
-                is_not_empty = true;
+            is_not_empty |= resolved
+                .par_iter()
+                .any(|(low_id, high_id)| low_id.is_one() || high_id.is_one());
+
+            for (k, (low_id, high_id)) in resolved.into_iter().enumerate() {
+                if low_id == high_id {
+                    result_ids[v][k] = low_id;
+                } else {
+                    to_materialize.push((k, low_id, high_id));
+                }
             }
+        } else {
+            for (k, task_children) in children[v].iter().enumerate() {
+                let low_id = resolve_child(left, right, task_children.0, &unique, &result_ids);
+                let high_id = resolve_child(left, right, task_children.1, &unique, &result_ids);
 
-            if low_id == high_id {
-                result_ids[v][k] = low_id;
-            } else {
-                to_materialize.push((k, low_id, high_id));
+                if low_id.is_one() || high_id.is_one() {
+                    is_not_empty = true;
+                }
+
+                if low_id == high_id {
+                    result_ids[v][k] = low_id;
+                } else {
+                    to_materialize.push((k, low_id, high_id));
+                }
             }
         }
 
-        to_materialize
-            .sort_unstable_by(|a, b| (a.1, a.2).cmp(&(b.1, b.2)).then_with(|| a.0.cmp(&b.0)));
+        if to_materialize.len() >= PAR_THRESHOLD {
+            to_materialize.par_sort_unstable_by(|a, b| {
+                (a.1, a.2)
+                    .cmp(&(b.1, b.2))
+                    .then_with(|| a.0.cmp(&b.0))
+            });
+        } else {
+            to_materialize
+                .sort_unstable_by(|a, b| (a.1, a.2).cmp(&(b.1, b.2)).then_with(|| a.0.cmp(&b.0)));
+        }
 
         let mut i = 0;
         while i < to_materialize.len() {
@@ -219,24 +301,22 @@ where
     }
 }
 
-fn expand_child<T>(
+fn classify_child<T>(
     left: &Bdd,
     right: &Bdd,
     task: Task,
     current_var: BddVariable,
     terminal_lookup: &T,
-    pending: &mut [Vec<Task>],
-) -> Child
+) -> (Child, Option<(usize, Task)>)
 where
     T: Fn(Option<bool>, Option<bool>) -> Option<bool>,
 {
     if let Some(value) = terminal_lookup(task.left.as_bool(), task.right.as_bool()) {
-        Child::Terminal(value)
+        (Child::Terminal(value), None)
     } else {
         let level = decision_var(left, right, task);
         debug_assert!(level > current_var);
-        pending[level.to_index()].push(task);
-        Child::Pair(task)
+        (Child::Pair(task), Some((level.to_index(), task)))
     }
 }
 

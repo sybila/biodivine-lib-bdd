@@ -26,17 +26,18 @@ fn ripple_carry_adder_bfs(vars: &BddVariableSet, num_vars: u16) {
 
 fn bench_ripple_carry_adder(c: &mut Criterion) {
     let mut group = c.benchmark_group("ripple_carry_adder");
+    group.sample_size(10);
 
-    for num_vars in [4u16, 8, 16] {
+    /*for num_vars in [4u16, 8, 16] {
         let vars = BddVariableSet::new_anonymous(num_vars);
         group.bench_function(format!("{num_vars}"), |b| {
             b.iter(|| ripple_carry_adder(&vars, num_vars))
         });
-    }
+    }*/
 
     #[cfg(feature = "large_benchmarks")]
     {
-        let num_vars = 32u16;
+        let num_vars = 40u16;
         let vars = BddVariableSet::new_anonymous(num_vars);
         group.bench_function(format!("{num_vars}"), |b| {
             b.iter(|| ripple_carry_adder(&vars, num_vars))
@@ -48,17 +49,18 @@ fn bench_ripple_carry_adder(c: &mut Criterion) {
 
 fn bench_ripple_carry_adder_bfs(c: &mut Criterion) {
     let mut group = c.benchmark_group("ripple_carry_adder_bfs");
+    group.sample_size(10);
 
-    for num_vars in [4u16, 8, 16] {
+    /*for num_vars in [4u16, 8, 16] {
         let vars = BddVariableSet::new_anonymous(num_vars);
         group.bench_function(format!("{num_vars}"), |b| {
             b.iter(|| ripple_carry_adder_bfs(&vars, num_vars))
         });
-    }
+    }*/
 
     #[cfg(feature = "large_benchmarks")]
     {
-        let num_vars = 32u16;
+        let num_vars = 40u16;
         let vars = BddVariableSet::new_anonymous(num_vars);
         group.bench_function(format!("{num_vars}"), |b| {
             b.iter(|| ripple_carry_adder_bfs(&vars, num_vars))
