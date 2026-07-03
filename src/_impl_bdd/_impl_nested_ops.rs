@@ -204,7 +204,7 @@ where
 ///
 /// The method assumes that the BDD is already "reduced". It only fixes the node post-order
 /// and filters away any nodes that are not reachable from the new root.
-fn fix_bdd_alignment(bdd: &Bdd, root: BddPointer) -> Bdd {
+pub(crate) fn fix_bdd_alignment(bdd: &Bdd, root: BddPointer) -> Bdd {
     if root.is_zero() {
         return Bdd::mk_false(bdd.num_vars());
     }

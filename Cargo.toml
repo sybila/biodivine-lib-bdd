@@ -34,3 +34,12 @@ rustdoc-args = ["--html-in-header", "./res/docs-head.html"]
 [features]
 default = []
 serde   = ["dep:serde"]
+# Enable additional, more time-consuming benchmark cases.
+large_benchmarks = []
+
+[dev-dependencies]
+criterion = { version = "0.8.2", features = ["html_reports"] }
+
+[[bench]]
+name = "ripple_carry_adder"
+harness = false
